@@ -20,6 +20,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { clearPull, setPull } from 'interface/reducers/navigation';
 import SPELLS from 'common/SPELLS';
+import LoadingSpinner from 'interface/LoadingSpinner';
 
 const MIN_PULL_DURATION_MS = 100;
 
@@ -87,6 +88,8 @@ export default function DungeonPullList({
   }, [selectedPull, dispatch]);
 
   if (shouldShowDungeonPullList(fight, selectedPull)) {
+    let isFirstWithoutDetails = true;
+
     return (
       <section className={styles.Container}>
         <header>
@@ -102,6 +105,10 @@ export default function DungeonPullList({
             ?.filter((pull) => pull.end_time - pull.start_time > MIN_PULL_DURATION_MS)
             .map((pull) => {
               const pullDetails = details?.find((det) => det.pull.id === pull.id);
+              const showSpinner = isFirstWithoutDetails && !pullDetails;
+              if (showSpinner) {
+                isFirstWithoutDetails = false;
+              }
 
               return (
                 <PullDetails
@@ -109,6 +116,7 @@ export default function DungeonPullList({
                   pull={pull}
                   details={pullDetails}
                   fight={fight}
+                  showSpinner={showSpinner}
                   onClick={() => setSelectedPull(pull)}
                 />
               );
@@ -126,11 +134,13 @@ function PullDetails({
   details,
   fight,
   onClick,
+  showSpinner,
 }: {
   pull: WCLDungeonPull;
   details?: DungeonPullDetails;
   fight: Fight;
   onClick: () => void;
+  showSpinner: boolean;
 }) {
   const dps = details && (
     <span title="DPS">
@@ -148,9 +158,14 @@ function PullDetails({
   return (
     <div className={styles.PullContainer} onClick={onClick}>
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
-      {details && (
+      {showSpinner && <LoadingSpinner className={styles.LoadingSpinner} />}
+      {!showSpinner && details && (
         <>
-          {details.bloodlustUsed ? <SpellIcon className={styles.BloodlustIcon} spell={SPELLS.BLOODLUST} /> : <div />}
+          {details.bloodlustUsed ? (
+            <SpellIcon className={styles.BloodlustIcon} spell={SPELLS.BLOODLUST} />
+          ) : (
+            <div />
+          )}
           <ByRole>
             <Role.Tank>
               <InsetContainer className={clsx(styles.PerSecondContainer, styles.DoubleWide)}>
@@ -210,14 +225,14 @@ function PullDetails({
           ) : (
             <div />
           )}
+          <div className={styles.ViewButton}>
+            <span>
+              View
+              <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            </span>
+          </div>
         </>
       )}
-      <div className={styles.ViewButton}>
-        <span>
-          View
-          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </span>
-      </div>
     </div>
   );
 }

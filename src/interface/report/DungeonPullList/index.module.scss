@@ -166,3 +166,9 @@
   height: 3.1rem !important;
   box-shadow: 0 0 2px rgb(102, 153, 255);
 }
+
+.LoadingSpinner {
+  margin-right: design.$gaps_large;
+  grid-column: -1;
+  justify-self: end;
+}
