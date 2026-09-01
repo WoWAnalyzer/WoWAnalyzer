@@ -9,8 +9,7 @@ import { Options } from 'parser/core/Module';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import type { JSX } from 'react';
 
-/**
- * Master the Darkness is the Discipline Apex Talent. Whenever you cast Mind Blast, your next
+/** Master the Darkness is the Discipline Apex Talent. Whenever you cast Mind Blast, your next
  * Power Word: Shield is upgraded into Void Shield. Additionally, whenever you cast Penance,
  * you have a 25% chance to upgrade Power Word: Shield into Void Shield. This always occurs
  * exactly once in four casts. You may hold up to two procs at a time.
@@ -57,7 +56,16 @@ class MasterTheDarkness extends Analyzer {
           </strong>{' '}
           gives your <SpellLink spell={SPELLS.PENANCE_CAST} /> a chance to upgrade your {''}
           <SpellLink spell={SPELLS.POWER_WORD_SHIELD} /> to <SpellLink spell={SPELLS.VOID_SHIELD} />
-          . Casting Penance while the upgrade is already active wastes a potential new proc.
+          . Casting Penance with two stacks of the buff available has the potential to waste a new
+          proc.
+        </p>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS.MASTER_THE_DARKNESS_3_DISCIPLINE_TALENT} />
+          </strong>{' '}
+          also guarantees the upgrade will proc every time you cast{' '}
+          <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />. You should never cast Mind Blast with two
+          stacks of the buff available.
         </p>
       </>
     );

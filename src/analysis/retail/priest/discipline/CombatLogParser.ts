@@ -53,6 +53,7 @@ import ShadowWordPain from 'analysis/retail/priest/shared/ShadowWordPain';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 import EventLinkNormalizer from './normalizers/EventLinkNormalizer';
 import AtonementNormalizer from './normalizers/AtonementTracker';
+import EvangelismNormalizer from './normalizers/EvangelismNormalizer';
 import MID2Discipline2P from './modules/tier/MID2Discipline2P';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     damageCastLink: DamageCastLink,
     shadowfiendNormalizer: ShadowfiendNormalizer,
+    evangelismNormalizer: EvangelismNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     atonementNormalizer: AtonementNormalizer,
     eventLinkNormalizer: EventLinkNormalizer,
