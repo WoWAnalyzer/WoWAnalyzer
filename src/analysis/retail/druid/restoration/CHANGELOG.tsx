@@ -8,6 +8,16 @@ export default [
   change(
     date(2026, 8, 30),
     <>
+      Show mana saved (amount and percent of total mana) on{' '}
+      <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} />,{' '}
+      <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />, and{' '}
+      <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} /> tooltips.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 29),
+    <>
       Fixed <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> cast analysis to grade each hardcast
       and <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} />: good in pandemic (or an Overgrowth
       apply when Lifebloom is down), okay if refreshed early, and bad for a hardcast after letting
