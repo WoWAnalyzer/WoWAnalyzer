@@ -36,6 +36,7 @@ import GameBranch from 'game/GameBranch';
 import { fetchCombatants } from 'common/fetchWclApi';
 import { normalizedEncounterId } from 'game/raids';
 import useDungeonPullList from './DungeonPullList/DungeonPullListCombatParser';
+import { useWaSelector } from 'interface/utils/useWaSelector';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -101,6 +102,25 @@ const ResultsLoader = () => {
   const { fight } = useFight();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
+  const pull = useWaSelector((state) => state.navigation.pull);
+  useEffect(() => {
+    if (typeof pull === 'number') {
+      setSelectedPhase(pull - 1); // wcl is 1-indexed
+      const pullObj = fight.dungeonPulls?.find((pullObj) => pullObj.id === pull);
+
+      if (pullObj) {
+        setTimeFilter({
+          start: pullObj.start_time,
+          end: pullObj.end_time,
+        });
+      }
+
+      // DungeonPullList handles redux state updates when the pull is not present
+    } else if (isMythicPlus(fight)) {
+      setSelectedPhase(SELECTION_ALL_PHASES);
+      setTimeFilter(null);
+    }
+  }, [fight, pull]);
 
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
@@ -303,7 +323,9 @@ const ResultsLoader = () => {
       handlePhaseSelection={applyPhaseFilter}
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter ?? undefined}
-      makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+      makeTabUrl={(tab: string) =>
+        makeAnalyzerUrl(report, fight.id, player.id, tab, undefined, pull)
+      }
       dungeonPullDetails={dungeonPullDetails}
     />
   );

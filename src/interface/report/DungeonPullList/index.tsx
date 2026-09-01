@@ -1,6 +1,6 @@
 import { isMythicPlus } from 'common/isMythicPlus';
 import Fight, { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
-import { JSX, useMemo } from 'react';
+import { JSX, useCallback, useEffect, useMemo } from 'react';
 import { DungeonPullDetails } from './DungeonPullListCombatParser';
 import styles from './index.module.scss';
 import { formatDurationMinSec, formatNumber, formatPercentage } from 'common/format';
@@ -16,8 +16,54 @@ import { Trans } from '@lingui/react/macro';
 import { ByRole, Role } from 'interface/guide/foundation/ByRole';
 import ActorLink from 'interface/ActorLink';
 import SpellLink from 'interface/SpellLink';
+import { useSearchParams } from 'react-router-dom';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { clearPull, setPull } from 'interface/reducers/navigation';
 
 const MIN_PULL_DURATION_MS = 100;
+
+export type SelectedDungeonPull = 'all' | WCLDungeonPull | undefined;
+
+export function useSelectedPull(
+  fight: Fight,
+): [SelectedDungeonPull, (pull: SelectedDungeonPull) => void] {
+  const [search, setSearch] = useSearchParams();
+
+  const setSelectedPull = useCallback(
+    (pull: SelectedDungeonPull) => {
+      if (pull === undefined) {
+        setSearch((prev) => {
+          prev.delete('pull');
+          return prev;
+        });
+      } else if (pull === 'all') {
+        setSearch({ pull: 'all' });
+      } else {
+        setSearch({
+          pull: String(pull.id),
+        });
+      }
+    },
+    [setSearch],
+  );
+
+  if (search.has('pull')) {
+    const pullId = search.get('pull');
+    if (pullId === 'all') {
+      return ['all', setSelectedPull];
+    } else {
+      const pullNum = Number.parseInt(pullId!);
+      const pull = fight.dungeonPulls?.find((pull) => pull.id === pullNum);
+      if (!pull) {
+        setSelectedPull(undefined);
+      }
+
+      return [pull, setSelectedPull];
+    }
+  } else {
+    return [undefined, setSelectedPull];
+  }
+}
 
 export default function DungeonPullList({
   children,
@@ -28,14 +74,25 @@ export default function DungeonPullList({
   fight: Fight;
   details?: DungeonPullDetails[];
 }): JSX.Element | null {
-  if (shouldShowDungeonPullList(fight, undefined)) {
+  const [selectedPull, setSelectedPull] = useSelectedPull(fight);
+  const dispatch = useWaDispatch();
+
+  useEffect(() => {
+    if (selectedPull) {
+      dispatch(setPull({ id: selectedPull === 'all' ? selectedPull : selectedPull.id }));
+    } else {
+      dispatch(clearPull());
+    }
+  }, [selectedPull, dispatch]);
+
+  if (shouldShowDungeonPullList(fight, selectedPull)) {
     return (
       <section className={styles.Container}>
         <header>
           <div className={styles.SelectPullLabel}>
             <Trans id="interface.report.selectPull">Select a Pull</Trans>
           </div>
-          <Button className={styles.ViewEntireDungeonButton}>
+          <Button className={styles.ViewEntireDungeonButton} onClick={() => setSelectedPull('all')}>
             <Trans id="interface.report.viewEntireDungeon">View Entire Dungeon</Trans>
           </Button>
         </header>
@@ -45,7 +102,15 @@ export default function DungeonPullList({
             .map((pull) => {
               const pullDetails = details?.find((det) => det.pull.id === pull.id);
 
-              return <PullDetails pull={pull} details={pullDetails} fight={fight} />;
+              return (
+                <PullDetails
+                  key={pull.id}
+                  pull={pull}
+                  details={pullDetails}
+                  fight={fight}
+                  onClick={() => setSelectedPull(pull)}
+                />
+              );
             })}
         </div>
       </section>
@@ -59,10 +124,12 @@ function PullDetails({
   pull,
   details,
   fight,
+  onClick,
 }: {
   pull: WCLDungeonPull;
   details?: DungeonPullDetails;
   fight: Fight;
+  onClick: () => void;
 }) {
   const dps = details && (
     <span title="DPS">
@@ -78,7 +145,7 @@ function PullDetails({
     </span>
   );
   return (
-    <div className={styles.PullContainer}>
+    <div className={styles.PullContainer} onClick={onClick}>
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
       {details && (
         <>
@@ -124,6 +191,7 @@ function PullDetails({
               Deaths: {/* FIXME: being the only one with a text label is weird */}
               {details.deaths.map((death) => (
                 <Tooltip
+                  key={`${death.timestamp}-${death.targetID}`}
                   content={
                     <>
                       <ActorLink id={death.targetID} /> died to{' '}
@@ -219,7 +287,7 @@ function PullDetailsTitleBlock({
                       const name = report.enemies.find((enemy) => enemy.id === npc.id)?.name;
 
                       return (
-                        <li>
+                        <li key={npc.id}>
                           {formatPercentage((num * countPer) / fight.countRequired!)}% &mdash; {num}
                           x {name}
                         </li>
@@ -278,6 +346,7 @@ function AbilityList({
       <div>{label}</div>
       {abilities.map((id) => (
         <SpellIcon
+          key={id}
           spell={id}
           className={clsx({
             [styles.activeIcon]: activeAbilities.includes(id),
@@ -289,6 +358,9 @@ function AbilityList({
   );
 }
 
-export function shouldShowDungeonPullList(fight: Fight, selectedPull?: unknown): boolean {
+export function shouldShowDungeonPullList(
+  fight: Fight,
+  selectedPull?: SelectedDungeonPull,
+): boolean {
   return isMythicPlus(fight) && !selectedPull;
 }
