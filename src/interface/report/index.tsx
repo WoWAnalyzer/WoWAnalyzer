@@ -38,6 +38,9 @@ import { normalizedEncounterId } from 'game/raids';
 import useDungeonPullList from './DungeonPullList/DungeonPullListCombatParser';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { isMythicPlus } from 'common/isMythicPlus';
+import { useSelectedPull } from './DungeonPullList';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { setPull, clearPull } from 'interface/reducers/navigation';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -104,8 +107,18 @@ const ResultsLoader = () => {
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
   const pull = useWaSelector((state) => state.navigation.pull);
+  const dispatch = useWaDispatch();
+  const [selectedPull] = useSelectedPull(fight);
 
   const isWaitingOnPullSelection = isMythicPlus(fight) && pull === undefined;
+
+  useEffect(() => {
+    if (selectedPull) {
+      dispatch(setPull({ id: selectedPull === 'all' ? selectedPull : selectedPull.id }));
+    } else {
+      dispatch(clearPull());
+    }
+  }, [selectedPull, dispatch]);
 
   useEffect(() => {
     if (typeof pull === 'number') {
@@ -318,6 +331,11 @@ const ResultsLoader = () => {
     allDeaths,
   });
 
+  const makeTabUrl = useCallback(
+    (tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab, undefined, pull),
+    [report, fight, player, pull],
+  );
+
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
   const pageProgress = (currentTime - fight.start_time) / (fight.end_time - fight.start_time);
@@ -330,16 +348,27 @@ const ResultsLoader = () => {
     (!isFilteringEvents ? 0.05 : 0) +
     parsingEventsProgress! * 0.75;
 
-  const loadingStatus: LoadingStatus = {
-    progress: progress,
-    isLoadingParser: isLoadingParser,
-    isLoadingEvents: isLoadingEvents,
-    bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
-    isLoadingCharacterProfile: isLoadingCharacterProfile,
-    isLoadingPhases: false,
-    isFilteringEvents: isFilteringEvents,
-    parsingState: parsingState,
-  };
+  const loadingStatus: LoadingStatus = useMemo(
+    () => ({
+      progress: progress,
+      isLoadingParser: isLoadingParser,
+      isLoadingEvents: isLoadingEvents,
+      bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
+      isLoadingCharacterProfile: isLoadingCharacterProfile,
+      isLoadingPhases: false,
+      isFilteringEvents: isFilteringEvents,
+      parsingState: parsingState,
+    }),
+    [
+      progress,
+      isLoadingParser,
+      isLoadingEvents,
+      bossPhaseEventsLoadingState,
+      isLoadingCharacterProfile,
+      isFilteringEvents,
+      parsingState,
+    ],
+  );
 
   if (events && !playerCombatantInfo) {
     // display error instead of crashing. this can happen in rare cases where `combatantinfo` is not a part of the fight
@@ -368,9 +397,7 @@ const ResultsLoader = () => {
       handlePhaseSelection={applyPhaseFilter}
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter ?? undefined}
-      makeTabUrl={(tab: string) =>
-        makeAnalyzerUrl(report, fight.id, player.id, tab, undefined, pull)
-      }
+      makeTabUrl={makeTabUrl}
       dungeonPullDetails={dungeonPullDetails}
     />
   );

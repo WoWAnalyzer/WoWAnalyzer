@@ -1,6 +1,6 @@
 import { isMythicPlus } from 'common/isMythicPlus';
 import Fight, { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
-import { JSX, useCallback, useEffect, useMemo } from 'react';
+import { JSX, useCallback, useMemo } from 'react';
 import { DungeonPullDetails } from './DungeonPullListCombatParser';
 import styles from './index.module.scss';
 import { formatDurationMinSec, formatNumber, formatPercentage } from 'common/format';
@@ -17,8 +17,6 @@ import { ByRole, Role } from 'interface/guide/foundation/ByRole';
 import ActorLink from 'interface/ActorLink';
 import SpellLink from 'interface/SpellLink';
 import { useSearchParams } from 'react-router-dom';
-import { useWaDispatch } from 'interface/utils/useWaDispatch';
-import { clearPull, setPull } from 'interface/reducers/navigation';
 import SPELLS from 'common/SPELLS';
 import LoadingSpinner from 'interface/LoadingSpinner';
 
@@ -27,7 +25,7 @@ const MIN_PULL_DURATION_MS = 100;
 export type SelectedDungeonPull = 'all' | WCLDungeonPull | undefined;
 
 export function useSelectedPull(
-  fight: Fight,
+  fight: WCLFight,
 ): [SelectedDungeonPull, (pull: SelectedDungeonPull) => void] {
   const [search, setSearch] = useSearchParams();
 
@@ -68,25 +66,13 @@ export function useSelectedPull(
 }
 
 export default function DungeonPullList({
-  children,
   fight,
   details,
 }: {
-  children: React.ReactNode;
   fight: Fight;
   details?: DungeonPullDetails[];
 }): JSX.Element | null {
-  const [selectedPull, setSelectedPull] = useSelectedPull(fight);
-  const dispatch = useWaDispatch();
-
-  useEffect(() => {
-    if (selectedPull) {
-      dispatch(setPull({ id: selectedPull === 'all' ? selectedPull : selectedPull.id }));
-    } else {
-      dispatch(clearPull());
-    }
-  }, [selectedPull, dispatch]);
-
+  const [, setSelectedPull] = useSelectedPull(fight);
   const missingAnyDetails = useMemo(() => {
     if (!details) {
       return true;
@@ -103,50 +89,46 @@ export default function DungeonPullList({
     );
   }, [fight.dungeonPulls, details]);
 
-  if (shouldShowDungeonPullList(fight, selectedPull)) {
-    let isFirstWithoutDetails = true;
+  let isFirstWithoutDetails = true;
 
-    return (
-      <section className={styles.Container}>
-        <header>
-          <div className={styles.SelectPullLabel}>
-            <Trans id="interface.report.selectPull">Select a Pull</Trans>
-          </div>
-          <Button
-            className={styles.ViewEntireDungeonButton}
-            onClick={() => setSelectedPull('all')}
-            disabled={missingAnyDetails}
-          >
-            <Trans id="interface.report.viewEntireDungeon">View Entire Dungeon</Trans>
-          </Button>
-        </header>
-        <div className={styles.PullListGrid}>
-          {fight.dungeonPulls
-            ?.filter((pull) => pull.end_time - pull.start_time > MIN_PULL_DURATION_MS)
-            .map((pull) => {
-              const pullDetails = details?.find((det) => det.pull.id === pull.id);
-              const showSpinner = isFirstWithoutDetails && !pullDetails;
-              if (showSpinner) {
-                isFirstWithoutDetails = false;
-              }
-
-              return (
-                <PullDetails
-                  key={pull.id}
-                  pull={pull}
-                  details={pullDetails}
-                  fight={fight}
-                  showSpinner={showSpinner}
-                  onClick={() => setSelectedPull(pull)}
-                />
-              );
-            })}
+  return (
+    <section className={styles.Container}>
+      <header>
+        <div className={styles.SelectPullLabel}>
+          <Trans id="interface.report.selectPull">Select a Pull</Trans>
         </div>
-      </section>
-    );
-  }
+        <Button
+          className={styles.ViewEntireDungeonButton}
+          onClick={() => setSelectedPull('all')}
+          disabled={missingAnyDetails}
+        >
+          <Trans id="interface.report.viewEntireDungeon">View Entire Dungeon</Trans>
+        </Button>
+      </header>
+      <div className={styles.PullListGrid}>
+        {fight.dungeonPulls
+          ?.filter((pull) => pull.end_time - pull.start_time > MIN_PULL_DURATION_MS)
+          .map((pull) => {
+            const pullDetails = details?.find((det) => det.pull.id === pull.id);
+            const showSpinner = isFirstWithoutDetails && !pullDetails;
+            if (showSpinner) {
+              isFirstWithoutDetails = false;
+            }
 
-  return <>{children}</>;
+            return (
+              <PullDetails
+                key={pull.id}
+                pull={pull}
+                details={pullDetails}
+                fight={fight}
+                showSpinner={showSpinner}
+                onClick={() => setSelectedPull(pull)}
+              />
+            );
+          })}
+      </div>
+    </section>
+  );
 }
 
 function PullDetails({
@@ -179,7 +161,6 @@ function PullDetails({
     <div
       className={clsx(styles.PullContainer, !details && styles.PullContainerDisabled)}
       onClick={details ? onClick : undefined}
-      aria-role="button"
       aria-disabled={!details}
     >
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
