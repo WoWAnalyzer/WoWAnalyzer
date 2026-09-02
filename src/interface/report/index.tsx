@@ -156,6 +156,10 @@ const ResultsLoader = () => {
 
     if (!rawEvents && typeof pull === 'number' && pulls) {
       const index = pulls.findIndex((chunk) => chunk.target.id === pull + 1);
+      if (index < 0) {
+        return null;
+      }
+
       const partial = pulls
         .slice(0, index + 1)
         .reduce((a, b) => a.concat(b.events), [] as AnyEvent[]);
