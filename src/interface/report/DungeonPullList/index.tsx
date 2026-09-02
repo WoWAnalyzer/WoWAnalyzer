@@ -1,9 +1,3 @@
-/** TODOs
- * - disabled state for the buttons while loading is in progress
- * - bar for trash %
- * - allow viewing an individual pull before the rest have loaded?
- */
-
 import { isMythicPlus } from 'common/isMythicPlus';
 import Fight, { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
 import { JSX, useCallback, useEffect, useMemo } from 'react';

@@ -241,10 +241,6 @@ export default function useDungeonPullList({
 }): DungeonPullDetails[] {
   const nextPullIndex = useRef(0);
 
-  useEffect(() => {
-    nextPullIndex.current = 0;
-  }, [fight, report]);
-
   const playerCombatantInfo = usePlayerCombatantInfo(player.id, pulls);
 
   const parserClass = useMemo(
@@ -264,24 +260,33 @@ export default function useDungeonPullList({
     [baseParser],
   );
 
-  const parser = useMemo(
-    () =>
-      parserClass && playerCombatantInfo
-        ? new parserClass(
-            config,
-            report,
-            player,
-            {
-              ...fight,
-              offset_time: 0,
-            },
-            playerCombatantInfo,
-            characterProfile!,
-            allPlayers,
-          )
-        : undefined,
-    [config, report, player, fight, playerCombatantInfo, characterProfile, allPlayers, parserClass],
-  );
+  const parser = useMemo(() => {
+    nextPullIndex.current = 0;
+
+    return parserClass && playerCombatantInfo
+      ? new parserClass(
+          config,
+          report,
+          player,
+          {
+            ...fight,
+            offset_time: 0,
+          },
+          playerCombatantInfo,
+          characterProfile!,
+          allPlayers,
+        )
+      : undefined;
+  }, [
+    config,
+    report,
+    player,
+    fight,
+    playerCombatantInfo,
+    characterProfile,
+    allPlayers,
+    parserClass,
+  ]);
 
   return useMemo(() => {
     if (!parser) {

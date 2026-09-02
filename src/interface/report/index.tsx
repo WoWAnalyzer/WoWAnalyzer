@@ -1,7 +1,7 @@
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import { useConfig } from './ConfigContext';
@@ -30,7 +30,7 @@ import Report from 'parser/core/Report';
 import { Link, useNavigate } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
 import handleApiError from './handleApiError';
-import { EventType, type CombatantInfoEvent } from 'parser/core/Events';
+import { AnyEvent, EventType, type CombatantInfoEvent } from 'parser/core/Events';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { fetchCombatants } from 'common/fetchWclApi';
@@ -136,7 +136,36 @@ const ResultsLoader = () => {
     pulls,
     allDeaths,
   } = useEvents({ report, fight, player });
-  const events = isWaitingOnPullSelection ? null : rawEvents;
+
+  const partialEvents = useRef<{ pull: number; events: AnyEvent[] } | null>(null);
+
+  useEffect(() => {
+    partialEvents.current = null;
+  }, [fight, report]);
+
+  // beware: turning off `events` here is performant, toggling `dependenciesLoading` in the `useEventsParser` call is NOT.
+  const events = useMemo(() => {
+    if (isWaitingOnPullSelection) {
+      partialEvents.current = null;
+      return null;
+    }
+
+    if (typeof pull === 'number' && partialEvents.current?.pull === pull) {
+      return partialEvents.current.events;
+    }
+
+    if (!rawEvents && typeof pull === 'number' && pulls) {
+      const index = pulls.findIndex((chunk) => chunk.target.id === pull + 1);
+      const partial = pulls
+        .slice(0, index + 1)
+        .reduce((a, b) => a.concat(b.events), [] as AnyEvent[]);
+      partialEvents.current = { pull, events: partial };
+      return partial;
+    }
+
+    return rawEvents;
+  }, [rawEvents, isWaitingOnPullSelection, pull, pulls]);
+
   const isLoadingEvents = events == null;
 
   const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
@@ -203,7 +232,8 @@ const ResultsLoader = () => {
   const [playerCombatantInfo, setPlayerCombatantInfo] = useState<CombatantInfoEvent | undefined>();
 
   useEffect(() => {
-    const existing = rawEvents?.find(
+    // we optimistically check both the rawEvent list and the first pull from a dungeon to avoid the "missing combatantinfo" intermediate state
+    const existing = (rawEvents ?? pulls[0]?.events)?.find(
       (event): event is CombatantInfoEvent =>
         event.type === EventType.CombatantInfo && event.sourceID === player.id,
     );
@@ -244,7 +274,7 @@ const ResultsLoader = () => {
     return () => {
       cancelled = true;
     };
-  }, [rawEvents, player.id, report, fight]);
+  }, [rawEvents, player.id, report, fight, pulls]);
 
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&
