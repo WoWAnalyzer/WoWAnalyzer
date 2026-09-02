@@ -1,3 +1,9 @@
+/** TODOs
+ * - disabled state for the buttons while loading is in progress
+ * - bar for trash %
+ * - allow viewing an individual pull before the rest have loaded?
+ */
+
 import { isMythicPlus } from 'common/isMythicPlus';
 import Fight, { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
 import { JSX, useCallback, useEffect, useMemo } from 'react';
@@ -87,6 +93,22 @@ export default function DungeonPullList({
     }
   }, [selectedPull, dispatch]);
 
+  const missingAnyDetails = useMemo(() => {
+    if (!details) {
+      return true;
+    }
+
+    if (!fight.dungeonPulls) {
+      return true;
+    }
+
+    return fight.dungeonPulls!.some(
+      (pull) =>
+        details.find((det) => det.pull.id === pull.id) === undefined &&
+        pull.end_time - pull.start_time > MIN_PULL_DURATION_MS,
+    );
+  }, [fight.dungeonPulls, details]);
+
   if (shouldShowDungeonPullList(fight, selectedPull)) {
     let isFirstWithoutDetails = true;
 
@@ -96,7 +118,11 @@ export default function DungeonPullList({
           <div className={styles.SelectPullLabel}>
             <Trans id="interface.report.selectPull">Select a Pull</Trans>
           </div>
-          <Button className={styles.ViewEntireDungeonButton} onClick={() => setSelectedPull('all')}>
+          <Button
+            className={styles.ViewEntireDungeonButton}
+            onClick={() => setSelectedPull('all')}
+            disabled={missingAnyDetails}
+          >
             <Trans id="interface.report.viewEntireDungeon">View Entire Dungeon</Trans>
           </Button>
         </header>
@@ -156,7 +182,12 @@ function PullDetails({
     </span>
   );
   return (
-    <div className={styles.PullContainer} onClick={onClick}>
+    <div
+      className={clsx(styles.PullContainer, !details && styles.PullContainerDisabled)}
+      onClick={details ? onClick : undefined}
+      aria-role="button"
+      aria-disabled={!details}
+    >
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
       {showSpinner && <LoadingSpinner className={styles.LoadingSpinner} />}
       {!showSpinner && details && (

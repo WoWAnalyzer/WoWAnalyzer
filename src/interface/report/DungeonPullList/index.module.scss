@@ -42,6 +42,14 @@
   &:hover {
     filter: brightness(110%);
   }
+
+  &Disabled {
+    cursor: progress;
+
+    &:hover {
+      filter: none;
+    }
+  }
 }
 
 .desaturatedIcon {
