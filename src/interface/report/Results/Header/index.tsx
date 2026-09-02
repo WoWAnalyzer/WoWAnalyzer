@@ -32,6 +32,7 @@ import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
 import { specIconPath } from 'interface/SpecIcon';
 import { shouldShowDungeonPullList, useSelectedPull } from 'interface/report/DungeonPullList';
+import clsx from 'clsx';
 
 const Section = cssComponent('section', styles.Section, [] as const);
 
@@ -161,7 +162,9 @@ export default function Header({
     <>
       <HeaderBackground boss={boss} raid={raid} expansion={expansion} />
       <div>
-        <Section style={{ paddingBottom: 0 }}>
+        <Section
+          className={clsx(shouldShowDungeonPullList(fight, selectedPull) && styles.MiniHeader)}
+        >
           <HeaderContainer>
             <BossMiniBox boss={boss} fight={fight} />
             {!shouldShowDungeonPullList(fight, selectedPull) && (
@@ -230,7 +233,10 @@ function CharacterMiniBox({
   // intentionally smaller than the layout switch
   const showClassName = useMediaQueryMatch('(min-width: 600px)');
   return (
-    <MiniBoxContainer className={styles.flipped} style={{ gridArea: 'character' }}>
+    <MiniBoxContainer
+      className={styles.flipped}
+      style={{ gridArea: 'character', justifySelf: 'end' }}
+    >
       <MiniBoxImage
         src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
         alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}
