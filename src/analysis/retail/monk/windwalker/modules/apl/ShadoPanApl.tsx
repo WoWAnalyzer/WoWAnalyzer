@@ -39,11 +39,16 @@ export default function shadoPanApl(combatant: Combatant): Apl {
     {
       spell: TALENTS.ZENITH_STOMP_TALENT,
       condition: describe(
-        or(
-          hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
-          and(
-            buffPresent(TALENTS.ZENITH_TALENT),
-            buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), { atMost: 3000 }),
+        and(
+          hasTalent(TALENTS.TIGEREYE_BREW_3_WINDWALKER_TALENT),
+          or(
+            hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
+            and(
+              buffPresent(TALENTS.ZENITH_TALENT),
+              buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), {
+                atMost: 3000,
+              }),
+            ),
           ),
         ),
         () => (
