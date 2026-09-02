@@ -5,7 +5,6 @@ import { PlayerDetails } from 'parser/core/Player';
 import { DungeonPullEvents } from '../hooks/useEvents';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Abilities from 'parser/core/modules/Abilities';
-import Auras from 'parser/core/modules/Auras';
 import Report from 'parser/core/Report';
 import Events, {
   AbilityEvent,
@@ -40,7 +39,6 @@ export class RetailDungeonPullListCombatParser extends CombatLogParser {
 
 class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
   abilities: Abilities,
-  auras: Auras,
   abilityTracker: AbilityTracker,
   enemies: Enemies,
   combatants: Combatants,
@@ -260,7 +258,6 @@ export default function useDungeonPullList({
 
             static specModules: DependenciesDefinition = {
               abilities: CombatLogParser.getModuleClass(baseParser!, Abilities)!,
-              auras: CombatLogParser.getModuleClass(baseParser!, Auras)!,
             };
           }
         : undefined,
