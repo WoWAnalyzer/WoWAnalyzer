@@ -7,10 +7,12 @@ import {
   ZEN_PULSE_CAST,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
+  ZEN_PULSE_OVERCAP,
   SHEILUNS_GIFT_MAIN_TARGET,
   SHEILUNS_GIFT,
 } from './EventLinkConstants';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
 
 export const VIVIFY_EVENT_LINKS: EventLink[] = [
   {
@@ -37,9 +39,25 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: ZEN_PULSE_CONSUME,
+    reverseLinkRelation: ZEN_PULSE_CONSUME,
     linkingEventId: SPELLS.ZEN_PULSE_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: SPELLS.VIVIFY.id,
+    referencedEventType: [EventType.Cast],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT);
+    },
+  },
+  {
+    linkRelation: ZEN_PULSE_OVERCAP,
+    reverseLinkRelation: ZEN_PULSE_OVERCAP,
+    linkingEventId: SPELLS.ZEN_PULSE_BUFF.id,
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: THUNDER_FOCUS_TEA_SPELLS.map((spell) => spell.id),
     referencedEventType: [EventType.Cast],
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
