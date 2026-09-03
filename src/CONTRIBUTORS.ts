@@ -2473,6 +2473,7 @@ export const Gazh: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-gb/worldsoul/eu/armory/character/twisting-nether/Arakaaly',
     },
   ],
+  avatar: avatar('gazh-avatar.jpg'),
 };
 
 export const Humperella: Contributor = {
