@@ -38,7 +38,6 @@ class EvangelismNormalizer extends EventsNormalizer {
       // The Cast event is converted to a FreeCast and the BeginCast event is removed from the FixedEvents.
       // Keep track of the number of deletedEvents to not create counting errors when deleting further events past the first.
       if (spellId == evangId) {
-        console.log('For ' + event.ability.name + ' at timestamp ' + event.timestamp / 1000);
         for (let loopIndex = index; loopIndex >= 0; loopIndex--) {
           const eventToCheck = events[loopIndex];
           if (eventToCheck.type !== EventType.Cast && eventToCheck.type !== EventType.BeginCast) {
