@@ -60,8 +60,6 @@ class ArtOfWar extends Analyzer {
   }
 
   #onArtOfWarSpenderCast() {
-    console.log('spender', this.#artOfWarSpenders);
-
     if (!this.selectedCombatant.hasBuff(SPELLS.ART_OF_WAR)) {
       return;
     }
@@ -147,8 +145,8 @@ class ArtOfWar extends Analyzer {
         <p>
           <SpellLink spell={SPELLS.ART_OF_WAR} /> plays into you apex talents{' '}
           <SpellLink spell={TALENTS_PALADIN.LIGHT_WITHIN_3_RETRIBUTION_TALENT} /> that further
-          increases the damage of <SpellLink spell={TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT} /> and
-          deals AoE damage in a cone in front of you.
+          empowers <SpellLink spell={TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT} /> and deals AoE
+          damage in a cone in front of you.
         </p>
         <p>
           <SpellLink spell={SPELLS.ART_OF_WAR} /> now stacks to 2 times. When at two charges, spend
