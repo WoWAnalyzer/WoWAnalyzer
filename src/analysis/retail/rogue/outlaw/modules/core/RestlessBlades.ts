@@ -4,13 +4,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TALENTS from 'common/TALENTS/rogue';
+import { ROLL_THE_BONES_CDR_STAGE, rollTheBonesStage } from '../../constants';
 
 /**
  * Restless Blades
  * Finishing moves reduce the remaining cooldown of the abilities listed below by 1 sec per combo point spent.
  */
+// Exactly the Restless Blades tooltip list; Vanish and Preparation are not affected.
 const AFFECTED_ABILITIES: number[] = [
-  SPELLS.VANISH.id,
   SPELLS.SPRINT.id,
   SPELLS.BLADE_FLURRY.id,
   SPELLS.ROLL_THE_BONES.id,
@@ -22,9 +23,9 @@ const AFFECTED_ABILITIES: number[] = [
   TALENTS.ADRENALINE_RUSH_TALENT.id,
 ];
 
+/** SimC's `trigger_restless_blades`. It declares Dragon-Bone Dice but never applies it. */
 const RESTLESS_BLADES_BASE_CDR = 1000;
-const DRAGONBONE_DICE_MOD = 0.1;
-const TRIPLE_THREAT_CDR = 1.3;
+const ROLL_THE_BONES_CDR_MULTIPLIER = 1.3;
 
 const SUPER_CHARGED_COMBO_POINT_WORTH = 2;
 const FORCED_INDUCTION_COMBO_POINT_WORTH = 1;
@@ -38,6 +39,10 @@ class RestlessBlades extends Analyzer {
 
   hasSuperCharger = this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGER_TALENT);
   hasForcedInduction = this.selectedCombatant.hasTalent(TALENTS.FORCED_INDUCTION_TALENT);
+  // Supercharger has two ranks, each charging one additional combo point.
+  superChargedComboPointsPerCast = this.selectedCombatant.getTalentRank(
+    TALENTS.SUPERCHARGER_TALENT,
+  );
 
   currentSuperChargedComboPoints = 0;
 
@@ -54,7 +59,7 @@ class RestlessBlades extends Analyzer {
   }
 
   private onCast() {
-    this.currentSuperChargedComboPoints = 2;
+    this.currentSuperChargedComboPoints = this.superChargedComboPointsPerCast;
   }
 
   private useSuperChargedComboPoint() {
@@ -75,25 +80,20 @@ class RestlessBlades extends Analyzer {
       return;
     }
 
-    let spent = (event.resourceChange += this.useSuperChargedComboPoint());
+    // Do not mutate `event.resourceChange` — later listeners on this event, notably FinisherTracker,
+    // read it and would see an inflated value.
+    let spent = event.resourceChange + this.useSuperChargedComboPoint();
     if (event.ability.guid === SPELLS.COUP_DE_GRACE_CAST.id) {
       spent += COUP_DE_GRACE_EXTRA_COMBO_POINT_WORTH;
     }
 
-    const hasRollTheBonesCDR = this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id);
-    const hasDragonboneDice = this.selectedCombatant.hasTalent(TALENTS.DRAGON_BONE_DICE_TALENT);
-
     let cdrAmount = RESTLESS_BLADES_BASE_CDR * spent;
 
-    if (hasRollTheBonesCDR) {
-      hasDragonboneDice
-        ? (cdrAmount = cdrAmount * (TRIPLE_THREAT_CDR + DRAGONBONE_DICE_MOD))
-        : (cdrAmount = cdrAmount * TRIPLE_THREAT_CDR);
+    if (rollTheBonesStage(this.selectedCombatant, event.timestamp) >= ROLL_THE_BONES_CDR_STAGE) {
+      cdrAmount *= ROLL_THE_BONES_CDR_MULTIPLIER;
     }
 
     AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, cdrAmount));
-
-    return cdrAmount;
   }
 
   private reduceCooldown(spellId: number, amount: number) {

@@ -7,7 +7,7 @@ import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
 
-import { ROLL_THE_BONES_BUFFS } from '../../constants';
+import { ROLL_THE_BONES_STAGE_AURAS } from '../../constants';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import uptimeBarSubStatistic, { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
@@ -103,7 +103,7 @@ class RollTheBonesBuffs extends Analyzer {
     );
     const colors = ['#6a9ecb', '#c06c52', '#f19206', '#ffbf02', '#760200'];
 
-    const subBuffsBarSpecs: UptimeBarSpec[] = ROLL_THE_BONES_BUFFS.map((buff, idx) => ({
+    const subBuffsBarSpecs: UptimeBarSpec[] = ROLL_THE_BONES_STAGE_AURAS.map((buff, idx) => ({
       spells: [buff],
       uptimes: this.selectedCombatant.getBuffHistory(buff.id).map((buff) => ({
         start: buff.start,
@@ -114,7 +114,7 @@ class RollTheBonesBuffs extends Analyzer {
 
     const rollTheBonesBarSpec: UptimeBarSpec = {
       spells: [SPELLS.ROLL_THE_BONES],
-      uptimes: ROLL_THE_BONES_BUFFS.flatMap((buff, idx) =>
+      uptimes: ROLL_THE_BONES_STAGE_AURAS.flatMap((buff, idx) =>
         this.selectedCombatant.getBuffHistory(buff.id),
       ).map((buff) => ({
         start: buff.start,
@@ -157,7 +157,7 @@ class RollTheBonesBuffs extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {ROLL_THE_BONES_BUFFS.map((e) => (
+            {ROLL_THE_BONES_STAGE_AURAS.map((e) => (
               <tr key={e.id}>
                 <th>
                   <SpellLink spell={e} />

@@ -541,6 +541,7 @@ const spells = {
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
   },
+
   BLADE_FLURRY_DAMAGE: {
     id: 22482,
     name: 'Blade Flurry',

@@ -2,6 +2,7 @@ import { ComboPointTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { ROLL_THE_BONES_COMBO_POINT_STAGE, rollTheBonesStage } from '../../constants';
 
 class OutlawComboPointTracker extends ComboPointTracker {
   constructor(options: Options) {
@@ -14,15 +15,8 @@ class OutlawComboPointTracker extends ComboPointTracker {
 
     // Bonus hits from Sinister Strike are not included in the energize event, so add them in here
     if (spellId === SPELLS.SINISTER_STRIKE_PROC.id) {
-      let amount = 1;
-
-      if (
-        this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TROUBLE.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.JACKPOT.id)
-      ) {
-        amount = 2;
-      }
+      const stage = rollTheBonesStage(this.selectedCombatant, event.timestamp);
+      const amount = stage >= ROLL_THE_BONES_COMBO_POINT_STAGE ? 2 : 1;
 
       this.processInvisibleEnergize(SPELLS.SINISTER_STRIKE.id, amount, event.timestamp);
     }

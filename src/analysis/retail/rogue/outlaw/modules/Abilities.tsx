@@ -1,18 +1,24 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
-import Combatant from 'parser/core/Combatant';
 import { TIERS } from 'game/TIERS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import Combatant from 'parser/core/Combatant';
+import { adrenalineRushGcd } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
 
-    const standardGcd = (combatant: Combatant) =>
-      1000 * (1 - (combatant.hasBuff(TALENTS.ADRENALINE_RUSH_TALENT.id) ? 0.2 : 0));
+    const standardGcd = (combatant: Combatant) => {
+      if (!combatant.hasBuff(TALENTS.ADRENALINE_RUSH_TALENT.id)) {
+        return 1000;
+      }
+
+      return adrenalineRushGcd(this.haste.current);
+    };
 
     return [
       // // Base class resource
@@ -92,6 +98,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ADRENALINE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -128,7 +135,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
+        // Disorienting Strikes: "Killing Spree has 10% reduced cooldown".
+        cooldown: 180 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
         gcd: {
           static: standardGcd,
         },
@@ -189,13 +197,14 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
       },
-      // TWW Hero Talents
+      // Midnight Hero Talents
       {
         spell: SPELLS.COUP_DE_GRACE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.COUP_DE_GRACE_TALENT),
         gcd: {
-          static: standardGcd,
+          // Coup de Grace uses a 1.2 second GCD rather than the standard 1 second.
+          static: 1200,
         },
       },
       // Others
@@ -260,6 +269,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHEAP_SHOT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.KIDNEY_SHOT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: standardGcd,

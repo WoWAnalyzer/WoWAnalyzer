@@ -7,7 +7,6 @@ import Events, {
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
-import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
@@ -26,11 +25,9 @@ const ACCEPTABLE_ENERGY_THRESHOLD = 80;
 
 class BladeRush extends Analyzer {
   static dependencies = {
-    abilities: Abilities,
     spellUsable: SpellUsable,
   };
 
-  protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
   unusableUptimes: Uptime[] = [];
@@ -104,7 +101,9 @@ class BladeRush extends Analyzer {
   private onResourceChange(event: ResourceChangeEvent) {
     const energy = getResource(event.classResources, RESOURCE_TYPES.ENERGY.id);
     const energyAmount = energy?.amount;
-    if (!energy || !energyAmount || this.spellUsable.isOnCooldown(TALENTS.BLADE_RUSH_TALENT.id)) {
+    // Check for absent energy explicitly: 0 is falsy but is exactly the energy-starved state this
+    // module exists to report.
+    if (energyAmount === undefined || this.spellUsable.isOnCooldown(TALENTS.BLADE_RUSH_TALENT.id)) {
       return;
     }
 

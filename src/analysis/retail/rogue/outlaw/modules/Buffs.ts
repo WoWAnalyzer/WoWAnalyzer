@@ -16,7 +16,15 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.BLADE_RUSH_TALENT.id,
+        spellId: TALENTS.LOADED_DICE_TALENT.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BLADE_RUSH_TALENT_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BETWEEN_THE_EYES.id,
         timelineHighlight: true,
       },
       {
@@ -37,7 +45,7 @@ class Buffs extends CoreAuras {
         spellId: TALENTS.ALACRITY_TALENT.id,
       },
       {
-        spellId: SPELLS.SHADOW_DANCE_BUFF.id,
+        spellId: TALENTS.THISTLE_TEA_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -75,9 +83,6 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.FEINT.id,
-      },
-      {
-        spellId: SPELLS.RIPOSTE.id,
       },
       {
         spellId: SPELLS.SPRINT.id,
