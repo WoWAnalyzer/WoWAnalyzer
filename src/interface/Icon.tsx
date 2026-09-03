@@ -21,7 +21,12 @@ export type SvgIconProps = Omit<
 export function iconUrl(icon: string): string {
   let [folder, name] = icon.split('/');
   if (name === undefined) {
-    [folder, name] = ['abilities', folder];
+    name = folder;
+    if (folder.match(/^custom-icon-/)) {
+      folder = 'abilities';
+    } else {
+      folder = 'icons';
+    }
   }
 
   icon = name.replace('.jpg', '').replace(/^custom-icon-/, '');
