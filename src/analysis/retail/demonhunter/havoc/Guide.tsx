@@ -29,7 +29,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
-      <RotationSection modules={modules} events={events} info={info} />
+      {/* <RotationSection modules={modules} events={events} info={info} /> Removing for now, maybe put APL here later*/}
       <DefensivesSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
@@ -94,12 +94,8 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
       {modules.eternalHunt.guideSubsection()}
       {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> coming soon!
-          </div>,
-          <></>,
-        )}
+        modules.essenceBreakGuide.guideSubsection}
+
       {info.combatant.hasTalent(TALENTS.ART_OF_THE_GLAIVE_TALENT) &&
         explanationAndDataSubsection(
           <div>
@@ -112,28 +108,30 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
   );
 }
 
-function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <Section title="Rotation">
-      <HideExplanationsToggle id="hide-explanations-rotations" />
-      <HideGoodCastsToggle id="hide-good-casts-rotations" />
-      <p>
-        Havoc does not have a single rigid rotation. Your priority changes with your talent choices,
-        with different builds leaning into different burst windows, buff upkeep, and cooldown
-        pairings.
-      </p>
-      {modules.inertia.guideSubsection()}
-      {/* {modules.throwGlaive.guideSubsection()} */}
-      {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> coming soon!
-          </div>,
-          <></>,
-        )}
-    </Section>
-  );
-}
+// Commenting out to avoid errors
+
+// function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+//   return (
+//     <Section title="Rotation">
+//       <HideExplanationsToggle id="hide-explanations-rotations" />
+//       <HideGoodCastsToggle id="hide-good-casts-rotations" />
+//       <p>
+//         Havoc does not have a single rigid rotation. Your priority changes with your talent choices,
+//         with different builds leaning into different burst windows, buff upkeep, and cooldown
+//         pairings.
+//       </p>
+//       {modules.inertia.guideSubsection()}
+//       {/* {modules.throwGlaive.guideSubsection()} */}
+//       {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
+//         explanationAndDataSubsection(
+//           <div>
+//             Per-cast breakdown for <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> coming soon!
+//           </div>,
+//           <></>,
+//         )}
+//     </Section>
+//   );
+// }
 
 function DefensivesSection({ modules }: GuideProps<typeof CombatLogParser>) {
   const defensiveAnalyzers = useAnalyzers([Blur]);

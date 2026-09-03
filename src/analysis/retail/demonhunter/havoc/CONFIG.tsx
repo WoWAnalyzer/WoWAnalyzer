@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import { AlertWarning } from 'interface/index';
 
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
@@ -98,8 +99,20 @@ const CONFIG: Config = {
       </p>
     </>
   ),
+
+  pages: {
+    overview: {
+      notes: (
+        <AlertWarning>
+          This spec is mostly updated for 12.1. If anything is missing or incorrect, please ping{' '}
+          <code>@Zogmaw</code> in the Fel Hammer Discord.
+        </AlertWarning>
+      ),
+    },
+  },
+
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/tBZkmzXMgDWCvGr4/16-Heroic+Imperator+Averzian+-+Kill+(2:41)/Vyn/standard',
+  exampleReport: `/report/N7gwMKY8bRqGJZzt/9-Heroic+Nek'zali+the+Soulcoiler+-+Kill+(5:27)/350-Zogmaw/standard`,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
