@@ -57,6 +57,7 @@ export const RSK_CAST_LINK = 'RisingSunKickCastLink';
 export const RWK_DAMAGE_CAST_LINK = 'RushingWindKickDamageCastLink';
 export const CJL_CAST_LINK = 'CracklingJadeLightningCastLink';
 export const SCK_CAST_LINK = 'SpinningCraneKickCastLink';
+export const DANCE_OF_CHI_JI_CONSUME = 'DanceOfChiJiConsume';
 
 // Ancient Teachings
 export const AT_TIGER_PALM = 'ATTigerPalm';

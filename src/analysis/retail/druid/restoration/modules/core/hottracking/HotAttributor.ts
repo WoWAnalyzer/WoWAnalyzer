@@ -10,14 +10,13 @@ import Events, {
 } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 
-import { REJUVENATION_BUFFS } from '../../../constants';
-import { isFromHardcast } from '../../../normalizers/CastLinkNormalizer';
+import { LIFEBLOOM_STACK_AURAS, REJUVENATION_BUFFS } from '../../../constants';
+import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/CastLinkNormalizer';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
-import { TIERS } from 'game/TIERS';
 
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
@@ -54,6 +53,7 @@ class HotAttributor extends Analyzer {
   hasRampantGrowth: boolean;
   hasConvoke: boolean;
   hasEverbloomRank1Effective: boolean;
+  hasOvergrowth: boolean;
 
   /** Special tracker to differentiate PotA procs during Convoke.
    *  We arbitrarily call the first Regrowth hit the 'direct' one, and follow-on ones
@@ -71,6 +71,7 @@ class HotAttributor extends Analyzer {
   powerOfTheArchdruidRejuvAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Rejuv');
   powerOfTheArchdruidRegrowthAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Regrowth');
   rampantGrowthAttrib = HotTracker.getNewAttribution('RampantGrowth');
+  overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
   // Convoke handled separately in Resto Convoke module
 
   /** Per-proc tracking of how many PotA extras landed (for use by PowerOfTheArchdruid) */
@@ -86,6 +87,7 @@ class HotAttributor extends Analyzer {
     );
     this.hasRampantGrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAMPANT_GROWTH_TALENT);
     this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
+    this.hasOvergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.OVERGROWTH_TALENT);
     this.hasEverbloomRank1Effective =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_1_RESTORATION_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT) ||
@@ -124,11 +126,11 @@ class HotAttributor extends Analyzer {
       this.onApplyLb,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onLifebloomStack,
     );
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onLifebloomStack,
     );
     this.addEventListener(
@@ -178,6 +180,9 @@ class HotAttributor extends Analyzer {
     if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.rejuvHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
+    } else if (this.hasOvergrowth && isFromOvergrowth(event)) {
+      this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
+      this._logAttrib(event, this.overgrowthAttrib);
     } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       // if we have PotA buff and this isn't the first Rejuv in sequence within buffer - also attribute to PotA
       if (
@@ -287,6 +292,9 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.wgHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
       // don't clear pending because it hits many targets
+    } else if (this.hasOvergrowth && isFromOvergrowth(event)) {
+      this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
+      this._logAttrib(event, this.overgrowthAttrib);
     } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       // convoke module adds the attribution for Convoke
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
@@ -296,8 +304,9 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyLb(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this.hasEverbloomRank1Effective && event.type === 'refreshbuff' && !isFromHardcast(event)) {
-      this._logAttrib(event, 'Everbloom Stack Gain');
+    if (this.hasOvergrowth && isFromOvergrowth(event)) {
+      this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
+      this._logAttrib(event, this.overgrowthAttrib);
       return;
     }
 

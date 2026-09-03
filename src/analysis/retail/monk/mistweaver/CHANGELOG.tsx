@@ -8,6 +8,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 28), <>Added <SpellLink spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT}/> module.</>, swirl),
   change(date(2026, 8, 13), <>Added <ItemSetLink id={MONK_MID2_ID}>12.1 Tier Set</ItemSetLink>, <SpellLink spell={TALENTS_MONK.VITAL_EXPENDITURE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.MISTLINE_TALENT}/> modules, updated various <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> sources/coefficients.</>, swirl),
   change(date(2026, 6, 29), <>Fixed abilities affected by healing increases across several modules.</>, swirl),
   change(date(2026, 6, 23), <>Fixed an issue with miscounting crits and wasted stacks of <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> via <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/>.</>, swirl),

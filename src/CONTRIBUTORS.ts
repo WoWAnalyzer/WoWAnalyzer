@@ -2468,9 +2468,9 @@ export const Gazh: Contributor = {
   discord: 'gazh_',
   mains: [
     {
-      name: 'Meurthe',
-      spec: SPECS.DEMONOLOGY_WARLOCK,
-      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
+      name: 'Arakaaly',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/worldsoul/eu/armory/character/twisting-nether/Arakaaly',
     },
   ],
   avatar: avatar('gazh-avatar.jpg'),
@@ -2966,6 +2966,15 @@ export const Baumritter: Contributor = {
   nickname: 'Baumritter',
   github: 'Baumritter',
   discord: 'baumritter',
+  avatar: avatar('Baumritter-avatar.png'),
+  about: 'Devastation Evoker Theorycrafter',
+  mains: [
+    {
+      name: 'Braumritter',
+      spec: SPECS.DEVASTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/antonidas/braumritter',
+    },
+  ],
 };
 
 export const Nooseknitter: Contributor = {

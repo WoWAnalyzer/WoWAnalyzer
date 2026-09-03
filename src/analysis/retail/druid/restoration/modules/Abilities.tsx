@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [SPELLS.EFFLORESCENCE_HEAL.id, SPELLS.SPRING_BLOSSOMS.id],
+        healSpellIds: [SPELLS.EFFLORESCENCE_HEAL.id],
       },
       {
         spell: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [SPELLS.REJUVENATION_GERMINATION.id, SPELLS.CULTIVATION.id],
+        healSpellIds: [SPELLS.REJUVENATION_GERMINATION.id],
       },
       {
         spell: SPELLS.REGROWTH.id,
@@ -99,9 +99,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.NATURES_SWIFTNESS.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.NATURES_SWIFTNESS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.PASSING_SEASONS_TALENT) * 12,
+        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.PASSING_SEASONS_TALENT) * 15,
         gcd: null,
         charges: 1,
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
       },
       {
         spell: SPELLS.IRONBARK.id,
@@ -129,6 +134,20 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) ? 60 : 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
+      },
+      {
+        spell: SPELLS.INNERVATE.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.INNERVATE_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },

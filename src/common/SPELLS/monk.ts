@@ -1021,6 +1021,11 @@ const spells = {
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },
+  DANCE_OF_CHI_JI_MW_BUFF: {
+    id: 438443,
+    name: 'Dance of Chi-Ji',
+    icon: 'ability_monk_quitornado',
+  },
   JADE_IGNITION_BUFF: {
     id: 393057,
     name: 'Chi Energy',

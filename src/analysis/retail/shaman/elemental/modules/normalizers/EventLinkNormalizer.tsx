@@ -72,6 +72,18 @@ const masterOfTheElementsConsumeEventLink: EventLink = {
     GetRelatedEvents(re, EVENT_LINKS.MasterOfTheElementsConsume).length === 0,
 };
 
+// voltaic blaze cast -> voltaic blaze damage
+const voltaicBlazeDamageEventLink: EventLink = {
+  linkRelation: EVENT_LINKS.VoltaicBlazeDamage,
+  linkingEventId: SPELLS.VOLTAIC_BLAZE_CAST.id,
+  linkingEventType: EventType.Cast,
+  referencedEventId: SPELLS.VOLTAIC_BLAZE_DAMAGE.id,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: 20,
+  anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.PURGING_FLAMES_TALENT),
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -79,6 +91,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       callOfTheAncestorsEventLink,
       masterOfTheElementsBuffEventLink,
       masterOfTheElementsConsumeEventLink,
+      voltaicBlazeDamageEventLink,
     ]);
     this.priority = NORMALIZER_ORDER.EventLink;
   }
