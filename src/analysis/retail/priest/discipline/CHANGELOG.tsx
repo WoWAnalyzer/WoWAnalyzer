@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
-import { Thias, Vetyst, WillyRS } from 'CONTRIBUTORS';
+import { Thias, Vetyst, WillyRS, Fyperia } from 'CONTRIBUTORS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 8, 31), <>Added support and statistics for <SpellLink spell={TALENTS_PRIEST.MIND_BLAST_TALENT} /> CDR from Midnight Season 2 Tier Set 2-piece bonus.</>, Fyperia),
+  change(date(2026, 8, 29), <>Updated incorrect cooldown for <SpellLink spell={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} />.</>, Fyperia),
+  change(date(2026, 8, 29), <>Updated proc checks for <SpellLink spell={SPELLS.MASTER_THE_DARKNESS_BUFF} /> for 12.1 updates.</>, Fyperia),
   change(date(2026, 5, 1), <>Added proc checks for <SpellLink spell={SPELLS.MASTER_THE_DARKNESS_BUFF} /> for Discipline Priest.</>, WillyRS),
   change(date(2026, 4, 11), <>Added Defensive usage to guide section.</>, Thias),
   change(date(2026, 3, 22), <>Introduced Guide for <SpellLink spell={SPELLS.PENANCE_CAST} /> usage and updated interactions with <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWINSIGHT_TALENT} />.</>, Vetyst),
