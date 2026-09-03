@@ -20,7 +20,9 @@ import { useSearchParams } from 'react-router-dom';
 import SPELLS from 'common/SPELLS';
 import LoadingSpinner from 'interface/LoadingSpinner';
 
-const MIN_PULL_DURATION_MS = 100;
+// don't show very short pulls. these are often combat drop weirdness
+// note: `useEvents` will still load these for completeness
+const MIN_PULL_DURATION_MS = 2500;
 
 export type SelectedDungeonPull = 'all' | WCLDungeonPull | undefined;
 
