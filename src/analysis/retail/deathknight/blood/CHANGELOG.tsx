@@ -1,10 +1,14 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import { Arlie, Badkad, emallson } from 'CONTRIBUTORS';
+import { Arlie, Badkad, emallson, Gazh } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
+
+const essenceOfTheBloodQueen = <SpellLink spell={SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF} />
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 28), <>Added {essenceOfTheBloodQueen} tracking</>, Gazh),
   change(date(2026, 8, 27), <>Added basic 12.1 support and <SpellLink spell={talents.ABOMINATION_LIMB_TALENT}></SpellLink> tracking</>, Badkad),
   change(date(2026, 4, 24), <>Added <SpellLink spell={talents.UMBILICUS_ETERNUS_TALENT}/> to timeline .</>, Badkad),
   change(date(2026, 4, 10), <>Enabled Changelog.</>, Badkad),
