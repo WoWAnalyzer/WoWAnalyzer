@@ -68,6 +68,12 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
         triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
       },
+      {
+        spellId: SPELLS.PURGING_FLAMES_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PURGING_FLAMES_TALENT),
+        triggeredBySpellId: SPELLS.VOLTAIC_BLAZE_CAST.id,
+        timelineHighlight: true,
+      },
     ];
 
     const swg = buffs.find((buff) => buff.spellId === TALENTS.SPIRITWALKERS_GRACE_TALENT.id);

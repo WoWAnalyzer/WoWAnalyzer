@@ -7,6 +7,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 27), <>Track <SpellLink spell={TALENTS_SHAMAN.PURGING_FLAMES_TALENT} /> on the timeline, and add <SpellLink spell={TALENTS_SHAMAN.VOLTAIC_BLAZE_TALENT} /> exception to <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT} /> for multi-target.</>, Seriousnes),
   change(date(2026, 6, 19), <>Added Midnight Season 2 tier set analysis and a <SpellLink spell={TALENTS_SHAMAN.POWER_OF_THE_MAELSTROM_TALENT} /> module.</>, Seriousnes),
   change(date(2026, 5, 23), <>Internal cleanup: consolidated shared talents, removed dead modules, and aligned with framework conventions.</>, Seriousnes),
   change(date(2026, 4, 24), <>Updated for 12.0.5 compatibility.</>, Seriousnes),

@@ -756,6 +756,11 @@ const spells = {
     name: "Gift of the San'layn",
     icon: 'spell_deathknight_bloodtap.jpg',
   },
+  VISCERAL_STRENGTH_BUFF: {
+    id: 461130,
+    name: 'Visceral Strength',
+    icon: 'inv_ragnaros_heart',
+  },
   INFLICTION_OF_SORROW: {
     id: 434144,
     name: 'Infliction of Sorrow',

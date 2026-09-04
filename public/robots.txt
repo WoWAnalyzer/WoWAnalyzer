@@ -1,0 +1,18 @@
+User-agent: AmazonAdBot
+Disallow:
+
+User-agent: Verity/1.1 (https://gumgum.com/verity; verity-support@gumgum.com)
+Disallow:
+
+User-agent: *
+Disallow: /report/
+Disallow: /character/
+
+User-agent: Baiduspider
+Disallow: *
+
+User-agent: Baiduspider-render
+Disallow: *
+
+User-agent: Yandex
+Disallow: *
