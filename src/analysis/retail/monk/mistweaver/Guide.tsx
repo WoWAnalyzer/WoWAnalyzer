@@ -11,6 +11,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import * as AplCheck from './modules/core/apl/AplCheck';
 import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
+import { TipBox } from 'interface/guide/components';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
 import { getCurrentCelestialTalent, getCurrentRSKTalent } from './constants';
@@ -58,13 +59,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           use the abilities that are highest on the list.
         </p>
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
-        <p>
-          <strong>
-            It is important to note that using abilites like{' '}
-            <SpellLink spell={getCurrentCelestialTalent(info.combatant)} /> have their own priority
-            that supercedes the priority list below. This section omits all casts in those windows.
-          </strong>
-        </p>
+        <TipBox type="info">
+          It is important to note that using abilites like{' '}
+          <SpellLink spell={getCurrentCelestialTalent(info.combatant)} /> have their own priority
+          that supercedes the priority list below. This section omits all casts in those windows.
+        </TipBox>
         <SubSection>
           <AplSectionData
             checker={AplCheck.check}
