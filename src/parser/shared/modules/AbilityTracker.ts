@@ -11,8 +11,9 @@ import Events, {
 } from 'parser/core/Events';
 
 import SpellManaCost from './SpellManaCost';
-import HealingValue from 'parser/shared/modules/HealingValue';
-import DamageValue from 'parser/shared/modules/DamageValue';
+import HealingValue, { effectiveHealing } from 'parser/shared/modules/HealingValue';
+import DamageValue, { effectiveDamage } from 'parser/shared/modules/DamageValue';
+import StateHistory from 'parser/core/StateHistory';
 
 export interface TrackedAbility {
   ability: Ability | null;
@@ -28,6 +29,11 @@ export interface TrackedAbility {
   healingCriticalVal: HealingValue;
 }
 
+interface TotalPoint {
+  timestamp: number;
+  total: number;
+}
+
 class AbilityTracker extends Analyzer {
   static dependencies = {
     // Needed for the `resourceCost` prop of events
@@ -36,6 +42,9 @@ class AbilityTracker extends Analyzer {
   protected spellManaCost!: SpellManaCost;
 
   abilities = new Map<number, TrackedAbility>();
+
+  protected totalDamagePoints: TotalPoint[] = [];
+  protected totalHealingPoints: TotalPoint[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -103,8 +112,35 @@ class AbilityTracker extends Analyzer {
     const ability = this.getAbility(spellId, abilityInfo);
     return ability.healingVal.effective / ability.casts || 0;
   }
+
+  protected addTotal(points: TotalPoint[], timestamp: number, amount: number) {
+    const current = points.at(-1);
+    if (current && current.timestamp === timestamp) {
+      current.total += amount;
+    } else {
+      points.push({ timestamp, total: (current?.total ?? 0) + amount });
+    }
+  }
+
+  private getTotalInRange(points: TotalPoint[], startTime: number, endTime: number) {
+    const history = new StateHistory(points);
+
+    const before = history.getBefore(startTime, true);
+    const after = history.getBefore(endTime);
+
+    return (after?.total ?? 0) - (before?.total ?? 0);
+  }
+
+  getTotalDamageInRange(startTime: number, endTime: number) {
+    return this.getTotalInRange(this.totalDamagePoints, startTime, endTime);
+  }
+
+  getTotalHealingInRange(startTime: number, endTime: number) {
+    return this.getTotalInRange(this.totalHealingPoints, startTime, endTime);
+  }
 }
 
+// FIXME: this class structure is not good
 class HealingTracker extends AbilityTracker {
   constructor(options: Options) {
     super(options);
@@ -124,6 +160,8 @@ class HealingTracker extends AbilityTracker {
       cast.healingCriticalHits += 1;
       cast.healingCriticalVal = cast.healingCriticalVal.addEvent(event);
     }
+
+    this.addTotal(this.totalHealingPoints, event.timestamp, effectiveHealing(event));
   }
 }
 
@@ -131,9 +169,13 @@ class DamageTracker extends HealingTracker {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {
+    if (event.targetIsFriendly) {
+      return; // don't track friendly-fire (Stagger, SLT)
+    }
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
@@ -143,6 +185,8 @@ class DamageTracker extends HealingTracker {
       cast.damageCriticalHits += 1;
       cast.damageCriticalVal = cast.damageCriticalVal.addEvent(event);
     }
+
+    this.addTotal(this.totalDamagePoints, event.timestamp, effectiveDamage(event));
   }
 }
 
