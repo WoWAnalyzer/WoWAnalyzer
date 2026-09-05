@@ -15,6 +15,8 @@ import { TipBox } from 'interface/guide/components';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
 import { getCurrentCelestialTalent, getCurrentRSKTalent } from './constants';
+import DefensivesGuide from './modules/core/defensives/DefensivesGuide';
+import ActiveTimeGuide from './modules/features/ActiveTimeGuide';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -41,6 +43,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.aspectOfHarmony.guideSubsection}
         <RemGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
@@ -52,6 +55,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.celestialConduit.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
       <Section title="Core Rotation">
         <p>
           Healers do not have a static rotation, but Mistweaver gameplay is still driven by a
@@ -71,7 +75,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             violationExplainers={explainers}
           />
         </SubSection>
+        <hr />
+        <ActiveTimeGuide />
       </Section>
+
       <Section title="Other cooldowns, buffs, and procs">
         {info.combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) &&
           modules.lifeCocoon.guideSubsection}
@@ -85,10 +92,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.strengthOfTheBlackOx.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT) &&
           modules.danceOfChiJi.guideSubsection}
-
-        {/* last item in the column for padding */}
-        <div style={{ marginBottom: '1rem' }} />
       </Section>
+
+      <DefensivesGuide />
+
       <PreparationSection />
     </>
   );

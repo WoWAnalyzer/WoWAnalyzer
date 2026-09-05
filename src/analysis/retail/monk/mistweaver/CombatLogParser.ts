@@ -105,6 +105,9 @@ import MorningBreeze from './modules/spells/MorningBreeze';
 import Mistline from './modules/spells/Mistline';
 import VitalExpenditure from './modules/spells/VitalExpenditure';
 import DanceOfChiJi from './modules/spells/DanceOfChiJi';
+import FortifyingBrew from './modules/core/defensives/FortifyingBrew';
+import JadeSanctuary from './modules/core/defensives/JadeSanctuary';
+import ElusiveMists from './modules/core/defensives/ElusiveMists';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -235,6 +238,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero Talents
     strengthOfTheBlackOx: StrengthOfTheBlackOx,
     aspectOfHarmony: AspectOfHarmony,
+
+    // Defensives
+    fortifyingBrew: FortifyingBrew,
+    jadeSanctuary: JadeSanctuary,
+    elusiveMists: ElusiveMists,
   };
   static guide = Guide;
 }

@@ -105,6 +105,16 @@ const spells = {
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
   },
+  JADE_SANCTUARY_BUFF: {
+    id: 448508,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
+  JADE_SANCTUARY_HEAL: {
+    id: 443028,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
   COURAGE_OF_THE_WHITE_TIGER_HEAL: {
     id: 443106,
     name: 'Courage of the White Tiger',

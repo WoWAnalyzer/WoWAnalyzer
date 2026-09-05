@@ -8,6 +8,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 5), <>Added Defensive and Active Time tracking to Overview tab.</>, swirl),
   change(date(2026, 9, 5), <>Adjusted APL conditions for 12.1.</>, swirl),
   change(date(2026, 9, 5), <>Added important buffs/procs to Timeline tab, adjusted <ItemSetLink id={MONK_MID2_ID}>12.1 4pc</ItemSetLink> proc rate, added % of total healing to <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> tooltips.</>, swirl),
   change(date(2026, 8, 28), <>Added <SpellLink spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT}/> module.</>, swirl),

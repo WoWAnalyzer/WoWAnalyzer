@@ -192,6 +192,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(TALENTS_MONK.EXPEDITIOUS_FORTIFICATION_TALENT) ? 90 : 120,
         enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT),
+        timelineSortIndex: 25,
       },
       {
         spell: SPELLS.DETOX.id,

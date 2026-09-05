@@ -2,6 +2,10 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 
 export const SAVE_THEM_ALL_MAX_INCREASE = 0.1;
+export const FORTIFYING_BREW_DR = 0.2;
+export const FORTIFYING_BREW_IRONSHELL_DR = 0.3;
+export const FORTIFYING_BREW_MAX_HEALTH_INCREASE = 0.2;
+export const FORTIFYING_BREW_IRONSHELL_MAX_HEALTH_INCREASE = 0.3;
 
 // taken from simc as of 12.0.7 - https://github.com/simulationcraft/simc/blob/477193a647d7af8fb92c951419cf7f38ef470bb5/SpellDataDump/monk.txt#L11126
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
