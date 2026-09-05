@@ -123,7 +123,7 @@ const spells = {
   STRENGTH_OF_THE_BLACK_OX_BUFF: {
     id: 443112,
     name: 'Strength of the Black Ox',
-    icon: 'ability_monk_chargingoxwave',
+    icon: 'ability_monk_leeroftheox',
   },
   STRENGTH_OF_THE_BLACK_OX_SHIELD: {
     id: 443113,

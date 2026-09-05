@@ -2764,36 +2764,42 @@ export const swirl: Contributor = {
     {
       name: 'Swirl',
       spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Swirl',
-    },
-    {
-      name: 'Devotion',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Devotion',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/illidan/Swirl',
     },
   ],
   alts: [
     {
-      name: 'Schizo',
-      spec: SPECS.DISCIPLINE_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Schizo',
-    },
-    {
-      name: 'Niceorbs',
-      spec: SPECS.PRESERVATION_EVOKER,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Niceorbs',
-    },
-    {
-      name: 'Efflo',
+      name: 'Cowinpasture',
       spec: SPECS.RESTORATION_DRUID,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Efflo',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Cowinpasture',
     },
     {
-      name: 'Tend',
+      name: 'Bunkyunker',
       spec: SPECS.RESTORATION_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Tend',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Bunkyunker',
+    },
+    {
+      name: 'Yeaitspink',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Y',
+    },
+    {
+      name: 'Toadbucket',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Toadbucket',
+    },
+    {
+      name: 'Squidpilled',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Squidpilled',
     },
   ],
+  links: {
+    'Wowhead Guide': 'https://www.wowhead.com/guide/classes/monk/mistweaver/overview-pve-healer',
+    Website: 'https://waitimramping.com',
+    Twitch: 'https://www.twitch.tv/lolswirl',
+    YouTube: 'https://www.youtube.com/@lolswirl',
+  },
 };
 
 export const Leftyxiv: Contributor = {
