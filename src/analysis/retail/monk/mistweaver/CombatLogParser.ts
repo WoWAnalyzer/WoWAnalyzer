@@ -95,6 +95,7 @@ import CastingWhileMoving from './modules/features/CastingWhileMoving';
 import WayOfTheCrane from './modules/spells/WayOfTheCrane';
 import AncientTeachingsLinkNormalizer from './normalizers/AncientTeachingsLinkNormalizer';
 import SoothingMistLinkNormalizer from './normalizers/SoothingMistLinkNormalizer';
+import CelestialBuffNormalizer from './normalizers/CelestialBuffNormalizer';
 import PeacefulMending from './modules/spells/PeacefulMending';
 import Spiritfont from './modules/spells/Spiritfont';
 import InvigoratingMists from './modules/spells/InvigoratingMists';
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     ancientTeachingsLinkNormalizer: AncientTeachingsLinkNormalizer,
     soothingMistLinkNormalizer: SoothingMistLinkNormalizer,
+    celestialBuffNormalizer: CelestialBuffNormalizer,
     celestialConduitNormalizer: CelestialConduitNormalizer,
     conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,

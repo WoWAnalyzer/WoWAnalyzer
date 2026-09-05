@@ -27,8 +27,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.renewingMist.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
-          modules.risingSunKick.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT) ||
+          (info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
+            modules.risingSunKick.guideSubsection)}
         {modules.thunderFocusTea.guideSubsection}
         {!info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
           modules.vivify.guideSubsection}
@@ -85,6 +86,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.strengthOfTheBlackOx.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT) &&
           modules.danceOfChiJi.guideSubsection}
+
+        {/* last item in the column for padding */}
+        <div style={{ marginBottom: '1rem' }} />
       </Section>
       <PreparationSection />
     </>

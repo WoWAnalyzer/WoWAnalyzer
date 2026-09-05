@@ -6,7 +6,6 @@ import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core
 import Events, {
   CastEvent,
   DamageEvent,
-  HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -27,8 +26,8 @@ import {
 import CastOverview from 'interface/guide/components/CastOverview';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import { DANCE_OF_CHI_JI_INCREASE } from '../../constants';
-import { DANCE_OF_CHI_JI_CONSUME } from '../../normalizers/EventLinks/EventLinkConstants';
-import { isDanceOfChiJi } from '../../normalizers/CastLinkNormalizer';
+import { getDanceOfChiJiConsumingCast, isDanceOfChiJi } from '../../normalizers/CastLinkNormalizer';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import GuideSection from 'interface/guide/components/GuideSection';
 
@@ -85,7 +84,14 @@ class DanceOfChiJi extends Analyzer {
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
-    if (HasRelatedEvent(event, DANCE_OF_CHI_JI_CONSUME)) {
+    const consumingCast = getDanceOfChiJiConsumingCast(event);
+    if (consumingCast) {
+      addEnhancedCastReason(
+        consumingCast,
+        <>
+          This cast consumed <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_MW_BUFF} />.
+        </>,
+      );
       this.casts.push({
         timestamp: event.timestamp,
         performance: QualitativePerformance.Good,
