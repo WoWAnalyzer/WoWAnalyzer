@@ -524,6 +524,12 @@ const spells = {
     name: 'Hammer of Wrath',
     icon: 'inv12_ability_paladin_hammerofwrath',
   },
+  // The Midnight cast (all specs); the talent id 1241288 is what appears in the talent tree.
+  HAMMER_OF_WRATH_CAST: {
+    id: 1241413,
+    name: 'Hammer of Wrath',
+    icon: 'inv12_ability_paladin_hammerofwrath',
+  },
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen

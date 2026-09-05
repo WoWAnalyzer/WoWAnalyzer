@@ -8,26 +8,45 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import GuideSection from 'interface/guide/components/GuideSection';
 import StackedBar, { StackedBarSegment } from 'interface/guide/components/StackedBar';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, CastEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  EventType,
+  GetRelatedEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import { INFUSION_OF_LIGHT_CONSUME } from '../../normalizers/EventLinks/EventLinkConstants';
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 
 const WASTED_COLOR = '#A93226';
 
-/** Only Judgment and Flash of Light consume a proc. Holy Light no longer does. */
-const SPENDERS: Spell[] = [SPELLS.FLASH_OF_LIGHT, SPELLS.JUDGMENT_CAST_HOLY];
+/**
+ * Judgment, Hammer of Wrath and Flash of Light each consume a charge. Holy Light no longer does.
+ * Hammer of Wrath is easy to miss: the tooltip only mentions Judgment, but every Hammer of Wrath
+ * cast with a charge held removes one, exactly like Judgment.
+ */
+const SPENDERS: Spell[] = [
+  SPELLS.FLASH_OF_LIGHT,
+  SPELLS.JUDGMENT_CAST_HOLY,
+  SPELLS.HAMMER_OF_WRATH_CAST,
+];
+
+/** The damage spenders. A fine home for a charge when nobody needs healing, but worth less than Flash of Light. */
+const DAMAGE_SPENDERS = new Set([SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.HAMMER_OF_WRATH_CAST.id]);
 
 const SPENDER_COLORS: Record<number, string> = {
   [SPELLS.FLASH_OF_LIGHT.id]: SPELL_COLORS.FLASH_OF_LIGHT,
   [SPELLS.JUDGMENT_CAST_HOLY.id]: SPELL_COLORS.JUDGMENT,
+  [SPELLS.HAMMER_OF_WRATH_CAST.id]: SPELL_COLORS.HAMMER_OF_WRATH,
 };
 
 /**
  * Infusion of Light
  *
- * A flat chance for a Holy Shock cast to empower your next Judgment or Flash of Light.
- * It holds a single charge, or two with Inflorescence of the Sunwell.
+ * A flat chance for a Holy Shock cast to empower your next Judgment, Hammer of Wrath or Flash
+ * of Light. It holds a single charge, or two with Inflorescence of the Sunwell.
  *
  * Procs and charges are not the same thing. With Inflorescence the buff is applied already
  * carrying two stacks, so one proc is one application worth two charges, and the log shows
@@ -37,6 +56,8 @@ const SPENDER_COLORS: Record<number, string> = {
  * Charges are counted as they leave the buff rather than by checking whether the buff
  * happened to be up at the time of a cast -- a single proc can sit through several
  * eligible casts, so only the cast the normalizer links to the removal actually spent it.
+ * The stack count is tracked alongside, so that a buff timing out with both charges still
+ * held counts both of them as expired whether the log records that as one event or two.
  *
  * A proc that lands while already at max charges only refreshes the buff, and the buff is
  * flagged Do Not Log Aura Refresh, so nothing is logged for it. Those procs cannot be counted.
@@ -49,6 +70,8 @@ class InfusionOfLight extends Analyzer {
   /** Charges that ran out before being spent. */
   chargesExpired = 0;
   castsBySpender: Record<number, number> = {};
+  /** Charges currently held, tracked from the buff events. */
+  private stacks = 0;
 
   constructor(options: Options) {
     super(options);
@@ -78,18 +101,29 @@ class InfusionOfLight extends Analyzer {
     );
   }
 
-  onProc() {
+  onProc(event: AnyEvent) {
     this.procsGained += 1;
+    // A fresh application arrives with every charge at once; a stack event carries the new count.
+    this.stacks =
+      event.type === EventType.ApplyBuffStack
+        ? (event as ApplyBuffStackEvent).stack
+        : this.maxCharges;
   }
 
   onChargeRemoved(event: AnyEvent) {
+    // A stack event drops one charge; the buff ending drops every charge still held.
+    const removed = event.type === EventType.RemoveBuff ? Math.max(1, this.stacks) : 1;
+    this.stacks = event.type === EventType.RemoveBuff ? 0 : (event as RemoveBuffStackEvent).stack;
+
     const spender = GetRelatedEvent<CastEvent>(event, INFUSION_OF_LIGHT_CONSUME);
     if (!spender) {
-      this.chargesExpired += 1;
+      this.chargesExpired += removed;
       return;
     }
 
+    // A cast takes exactly one charge. If the whole buff went with it, the rest was lost.
     this.chargesUsed += 1;
+    this.chargesExpired += removed - 1;
     const spellId = spender.ability.guid;
     this.castsBySpender[spellId] = (this.castsBySpender[spellId] ?? 0) + 1;
   }
@@ -113,7 +147,8 @@ class InfusionOfLight extends Analyzer {
         <p>
           <SpellLink spell={TALENTS.INFUSION_OF_LIGHT_TALENT} /> gives{' '}
           <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> a chance to empower your next{' '}
-          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> or{' '}
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} />,{' '}
+          <SpellLink spell={SPELLS.HAMMER_OF_WRATH_CAST} /> or{' '}
           <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. It holds{' '}
           {this.maxCharges === 2 ? (
             <>
@@ -128,8 +163,9 @@ class InfusionOfLight extends Analyzer {
         </p>
         <p>
           <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> is the better home for a charge, but{' '}
-          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> is a reasonable one when nobody needs the
-          healing. Either beats letting it expire.
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> or{' '}
+          <SpellLink spell={SPELLS.HAMMER_OF_WRATH_CAST} /> is a reasonable one when nobody needs
+          the healing. Either beats letting it expire.
         </p>
         <p>
           Spend your charges before they expire, and don't sit at max charges. A proc that lands
@@ -188,7 +224,7 @@ class InfusionOfLight extends Analyzer {
         tooltip: (
           <>
             {casts} charges spent on <SpellLink spell={spell} />
-            {spell.id === SPELLS.JUDGMENT_CAST_HOLY.id && (
+            {DAMAGE_SPENDERS.has(spell.id) && (
               <div>
                 Worth less than <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />, but a fine home for a
                 charge when nobody needs the healing.
