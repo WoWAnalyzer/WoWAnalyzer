@@ -3103,3 +3103,8 @@ export const Fyperia: Contributor = {
   github: 'fyperia',
   discord: 'Fyperia',
 };
+
+export const Gnuminator: Contributor = {
+  nickname: 'Gnuminator',
+  github: 'Gnuminator',
+};
