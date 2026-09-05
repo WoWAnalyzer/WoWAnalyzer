@@ -27,6 +27,7 @@ import {
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { AURORA_DIVINE_PURPOSE } from '../holy/normalizers/EventLinks/EventLinkConstants';
 import SPECS from 'game/SPECS';
+import { TIERS } from 'game/TIERS';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
@@ -67,28 +68,21 @@ class DivinePurpose extends Analyzer {
       this.holyPowerHeal,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DIVINE_PURPOSE_BUFF, SPELLS.DIVINE_PURPOSE_BUFF_RET]),
       this.applyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
+      Events.refreshbuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DIVINE_PURPOSE_BUFF, SPELLS.DIVINE_PURPOSE_BUFF_RET]),
       this.applyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
-      this.removeBuff,
-    );
-    // Ret has a different version (and ID) of Divine Purpose probably thanks to balance nuances.
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
-      this.applyBuff,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
-      this.applyBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DIVINE_PURPOSE_BUFF, SPELLS.DIVINE_PURPOSE_BUFF_RET]),
       this.removeBuff,
     );
   }
@@ -97,7 +91,7 @@ class DivinePurpose extends Analyzer {
     this.totalChances += 1;
     this.procProbabilities.push(
       this.selectedCombatant.spec === SPECS.RETRIBUTION_PALADIN
-        ? RET_DIVINE_PURPOSE_CHANCE
+        ? RET_DIVINE_PURPOSE_CHANCE(this.selectedCombatant.has2PieceByTier(TIERS.MID2))
         : DIVINE_PURPOSE_CHANCE,
     );
   }
