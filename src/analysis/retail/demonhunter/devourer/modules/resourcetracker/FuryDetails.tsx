@@ -17,7 +17,7 @@ export class FuryDetails extends Analyzer {
   protected furyTracker!: FuryTracker;
 
   get wastedFuryPercent() {
-    return this.furyTracker.wasted / (this.furyTracker.wasted + this.furyTracker.generated);
+    return this.furyTracker.percentAtCap;
   }
 
   get suggestionThresholds() {

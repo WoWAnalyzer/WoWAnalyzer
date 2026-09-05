@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getVoidRayDamageEvents } from '../../normalizers/VoidRayEventLinkNormalizer';
@@ -32,7 +33,6 @@ class VoidRay extends Analyzer {
     let value = QualitativePerformance.Good;
     let tooltip = <>Great! Fully channeled cast.</>;
 
-    // The last two damage ticks aren't needed to proc related talents
     if (damageEvents.length < VOID_RAY_MAX_TICKS - 2) {
       value = QualitativePerformance.Fail;
       tooltip = (
@@ -50,8 +50,12 @@ class VoidRay extends Analyzer {
     const explanation = (
       <>
         <p>
-          <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_RAY_TALENT} /> should always be fully
-          channeled due to interactions it has with different talents:
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_RAY_TALENT} /> is the highest priority inside
+          <SpellLink spell={SPELLS.VOID_METAMORPHOSIS_BUFF} /> because it pauses Fury drain, has a
+          shortened in-Meta cooldown, and sets up your burst window.
+        </p>
+        <p>
+          It should always be fully channeled due to interactions it has with different talents:
           <ul>
             {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FINAL_BREATH_TALENT) && (
               <li>

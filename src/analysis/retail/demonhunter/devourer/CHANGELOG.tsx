@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Topple, Texleretour } from 'CONTRIBUTORS';
+import { Topple, Texleretour, Zea } from 'CONTRIBUTORS';
 import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 import SpellLink from 'interface/SpellLink';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2026, 7, 4), <>Updated for 12.0.7.</>, Zea),
   change(date(2026, 3, 20), 'Add disclaimer regarding Reap-related analysis', Texleretour),
   change(date(2026, 2, 7), <>{<SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />} cast analysis</>, Texleretour),
   change(date(2026, 2, 3), 'Core analysis', Texleretour),

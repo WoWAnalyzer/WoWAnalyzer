@@ -19,6 +19,7 @@ export class FuryTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.FURY;
+    this.maxResource = 200;
   }
 
   get percentAtCapPerformance(): QualitativePerformance {

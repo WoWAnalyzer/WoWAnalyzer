@@ -12,19 +12,19 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Abilities from '../Abilities';
-import { VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 interface VoidMetamorphosisTracker {
   startTimestamp: number;
   endTimestamp: number;
+  activeTimeEndTimestamp: number;
   totalCasts: number;
-  totalCullCasts: number;
+  totalCollapsingStarCasts: number;
   smuggledToll: boolean;
 }
 
@@ -39,9 +39,6 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   abilities: Abilities,
 }) {
   #castTrackers: VoidMetamorphosisTracker[] = [];
-  #momentOfCravingTalented = this.selectedCombatant.hasTalent(
-    TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT,
-  );
   #hungeringSlashTalented = this.selectedCombatant.hasTalent(
     TALENTS_DEMON_HUNTER.HUNGERING_SLASH_TALENT,
   );
@@ -64,7 +61,15 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
 
     this.addEventListener(Events.fightend, this.#onFightEndOrDeath);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CULL), this.#onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLLAPSING_STAR),
+      this.#onCast,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT),
+      this.#onVoidRayCast,
+    );
   }
 
   #onVoidMetamorphosisCast(event: CastEvent) {
@@ -73,8 +78,9 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     this.#castTrackers.push({
       startTimestamp: event.timestamp,
       endTimestamp: 0,
+      activeTimeEndTimestamp: 0,
       totalCasts: 0,
-      totalCullCasts: 0,
+      totalCollapsingStarCasts: 0,
       smuggledToll: smuggledToll,
     });
   }
@@ -83,11 +89,29 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     if (!this.selectedCombatant.hasBuff(SPELLS.VOID_METAMORPHOSIS_BUFF)) {
       return;
     }
-    this.#castTrackers.at(-1)!.endTimestamp = event.timestamp;
+    const currentCast = this.#castTrackers.at(-1);
+    if (!currentCast) {
+      return;
+    }
+
+    currentCast.endTimestamp = event.timestamp;
+    currentCast.activeTimeEndTimestamp = Math.max(
+      currentCast.activeTimeEndTimestamp,
+      event.timestamp,
+    );
   }
 
   #onVoidMetamorphosisEnd(event: RemoveBuffEvent) {
-    this.#castTrackers.at(-1)!.endTimestamp = event.timestamp;
+    const currentCast = this.#castTrackers.at(-1);
+    if (!currentCast) {
+      return;
+    }
+
+    currentCast.endTimestamp = event.timestamp;
+    currentCast.activeTimeEndTimestamp = Math.max(
+      currentCast.activeTimeEndTimestamp,
+      event.timestamp,
+    );
   }
 
   #onCast(cast: CastEvent) {
@@ -95,57 +119,25 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
       return;
     }
 
-    if (cast.ability.guid === SPELLS.CULL.id) {
-      this.#castTrackers.at(-1)!.totalCullCasts += 1;
+    if (cast.ability.guid === SPELLS.COLLAPSING_STAR.id) {
+      this.#castTrackers.at(-1)!.totalCollapsingStarCasts += 1;
     }
+  }
+
+  #onVoidRayCast(cast: CastEvent) {
+    const currentCast = this.#castTrackers.at(-1);
+    if (!currentCast) {
+      return;
+    }
+
+    currentCast.activeTimeEndTimestamp = Math.max(
+      currentCast.activeTimeEndTimestamp,
+      cast.channel?.timestamp ?? cast.timestamp,
+    );
   }
 
   get #buffHistory() {
     return this.selectedCombatant.getBuffHistory(SPELLS.VOID_METAMORPHOSIS_BUFF.id);
-  }
-
-  #computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
-    const currentHastePercentage = this.deps.statTracker.currentHastePercentage;
-    const cullAbility = this.deps.abilities.getAbility(SPELLS.CULL.id);
-    const voidMetamorphosiCastDurationSeconds = (cast.endTimestamp - cast.startTimestamp) / 1000;
-    const potentialVoidRayCasts = Math.floor(
-      voidMetamorphosiCastDurationSeconds /
-        VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS(currentHastePercentage),
-    );
-
-    let expectedCullCasts = Math.floor(voidMetamorphosiCastDurationSeconds / cullAbility!.cooldown);
-    // Void Ray resets the cooldown of Cull with Moment of Craving
-    if (this.#momentOfCravingTalented) {
-      expectedCullCasts += potentialVoidRayCasts;
-    }
-    if (cullAbility!.charges > 1) expectedCullCasts += 1;
-
-    return expectedCullCasts;
-  }
-
-  #getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
-    const expectedCullCasts = this.#computeExpectedCullCasts(cast);
-
-    let cullPerformance = QualitativePerformance.Fail;
-    if (cast.totalCullCasts >= expectedCullCasts) {
-      cullPerformance = QualitativePerformance.Perfect;
-    } else if (cast.totalCullCasts >= expectedCullCasts - 2) {
-      cullPerformance = QualitativePerformance.Good;
-    } else if (cast.totalCullCasts >= expectedCullCasts - 4) {
-      cullPerformance = QualitativePerformance.Ok;
-    }
-
-    const cullChecklistItem: CooldownExpandableItem = {
-      label: (
-        <>
-          <SpellLink spell={SPELLS.CULL} /> casts
-        </>
-      ),
-      result: <PerformanceMark perf={cullPerformance} />,
-      details: <>{formatNumber(cast.totalCullCasts)}</>,
-    };
-
-    return { performance: cullPerformance, checklistItem: cullChecklistItem };
   }
 
   #getActiveTimeItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
@@ -153,7 +145,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     const activeTimePercentageDuringWindow =
       this.deps.alwaysBeCasting.getActiveTimePercentageInWindow(
         cast.startTimestamp,
-        cast.endTimestamp,
+        cast.activeTimeEndTimestamp || cast.endTimestamp,
       );
 
     if (activeTimePercentageDuringWindow >= 0.98) {
@@ -173,6 +165,27 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return { performance: activeTimePerformance, checklistItem: activeTimeChecklistItem };
   }
 
+  #getCollapsingStarItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+    let performance = QualitativePerformance.Fail;
+    if (cast.totalCollapsingStarCasts >= 5) {
+      performance = QualitativePerformance.Perfect;
+    } else if (cast.totalCollapsingStarCasts === 4) {
+      performance = QualitativePerformance.Good;
+    }
+
+    const checklistItem: CooldownExpandableItem = {
+      label: (
+        <>
+          <SpellLink spell={SPELLS.COLLAPSING_STAR} /> casts
+        </>
+      ),
+      result: <PerformanceMark perf={performance} />,
+      details: <>{cast.totalCollapsingStarCasts}</>,
+    };
+
+    return { performance, checklistItem };
+  }
+
   #getSmugglingItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
     const smugglingPerformance = cast.smuggledToll
       ? QualitativePerformance.Good
@@ -180,7 +193,12 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     const smugglingChecklistItem: CooldownExpandableItem = {
       label: (
         <>
-          Smuggled <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} />
+          Smuggled{' '}
+          {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_DEVOURER_TALENT) ? (
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_DEVOURER_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} />
+          )}
         </>
       ),
       result: <PerformanceMark perf={smugglingPerformance} />,
@@ -200,9 +218,9 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     performances.push(activeTimeItem.performance);
     checklistItems.push(activeTimeItem.checklistItem);
 
-    const cullItem = this.#getCullItem(cast);
-    performances.push(cullItem.performance);
-    checklistItems.push(cullItem.checklistItem);
+    const collapsingStarItem = this.#getCollapsingStarItem(cast);
+    performances.push(collapsingStarItem.performance);
+    checklistItems.push(collapsingStarItem.checklistItem);
 
     if (this.#hungeringSlashTalented) {
       const smugglingItem = this.#getSmugglingItem(cast);
@@ -228,6 +246,10 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
           <SpellLink spell={TALENTS_DEMON_HUNTER.VOIDBLADE_TALENT} /> and{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_DEVOURER_TALENT} /> stop the fury
           drain&mdash; use them on cooldown!
+          <div>
+            For each window, aim for 4 Collapsing Stars or more. Less than 4 is considered bad,
+            while 5+ is perfect.
+          </div>
           <div>
             In order to extend <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />{' '}
             the longest, it is mandatory to keep up near-perfect active time.
