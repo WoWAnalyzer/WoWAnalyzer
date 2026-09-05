@@ -74,18 +74,12 @@ const REM_REMAINING = {
 
 const BLACK_OX_PROC = {
   spell: talents.ENVELOPING_MIST_TALENT,
-  condition: cnd.and(
-    cnd.buffPresent(SPELLS.STRENGTH_OF_THE_BLACK_OX_BUFF),
-    cnd.hasTalent(talents.STRENGTH_OF_THE_BLACK_OX_TALENT),
-  ),
+  condition: cnd.buffPresent(SPELLS.STRENGTH_OF_THE_BLACK_OX_BUFF),
 };
 
 const SPIRITFONT_PROC = {
   spell: talents.ENVELOPING_MIST_TALENT,
-  condition: cnd.and(
-    cnd.buffStacks(SPELLS.SPIRITFONT_BUFF, { atLeast: 2, atMost: 2 }),
-    cnd.hasTalent(talents.SPIRITFONT_1_MISTWEAVER_TALENT),
-  ),
+  condition: cnd.buffStacks(SPELLS.SPIRITFONT_BUFF, { atLeast: 2, atMost: 2 }),
 };
 
 const MANA_TEA_20_STACKS = {
