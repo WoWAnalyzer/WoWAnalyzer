@@ -71,6 +71,10 @@ export const Dummy: Contributor = {
   twitter: '@Dummy',
   avatar: avatar('zerotorescue-avatar.jpg'),
 };
+export const TastyArsenic: Contributor = {
+  nickname: 'TastyArsenic',
+  github: 'francozanini',
+};
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
