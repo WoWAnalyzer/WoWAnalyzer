@@ -21,11 +21,13 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { Attribution } from 'parser/shared/modules/HotTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import CooldownExpandable, {
   CooldownExpandableItem,
@@ -46,6 +48,7 @@ import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/Qualitative
 const ALL_BOOST = 0.1;
 const ALL_MULT = 1 + ALL_BOOST;
 const REJUV_BOOST = 0.4;
+export const TOL_REJUVENATION_MANA_REDUCTION = 0.3;
 const WG_BASE_TARGETS = 5;
 const IMPROVED_WG_EXTRA_TARGETS = 2;
 const TOL_EXTRA_WG_TARGETS = 2;
@@ -89,6 +92,7 @@ class TreeOfLife extends Analyzer {
     rejuvenation: Rejuvenation,
     hotTracker: HotTrackerRestoDruid,
     alwaysBeCasting: AlwaysBeCasting,
+    manaValues: ManaValues,
   };
 
   healingDone!: HealingDone;
@@ -96,6 +100,7 @@ class TreeOfLife extends Analyzer {
   rejuvenation!: Rejuvenation;
   hotTracker!: HotTrackerRestoDruid;
   alwaysBeCasting!: AlwaysBeCasting;
+  manaValues!: ManaValues;
 
   lastHardcastTimestamp: number | null = null;
   wgIncrease: number;
@@ -108,6 +113,7 @@ class TreeOfLife extends Analyzer {
     freeRegrowthHealing: 0,
     freeRegrowthOverhealing: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
+    rejuvManaSaved: 0,
   };
   reforestation: TolAccumulator = {
     allBoostHealing: 0,
@@ -119,6 +125,7 @@ class TreeOfLife extends Analyzer {
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
       'ToL from Reforestation: Extra WGs',
     ),
+    rejuvManaSaved: 0,
   };
   hardcastTrackers: TreeOfLifeCast[] = [];
   potentEnchantmentsHealing = 0;
@@ -145,6 +152,10 @@ class TreeOfLife extends Analyzer {
       this.onHardcastTol,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
+      this.onRejuvenationCast,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
       this.onApplyWildGrowth,
@@ -190,6 +201,7 @@ class TreeOfLife extends Analyzer {
         extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
           `ToL Hardcast #${this.hardcastTrackers.length + 1}: Extra WGs`,
         ),
+        rejuvManaSaved: 0,
       },
       casts: [],
       freeRegrowthHeals: [],
@@ -233,6 +245,35 @@ class TreeOfLife extends Analyzer {
     if (hardcastTracker) {
       hardcastTracker.casts.push(event);
     }
+  }
+
+  onRejuvenationCast(event: CastEvent) {
+    const accumulator = this._getAccumulator(event);
+    if (!accumulator) {
+      return;
+    }
+
+    const manaSaved = this._getRejuvManaSaved(event);
+    if (manaSaved <= 0) {
+      return;
+    }
+
+    accumulator.rejuvManaSaved += manaSaved;
+    const hardcastTracker = this.getHardcastTrackerAt(event.timestamp);
+    if (hardcastTracker) {
+      hardcastTracker.accumulator.rejuvManaSaved += manaSaved;
+    }
+  }
+
+  _getRejuvManaSaved(event: CastEvent): number {
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)) {
+      return 0;
+    }
+    const rawManaCost = event.rawResourceCost?.[RESOURCE_TYPES.MANA.id] ?? 0;
+    if (rawManaCost <= 0 || event.resourceCost?.[RESOURCE_TYPES.MANA.id] === 0) {
+      return 0;
+    }
+    return rawManaCost * TOL_REJUVENATION_MANA_REDUCTION;
   }
 
   /**
@@ -619,6 +660,10 @@ class TreeOfLife extends Analyzer {
                 </strong>{' '}
                 ({formatNumber(this.hardcast.extraWgsAttribution.healing)})
               </li>
+              <li>
+                Rejuvenation mana saved:{' '}
+                <strong>{this.manaValues.formatManaSaved(this.hardcast.rejuvManaSaved)}</strong>
+              </li>
             </ul>
             <strong>
               Overhealing:{' '}
@@ -647,6 +692,7 @@ interface TolAccumulator {
   freeRegrowthHealing: number;
   freeRegrowthOverhealing: number;
   extraWgsAttribution: Attribution;
+  rejuvManaSaved: number;
 }
 
 interface TreeOfLifeCast {

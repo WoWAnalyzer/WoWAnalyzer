@@ -26,6 +26,7 @@ export enum EVENT_LINKS {
   CallOfTheAncestors = 'call-of-the-ancestor',
   MasterOfTheElementsBuff = 'master-of-the-elements-buff',
   MasterOfTheElementsConsume = 'master-of-the-elements-consume',
+  VoltaicBlazeDamage = 'voltaic-blaze-damage',
 }
 
 type OverloadSpell = {

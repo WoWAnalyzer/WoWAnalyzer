@@ -2468,11 +2468,12 @@ export const Gazh: Contributor = {
   discord: 'gazh_',
   mains: [
     {
-      name: 'Meurthe',
-      spec: SPECS.DEMONOLOGY_WARLOCK,
-      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
+      name: 'Arakaaly',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/worldsoul/eu/armory/character/twisting-nether/Arakaaly',
     },
   ],
+  avatar: avatar('gazh-avatar.jpg'),
 };
 
 export const Humperella: Contributor = {
@@ -3090,6 +3091,17 @@ export const apolex: Contributor = {
 export const KushGene: Contributor = {
   nickname: 'KushGene',
   github: 'KushGene',
+};
+
+export const Baloop: Contributor = {
+  nickname: 'Baloop',
+  github: 'Baloop20',
+};
+
+export const Fyperia: Contributor = {
+  nickname: 'Fyperia',
+  github: 'fyperia',
+  discord: 'Fyperia',
 };
 
 export const Gnuminator: Contributor = {
