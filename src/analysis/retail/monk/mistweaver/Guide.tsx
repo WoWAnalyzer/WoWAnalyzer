@@ -86,6 +86,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.strengthOfTheBlackOx.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT) &&
           modules.danceOfChiJi.guideSubsection}
+
+        {/* last item in the column for padding */}
+        <div style={{ marginBottom: '1rem' }} />
       </Section>
       <PreparationSection />
     </>
