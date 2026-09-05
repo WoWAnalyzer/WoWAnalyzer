@@ -104,7 +104,7 @@ const RisingMistRushingWindKickShaohaosDescription = () => {
         <RushingWindKickDescription />
       </p>
       When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> with{' '}
-      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> and{' '}
+      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} />, keep{' '}
       <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> on cooldown and cast{' '}
       <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> as often as possible.{' '}
       <ThunderFocusTeaRem />
