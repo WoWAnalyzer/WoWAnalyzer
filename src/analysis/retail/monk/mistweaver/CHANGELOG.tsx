@@ -8,6 +8,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 5), <>Added important buffs/procs to Timeline tab, adjusted <ItemSetLink id={MONK_MID2_ID}>12.1 4pc</ItemSetLink> proc rate, added % of total healing to <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> tooltips.</>, swirl),
   change(date(2026, 8, 28), <>Added <SpellLink spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT}/> module.</>, swirl),
   change(date(2026, 8, 13), <>Added <ItemSetLink id={MONK_MID2_ID}>12.1 Tier Set</ItemSetLink>, <SpellLink spell={TALENTS_MONK.VITAL_EXPENDITURE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.MISTLINE_TALENT}/> modules, updated various <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> sources/coefficients.</>, swirl),
   change(date(2026, 6, 29), <>Fixed abilities affected by healing increases across several modules.</>, swirl),
