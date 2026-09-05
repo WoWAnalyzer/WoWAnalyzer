@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 24), 'Updated for 12.1', Zogmaw),
   change(date(2026, 5, 24), <>Add <SpellLink spell={TALENTS.ETERNAL_HUNT_1_HAVOC_TALENT} /> analysis.</>, Zogmaw),
   change(date(2026, 5, 23), <>Add <SpellLink spell={TALENTS.INERTIA_TALENT} /> to the timeline view.</>, Zogmaw),
   change(date(2026, 5, 21), <>Fixing <SpellLink spell={TALENTS.INERTIA_TALENT} /> analysis to work with <SpellLink spell={SPELLS.ABYSSAL_GAZE} />.</>, Zogmaw),

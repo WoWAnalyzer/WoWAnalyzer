@@ -1,62 +1,118 @@
-import { Topple, Hezaerd } from 'CONTRIBUTORS';
+import { Topple, Hezaerd, Zogmaw } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import { AlertWarning } from 'interface/index';
 
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Topple, Hezaerd],
+  contributors: [Topple, Hezaerd, Zogmaw],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.1',
+  patchCompatibility: '12.1',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
+  // description: (
+  //   <>
+  //     Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics
+  //     useful.
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     More resources for Havoc:
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     <a href="https://discord.gg/felhammer" target="_blank" rel="noopener noreferrer">
+  //       Demon Hunter Class Discord
+  //     </a>{' '}
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     <a
+  //       href="https://www.wowhead.com/havoc-demon-hunter-guide"
+  //       target="_blank"
+  //       rel="noopener noreferrer"
+  //     >
+  //       Wowhead Guide
+  //     </a>{' '}
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     <a
+  //       href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide"
+  //       target="_blank"
+  //       rel="noopener noreferrer"
+  //     >
+  //       Icy Veins Guide
+  //     </a>{' '}
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //     <a href="https://www.youtube.com/@Jedithtv" target="_blank" rel="noopener noreferrer">
+  //       Jedith's YouTube channel
+  //     </a>{' '}
+  //     {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+  //     <br />
+  //   </>
+  // ),
   description: (
     <>
-      Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics
-      useful.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      More resources for Havoc:
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      <a href="https://discord.gg/felhammer" target="_blank" rel="noopener noreferrer">
-        Demon Hunter Class Discord
-      </a>{' '}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      <a
-        href="https://www.wowhead.com/havoc-demon-hunter-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wowhead Guide
-      </a>{' '}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      <a
-        href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy Veins Guide
-      </a>{' '}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      <a href="https://www.youtube.com/@Jedithtv" target="_blank" rel="noopener noreferrer">
-        Jedith's YouTube channel
-      </a>{' '}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
+      <div>
+        Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and
+        statistics useful.
+      </div>
+      <p>More resources for Havoc:</p>
+      <p>
+        <a href="https://discord.gg/felhammer" target="_blank" rel="noopener noreferrer">
+          Demon Hunter Class Discord
+        </a>
+      </p>
+      <p> </p>
+      <p>
+        <a
+          href="https://www.wowhead.com/havoc-demon-hunter-guide"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wowhead Guide
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Icy Veins Guide
+        </a>
+      </p>
+      <p>
+        <a href="https://www.youtube.com/@Jedithtv" target="_blank" rel="noopener noreferrer">
+          Jedith's YouTube channel
+        </a>
+      </p>
+      <p>
+        <a href="https://prepared.gg" target="_blank" rel="noopener noreferrer">
+          Havoc Website
+        </a>
+      </p>
     </>
   ),
+
+  pages: {
+    overview: {
+      notes: (
+        <AlertWarning>
+          This spec is mostly updated for 12.1. If anything is missing or incorrect, please ping{' '}
+          <code>@Zogmaw</code> in the Fel Hammer Discord.
+        </AlertWarning>
+      ),
+    },
+  },
+
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/tBZkmzXMgDWCvGr4/16-Heroic+Imperator+Averzian+-+Kill+(2:41)/Vyn/standard',
+  exampleReport: `/report/N7gwMKY8bRqGJZzt/9-Heroic+Nek'zali+the+Soulcoiler+-+Kill+(5:27)/350-Zogmaw/standard`,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
