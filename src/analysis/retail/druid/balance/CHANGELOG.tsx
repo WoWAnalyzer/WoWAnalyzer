@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 8, 9), <>Add a timeline in the 'Eclipse' section.</>, Ateis),
   change(date(2026, 5, 10), <>Reworked the 'Dots' section.</>, Ateis),
   change(date(2026, 4, 27), <>Improved tracking of Haste. Fixed some spells. Fixed suggestion of <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT}/>. Fix support for <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}/></>, Ateis),
   change(date(2026, 3, 18), <>Core Rotation Rework: Starlord now tracks Max-stack uptime, Per-eclipse spender performance. Updated example log</>, Rex),
