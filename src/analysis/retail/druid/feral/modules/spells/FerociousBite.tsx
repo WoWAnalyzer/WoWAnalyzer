@@ -11,16 +11,20 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
   FB_SPELLS,
-  MIN_ACCEPTABLE_CPS,
-  getAcceptableCps,
+  FEROCIOUS_BITE_ENERGY,
+  getFerociousBiteMaxDrain,
+  MAX_CPS,
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { BadColor, OkColor } from 'interface/guide';
+import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import { getAdditionalEnergyUsed } from 'analysis/retail/druid/feral/normalizers/FerociousBiteDrainLinkNormalizer';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
+import Enemies, { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -30,21 +34,41 @@ const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 class FerociousBite extends Analyzer {
   static dependencies = {
     rip: RipUptimeAndSnapshots,
+    enemies: Enemies,
   };
 
   protected rip!: RipUptimeAndSnapshots;
+  protected enemies!: Enemies;
 
-  castEntries: BoxRowEntry[] = [];
+  /** Per-cast perf is computed lazily so post-cast info (target last-damage time) can be used */
+  private rawCasts: RawFbCast[] = [];
+  /** Last player damage timestamp per target. Bleed ticks count, so on a living target this stays
+   *  fresh; enemy death events don't reach us (WCL filters to player-involved events). */
+  private lastDamageByTarget = new Map<string, number>();
 
   constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAnyDamage);
+  }
+
+  onAnyDamage(event: DamageEvent) {
+    if (event.targetIsFriendly) {
+      return;
+    }
+    this.lastDamageByTarget.set(encodeEventTargetString(event), event.timestamp);
   }
 
   onFbCast(event: CastEvent) {
-    if (event.resourceCost && event.resourceCost[RESOURCE_TYPES.ENERGY.id] === 0) {
-      return; // free FBs (like from Apex Predator's Craving) don't drain but do full damage
+    const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+    // free Apex Predator's Craving bites (cpsUsed===0 is more reliable than checking resourceCost)
+    if (cpsUsed === 0) {
+      return;
+    }
+    // Convoke-fired bites aren't a player decision
+    if (isConvoking(this.selectedCombatant)) {
+      return;
     }
 
     const damage = getHits(event)
@@ -54,32 +78,92 @@ class FerociousBite extends Analyzer {
       return; // parried FBs don't drain and don't cost CPs - shouldn't evaluate
     }
 
-    // fill out cast entry
     let timeLeftOnRip = 0;
     // target is optional in cast event, but we know FB cast will always have it
     if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
       timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<EventType>);
     }
-    const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
-    const currAcceptableCps = getAcceptableCps(this.selectedCombatant, event.timestamp);
+    // cast event reports only the 25 base energy cost; the 0-25 drain is a linked event
+    const energyUsed =
+      getResourceSpent(event, RESOURCE_TYPES.ENERGY) + getAdditionalEnergyUsed(event);
+    const maxTotalEnergy = FEROCIOUS_BITE_ENERGY + getFerociousBiteMaxDrain(this.selectedCombatant);
+
+    // snapshot bleed presence at cast time — used by death-grace exemption later
+    const enemy = this.enemies.getEntity(event);
+    const hadBleed =
+      !!enemy &&
+      (enemy.hasBuff(SPELLS.RAKE_BLEED.id, event.timestamp) ||
+        enemy.hasBuff(SPELLS.RIP.id, event.timestamp));
+
+    this.rawCasts.push({
+      event,
+      cpsUsed,
+      energyUsed,
+      maxTotalEnergy,
+      timeLeftOnRip,
+      targetKey: encodeEventTargetString(event),
+      hadBleedAtCast: hadBleed,
+    });
+  }
+
+  /** Lazily computed so we can use info that arrives after the FB cast (target's last damage) */
+  get castEntries(): BoxRowEntry[] {
+    return this.rawCasts.map((raw) => this.evaluateCast(raw));
+  }
+
+  private evaluateCast(raw: RawFbCast): BoxRowEntry {
+    const {
+      event,
+      cpsUsed,
+      energyUsed,
+      maxTotalEnergy,
+      timeLeftOnRip,
+      targetKey: tk,
+      hadBleedAtCast,
+    } = raw;
+    // 1 energy of slack for talent-multiplier rounding (e.g. Incarn's 0.75)
+    const fullStrengthEnergy = energyUsed >= maxTotalEnergy - 1;
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
+    // Verify the target actually died (not just that we switched away — a Rip refresh would still
+    // tick on a living target). Bleeds tick independently, so if a bleed was up at cast time and
+    // our last damage stops within the grace window, the bleed stopped → target died.
+    const lastDmgTs = tk !== null ? this.lastDamageByTarget.get(tk) : undefined;
+    const lastDmgDeltaMs = lastDmgTs !== undefined ? lastDmgTs - event.timestamp : Infinity;
+    const targetDiesSoon = hadBleedAtCast && lastDmgDeltaMs <= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
     let perfExplanation: React.ReactNode = undefined;
-    if (cpsUsed < currAcceptableCps) {
+    if (cpsUsed < MAX_CPS) {
       value = QualitativePerformance.Fail;
       perfExplanation = (
-        <h5 style={{ color: BadColor }}>Bad because you used less than {currAcceptableCps} CPs</h5>
+        <h5 style={{ color: BadColor }}>Bad because you used less than {MAX_CPS} CPs</h5>
+      );
+      addInefficientCastReason(event, `Used with only ${cpsUsed} CPs (need ${MAX_CPS})`);
+    } else if (!fullStrengthEnergy) {
+      value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you cast at {energyUsed} energy — Ferocious Bite scales with the extra energy
+          drain, so always cast at {Math.round(maxTotalEnergy)}+ energy.
+        </h5>
       );
       addInefficientCastReason(
         event,
-        `Used with only ${cpsUsed} CPs (need at least ${currAcceptableCps})`,
+        `Cast at ${energyUsed} energy (need ${Math.round(maxTotalEnergy)})`,
       );
-    } else if (!acceptableTimeLeftOnRip) {
+    } else if (!acceptableTimeLeftOnRip && !targetDiesSoon) {
       value = QualitativePerformance.Ok;
       perfExplanation = (
         <h5 style={{ color: OkColor }}>
           Questionable because you cast when Rip was close to expiring
+        </h5>
+      );
+    } else if (!acceptableTimeLeftOnRip && targetDiesSoon) {
+      // surface the exemption positively so the user can see why no warning fired
+      perfExplanation = (
+        <h5 style={{ color: GoodColor }}>
+          Good — target died {(lastDmgDeltaMs / 1000).toFixed(1)}s after this cast (our bleeds
+          stopped ticking), so a Rip refresh wouldn't have paid off.
         </h5>
       );
     }
@@ -89,7 +173,8 @@ class FerociousBite extends Analyzer {
         {perfExplanation}
         <div>
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
-          <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
+          <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>{' '}
+          and <strong>{energyUsed} energy</strong>
         </div>
         <div>
           {timeLeftOnRip === 0 ? (
@@ -103,10 +188,7 @@ class FerociousBite extends Analyzer {
       </>
     );
 
-    this.castEntries.push({
-      value,
-      tooltip,
-    });
+    return { value, tooltip };
   }
 
   get guideSubsection(): JSX.Element {
@@ -118,9 +200,13 @@ class FerociousBite extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
-        is your direct damage finisher. Use it when you've already applied Rip to enemies. Use Bite
-        with at least {MIN_ACCEPTABLE_CPS} CPs, or {MIN_ACCEPTABLE_CPS + 1}+ during{' '}
-        <SpellLink spell={SPELLS.BERSERK_CAT} />.
+        is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
+        cast at {MAX_CPS} CPs and 50 energy (40 energy during{' '}
+        <SpellLink spell={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT} />) — the extra
+        energy drain scales Bite's damage, and at {MAX_CPS} CPs it also maximizes the chance and
+        strength of <SpellLink spell={SPELLS.UNSEEN_SLASH_DAMAGE} /> /{' '}
+        <SpellLink spell={SPELLS.UNSEEN_SWIPE_DAMAGE} /> procs from{' '}
+        <SpellLink spell={TALENTS_DRUID.UNSEEN_PREDATOR_1_FERAL_TALENT} />.
       </p>
     );
 
@@ -137,7 +223,7 @@ class FerociousBite extends Analyzer {
           spell={SPELLS.FEROCIOUS_BITE}
           castEntries={this.castEntries}
           okExtraExplanation={<>used on target with low duration Rip</>}
-          badExtraExplanation={<>low CPs</>}
+          badExtraExplanation={<>low CPs or low energy</>}
         />
       </div>
     );
@@ -147,3 +233,14 @@ class FerociousBite extends Analyzer {
 }
 
 export default FerociousBite;
+
+interface RawFbCast {
+  event: CastEvent;
+  cpsUsed: number;
+  energyUsed: number;
+  maxTotalEnergy: number;
+  timeLeftOnRip: number;
+  targetKey: string | null;
+  /** Rake/Rip presence on target at cast time, used by the death-grace exemption */
+  hadBleedAtCast: boolean;
+}

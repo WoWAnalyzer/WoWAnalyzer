@@ -34,6 +34,8 @@ import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
 import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
+import BloodSpattered from 'analysis/retail/druid/feral/modules/spells/BloodSpattered';
+import HungerForBattle from 'analysis/retail/druid/feral/modules/spells/HungerForBattle';
 import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
@@ -42,6 +44,9 @@ import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalize
 import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
 import Chomp from 'analysis/retail/druid/feral/modules/spells/Chomp';
 import InfectedWounds from 'analysis/retail/druid/feral/modules/spells/InfectedWounds';
+import UnseenPredator from 'analysis/retail/druid/feral/modules/spells/UnseenPredator';
+import TigersFuryWindows from 'analysis/retail/druid/feral/modules/spells/TigersFuryWindows';
+import MID1TierSet from 'analysis/retail/druid/feral/modules/tier/MID1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // spells
     tigersFuryEnergy: TigersFuryEnergy,
+    tigersFuryWindows: TigersFuryWindows,
     hitCountAoe: HitCountAoE,
 
     // talents
@@ -94,6 +100,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
     tasteForBlood: TasteForBlood,
+    bloodSpattered: BloodSpattered,
+    hungerForBattle: HungerForBattle,
     carnivorousInstinct: CarnivorousInstinct,
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
@@ -103,7 +111,11 @@ class CombatLogParser extends CoreCombatLogParser {
     infectedWounds: InfectedWounds,
     // TODO TWW - might actually want a Tiger's Tenacity module now
 
+    // apex talent
+    unseenPredator: UnseenPredator,
+
     // tier
+    mid1TierSet: MID1TierSet,
   };
 
   static guide = Guide;
