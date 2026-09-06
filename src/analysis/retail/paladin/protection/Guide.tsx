@@ -25,7 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <Section title="Rotation">
-        {!info.combatant.hasTalent(talents.LIGHTS_GUIDANCE_TALENT) && (
+        {info.combatant.hasTalent(talents.HOLY_ARMAMENTS_PROTECTION_TALENT) && (
           <AlertWarning>
             Rotational analysis for{' '}
             <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Lightsmith</SpellLink> is
