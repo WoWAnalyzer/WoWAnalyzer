@@ -3,7 +3,6 @@ import DK_SPELLS from 'common/SPELLS/deathknight';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   SummonEvent,
@@ -12,30 +11,21 @@ import Events, {
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import type { CSSProperties, JSX } from 'react';
+import type { JSX } from 'react';
 import SpellUsable from '../core/SpellUsable';
 
 // Cooldown reduction (in milliseconds) applied to Putrefy when Harbinger of Doom summons a Lesser Ghoul
 const HARBINGER_OF_DOOM_PUTREFY_CDR_MS = 2500;
-
-const LEGEND_DOT_BASE_STYLE: CSSProperties = {
-  display: 'inline-block',
-  width: '8px',
-  height: '8px',
-  borderRadius: '50%',
-  marginRight: '6px',
-};
 
 class Putrefy extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
   private chargesSpentDuringDarkTransformation = 0;
   private chargesSpentOutsideDarkTransformation = 0;
-  private readonly entries: BoxRowEntry[] = [];
+  private readonly entries: { timestamp: number; duringDarkTransformation: boolean }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -66,30 +56,15 @@ class Putrefy extends Analyzer.withDependencies({
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(DK_SPELLS.DARK_TRANSFORMATION_BUFF)) {
+    const duringDarkTransformation = this.selectedCombatant.hasBuff(
+      DK_SPELLS.DARK_TRANSFORMATION_BUFF,
+    );
+    if (duringDarkTransformation) {
       this.chargesSpentDuringDarkTransformation += 1;
-      this.entries.push({
-        value: QualitativePerformance.Good,
-        tooltip: (
-          <>
-            Spent @ {this.owner.formatTimestamp(event.timestamp)} during{' '}
-            <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />.
-          </>
-        ),
-      });
-      return;
+    } else {
+      this.chargesSpentOutsideDarkTransformation += 1;
     }
-
-    this.chargesSpentOutsideDarkTransformation += 1;
-    this.entries.push({
-      value: QualitativePerformance.Fail,
-      tooltip: (
-        <>
-          Spent @ {this.owner.formatTimestamp(event.timestamp)} outside{' '}
-          <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        </>
-      ),
-    });
+    this.entries.push({ timestamp: event.timestamp, duringDarkTransformation });
   }
 
   private onHarbingerOfDoomLesserGhoulSummon(_event: SummonEvent) {
@@ -103,16 +78,16 @@ class Putrefy extends Analyzer.withDependencies({
     return this.chargesSpentDuringDarkTransformation + this.chargesSpentOutsideDarkTransformation;
   }
 
-  get efficiency(): number {
+  get efficiency(): number | null {
     return this.totalChargesSpent > 0
       ? 1 - this.chargesSpentOutsideDarkTransformation / this.totalChargesSpent
-      : 1;
+      : null;
   }
 
   private get breakdownItems() {
     return [
       {
-        color: '#22c55e',
+        color: '#60a5fa',
         label: (
           <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF}>
             During Dark Transformation
@@ -128,7 +103,7 @@ class Putrefy extends Analyzer.withDependencies({
         ),
       },
       {
-        color: '#ef4444',
+        color: '#94a3b8',
         label: (
           <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF}>
             Outside Dark Transformation
@@ -147,59 +122,61 @@ class Putrefy extends Analyzer.withDependencies({
     ];
   }
 
+  private get alignmentLabel(): string {
+    return this.efficiency === null ? 'N/A' : `${formatPercentage(this.efficiency, 0)}%`;
+  }
+
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS.PUTREFY_TALENT} />
-        </strong>{' '}
-        should only be used during <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        Spending charges outside this window is a damage loss, so your goal is 100%{' '}
-        <SpellLink spell={TALENTS.PUTREFY_TALENT} /> usage during{' '}
-        <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />.
-      </p>
+      <>
+        <p>
+          Prioritize <SpellLink spell={TALENTS.PUTREFY_TALENT} /> during{' '}
+          <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />. Plan your charge spending around
+          these windows so you have Putrefy available when Dark Transformation is active.
+        </p>
+        <p>
+          Start with the outside-window timestamps below. Check whether Dark Transformation was
+          ready, how many charges you had, and whether waiting would have left you at maximum
+          charges with recharge time going unused. Also consider whether the target was about to
+          become unavailable or the fight was ending.
+        </p>
+        <p>
+          If you could have waited without losing a use or wasting recharge time, aim to move that
+          cast into Dark Transformation next time. If waiting would have cost an opportunity,
+          spending outside the window may have been reasonable. Use the breakdown to find casts to
+          review; 100% alignment is not a goal at the expense of useful casts.
+        </p>
+      </>
     );
-
     const data = (
       <div>
-        <div style={{ marginBottom: '6px' }}>
-          <strong>
-            <SpellLink spell={TALENTS.PUTREFY_TALENT} /> charge usage
-          </strong>
-        </div>
-        <div style={{ marginBottom: '8px' }}>
-          <strong>{formatPercentage(this.efficiency, 0)}%</strong> <small>efficiency</small>
-        </div>
-        <p style={{ margin: '0 0 8px 0' }}>
-          Only use <SpellLink spell={TALENTS.PUTREFY_TALENT} /> charges during{' '}
-          <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />.
+        <p>
+          <strong>{this.alignmentLabel}</strong> of charges spent during Dark Transformation
         </p>
-        <small style={{ display: 'grid', gap: '2px', marginBottom: '6px' }}>
-          <span>
-            <span
-              style={{
-                ...LEGEND_DOT_BASE_STYLE,
-                backgroundColor: '#4caf50',
-              }}
-            />
-            During <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />
-          </span>
-          <span>
-            <span
-              style={{
-                ...LEGEND_DOT_BASE_STYLE,
-                backgroundColor: '#ef5350',
-              }}
-            />
-            Outside <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />
-          </span>
-        </small>
-        <div style={{ marginBottom: '8px' }}>
-          <PerformanceBoxRow values={this.entries} />
-        </div>
+        {this.totalChargesSpent === 0 && <p>No observed charges spent.</p>}
+        <table>
+          <caption>Putrefy charge spending</caption>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.entries.map((entry, index) => (
+              <tr key={index}>
+                <td>{this.owner.formatTimestamp(entry.timestamp)}</td>
+                <td>
+                  {entry.duringDarkTransformation
+                    ? 'During Dark Transformation'
+                    : 'Outside Dark Transformation'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
-
     return explanationAndDataSubsection(explanation, data, 40);
   }
 
@@ -212,7 +189,7 @@ class Putrefy extends Analyzer.withDependencies({
       >
         <BoringSpellValueText spell={TALENTS.PUTREFY_TALENT}>
           <div>
-            {formatPercentage(this.efficiency, 0)}% <small>efficiency</small>
+            {this.alignmentLabel} <small>of charges spent during Dark Transformation</small>
           </div>
         </BoringSpellValueText>
         <div style={{ padding: '8px' }}>

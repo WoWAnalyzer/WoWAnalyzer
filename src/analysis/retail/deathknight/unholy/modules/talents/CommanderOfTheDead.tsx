@@ -10,8 +10,6 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class CommanderOfTheDead extends Analyzer {
-  private commanderBuffs = 0;
-  private petSummons = 0;
   private petSummonIDs: number[] = [
     SPELLS.ARMY_SUMMON.id, // 42651  - Army of the Dead ghouls (pre-Midnight)
     SPELLS.LESSER_GHOUL.id, // 275430 - Lesser Ghouls from regular gameplay
@@ -22,8 +20,8 @@ class CommanderOfTheDead extends Analyzer {
     SPELLS.MAGUS_OF_THE_DEAD_SUMMON.id, // 1242294 - Magus of the Dead from Apocalypse
     SPELLS.MAGUS_OF_THE_DEAD_SUMMON_ARMY.id, // 317776 - Magus of the Dead from Army of the Dead
   ];
-  private buffedPets: string[] = [];
-  private summonedPets: string[] = [];
+  private buffedPets = new Set<string>();
+  private summonedPets = new Set<string>();
 
   constructor(options: Options) {
     super(options);
@@ -43,43 +41,48 @@ class CommanderOfTheDead extends Analyzer {
 
   onBuffEvent(event: ApplyBuffEvent) {
     const summonId = encodeEventTargetString(event) || ''; // This is needed since the buff sometimes applies twice to the same summon.
-    if (!this.summonedPets.includes(summonId)) {
-      // This is the rare case of a pet being summoned without a summon event (potentially pre-combat).
-      this.summonedPets.push(summonId);
-      this.petSummons += 1;
-    }
-    if (!this.buffedPets.includes(summonId)) {
-      // Account for the case of double-buffing the same mob.
-      this.commanderBuffs += 1;
-      this.buffedPets.push(summonId);
-    }
+    this.summonedPets.add(summonId);
+    this.buffedPets.add(summonId);
   }
 
   onSummonEvent(event: SummonEvent) {
     if (this.petSummonIDs.includes(event.ability.guid)) {
       // We keep track of what has been summoned in case of a buff event on a minion that doesn't have a proper summon event.
       const summonId = encodeEventTargetString(event) || '';
-      this.summonedPets.push(summonId);
-      this.petSummons += 1;
+      this.summonedPets.add(summonId);
     }
   }
 
   get averageSummonBuffed() {
-    return Number(this.commanderBuffs / this.petSummons);
+    return this.petSummons > 0 ? this.commanderBuffs / this.petSummons : null;
+  }
+
+  private get petSummons() {
+    return this.summonedPets.size;
+  }
+
+  private get commanderBuffs() {
+    return this.buffedPets.size;
   }
 
   statistic() {
     return (
       <Statistic
-        tooltip={`You buffed ${this.commanderBuffs} out of ${this.petSummons} pets buffed with Commander of the Dead`}
+        tooltip={`You buffed ${this.commanderBuffs} out of ${this.petSummons} observed eligible pets with Commander of the Dead`}
         position={STATISTIC_ORDER.CORE(3)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
           <>
-            {formatPercentage(this.averageSummonBuffed)}%{' '}
-            <small>of pets buffed with Commander of the Dead</small>
+            {this.averageSummonBuffed === null
+              ? 'N/A'
+              : `${formatPercentage(this.averageSummonBuffed)}%`}{' '}
+            <small>
+              {this.petSummons === 0
+                ? 'No observed eligible summons'
+                : 'of pets buffed with Commander of the Dead'}
+            </small>
           </>
         </BoringSpellValueText>
       </Statistic>

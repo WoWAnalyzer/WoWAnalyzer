@@ -7,17 +7,11 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { PerformanceLabel } from 'parser/ui/PerformanceLabel';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import type { JSX } from 'react';
 
-const PERFECT_DREAD_COVERAGE_THRESHOLD = 1;
-const GOOD_DREAD_COVERAGE_THRESHOLD = 0.99;
-const OK_DREAD_COVERAGE_THRESHOLD = 0.98;
-const TARGET_DREAD_COVERAGE_PERCENT = Math.round(GOOD_DREAD_COVERAGE_THRESHOLD * 100);
 const TIMELINE_ROW_SPACING_ADJUSTMENT_PX = -16;
 
 type DiseaseSpell = typeof SPELLS.VIRULENT_PLAGUE | typeof SPELLS.DREAD_PLAGUE;
@@ -29,8 +23,7 @@ type DiseaseMetric = {
 };
 
 type DreadPlagueCoverageMetric = {
-  uptime: number;
-  performance: QualitativePerformance;
+  uptime: number | null;
 };
 
 type DiseaseMetricKey = 'virulent' | 'dread';
@@ -54,19 +47,6 @@ class PlagueEfficiency extends Analyzer.withDependencies({
     };
   }
 
-  private getCoveragePerformance(uptime: number): QualitativePerformance {
-    if (uptime >= PERFECT_DREAD_COVERAGE_THRESHOLD) {
-      return QualitativePerformance.Perfect;
-    }
-    if (uptime >= GOOD_DREAD_COVERAGE_THRESHOLD) {
-      return QualitativePerformance.Good;
-    }
-    if (uptime >= OK_DREAD_COVERAGE_THRESHOLD) {
-      return QualitativePerformance.Ok;
-    }
-    return QualitativePerformance.Fail;
-  }
-
   private get diseaseMetrics() {
     this.diseaseMetricsCache ??= {
       virulent: this.getDiseaseMetrics(SPELLS.VIRULENT_PLAGUE),
@@ -86,11 +66,10 @@ class PlagueEfficiency extends Analyzer.withDependencies({
       const diseaseMetrics = this.diseaseMetrics;
       const uptime =
         diseaseMetrics.virulent.uptime === 0
-          ? 0
+          ? null
           : diseaseMetrics.dread.uptime / diseaseMetrics.virulent.uptime;
       return {
         uptime,
-        performance: this.getCoveragePerformance(uptime),
       };
     })();
 
@@ -121,19 +100,13 @@ class PlagueEfficiency extends Analyzer.withDependencies({
     const data = (
       <div>
         <div style={{ marginBottom: '14px' }}>
-          <strong>
-            Primary metric: <SpellLink spell={SPELLS.DREAD_PLAGUE} /> during{' '}
-            <SpellLink spell={SPELLS.VIRULENT_PLAGUE} />
-          </strong>
+          <strong>Dread uptime relative to Virulent uptime (any enemy)</strong>
           <div style={{ fontSize: '1.5em', fontWeight: 700, marginTop: '4px', lineHeight: 1.1 }}>
-            <PerformanceLabel performance={dreadPlagueCoverage.performance}>
-              {formatPercentage(dreadPlagueCoverage.uptime)}%
-            </PerformanceLabel>
+            {dreadPlagueCoverage.uptime === null
+              ? 'N/A'
+              : `${formatPercentage(dreadPlagueCoverage.uptime)}%`}
           </div>
-          <small>
-            Target: {TARGET_DREAD_COVERAGE_PERCENT}%+ coverage while{' '}
-            <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> is active.
-          </small>
+          <small>This compares total uptimes; it does not measure disease overlap.</small>
         </div>
         <div style={{ marginBottom: '6px' }}>
           <strong>Disease timeline</strong>
@@ -169,11 +142,10 @@ class PlagueEfficiency extends Analyzer.withDependencies({
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
         <BoringSpellValueText spell={SPELLS.DREAD_PLAGUE.id}>
-          <PerformanceLabel performance={dreadPlagueCoverage.performance}>
-            {' '}
-            {formatPercentage(dreadPlagueCoverage.uptime)}%
-          </PerformanceLabel>{' '}
-          <small>Efficiency</small>
+          {dreadPlagueCoverage.uptime === null
+            ? 'N/A'
+            : `${formatPercentage(dreadPlagueCoverage.uptime)}%`}{' '}
+          <small>Dread uptime relative to Virulent uptime (any enemy)</small>
         </BoringSpellValueText>
         {timelineMetrics.map((metric) => (
           <BoringSpellValueText key={metric.spell.id} spell={metric.spell.id}>
