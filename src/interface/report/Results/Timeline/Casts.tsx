@@ -79,6 +79,13 @@ export const highlightInefficientCast = (
   }
 };
 
+export interface CastHighlight {
+  timestamp: number;
+  spellId: number;
+  label: ReactNode;
+  selected?: boolean;
+}
+
 interface MovementInstance {
   start: number;
   end: number;
@@ -91,6 +98,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   events: AnyEvent[];
   movement?: MovementInstance[];
   overlapOffGcds?: boolean;
+  highlightedCasts?: CastHighlight[];
 }
 
 const Casts = ({
@@ -100,6 +108,7 @@ const Casts = ({
   events,
   movement,
   overlapOffGcds,
+  highlightedCasts,
   ...others
 }: Props) => {
   const timelineSettings = use(TimelineSettingsContext);
@@ -123,6 +132,18 @@ const Casts = ({
     } = {},
   ) => {
     const left = getOffsetLeft(event.timestamp);
+    const highlight = highlightedCasts?.find(
+      (cast) => cast.timestamp === event.timestamp && cast.spellId === event.ability.guid,
+    );
+    if (highlight) {
+      className += highlight.selected ? ' review-highlight review-selected' : ' review-highlight';
+      tooltip = (
+        <>
+          <div>{highlight.label}</div>
+          {tooltip}
+        </>
+      );
+    }
 
     const linkIcon = (children: ReactNode) => (
       <SpellLink

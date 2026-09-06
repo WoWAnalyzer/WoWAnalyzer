@@ -16,6 +16,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import type { JSX } from 'react';
 import SpellUsable from '../core/SpellUsable';
+import PutrefyTimeline, { PutrefyCastEntry } from '../guide/PutrefyTimeline';
 
 // Cooldown reduction (in milliseconds) applied to Putrefy when Harbinger of Doom summons a Lesser Ghoul
 const HARBINGER_OF_DOOM_PUTREFY_CDR_MS = 2500;
@@ -25,15 +26,7 @@ class Putrefy extends Analyzer.withDependencies({
 }) {
   private chargesSpentDuringDarkTransformation = 0;
   private chargesSpentOutsideDarkTransformation = 0;
-  private readonly entries: {
-    timestamp: number;
-    duringDarkTransformation: boolean;
-    chargesSpent: number;
-    chargesBeforeCast: number;
-    maxCharges: number;
-    darkTransformationCooldownRemaining: number;
-    nextChargeRemaining: number | null;
-  }[] = [];
+  private readonly entries: PutrefyCastEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -73,7 +66,7 @@ class Putrefy extends Analyzer.withDependencies({
       this.chargesSpentOutsideDarkTransformation += 1;
     }
     // Putrid Echoes emits one update per charge spent. Keep the state before the
-    // first charge was spent and display a single row for the cast.
+    // first charge was spent and display a single entry for the cast.
     const previousEntry = this.entries.at(-1);
     if (previousEntry?.timestamp === event.timestamp) {
       previousEntry.chargesSpent += 1;
@@ -171,11 +164,11 @@ class Putrefy extends Analyzer.withDependencies({
           these windows so you have Putrefy available when Dark Transformation is active.
         </p>
         <p>
-          The outside-window entries below show Dark Transformation's estimated cooldown, your
-          Putrefy charges before the cast, and the time until the next charge. Use this context to
-          consider whether waiting would have left you at maximum charges with recharge time going
-          unused. Also consider whether the target was about to become unavailable or the fight was
-          ending.
+          Review outside-window casts in the timeline below. The details show Dark Transformation's
+          estimated cooldown, your Putrefy charges before the cast, and the time until the next
+          charge. Use this context to consider whether waiting would have left you at maximum
+          charges with recharge time going unused. Also consider whether the target was about to
+          become unavailable or the fight was ending.
         </p>
         <p>
           If you could have waited without losing a use or wasting recharge time, aim to move that
@@ -191,48 +184,14 @@ class Putrefy extends Analyzer.withDependencies({
           <strong>{this.alignmentLabel}</strong> of charges spent during Dark Transformation
         </p>
         {this.totalChargesSpent === 0 && <p>No observed charges spent.</p>}
-        <table>
-          <caption>Putrefy charge spending</caption>
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Context</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.entries.map((entry, index) => (
-              <tr key={index}>
-                <td>{this.owner.formatTimestamp(entry.timestamp)}</td>
-                <td>
-                  <div>
-                    {entry.duringDarkTransformation
-                      ? 'During Dark Transformation'
-                      : 'Outside Dark Transformation'}
-                    {' — '}
-                    {entry.chargesSpent} {entry.chargesSpent === 1 ? 'charge' : 'charges'} spent
-                  </div>
-                  {!entry.duringDarkTransformation && (
-                    <>
-                      <div>
-                        Dark Transformation:{' '}
-                        {entry.darkTransformationCooldownRemaining === 0
-                          ? 'ready'
-                          : `ready in ${(entry.darkTransformationCooldownRemaining / 1000).toFixed(1)}s`}
-                        .
-                      </div>
-                      <div>
-                        Before cast: {entry.chargesBeforeCast}/{entry.maxCharges} Putrefy charges
-                        {entry.nextChargeRemaining === null
-                          ? ' (at maximum).'
-                          : `; next charge in ${(entry.nextChargeRemaining / 1000).toFixed(1)}s.`}
-                      </div>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {this.totalChargesSpent > 0 && (
+          <PutrefyTimeline
+            entries={this.entries.filter((entry) => !entry.duringDarkTransformation)}
+            fightStart={this.owner.fight.start_time}
+            fightEnd={this.owner.fight.end_time}
+            formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+          />
+        )}
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 40);

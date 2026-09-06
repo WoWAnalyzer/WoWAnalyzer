@@ -177,6 +177,15 @@ $npc-content-offset: 4em;
         }
       }
 
+      &.review-highlight img {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px;
+      }
+
+      &.review-selected img {
+        outline: 3px solid #fff;
+      }
+
       &.inefficient img {
         border: 2px solid red;
         box-sizing: content-box;

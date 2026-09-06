@@ -9,6 +9,13 @@ class Buffs extends CoreAuras {
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
+      // Track the player buff for the Putrefy review timeline.
+      {
+        spellId: SPELLS.DARK_TRANSFORMATION_BUFF.id,
+        triggeredBySpellId: TALENTS.DARK_TRANSFORMATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
+        timelineHighlight: false,
+      },
       // region Rotational
       {
         spellId: SPELLS.DEATH_AND_DECAY_BUFF.id,
