@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import { SuddenDoomLinkNormalizer } from './normalizers/SuddenDoomLink';
+import { LesserGhoulConsumptionNormalizer } from './normalizers/LesserGhoulConsumption';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
@@ -25,6 +26,7 @@ import LesserGhoul from './modules/features/LesserGhoul';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
 import Guide from './modules/Guide';
+import ArmyDarkTransformation from './modules/guide/ArmyDarkTransformation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -36,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     suddenDoomLinkNormalizer: SuddenDoomLinkNormalizer,
+    lesserGhoulConsumptionNormalizer: LesserGhoulConsumptionNormalizer,
     scourgeStrike: ScourgeStrike,
 
     // Features
@@ -46,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     soulReaper: SoulReaper,
     commanderOfTheDead: CommanderOfTheDead,
+    armyDarkTransformation: ArmyDarkTransformation,
     suddenDoom: SuddenDoom,
     forbiddenKnowledge: ForbiddenKnowledge,
     unholyAura: UnholyAura,

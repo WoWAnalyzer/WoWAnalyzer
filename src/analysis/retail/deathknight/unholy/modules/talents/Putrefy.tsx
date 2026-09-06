@@ -5,10 +5,13 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  CastEvent,
   SummonEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -20,13 +23,19 @@ import PutrefyTimeline, { PutrefyCastEntry } from '../guide/PutrefyTimeline';
 
 // Cooldown reduction (in milliseconds) applied to Putrefy when Harbinger of Doom summons a Lesser Ghoul
 const HARBINGER_OF_DOOM_PUTREFY_CDR_MS = 2500;
+// A prompt follow-up, allowing several GCDs for the logged disease restoration.
+const BLIGHTFALL_FOLLOWUP_MS = 5000;
 
 class Putrefy extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
+  enemies: Enemies,
 }) {
   private chargesSpentDuringDarkTransformation = 0;
   private chargesSpentOutsideDarkTransformation = 0;
-  private readonly entries: PutrefyCastEntry[] = [];
+  private readonly entries: Omit<PutrefyCastEntry, 'performance' | 'reason'>[] = [];
+  private pendingBlightfall: CastEvent | null = null;
+  private readonly blightfallFollowups = new Set<number>();
+  private readonly darkTransformationCasts: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -39,6 +48,18 @@ class Putrefy extends Analyzer.withDependencies({
     this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.PUTREFY_TALENT),
       this.onPutrefyCooldownUpdate,
+    );
+
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([
+          TALENTS.BLIGHTFALL_TALENT,
+          TALENTS.PUTREFY_TALENT,
+          TALENTS.DARK_TRANSFORMATION_TALENT,
+          DK_SPELLS.OUTBREAK,
+        ]),
+      this.onCast,
     );
 
     if (this.selectedCombatant.hasTalent(TALENTS.HARBINGER_OF_DOOM_TALENT)) {
@@ -77,6 +98,9 @@ class Putrefy extends Analyzer.withDependencies({
     this.entries.push({
       timestamp: event.timestamp,
       duringDarkTransformation,
+      duringForbiddenKnowledge:
+        this.selectedCombatant.hasTalent(TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT) &&
+        this.selectedCombatant.hasBuff(DK_SPELLS.FORBIDDEN_KNOWLEDGE_BUFF),
       chargesSpent: 1,
       chargesBeforeCast,
       maxCharges: event.maxCharges,
@@ -93,6 +117,81 @@ class Putrefy extends Analyzer.withDependencies({
         chargesBeforeCast === event.maxCharges
           ? null
           : Math.max(0, event.expectedRechargeTimestamp - event.timestamp),
+    });
+  }
+
+  private onCast(event: CastEvent) {
+    if (event.ability.guid === TALENTS.DARK_TRANSFORMATION_TALENT.id) {
+      this.darkTransformationCasts.push(event.timestamp);
+      this.pendingBlightfall = null;
+      return;
+    }
+    if (event.ability.guid === TALENTS.BLIGHTFALL_TALENT.id) {
+      if (
+        this.selectedCombatant.hasTalent(TALENTS.BLIGHTFALL_TALENT) &&
+        this.selectedCombatant.hasTalent(TALENTS.BLIGHTBURST_TALENT)
+      ) {
+        this.pendingBlightfall = event;
+      }
+      return;
+    }
+    if (event.ability.guid === DK_SPELLS.OUTBREAK.id) {
+      if (event.targetID === this.pendingBlightfall?.targetID) {
+        this.pendingBlightfall = null;
+      }
+      return;
+    }
+
+    const blightfall = this.pendingBlightfall;
+    this.pendingBlightfall = null; // Only the first Putrefy can restore these plagues.
+    const target = this.deps.enemies.getEntity(event);
+    if (
+      blightfall &&
+      event.timestamp - blightfall.timestamp <= BLIGHTFALL_FOLLOWUP_MS &&
+      event.targetID === blightfall.targetID &&
+      target &&
+      (!target.hasBuff(DK_SPELLS.DREAD_PLAGUE.id) || !target.hasBuff(DK_SPELLS.VIRULENT_PLAGUE.id))
+    ) {
+      this.blightfallFollowups.add(event.timestamp);
+    }
+  }
+
+  private get gradedEntries(): PutrefyCastEntry[] {
+    // Rotation sources (12.1): Wowhead's Forbidden Knowledge priority and
+    // Icy Veins' Putrefy/Blightfall sections. Charge capping alone is not an exception.
+    // https://www.wowhead.com/guide/classes/death-knight/unholy/rotation-cooldowns-pve-dps
+    // https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-rotation-cooldowns-abilities
+    return this.entries.map((entry) => {
+      let performance = QualitativePerformance.Fail;
+      let reason =
+        entry.darkTransformationCooldownRemaining === 0
+          ? 'Dark Transformation was available. Activate it before spending Putrefy to include this cast in your damage window.'
+          : 'Save this charge for Dark Transformation. Being at maximum charges alone is not a reason to spend between windows.';
+      if (entry.duringDarkTransformation) {
+        performance = QualitativePerformance.Perfect;
+        reason =
+          'You spent Putrefy during Dark Transformation. Keep concentrating your charges in this window.';
+      } else if (!this.selectedCombatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT)) {
+        performance = QualitativePerformance.Good;
+        reason =
+          'Dark Transformation is not talented, so this cast has no DT alignment requirement.';
+      } else if (this.blightfallFollowups.has(entry.timestamp)) {
+        performance = QualitativePerformance.Good;
+        reason =
+          'You used Putrefy promptly after Blightfall on the same target while plagues were missing. Blightburst restores those plagues.';
+      } else if (entry.duringForbiddenKnowledge) {
+        performance = QualitativePerformance.Good;
+        reason =
+          'Forbidden Knowledge was active, so spending Putrefy follows its cooldown-window priority. Army/DT alignment is assessed separately when Commander of the Dead is talented.';
+      } else if (
+        entry.darkTransformationCooldownRemaining > this.owner.fight.end_time - entry.timestamp &&
+        !this.darkTransformationCasts.some((timestamp) => timestamp > entry.timestamp)
+      ) {
+        performance = QualitativePerformance.Good;
+        reason =
+          'Dark Transformation was not expected to recharge before the fight ended, and no later DT cast was recorded. Spending this charge avoided leaving it unused.';
+      }
+      return { ...entry, performance, reason };
     });
   }
 
@@ -156,40 +255,61 @@ class Putrefy extends Analyzer.withDependencies({
   }
 
   get guideSubsection(): JSX.Element {
+    const hasDarkTransformation = this.selectedCombatant.hasTalent(
+      TALENTS.DARK_TRANSFORMATION_TALENT,
+    );
     const explanation = (
       <>
         <p>
-          Prioritize <SpellLink spell={TALENTS.PUTREFY_TALENT} /> during{' '}
-          <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />. Plan your charge spending around
-          these windows so you have Putrefy available when Dark Transformation is active.
+          {hasDarkTransformation ? (
+            <>
+              Concentrate <SpellLink spell={TALENTS.PUTREFY_TALENT} /> charges during{' '}
+              <SpellLink spell={DK_SPELLS.DARK_TRANSFORMATION_BUFF} />. Save charges between
+              windows, even at maximum charges, so you can spend them during your next damage
+              window.
+            </>
+          ) : (
+            <>
+              Use <SpellLink spell={TALENTS.PUTREFY_TALENT} /> regularly. Your build has no Dark
+              Transformation window to hold charges for.
+            </>
+          )}
         </p>
+        {this.selectedCombatant.hasTalent(TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT) && (
+          <p>
+            During <SpellLink spell={TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT} />, use Putrefy as
+            it becomes available, including if Dark Transformation has ended.
+          </p>
+        )}
+        {this.selectedCombatant.hasTalent(TALENTS.BLIGHTFALL_TALENT) &&
+          this.selectedCombatant.hasTalent(TALENTS.BLIGHTBURST_TALENT) && (
+            <p>
+              After <SpellLink spell={TALENTS.BLIGHTFALL_TALENT} /> consumes your plagues, follow up
+              with Putrefy to restore them through <SpellLink spell={TALENTS.BLIGHTBURST_TALENT} />.
+            </p>
+          )}
         <p>
-          Review outside-window casts in the timeline below. The details show Dark Transformation's
-          estimated cooldown, your Putrefy charges before the cast, and the time until the next
-          charge. Use this context to consider whether waiting would have left you at maximum
-          charges with recharge time going unused. Also consider whether the target was about to
-          become unavailable or the fight was ending.
-        </p>
-        <p>
-          If you could have waited without losing a use or wasting recharge time, aim to move that
-          cast into Dark Transformation next time. If waiting would have cost an opportunity,
-          spending outside the window may have been reasonable. Use the breakdown to find casts to
-          review; 100% alignment is not a goal at the expense of useful casts.
+          The cast review explains each timing grade. It also recognizes charges spent when DT could
+          not recharge before the fight ended. Target downtime can still affect whether a flagged
+          cast was avoidable.
         </p>
       </>
     );
     const data = (
       <div>
-        <p>
-          <strong>{this.alignmentLabel}</strong> of charges spent during Dark Transformation
-        </p>
+        {hasDarkTransformation && (
+          <p>
+            <strong>{this.alignmentLabel}</strong> of charges spent during Dark Transformation
+          </p>
+        )}
         {this.totalChargesSpent === 0 && <p>No observed charges spent.</p>}
         {this.totalChargesSpent > 0 && (
           <PutrefyTimeline
-            entries={this.entries.filter((entry) => !entry.duringDarkTransformation)}
+            entries={this.gradedEntries}
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+            hasDarkTransformation={hasDarkTransformation}
           />
         )}
       </div>

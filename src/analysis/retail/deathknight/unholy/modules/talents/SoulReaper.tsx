@@ -5,10 +5,13 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   CastEvent,
   DamageEvent,
   FightEndEvent,
+  EventType,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -19,7 +22,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import type { JSX } from 'react';
-import SpellUsable from '../core/SpellUsable';
+import SoulReaperTimeline, { MissedFreeSoulReaperRecord } from '../guide/SoulReaperTimeline';
+import SoulReaperConsumption from '../guide/SoulReaperConsumption';
+import { LesserGhoulConsumption } from '../../normalizers/LesserGhoulConsumption';
 
 const SOUL_REAPER_EXECUTE_THRESHOLD = 0.35;
 const SOUL_REAPER_COOLDOWN_MS = 15_000;
@@ -29,20 +34,13 @@ const ATTRIBUTED_PLAYER_DAMAGE_SPELL_IDS = new Set([
 ]);
 
 interface SoulReaperCastRecord {
+  event: CastEvent;
+  stacksBeforeCast: number;
   timestamp: number;
   darkTransformationWindowId: number | null;
-  darkTransformationCooldownRemaining: string;
-}
-
-interface MissedFreeSoulReaperRecord {
-  timestamp: number;
-  endTimestamp: number;
-  endedAtFightEnd: boolean;
-  darkTransformationWindowId: number;
 }
 
 class SoulReaper extends ExecuteHelper.withDependencies({
-  spellUsable: SpellUsable,
   enemies: Enemies,
 }) {
   public static readonly executeSources = SELECTED_PLAYER;
@@ -52,6 +50,8 @@ class SoulReaper extends ExecuteHelper.withDependencies({
 
   maxCasts = 0;
 
+  private lesserGhoulStacks = 0;
+  private readonly consumedStacks = new Map<CastEvent, number | null>();
   private dtWindowOpen = false;
   private debuffWindowDamage = 0;
   private currentDarkTransformationWindowId: number | null = null;
@@ -87,6 +87,23 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOUL_REAPER_TALENT),
       this.onSRCast,
+    );
+
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulApply,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulStack,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulRemove,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulRemove,
     );
 
     // Caster-only sources for debuff attribution.
@@ -126,16 +143,51 @@ class SoulReaper extends ExecuteHelper.withDependencies({
 
   private onSRCast(event: CastEvent) {
     this.soulReaperCasts.push({
+      event,
+      stacksBeforeCast: this.lesserGhoulStacks,
       timestamp: event.timestamp,
       darkTransformationWindowId: this.currentDarkTransformationWindowId,
-      darkTransformationCooldownRemaining: this.getDarkTransformationCooldownRemaining(
-        event.timestamp,
-      ),
     });
 
     if (this.dtWindowOpen) {
       this.dtWindowOpen = false;
     }
+  }
+
+  private onGhoulApply(_event: ApplyBuffEvent) {
+    this.lesserGhoulStacks = 1;
+  }
+
+  private onGhoulStack(event: ApplyBuffStackEvent) {
+    this.lesserGhoulStacks = event.stack;
+  }
+
+  private onGhoulRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    const remaining = event.type === EventType.RemoveBuffStack ? event.stack : 0;
+    const removed = this.lesserGhoulStacks - remaining;
+    this.lesserGhoulStacks = remaining;
+    const cast = LesserGhoulConsumption.first(event);
+    if (!cast || cast.ability.guid !== TALENTS.SOUL_REAPER_TALENT.id) {
+      return;
+    }
+
+    const previous = this.consumedStacks.has(cast) ? this.consumedStacks.get(cast)! : 0;
+    // Missing stack history or an impossible total is ungraded, not a zero.
+    this.consumedStacks.set(
+      cast,
+      previous === null || removed <= 0 || previous + removed > 3 ? null : previous + removed,
+    );
+  }
+
+  private get consumptionCasts() {
+    return this.soulReaperCasts.map((cast) => ({
+      timestamp: cast.timestamp,
+      stacksConsumed: this.consumedStacks.has(cast.event)
+        ? this.consumedStacks.get(cast.event)!
+        : cast.stacksBeforeCast === 0 && !LesserGhoulConsumption.reverse.first(cast.event)
+          ? 0
+          : null,
+    }));
   }
 
   private onPlayerDamage(event: DamageEvent) {
@@ -222,130 +274,55 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     this.closeDarkTransformationWindow(event.timestamp, true);
   }
 
-  private getDarkTransformationCooldownRemaining(castTimestamp: number): string {
-    const state = this.deps.spellUsable
-      .history(TALENTS.DARK_TRANSFORMATION_TALENT.id)
-      .getBefore(castTimestamp, true);
-    if (!state) {
-      return 'Unknown';
-    }
-    const remainingMs = state.isOnCooldown
-      ? Math.max(0, state.expectedRechargeTimestamp - castTimestamp)
-      : 0;
-    return `${(remainingMs / 1000).toFixed(1)}s`;
-  }
-
   get guideSubsection(): JSX.Element {
     const hasReaping = this.selectedCombatant.hasTalent(TALENTS.REAPING_TALENT);
-    // Timing guidance follows the retained SimC Unholy APL (ed724891d6ec):
-    // single_target Soul Reaper and aoe Putrefy/Soul Reaper priorities.
-    // These priorities are advice, not per-cast failure thresholds.
+    // Three-stack preparation is explicitly recommended by the 12.1 rotation guide:
+    // https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-rotation-cooldowns-abilities
     const explanation = (
       <>
         <p>
-          Use <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> against targets below 35% health.
-          Favor a low-health target and keep using it as it becomes available during execute, while
-          handling higher-priority actions such as disease maintenance and{' '}
-          <SpellLink spell={TALENTS.PUTREFY_TALENT} /> during{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
+          Prepare three <SpellLink spell={SPELLS.LESSER_GHOUL_BUFF} /> stacks before{' '}
+          <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> to get the most minion damage from each
+          cast. It can consume all three at once, summoning ghouls or triggering attacks from your
+          existing army during <SpellLink spell={TALENTS.ARMY_OF_THE_DEAD_TALENT} />.
         </p>
         {hasReaping && (
           <p>
-            With <SpellLink spell={TALENTS.REAPING_TALENT} />,{' '}
-            <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> resets Soul Reaper and allows a
-            cast above the usual health threshold. Plan to use that opportunity. On single target,
-            aim for the later part of Dark Transformation, with less than 12 seconds remaining,
-            rather than automatically casting Soul Reaper as soon as the window opens. A target
-            below 35% health is also a reason to use it earlier.
+            <SpellLink spell={TALENTS.REAPING_TALENT} /> lets you use Soul Reaper during{' '}
+            <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> even above 35% target health.
           </p>
         )}
-        {this.selectedCombatant.hasTalent(TALENTS.LORD_OF_THE_DEAD_TALENT) && (
-          <p>
-            On single target, also prioritize an available{' '}
-            <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> when your{' '}
-            <SpellLink spell={TALENTS.LORD_OF_THE_DEAD_TALENT} /> has less than 9 seconds left. Soul
-            Reaper still requires execute health or the Reaping opportunity.
-          </p>
-        )}
-        <p>
-          With three or more enemies, use an available Soul Reaper on a low-health target after
-          higher-priority actions, including Putrefy during Dark Transformation. You do not need to
-          wait for the single-target timing above.
-        </p>
-        <p>
-          Review the timestamps alongside your target's health and your other casts. Look for
-          opportunities to fit in another Soul Reaper before the target dies or becomes unavailable.
-          Dark Transformation's cooldown below is its remaining cooldown at the time of the cast; it
-          is not a recommended waiting time.
-        </p>
       </>
     );
     const data = (
       <div>
-        {this.soulReaperCasts.length === 0 ? (
+        {this.soulReaperCasts.length === 0 && (
           <p>
             No Soul Reaper casts were recorded. Look for targets below 35% health
             {hasReaping && ' and opportunities from Reaping after Dark Transformation'} to use Soul
             Reaper next time.
           </p>
-        ) : (
-          <table>
-            <caption>Soul Reaper casts</caption>
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Window</th>
-                <th>DT CD remaining at cast</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.soulReaperCasts.map((cast, index) => (
-                <tr key={index}>
-                  <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
-                  <td>{cast.darkTransformationWindowId !== null ? 'During DT' : 'Outside DT'}</td>
-                  <td>
-                    {cast.darkTransformationWindowId !== null
-                      ? 'Active'
-                      : cast.darkTransformationCooldownRemaining}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         )}
-        {this.missedFreeSoulReaperWindows.length > 0 && (
-          <>
-            <h4>Dark Transformation windows to review</h4>
+        {hasReaping &&
+          this.darkTransformationWindowIdCounter > 0 &&
+          this.missedFreeSoulReaperWindows.length === 0 && (
             <p>
-              No Soul Reaper cast was recorded in these windows. If you could attack a target, plan
-              a Soul Reaper into the window to use the Reaping opportunity. Check for downtime or
-              the end of the fight before treating a missing cast as a mistake.
+              You used Soul Reaper in every observed Reaping window. Keep using that opportunity
+              each time you activate Dark Transformation.
             </p>
-            <table>
-              <caption>Windows without a Soul Reaper cast</caption>
-              <thead>
-                <tr>
-                  <th>Start</th>
-                  <th>End</th>
-                  <th>Review</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.missedFreeSoulReaperWindows.map((window) => (
-                  <tr key={window.darkTransformationWindowId}>
-                    <td>{this.owner.formatTimestamp(window.timestamp)}</td>
-                    <td>{this.owner.formatTimestamp(window.endTimestamp)}</td>
-                    <td>
-                      {window.endedAtFightEnd
-                        ? 'The fight ended while this window was active. Check whether there was time to cast.'
-                        : 'Check target availability and whether other casts could have made room for Soul Reaper.'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
+          )}
+        <SoulReaperConsumption
+          casts={this.consumptionCasts}
+          fightStart={this.owner.fight.start_time}
+          fightEnd={this.owner.fight.end_time}
+          formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+        />
+        <SoulReaperTimeline
+          missedWindows={this.missedFreeSoulReaperWindows}
+          fightStart={this.owner.fight.start_time}
+          fightEnd={this.owner.fight.end_time}
+          formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+        />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 40);
