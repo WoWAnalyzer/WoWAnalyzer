@@ -34,9 +34,11 @@ import {
   SPIRITFONT_TFT,
 } from '../../normalizers/EventLinks/EventLinkConstants';
 import {
-  isSpiritfontConsumed,
+  getSpiritfontConsumingCast,
+  getSpiritfontOvercapCast,
   isSpiritfontFalseRefresh,
 } from '../../normalizers/CastLinkNormalizer';
+import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
@@ -136,10 +138,22 @@ class Spiritfont extends Analyzer {
       performance: QualitativePerformance.Fail,
       reason: `Refreshed at ${SPIRITFONT_MAX_STACKS} stacks`,
     });
+
+    const overcapCast = getSpiritfontOvercapCast(event);
+    if (overcapCast) {
+      addInefficientCastReason(
+        overcapCast,
+        <>
+          This cast procced <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> while
+          already at {SPIRITFONT_MAX_STACKS} stacks, wasting the proc.
+        </>,
+      );
+    }
   }
 
   private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const isConsumed = isSpiritfontConsumed(event);
+    const consumingCast = getSpiritfontConsumingCast(event);
+    const isConsumed = consumingCast !== undefined;
     if (!isConsumed) {
       this.expiredBuffs += 1;
     }
@@ -148,6 +162,15 @@ class Spiritfont extends Analyzer {
       performance: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
       reason: isConsumed ? 'Consumed' : 'Expired',
     });
+
+    if (consumingCast) {
+      addEnhancedCastReason(
+        consumingCast,
+        <>
+          This cast consumed <SpellLink spell={SPELLS.SPIRITFONT_BUFF} />.
+        </>,
+      );
+    }
   }
 
   handleSpiritfontHeal(event: HealEvent) {

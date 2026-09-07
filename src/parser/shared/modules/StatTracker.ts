@@ -530,6 +530,12 @@ class StatTracker extends Analyzer {
     isSecondary = true,
     coef = 1,
   ): number {
+    //Stat rating below 0 does not negatively impact the player.
+    //At -150 haste rating, you'd still have your baseline haste rating - it would not increase your cast time.
+    //This is specific to RATING, percentage modifiers (debuff giving -10% haste) can put a player into the negatives
+    if (rating < 0) {
+      return 0;
+    }
     //Which penalty thresholds we should use based on type of stat
     const penaltyThresholds = isSecondary
       ? this.secondaryStatPenaltyThresholds

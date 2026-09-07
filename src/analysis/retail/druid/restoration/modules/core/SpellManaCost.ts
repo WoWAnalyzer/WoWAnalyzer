@@ -3,9 +3,9 @@ import { CastEvent } from 'parser/core/Events';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { ABUNDANCE_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
+import { TOL_REJUVENATION_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
 
 const MS_BUFFER = 200;
-const TOL_REJUVENATION_REDUCTION = 0.3;
 
 class SpellManaCost extends CoreSpellManaCost {
   getResourceCost(event: CastEvent) {
@@ -39,7 +39,7 @@ class SpellManaCost extends CoreSpellManaCost {
       ) &&
       (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id)
     ) {
-      cost = cost - cost * TOL_REJUVENATION_REDUCTION;
+      cost = cost - cost * TOL_REJUVENATION_MANA_REDUCTION;
     }
 
     // Mana is not adjusted for Regrowth + Abundance

@@ -33,6 +33,7 @@ export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_CAST = 'ZenPulseCast';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
+export const ZEN_PULSE_OVERCAP = 'ZenPulseOvercap';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 export const SHEILUNS_GIFT = 'SheilunsGift';
 export const SHEILUNS_GIFT_MAIN_TARGET = 'SheilunsGiftMainTarget';
@@ -85,6 +86,7 @@ export const SPIRITFONT_PROC = 'SpiritfontProc';
 export const SPIRITFONT_TFT = 'SpiritfontTFT';
 export const SPIRITFONT_CONSUMED = 'SpiritfontConsumed';
 export const SPIRITFONT_FALSE_REFRESH = 'SpiritfontFalseRefresh';
+export const SPIRITFONT_OVERCAP = 'SpiritfontOvercap';
 
 // Soothing Mist Channel
 export const SOOTHING_MIST_CHANNEL_START = 'SoothingMistChannelStart';

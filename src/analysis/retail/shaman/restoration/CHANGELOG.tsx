@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 4), <>Corrected the heal increase modifier for <SpellLink spell={TALENTS.OVERSURGE_TALENT} />. </>, Naltarunir),
+  change(date(2026, 8, 28), <>Updated the mastery effectiveness module <SpellLink spell={SPELLS.DEEP_HEALING} />. It now respects the baseline and talent increases in all combinations. The tooltip now calulates how much of the total mastery healing originates from stats gained from gear and consumeables. </>, Naltarunir),
   change(date(2026, 8, 23), <>Fixed an error that broke the cast efficiency for <SpellLink spell={SPELLS.SURGING_TOTEM} />. Fixed an issue that prevented the correct calculation of <SpellLink spell={TALENTS.STORMSTREAM_TOTEM_1_RESTORATION_TALENT} /> in the Mana Efficiency section. </>, Naltarunir),
   change(date(2026, 8, 22), <>Updated the <SpellLink spell={TALENTS.REACTIVE_WARDING_TALENT} /> module. Pumped version support for 12.1 </>, Naltarunir),
   change(date(2026, 8, 11), <>Updated the <SpellLink spell={TALENTS.TIDAL_WAVES_TALENT} /> module. Added a new Graph for the gerneration and consumtion of <SpellLink spell={TALENTS.COALESCING_WATER_TALENT} /> . Updated and extended the module for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} />. </>, Naltarunir),

@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
+import { TipBox } from 'interface/guide/components';
 import { MistweaverApl } from './AplCheck';
 
 const aplTitle = (choice: MistweaverApl) => {
@@ -40,7 +41,7 @@ const aplTitle = (choice: MistweaverApl) => {
 const JadefireTeachingsDescription = () => {
   return (
     <>
-      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and convert damage to
+      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend HoTs and convert damage to
       healing through <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
       <SpellLink spell={SPELLS.BLACKOUT_KICK} />, <SpellLink spell={SPELLS.TIGER_PALM} />, and{' '}
       <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} />.
@@ -51,8 +52,11 @@ const JadefireTeachingsDescription = () => {
 const RushingWindKickDescription = () => {
   return (
     <>
-      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> to extend hots to accrue
-      high counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> and amplify their healing.
+      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> to extend your active HoTs,
+      building up high counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />. This sets up{' '}
+      <SpellLink spell={SPELLS.VIVIFY} /> to deal increasingly stronger{' '}
+      <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} /> healing the more{' '}
+      <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s you have active.
     </>
   );
 };
@@ -76,12 +80,11 @@ const ThunderFocusTeaRemRsk = () => {
   );
 };
 
-const RisingMistJadefireTeachingsShaohaosDescription = () => {
+const RisingMistJadefireTeachingsDescription = () => {
   return (
     <>
       <p>
-        The {aplTitle(MistweaverApl.RisingMistJadefireTeachings)} rotation uses{' '}
-        <JadefireTeachingsDescription />
+        This rotation uses <JadefireTeachingsDescription />
       </p>
       <p>
         When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
@@ -96,45 +99,36 @@ const RisingMistJadefireTeachingsShaohaosDescription = () => {
   );
 };
 
-const RisingMistRushingWindKickShaohaosDescription = () => {
+const RisingMistRushingWindKickDescription = () => {
   return (
     <>
       <p>
-        The {aplTitle(MistweaverApl.RisingMistRushingWindKick)} rotation uses{' '}
-        <RushingWindKickDescription />
+        This rotation uses <RushingWindKickDescription />
       </p>
-      When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> with{' '}
-      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> and{' '}
-      <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> on cooldown and cast{' '}
-      <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> as often as possible.{' '}
-      <ThunderFocusTeaRem />
+      <p>
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> with{' '}
+        <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} />, keep{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> on cooldown and cast{' '}
+        <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> as often as possible.{' '}
+        <ThunderFocusTeaRem />
+      </p>
     </>
   );
 };
 
 const CleaveBuildNotYetSupportedDescription = () => {
   return (
-    <>
-      <p>
-        <strong>
-          The <SpellLink spell={talents.WAY_OF_THE_CRANE_TALENT} /> rotation is not currently
-          supported.
-        </strong>
-      </p>
-    </>
+    <TipBox type="warning">
+      The <SpellLink spell={talents.WAY_OF_THE_CRANE_TALENT} /> rotation is not currently supported.
+    </TipBox>
   );
 };
 
 const TomDescription = () => {
   return (
-    <>
-      <p>
-        <strong>
-          The <SpellLink spell={talents.TEAR_OF_MORNING_TALENT} /> rotation is not currently
-          supported.
-        </strong>
-      </p>
-    </>
+    <TipBox type="warning">
+      The <SpellLink spell={talents.TEAR_OF_MORNING_TALENT} /> rotation is not currently supported.
+    </TipBox>
   );
 };
 
@@ -155,9 +149,9 @@ const FallbackDescription = () => {
 const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
     case MistweaverApl.RisingMistJadefireTeachings:
-      return <RisingMistJadefireTeachingsShaohaosDescription />;
+      return <RisingMistJadefireTeachingsDescription />;
     case MistweaverApl.RisingMistRushingWindKick:
-      return <RisingMistRushingWindKickShaohaosDescription />;
+      return <RisingMistRushingWindKickDescription />;
     case MistweaverApl.WayOfTheCrane:
       return <CleaveBuildNotYetSupportedDescription />;
     case MistweaverApl.TearOfMorning:
@@ -183,6 +177,7 @@ export default function AplChoiceDescription({
         <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> always being the top priority
         abilities.
       </p>
+      <hr />
       <p>
         <strong>Selected Build:</strong> {aplTitle(aplChoice)}
       </p>

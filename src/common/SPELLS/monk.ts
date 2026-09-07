@@ -105,6 +105,16 @@ const spells = {
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
   },
+  JADE_SANCTUARY_BUFF: {
+    id: 448508,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
+  JADE_SANCTUARY_HEAL: {
+    id: 443028,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
   COURAGE_OF_THE_WHITE_TIGER_HEAL: {
     id: 443106,
     name: 'Courage of the White Tiger',
@@ -123,7 +133,7 @@ const spells = {
   STRENGTH_OF_THE_BLACK_OX_BUFF: {
     id: 443112,
     name: 'Strength of the Black Ox',
-    icon: 'ability_monk_chargingoxwave',
+    icon: 'ability_monk_leeroftheox',
   },
   STRENGTH_OF_THE_BLACK_OX_SHIELD: {
     id: 443113,

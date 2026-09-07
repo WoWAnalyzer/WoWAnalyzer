@@ -116,6 +116,7 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
   const hasStrafingRun = info.combatant.hasTalent(TALENTS_EVOKER.STRAFING_RUN_TALENT);
   const hasMassDisintegrate = info.combatant.hasTalent(TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT);
   const hasAzureSweep = info.combatant.hasTalent(TALENTS_EVOKER.AZURE_SWEEP_TALENT);
+  const hasUnboundFlame = info.combatant.hasTalent(TALENTS_EVOKER.RISING_FURY_3_DEVASTATION_TALENT);
 
   if (!hasImminentDestruction && !hasStrafingRun && !hasMassDisintegrate && !hasAzureSweep) {
     return null;
@@ -127,6 +128,34 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         <InformationIcon /> Note that buffs that weren't used by the time the fight ended are
         counted as wasted.
       </p>
+      {hasUnboundFlame && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <strong>
+                <SpellLink spell={SPELLS.UNBOUND_FLAME} />
+              </strong>{' '}
+              is a powerful spell, gained after Dragonrage expires. It is your highest priority
+              filler spell, because it has a guaranteed chance to produce an{' '}
+              <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} />.
+              <div>
+                <strong>None should go to waste.</strong>
+              </div>
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.risingFury.usedUnboundFlameStacks}
+              total={modules.risingFury.totalUnboundFlameStacks}
+              passed={
+                modules.risingFury.usedUnboundFlameStacks ===
+                modules.risingFury.totalUnboundFlameStacks
+              }
+            />
+          }
+        />
+      )}
       {hasMassDisintegrate && (
         <ExplanationAndDataSubSection
           explanationPercent={EXPLANATION_PERCENTAGE}

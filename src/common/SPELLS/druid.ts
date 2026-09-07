@@ -272,13 +272,13 @@ const spells = {
     icon: 'spell_nature_resistnature',
   },
   LIFEBLOOM_HOT_HEAL: {
-    // cast ID, periodic heal ticks, and Everbloom stack buff events
+    // Cast ID, periodic ticks, and a stacking Lifebloom aura (Everbloom goes to 3).
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
   },
   LIFEBLOOM_BUFF: {
-    // the Lifebloom HoT aura (apply/refresh/remove); distinct from stack events on 33763
+    // Second Lifebloom aura (apply/refresh/remove lines up with casts). Also stacks to 3.
     id: 1227806,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',

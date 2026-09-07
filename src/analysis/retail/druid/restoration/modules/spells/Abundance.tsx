@@ -11,7 +11,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import HIT_TYPES from 'game/HIT_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import {
   calculateEffectiveHealingFromCritIncrease,
   calculateOverhealingFromCritIncrease,
@@ -33,6 +35,7 @@ const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
 class Abundance extends Analyzer.withDependencies({
   statTracker: StatTracker,
   combatants: Combatants,
+  manaValues: ManaValues,
 }) {
   hasImpRegrowth: boolean;
   hasIntensity: boolean;
@@ -51,6 +54,8 @@ class Abundance extends Analyzer.withDependencies({
   manaCasts = 0;
   /** Number of Regrowth healing events (direct and periodic) */
   allHits = 0;
+  /** Total mana saved by the 60% Regrowth discount */
+  manaSaved = 0;
 
   constructor(options: Options) {
     super(options);
@@ -112,13 +117,25 @@ class Abundance extends Analyzer.withDependencies({
 
   // The mana discount is relevant only for non-free Regrowth casts, deal with it here
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasOwnBuff(SPELLS.CLEARCASTING_BUFF, MS_BUFFER)) {
+    if (
+      this.selectedCombatant.hasOwnBuff(SPELLS.CLEARCASTING_BUFF, MS_BUFFER) ||
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp, MS_BUFFER)
+    ) {
       return; // don't tally already free casts
     }
     this.manaCasts += 1;
     if (this.selectedCombatant.hasBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER)) {
       this.abundanceManaCasts += 1;
+      this.manaSaved += this._getAbundanceManaSaved(event);
     }
+  }
+
+  _getAbundanceManaSaved(event: CastEvent): number {
+    const rawManaCost = event.rawResourceCost?.[RESOURCE_TYPES.MANA.id] ?? 0;
+    if (rawManaCost <= 0 || event.resourceCost?.[RESOURCE_TYPES.MANA.id] === 0) {
+      return 0;
+    }
+    return rawManaCost * ABUNDANCE_MANA_REDUCTION;
   }
 
   /** Fraction of Regrowth healing events with Abundance active */
@@ -129,11 +146,6 @@ class Abundance extends Analyzer.withDependencies({
   /** Fraction of non-free Regrowth casts with Abundance active */
   get abundanceManaCastRate() {
     return this.manaCasts === 0 ? 0 : this.abundanceManaCasts / this.manaCasts;
-  }
-
-  /** Average discount to non-free Regrowth casts */
-  get avgPercentManaSaved() {
-    return ABUNDANCE_MANA_REDUCTION * this.abundanceManaCastRate;
   }
 
   /** Average effective crit gain on Regrowth hits while Abundance is up */
@@ -170,8 +182,8 @@ class Abundance extends Analyzer.withDependencies({
             <p>
               <ul>
                 <li>
-                  Avg mana discount:{' '}
-                  <strong>{formatPercentage(this.avgPercentManaSaved, 1)}%</strong>
+                  Mana saved:{' '}
+                  <strong>{this.deps.manaValues.formatManaSaved(this.manaSaved)}</strong>
                 </li>
                 <li>
                   Avg crit gained: <strong>{formatPercentage(this.avgCritGain, 1)}%</strong>

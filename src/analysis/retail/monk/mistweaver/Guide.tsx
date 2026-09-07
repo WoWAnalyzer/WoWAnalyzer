@@ -11,9 +11,12 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import * as AplCheck from './modules/core/apl/AplCheck';
 import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
+import { TipBox } from 'interface/guide/components';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
 import { getCurrentCelestialTalent, getCurrentRSKTalent } from './constants';
+import DefensivesGuide from './modules/core/defensives/DefensivesGuide';
+import ActiveTimeGuide from './modules/features/ActiveTimeGuide';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -27,7 +30,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.renewingMist.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
+        {(info.combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {!info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
@@ -39,6 +43,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.aspectOfHarmony.guideSubsection}
         <RemGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
@@ -50,6 +55,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.celestialConduit.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
       <Section title="Core Rotation">
         <p>
           Healers do not have a static rotation, but Mistweaver gameplay is still driven by a
@@ -57,13 +63,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           use the abilities that are highest on the list.
         </p>
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
-        <p>
-          <strong>
-            It is important to note that using abilites like{' '}
-            <SpellLink spell={getCurrentCelestialTalent(info.combatant)} /> have their own priority
-            that supercedes the priority list below. This section omits all casts in those windows.
-          </strong>
-        </p>
+        <TipBox type="info">
+          It is important to note that using abilites like{' '}
+          <SpellLink spell={getCurrentCelestialTalent(info.combatant)} /> have their own priority
+          that supercedes the priority list below. This section omits all casts in those windows.
+        </TipBox>
         <SubSection>
           <AplSectionData
             checker={AplCheck.check}
@@ -71,7 +75,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             violationExplainers={explainers}
           />
         </SubSection>
+        <hr />
+        <ActiveTimeGuide />
       </Section>
+
       <Section title="Other cooldowns, buffs, and procs">
         {info.combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) &&
           modules.lifeCocoon.guideSubsection}
@@ -86,6 +93,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT) &&
           modules.danceOfChiJi.guideSubsection}
       </Section>
+
+      <DefensivesGuide />
+
       <PreparationSection />
     </>
   );

@@ -11,6 +11,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import ManaValues from 'parser/shared/modules/ManaValues';
 
 /**
  * **Reforestation**
@@ -21,9 +22,11 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 class Reforestation extends Analyzer {
   static dependencies = {
     treeOfLife: TreeOfLife,
+    manaValues: ManaValues,
   };
 
   protected treeOfLife!: TreeOfLife;
+  protected manaValues!: ManaValues;
 
   constructor(options: Options) {
     super(options);
@@ -73,6 +76,12 @@ class Reforestation extends Analyzer {
                     ),
                   )}
                   %
+                </strong>
+              </li>
+              <li>
+                Rejuvenation mana saved:{' '}
+                <strong>
+                  {this.manaValues.formatManaSaved(this.treeOfLife.reforestation.rejuvManaSaved)}
                 </strong>
               </li>
             </ul>

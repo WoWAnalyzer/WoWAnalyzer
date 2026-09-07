@@ -37,13 +37,20 @@ export const apl = (info: PlayerInfo): Apl => {
   const executeSpell = info.combatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
     ? SPELLS.EXECUTE_FURY_MASSACRE
     : SPELLS.EXECUTE_FURY;
-  const rampageUsable = cnd.or(
-    cnd.and(
-      cnd.buffPresent(SPELLS.RECKLESSNESS),
-      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
+  const rampageUsable = {
+    ...cnd.or(
+      cnd.and(
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
+      ),
+      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
     ),
-    cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
-  );
+    describe: () => (
+      <>
+        <SpellLink spell={SPELLS.RAMPAGE} /> was usable
+      </>
+    ),
+  };
 
   return info.combatant.hasTalent(TALENTS.SLAYERS_DOMINANCE_TALENT)
     ? buildSlayerApl(
@@ -85,11 +92,18 @@ export const buildSlayerApl = (
     // high rage rampage during reck
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-        rampageUsable,
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
-      ),
+      condition: {
+        ...cnd.and(
+          cnd.buffPresent(SPELLS.RECKLESSNESS),
+          rampageUsable,
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+        ),
+        describe: () => (
+          <>
+            above {rampageRageThreshold / 10} rage during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          </>
+        ),
+      },
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage during{' '}
@@ -101,14 +115,23 @@ export const buildSlayerApl = (
     // rampage during reck before BS
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-        rampageUsable,
-        cnd.spellAvailable(SPELLS.BLADESTORM),
-      ),
+      condition: {
+        ...cnd.and(
+          cnd.buffPresent(SPELLS.RECKLESSNESS),
+          rampageUsable,
+          cnd.spellAvailable(SPELLS.BLADESTORM),
+        ),
+        describe: () => (
+          <>
+            during <SpellLink spell={SPELLS.RECKLESSNESS} /> before{' '}
+            <SpellLink spell={SPELLS.BLADESTORM} />
+          </>
+        ),
+      },
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />{' '}
+          before <SpellLink spell={SPELLS.BLADESTORM} />
         </>
       ),
     },
@@ -117,7 +140,6 @@ export const buildSlayerApl = (
     {
       spell: executeSpell,
       condition: cnd.and(
-        executeUsable,
         cnd.buffPresent(SPELLS.RECKLESSNESS),
         cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       ),
@@ -187,10 +209,13 @@ export const buildSlayerApl = (
     // high rage ramp
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
-        rampageUsable,
-      ),
+      condition: {
+        ...cnd.and(
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+          rampageUsable,
+        ),
+        describe: () => <>above {rampageRageThreshold / 10} rage</>,
+      },
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage
@@ -256,13 +281,21 @@ export const buildThaneApl = (
     // Enrage or high rage ramp
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        rampageUsable,
-        cnd.or(
-          cnd.buffMissing(SPELLS.ENRAGE),
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+      condition: {
+        ...cnd.and(
+          rampageUsable,
+          cnd.or(
+            cnd.buffMissing(SPELLS.ENRAGE),
+            cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+          ),
         ),
-      ),
+        describe: () => (
+          <>
+            <SpellLink spell={SPELLS.ENRAGE} /> was missing, or above {rampageRageThreshold / 10}{' '}
+            rage during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          </>
+        ),
+      },
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage, or to

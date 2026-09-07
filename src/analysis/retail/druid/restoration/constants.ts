@@ -68,10 +68,16 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
 ];
 
-/** Heal id -> aura id when they differ. Lifebloom ticks are 33763, the buff is 1227806. */
+/** Heal id -> aura id when they differ. Lifebloom ticks are 33763; duration/cast linking uses 1227806. */
 export const HEAL_TO_HOT_BUFF_ID: Record<number, number> = {
   [SPELLS.LIFEBLOOM_HOT_HEAL.id]: SPELLS.LIFEBLOOM_BUFF.id,
 };
+
+/**
+ * Both Lifebloom auras stack to 3 with Everbloom (1227806 and 33763).
+ * Cast/duration linking still uses LIFEBLOOM_BUFF; ticks still use LIFEBLOOM_HOT_HEAL.
+ */
+export const LIFEBLOOM_STACK_AURAS = [SPELLS.LIFEBLOOM_BUFF, SPELLS.LIFEBLOOM_HOT_HEAL];
 
 export function hotBuffIdForHeal(healId: number): number {
   return HEAL_TO_HOT_BUFF_ID[healId] ?? healId;
