@@ -1,9 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import type Spell from 'common/SPELLS/Spell';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  ApplyBuffEvent,
   CastEvent,
+  HasTarget,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -30,7 +32,6 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { Fragment, type JSX, type ReactNode } from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
-import { abilityToSpell } from 'common/abilityToSpell';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Statistic from 'parser/ui/Statistic';
@@ -53,6 +54,13 @@ const SWIFTMENDABLE_HOTS = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
 ];
+/** Game consume order: Regrowth > Wild Growth > Rejuvenation */
+const HOT_ID_CONSUME_ORDER = [
+  SPELLS.REGROWTH.id,
+  SPELLS.WILD_GROWTH.id,
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+];
 
 type SotfOutcome = 'rejuv' | 'regrowth' | 'expired' | 'overwritten' | 'unused';
 
@@ -65,6 +73,10 @@ interface SwiftmendCastRecord {
   /** HoT removed by this cast; null when Verdant Infusion (or unknown/none) */
   consumedSpell: Spell | null;
   consumedRemainingMs?: number;
+  /** Estimated remaining healing on the consumed HoT at cast time */
+  consumedRemainingHealing?: number;
+  /** Estimated 40% of remaining healing added to this Swiftmend (capped by effective heal) */
+  consumedBonusHealing?: number;
   /** Performance from Swiftmend targeting / consume rules only */
   smPerformance: QualitativePerformance;
   /** Set when SotF is talented; resolved when the proc is spent or wasted */
@@ -89,8 +101,18 @@ class Swiftmend extends Analyzer {
 
   hardcastSwiftmendHealing = 0;
   hardcastSwiftmendOverhealing = 0;
+  /** Estimated 40% of consumed HoT remaining healing added to Swiftmend */
   consumedHotBonusHealing = 0;
+  /** Estimated remaining healing on HoTs at the moment they were consumed */
+  consumedHotRemainingHealing = 0;
+  /** Times each swiftmendable HoT was the one consumed */
+  consumedHotCounts: Map<number, number> = new Map();
+  /** Sum of remaining duration (ms) per consumed HoT, for average remaining */
+  private consumedRemainingMsBySpell: Map<number, number> = new Map();
+  consumedUnknownCount = 0;
   private lastHotTickAmount: Map<string, number> = new Map();
+  /** Last known expected HoT end time, so remaining still works after HotTracker clears */
+  private lastHotEnd: Map<string, number> = new Map();
 
   hasVi: boolean;
   hasImplant: boolean;
@@ -138,6 +160,14 @@ class Swiftmend extends Analyzer {
         Events.heal.by(SELECTED_PLAYER).spell(SWIFTMENDABLE_HOTS),
         this.onConsumableHotHeal,
       );
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SWIFTMENDABLE_HOTS),
+        this.onConsumableHotBuff,
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SWIFTMENDABLE_HOTS),
+        this.onConsumableHotBuff,
+      );
     }
 
     if (this.hasSotf) {
@@ -157,7 +187,20 @@ class Swiftmend extends Analyzer {
       return;
     }
     const raw = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    this.lastHotTickAmount.set(`${event.targetID}-${event.ability.guid}`, raw);
+    const key = `${event.targetID}-${event.ability.guid}`;
+    this.lastHotTickAmount.set(key, raw);
+    this.snapshotHotEnd(event.targetID, event.ability.guid);
+  }
+
+  onConsumableHotBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.snapshotHotEnd(event.targetID, event.ability.guid);
+  }
+
+  private snapshotHotEnd(targetId: number, spellId: number) {
+    const hot = this.hotTracker.hots[targetId]?.[spellId];
+    if (hot) {
+      this.lastHotEnd.set(`${targetId}-${spellId}`, hot.end);
+    }
   }
 
   onSwiftmendHeal(event: HealEvent) {
@@ -178,14 +221,7 @@ class Swiftmend extends Analyzer {
       return;
     }
 
-    const removedHotHeal = this.hasVi ? undefined : getRemovedHot(event);
-    const removedSpellId = removedHotHeal?.ability.guid;
-
-    if (!this.hasVi && directHeal) {
-      const estimatedBonus = this.estimateConsumedHotBonus(event, target.id, removedSpellId);
-      const effectiveHeal = directHeal.amount + (directHeal.absorbed || 0);
-      this.consumedHotBonusHealing += Math.min(estimatedBonus, effectiveHeal);
-    }
+    const consume = this.hasVi ? null : this.resolveConsume(event, target.id, directHeal);
 
     if (!this.trackCastAnalysis) {
       return;
@@ -197,21 +233,16 @@ class Swiftmend extends Analyzer {
 
     let consumedSpell: Spell | null = null;
     let consumedRemainingMs: number | undefined;
-    if (this.hasVi) {
-      consumedSpell = null;
-    } else if (removedHotHeal) {
-      consumedSpell = abilityToSpell(removedHotHeal.ability);
-      const hotOnTarget = this.hotTracker.hots[target.id]?.[removedSpellId!];
-      if (hotOnTarget) {
-        consumedRemainingMs = hotOnTarget.end - event.timestamp;
-      }
+    if (consume?.spellId !== undefined) {
+      consumedSpell = consume.spell;
+      consumedRemainingMs = consume.remainingMs;
     }
 
     const smPerformance = this.hasImplant
       ? this.scoreImplantCast(onLifebloomTarget, wasTriage)
       : this.hasVi
         ? QualitativePerformance.Good
-        : this.scoreConsumeCast(removedSpellId, consumedRemainingMs, wasTriage);
+        : this.scoreConsumeCast(consume?.spellId, consumedRemainingMs, wasTriage);
 
     const castIndex = this.casts.length;
     this.casts.push({
@@ -222,6 +253,8 @@ class Swiftmend extends Analyzer {
       wasTriage,
       consumedSpell,
       consumedRemainingMs,
+      consumedRemainingHealing: consume?.remainingHealing,
+      consumedBonusHealing: consume?.bonusHealing,
       smPerformance,
       sotfOutcome: null,
     });
@@ -324,31 +357,153 @@ class Swiftmend extends Analyzer {
     return cast.smPerformance;
   }
 
-  private estimateConsumedHotBonus(
+  /**
+   * Identify the consumed HoT, estimate remaining / bonus healing, and tally fight totals.
+   * Prefers the RemoveBuff link; falls back to consume order among HoTs still expected on the target.
+   */
+  private resolveConsume(
     event: CastEvent,
     targetId: number,
-    removedSpellId: number | undefined,
-  ): number {
-    if (removedSpellId === undefined) {
+    directHeal: HealEvent | undefined,
+  ): {
+    spellId: number | undefined;
+    spell: Spell | null;
+    remainingMs: number | undefined;
+    remainingHealing: number;
+    bonusHealing: number;
+  } {
+    const spellId = this.resolveConsumedSpellId(event, targetId);
+    const remainingMs =
+      spellId !== undefined
+        ? this.remainingMsForHot(targetId, spellId, event.timestamp)
+        : undefined;
+    const remainingHealing =
+      spellId !== undefined ? this.estimateRemainingHotHealing(event, targetId, spellId) : 0;
+    const estimatedBonus = remainingHealing * CONSUMED_HOT_BONUS_MULTIPLIER;
+    const effectiveHeal = directHeal ? directHeal.amount + (directHeal.absorbed || 0) : 0;
+    const bonusHealing = Math.min(estimatedBonus, effectiveHeal);
+
+    this.consumedHotBonusHealing += bonusHealing;
+    this.consumedHotRemainingHealing += remainingHealing;
+    if (spellId !== undefined) {
+      this.consumedHotCounts.set(spellId, (this.consumedHotCounts.get(spellId) ?? 0) + 1);
+      if (remainingMs !== undefined) {
+        this.consumedRemainingMsBySpell.set(
+          spellId,
+          (this.consumedRemainingMsBySpell.get(spellId) ?? 0) + remainingMs,
+        );
+      }
+    } else {
+      this.consumedUnknownCount += 1;
+    }
+
+    return {
+      spellId,
+      spell: SWIFTMENDABLE_HOTS.find((hot) => hot.id === spellId) ?? null,
+      remainingMs,
+      remainingHealing,
+      bonusHealing,
+    };
+  }
+
+  private resolveConsumedSpellId(event: CastEvent, targetId: number): number | undefined {
+    const removed = getRemovedHot(event);
+    if (removed && (!HasTarget(removed) || removed.targetID === targetId)) {
+      return removed.ability.guid;
+    }
+    return this.consumeOrderHotId(targetId, event.timestamp);
+  }
+
+  /** HoTs still expected on the target, then game consume order. */
+  private consumeOrderHotId(targetId: number, timestamp: number): number | undefined {
+    const present = new Set<number>();
+    const hotsOn = this.hotTracker.hots[targetId];
+    if (hotsOn) {
+      Object.keys(hotsOn).forEach((id) => {
+        const spellId = Number(id);
+        if (HOT_ID_CONSUME_ORDER.includes(spellId)) {
+          present.add(spellId);
+        }
+      });
+    }
+    HOT_ID_CONSUME_ORDER.forEach((spellId) => {
+      const end = this.lastHotEnd.get(`${targetId}-${spellId}`);
+      if (end !== undefined && end > timestamp) {
+        present.add(spellId);
+      }
+    });
+    return HOT_ID_CONSUME_ORDER.find((id) => present.has(id));
+  }
+
+  private remainingMsForHot(
+    targetId: number,
+    spellId: number,
+    timestamp: number,
+  ): number | undefined {
+    const hot = this.hotTracker.hots[targetId]?.[spellId];
+    if (hot) {
+      return Math.max(0, hot.end - timestamp);
+    }
+    const snap = this.lastHotEnd.get(`${targetId}-${spellId}`);
+    if (snap !== undefined) {
+      return Math.max(0, snap - timestamp);
+    }
+    return undefined;
+  }
+
+  /**
+   * Estimate remaining healing on a HoT from duration left × last observed tick size.
+   * Same approach as Verdant Infusion.
+   */
+  private estimateRemainingHotHealing(event: CastEvent, targetId: number, spellId: number): number {
+    const remainingMs = this.remainingMsForHot(targetId, spellId, event.timestamp);
+    const lastTick = this.lastHotTickAmount.get(`${targetId}-${spellId}`);
+    const hotInfo = this.hotTracker.hotInfo[spellId];
+    if (remainingMs === undefined || !lastTick || !hotInfo) {
       return 0;
     }
 
-    const hot = this.hotTracker.hots[targetId]?.[removedSpellId];
-    const lastTick = this.lastHotTickAmount.get(`${targetId}-${removedSpellId}`);
-    const hotInfo = this.hotTracker.hotInfo[removedSpellId];
-    if (!hot || !lastTick || !hotInfo) {
-      return 0;
-    }
-
-    const remainingMs = Math.max(0, hot.end - event.timestamp);
     const baseTickPeriod = hotInfo.tickPeriod;
     const tickPeriod = hotInfo.noHaste ? baseTickPeriod : baseTickPeriod / (1 + this.haste.current);
     if (tickPeriod <= 0) {
       return 0;
     }
 
-    const estimatedRemainingHealing = (remainingMs / tickPeriod) * lastTick;
-    return estimatedRemainingHealing * CONSUMED_HOT_BONUS_MULTIPLIER;
+    return (remainingMs / tickPeriod) * lastTick;
+  }
+
+  private get hasConsumedHotData(): boolean {
+    return this.consumedHotCounts.size > 0 || this.consumedUnknownCount > 0;
+  }
+
+  /** Fight-wide consume list for the Swiftmend statistic tooltip. */
+  private renderConsumedHotBreakdown(): ReactNode {
+    const items = HOT_ID_CONSUME_ORDER.filter((id) => this.consumedHotCounts.has(id)).map(
+      (spellId) => {
+        const count = this.consumedHotCounts.get(spellId) ?? 0;
+        const remainingSum = this.consumedRemainingMsBySpell.get(spellId);
+        const avgRemaining =
+          remainingSum !== undefined && count > 0 ? remainingSum / count / 1000 : undefined;
+        return (
+          <span key={spellId}>
+            <SpellLink spell={spellId} /> {count}
+            {avgRemaining !== undefined ? ` (avg ${avgRemaining.toFixed(1)}s left)` : ''}
+          </span>
+        );
+      },
+    );
+    if (this.consumedUnknownCount > 0) {
+      items.push(<span key="unknown">unknown {this.consumedUnknownCount}</span>);
+    }
+    if (items.length === 0) {
+      return <>none detected</>;
+    }
+    return items.map((item, index) => (
+      <Fragment key={index}>
+        {index > 0 && <>, </>}
+        {item}
+      </Fragment>
+    ));
   }
 
   private spellToSequenceCast(
@@ -399,6 +554,9 @@ class Swiftmend extends Analyzer {
             <>
               Consumed <SpellLink spell={cast.consumedSpell} />
               {remainingText}
+              {cast.consumedBonusHealing !== undefined && cast.consumedBonusHealing > 0 && (
+                <> · +{formatNumber(cast.consumedBonusHealing)} bonus on Swiftmend</>
+              )}
             </>,
           ),
         );
@@ -490,10 +648,52 @@ class Swiftmend extends Analyzer {
   private buildCastDetails(): PerCastData[] {
     return this.casts.map((cast) => {
       const performance = this.finalPerformance(cast);
+      const stats: PerCastData['stats'] = [];
+      if (!this.hasVi) {
+        stats.push({
+          value: cast.consumedSpell ? <SpellIcon spell={cast.consumedSpell} /> : '?',
+          label: 'Consumed',
+          tooltip: cast.consumedSpell ? (
+            <>
+              Consumed <SpellLink spell={cast.consumedSpell} />
+              {cast.consumedRemainingMs !== undefined && (
+                <> ({(cast.consumedRemainingMs / 1000).toFixed(1)}s left)</>
+              )}
+            </>
+          ) : (
+            <>Could not detect which HoT was consumed</>
+          ),
+          ungraded: true,
+        });
+        if (cast.consumedRemainingMs !== undefined) {
+          stats.push({
+            value: `${(cast.consumedRemainingMs / 1000).toFixed(1)}s`,
+            label: 'Left',
+            tooltip: 'Estimated remaining duration on the consumed HoT',
+            ungraded: true,
+          });
+        }
+        if (cast.consumedBonusHealing !== undefined && cast.consumedBonusHealing > 0) {
+          stats.push({
+            value: formatNumber(cast.consumedBonusHealing),
+            label: 'HoT bonus',
+            tooltip: (
+              <>
+                Estimated {(CONSUMED_HOT_BONUS_MULTIPLIER * 100).toFixed(0)}% of remaining HoT
+                healing added to this Swiftmend
+                {cast.consumedRemainingHealing !== undefined && (
+                  <> (remaining {formatNumber(cast.consumedRemainingHealing)})</>
+                )}
+              </>
+            ),
+            ungraded: true,
+          });
+        }
+      }
       return {
         performance,
         timestamp: this.owner.formatTimestamp(cast.timestamp),
-        stats: [],
+        stats,
         tooltip: this.castSummary(cast),
         additionalContent: {
           content: <SpellSequence casts={this.buildSequence(cast)} iconSize={34} />,
@@ -522,18 +722,25 @@ class Swiftmend extends Analyzer {
           </>,
         );
       }
-    } else if (!this.hasVi) {
-      if (cast.wasTriage) {
-        parts.push(<>triage cast</>);
-      } else if (cast.consumedSpell) {
+    } else if (!this.hasVi && cast.wasTriage) {
+      parts.push(<>triage cast</>);
+    }
+
+    if (!this.hasVi) {
+      if (cast.consumedSpell) {
         const remaining =
           cast.consumedRemainingMs !== undefined
             ? ` (${(cast.consumedRemainingMs / 1000).toFixed(1)}s)`
+            : '';
+        const bonus =
+          cast.consumedBonusHealing !== undefined && cast.consumedBonusHealing > 0
+            ? ` · +${formatNumber(cast.consumedBonusHealing)} bonus`
             : '';
         parts.push(
           <>
             consumed <SpellLink spell={cast.consumedSpell} />
             {remaining}
+            {bonus}
           </>,
         );
       } else {
@@ -755,7 +962,7 @@ class Swiftmend extends Analyzer {
   }
 
   statistic() {
-    if (this.hasVi || this.consumedHotBonusHealing <= 0) {
+    if (this.hasVi || (!this.hasConsumedHotData && this.consumedHotBonusHealing <= 0)) {
       return null;
     }
 
@@ -765,12 +972,23 @@ class Swiftmend extends Analyzer {
         position={STATISTIC_ORDER.CORE(15)}
         tooltip={
           <>
-            Estimated healing from Swiftmend's bonus of{' '}
-            {(CONSUMED_HOT_BONUS_MULTIPLIER * 100).toFixed(0)}% of the consumed HoT's remaining
-            healing. Remaining HoT healing is estimated from duration left × recent tick size.
-            <br />
-            <br />
-            Estimated bonus: <strong>{formatNumber(this.consumedHotBonusHealing)}</strong>
+            Swiftmend consumes one HoT (Regrowth, then Wild Growth, then Rejuvenation) and the
+            direct heal is increased by {(CONSUMED_HOT_BONUS_MULTIPLIER * 100).toFixed(0)}% of that
+            HoT&apos;s remaining healing. Remaining is estimated from duration left × recent tick
+            size.
+            <ul>
+              <li>
+                HoTs consumed: <strong>{this.renderConsumedHotBreakdown()}</strong>
+              </li>
+              <li>
+                Estimated remaining healing on consumed HoTs:{' '}
+                <strong>{formatNumber(this.consumedHotRemainingHealing)}</strong>
+              </li>
+              <li>
+                Estimated bonus added to Swiftmend:{' '}
+                <strong>{formatNumber(this.consumedHotBonusHealing)}</strong>
+              </li>
+            </ul>
           </>
         }
       >
