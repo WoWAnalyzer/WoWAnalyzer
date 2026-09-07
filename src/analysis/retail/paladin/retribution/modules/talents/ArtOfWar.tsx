@@ -15,10 +15,11 @@ import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Spell from 'common/SPELLS/Spell';
 import { Talent } from 'common/TALENTS/types';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 type ArtOfWarSpender = Spell | Talent;
 
-class ArtOfWar extends Analyzer {
+class ArtOfWar extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   #artOfWarSpenders: ArtOfWarSpender[] = [TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT];
 
   #totalProcs = 0;
@@ -50,12 +51,20 @@ class ArtOfWar extends Analyzer {
 
   #onApplyBuff() {
     this.#totalProcs += 1;
+
+    if (this.deps.spellUsable.isOnCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id)) {
+      this.deps.spellUsable.endCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id);
+    }
   }
 
   #onRefreshBuff() {
     this.#totalProcs += 1;
-    if ((this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR)?.stacks || 0) == 2) {
+    if ((this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR)?.stacks || 0) === 2) {
       this.#artOfWarOvercaps += 1;
+    }
+
+    if (this.deps.spellUsable.isOnCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id)) {
+      this.deps.spellUsable.endCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id);
     }
   }
 
