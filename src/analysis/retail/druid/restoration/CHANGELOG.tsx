@@ -6,6 +6,17 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(
+    date(2026, 9, 7),
+    <>
+      Show which HoTs <SpellLink spell={SPELLS.SWIFTMEND} /> consumed and the estimated bonus
+      healing on the Swiftmend statistic. Slim the{' '}
+      <SpellLink spell={TALENTS_DRUID.PROSPERITY_TALENT} /> tooltip and credit{' '}
+      <SpellLink spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT} /> from Soul of the Forest
+      spends.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 30),
     <>
       Show mana saved (amount and percent of total mana) on{' '}
