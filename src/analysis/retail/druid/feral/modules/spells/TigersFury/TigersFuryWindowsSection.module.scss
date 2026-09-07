@@ -1,0 +1,133 @@
+@use 'interface/design-system' as design;
+
+.WindowList {
+  display: flex;
+  flex-direction: column;
+  gap: design.$gaps_small;
+}
+
+.ShowMoreButton {
+  margin-top: design.$gaps_small;
+  padding: design.$gaps_small design.$gaps_large;
+}
+
+.WindowCard {
+  @include design.level(2);
+  border-radius: 0.5rem;
+  padding: design.$gaps_small design.$gaps_medium;
+
+  display: flex;
+  align-items: flex-start;
+  gap: design.$gaps_medium;
+}
+
+.WindowIconContainer {
+  flex-shrink: 0;
+  // roughly centers the icon against the title + first few casts
+  margin-top: design.$gaps_large;
+
+  // the global img.icon.game rule sizes icons for inline text; this one is a card header
+  & :global(img.icon.game) {
+    height: 5rem;
+    width: 5rem;
+    margin-top: 0;
+    border: 1px solid design.$level2_border;
+    border-radius: 0.5rem;
+  }
+}
+
+.WindowBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.WindowHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: design.$gaps_small;
+  margin-bottom: design.$gaps_small;
+}
+
+.WindowTitle {
+  color: design.$colors_wowaYellow;
+  font-size: design.$fontSize_subHeading;
+}
+
+.WindowSummary {
+  color: design.$colors_unfocusedText;
+}
+
+.NoCasts {
+  color: design.$colors_unfocusedText;
+}
+
+.CastList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.CastRow {
+  display: flex;
+  align-items: center;
+  gap: design.$gaps_small;
+
+  &.fromConvoke {
+    color: design.$colors_unfocusedText;
+    font-style: italic;
+
+    & img {
+      filter: grayscale(0.7);
+    }
+  }
+}
+
+.CastOffset {
+  // fixed width so the icons line up once offsets reach two digits (+10.707)
+  min-width: 7ch;
+  text-align: right;
+  color: design.$colors_unfocusedText;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9em;
+}
+
+.ExpandCastsLink {
+  display: inline-block;
+  margin-top: design.$gaps_small;
+  font-size: 0.9em;
+  // no href, so the browser won't add this on its own
+  cursor: pointer;
+}
+
+.WindowStats {
+  flex-shrink: 0;
+  min-width: max-content;
+  text-align: right;
+}
+
+.PrimaryStat {
+  font-size: design.$fontSize_heading;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.SecondaryStat {
+  margin-top: design.$gaps_small;
+  padding-top: design.$gaps_small;
+  border-top: 1px solid design.$level2_border;
+
+  font-size: design.$fontSize_subHeading;
+  line-height: 1.1;
+}
+
+.StatLabel {
+  color: design.$colors_unfocusedText;
+  font-size: 0.85em;
+  font-weight: normal;
+}
