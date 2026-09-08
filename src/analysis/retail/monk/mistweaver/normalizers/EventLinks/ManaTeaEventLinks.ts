@@ -27,6 +27,24 @@ export const MANA_TEA_EVENT_LINKS: EventLink[] = [
     },
   },
   {
+    // fallback for a channel still running when the log ends, so there is no removebuff to link to
+    linkRelation: MANA_TEA_CHANNEL,
+    linkingEventId: SPELLS.MANA_TEA_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: null,
+    referencedEventType: EventType.FightEnd,
+    forwardBufferMs: MAX_MT_CHANNEL,
+    maximumLinks: 1,
+    anySource: true,
+    anyTarget: true,
+    additionalCondition(linkingEvent) {
+      return !HasRelatedEvent(linkingEvent, MANA_TEA_CHANNEL);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
+  {
     linkRelation: MANA_TEA_CAST_LINK,
     reverseLinkRelation: MANA_TEA_CAST_LINK,
     linkingEventId: SPELLS.MANA_TEA_CAST.id,
