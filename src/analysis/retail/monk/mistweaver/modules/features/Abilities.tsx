@@ -158,14 +158,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 15,
       },
       {
-        spell: SPELLS.EXPEL_HARM.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1000,
-        },
-        cooldown: 15,
-      },
-      {
         spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
         category: SPELL_CATEGORY.OTHERS,
