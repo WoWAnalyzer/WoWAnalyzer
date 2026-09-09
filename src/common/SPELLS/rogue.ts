@@ -630,6 +630,22 @@ const spells = {
     icon: 'spell_shadow_ritualofsacrifice',
   },
 
+  DARKEST_NIGHT_BUFF: {
+    id: 457280,
+    name: 'Darkest Night',
+    icon: 'spell_shadow_twilight',
+  },
+  DEATHSTALKERS_MARK_DEBUFF: {
+    id: 457129,
+    name: "Deathstalker's Mark",
+    icon: 'inv_ability_deathstalkerrogue_deathstalkersmark',
+  },
+  ANCIENT_ARTS_BUFF: {
+    id: 1269163,
+    name: 'Ancient Arts',
+    icon: 'inv12_apextalent_rogue_ancientarts',
+  },
+
   // Trickster Hero Talents
   COUP_DE_GRACE_CAST: {
     id: 441776,
