@@ -148,6 +148,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
+        spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 4,
+      },
+      {
         spell: TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         enabled: combatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
@@ -156,15 +165,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 10,
         timelineSortIndex: 15,
-      },
-      {
-        spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: combatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT) ? 4 : 8,
       },
 
       // Utility Spells
