@@ -4,6 +4,8 @@ import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
+import { VITAL_EXPENDITURE_MANA_INCREASE } from '../../constants';
+
 import EnvelopingMists from '../spells/EnvelopingMists';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
@@ -79,8 +81,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
+    const manaMultiplier = this.selectedCombatant.hasTalent(TALENTS_MONK.VITAL_EXPENDITURE_TALENT)
+      ? 1 + VITAL_EXPENDITURE_MANA_INCREASE
+      : 1;
     spellInfo.manaSpent =
-      this.soothingMist.soomTicks * (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0);
+      this.soothingMist.soomTicks *
+      (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0) *
+      manaMultiplier;
     spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }
