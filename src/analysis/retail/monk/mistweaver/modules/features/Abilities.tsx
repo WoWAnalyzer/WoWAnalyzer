@@ -55,15 +55,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 100,
       },
-      {
-        spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS_MONK.EMPERORS_ELIXIR_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
       // Cooldowns
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
