@@ -300,7 +300,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+        enabled: !combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+        category: combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
@@ -308,23 +309,20 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+          suggestion: combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT),
         },
         timelineSortIndex: 100,
       },
       {
         spell: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
-        category:
-          combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ||
-          combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        enabled: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+          suggestion: true,
         },
         timelineSortIndex: 100,
       },
