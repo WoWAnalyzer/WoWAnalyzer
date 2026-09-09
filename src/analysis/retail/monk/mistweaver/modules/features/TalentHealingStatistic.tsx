@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import { JadefireStomp, SaveThemAll } from 'analysis/retail/monk/shared';
+import { SaveThemAll } from 'analysis/retail/monk/shared';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
 import RapidDiffusion from '../spells/RapidDiffusion';
@@ -49,7 +49,6 @@ class TalentHealingStatistic extends Analyzer {
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     jadefireTeachings: JadefireTeachings,
-    jadefireStomp: JadefireStomp,
     tearOfMorning: TearOfMorning,
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
@@ -81,7 +80,6 @@ class TalentHealingStatistic extends Analyzer {
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
   protected jadefireTeachings!: JadefireTeachings;
-  protected jadefireStomp!: JadefireStomp;
 
   protected tearOfMorning!: TearOfMorning;
   protected lotusInfusion!: LotusInfusion;

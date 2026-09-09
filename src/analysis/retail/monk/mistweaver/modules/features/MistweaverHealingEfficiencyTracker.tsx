@@ -4,7 +4,6 @@ import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
-import JadefireStompHealing from '../spells/JadefireStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
@@ -27,7 +26,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
-    jadefireStompHealing: JadefireStompHealing,
     jadefireTeachings: JadefireTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
@@ -42,7 +40,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
-  protected jadefireStompHealing!: JadefireStompHealing;
   protected jadefireTeachings!: JadefireTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
@@ -71,8 +68,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
-      spellInfo = this.getJFSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
       spellInfo = this.getZenPulseDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.SHEILUNS_GIFT_TALENT.id) {
@@ -164,14 +159,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getSheilunsGiftDetails(spellInfo: SpellInfoDetails) {
-    return spellInfo;
-  }
-
-  getJFSDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.jadefireStompHealing.jfsHealing;
-    spellInfo.healingDone += this.jadefireTeachings.totalHealing;
-    spellInfo.overhealingDone = this.jadefireStompHealing.jfsOverhealing;
-    spellInfo.overhealingDone += this.jadefireTeachings.overhealing;
     return spellInfo;
   }
 

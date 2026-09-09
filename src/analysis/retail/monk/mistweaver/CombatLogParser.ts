@@ -1,5 +1,4 @@
 import {
-  JadefireStomp,
   MysticTouch,
   TouchOfDeath,
   SaveThemAll,
@@ -27,7 +26,6 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
-import JadefireStompHealing from './modules/spells/JadefireStompHealing';
 import JadefireTeachings from './modules/spells/JadefireTeachings';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import InvokeYulon from './modules/spells/InvokeYulon';
@@ -171,8 +169,6 @@ class CombatLogParser extends CoreCombatLogParser {
     jadefireTeachings: JadefireTeachings,
     energizingBrew: EnergizingBrew,
     envelopingMists: EnvelopingMists,
-    jadefireStomp: JadefireStomp,
-    jadefireStompHealing: JadefireStompHealing,
     invokeChiJi: InvokeChiJi,
     invokeYulon: InvokeYulon,
     jadeSerpentStatue: JadeSerpentStatue,
