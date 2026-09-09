@@ -182,14 +182,12 @@ class AncientTeachings extends Analyzer {
   getTooltip(spellId: number, secondarySourceId?: number) {
     const healing = this.damageSpellToHealing.get(spellId) || 0;
     return (
-      <ul>
-        <li>
-          {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
-          <SpellLink spell={spellId} /> converted to healing{' '}
-          {this.damageSpellsCount.get(spellId) || 0} times for a total of {formatNumber(healing)}{' '}
-          healing ({formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}%)
-        </li>
-      </ul>
+      <>
+        {secondarySourceId && <SpellLink spell={secondarySourceId} />} <SpellLink spell={spellId} />{' '}
+        converted to healing {this.damageSpellsCount.get(spellId) || 0} times for a total of{' '}
+        {formatNumber(healing)} healing (
+        {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}%)
+      </>
     );
   }
 
