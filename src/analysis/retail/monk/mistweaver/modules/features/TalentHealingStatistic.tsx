@@ -16,7 +16,7 @@ import MistWrap from '../spells/MistWrap';
 import SheilunsGift from '../spells/SheilunsGift';
 import VeilOfPride from '../spells/VeilOfPride';
 import LegacyOfWisdom from '../spells/LegacyOfWisdom';
-import JadefireTeachings from '../spells/JadefireTeachings';
+import AncientTeachings from '../spells/AncientTeachings';
 import TearOfMorning from '../spells/TearOfMorning';
 import LotusInfusion from '../spells/LotusInfusion';
 import CraneStyle from '../spells/CraneStyle';
@@ -48,7 +48,7 @@ class TalentHealingStatistic extends Analyzer {
     sheiluns: SheilunsGift,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
-    jadefireTeachings: JadefireTeachings,
+    ancientTeachings: AncientTeachings,
     tearOfMorning: TearOfMorning,
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
@@ -79,7 +79,7 @@ class TalentHealingStatistic extends Analyzer {
   protected sheiluns!: SheilunsGift;
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
-  protected jadefireTeachings!: JadefireTeachings;
+  protected ancientTeachings!: AncientTeachings;
 
   protected tearOfMorning!: TearOfMorning;
   protected lotusInfusion!: LotusInfusion;
@@ -137,7 +137,7 @@ class TalentHealingStatistic extends Analyzer {
       talentList.push(this.legacyOfWisdom.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
-      talentList.push(this.jadefireTeachings.talentHealingStatistic());
+      talentList.push(this.ancientTeachings.talentHealingStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       talentList.push(this.tearOfMorning.subStatistic());

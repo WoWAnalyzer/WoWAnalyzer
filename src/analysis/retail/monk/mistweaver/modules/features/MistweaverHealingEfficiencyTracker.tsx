@@ -8,7 +8,7 @@ import EnvelopingMists from '../spells/EnvelopingMists';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import JadefireTeachings from '../spells/JadefireTeachings';
+import AncientTeachings from '../spells/AncientTeachings';
 import RapidDiffusion from '../spells/RapidDiffusion';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
@@ -26,7 +26,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
-    jadefireTeachings: JadefireTeachings,
+    ancientTeachings: AncientTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     mistyPeaks: MistyPeaks,
@@ -40,7 +40,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
-  protected jadefireTeachings!: JadefireTeachings;
+  protected ancientTeachings!: AncientTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
   protected mistyPeaks!: MistyPeaks;
@@ -138,7 +138,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.rapidDiffusion.remHealingFromRSK +
       this.rapidDiffusion.mistyPeakHealingFromRskRem +
       this.craneStyle.rskHealing +
-      this.jadefireTeachings.rskHealing;
+      this.ancientTeachings.rskHealing;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }

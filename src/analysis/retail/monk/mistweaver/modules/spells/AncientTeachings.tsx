@@ -14,7 +14,10 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 
-class JadefireTeachings extends Analyzer {
+// ancient teachings is baseline transfer
+// jadefire teachings increases the rate
+// this module exists to cover both, regardless of jft
+class AncientTeachings extends Analyzer {
   atSourceSpell = 0;
   damageSpellToHealing = new Map<number, number>();
   damageSpellsCount = new Map<number, number>();
@@ -23,10 +26,14 @@ class JadefireTeachings extends Analyzer {
   overhealing = 0;
   currentRskTalent: Talent;
   currentDamage: Spell;
+  hasJadefireTeachings = false;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
+    this.active = true;
+    this.hasJadefireTeachings = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT,
+    );
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.currentDamage = getCurrentRSKTalentDamage(this.selectedCombatant);
     this.addEventListener(
@@ -72,7 +79,15 @@ class JadefireTeachings extends Analyzer {
   talentHealingStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} />}
+        title={
+          <SpellLink
+            spell={
+              this.hasJadefireTeachings
+                ? TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT
+                : SPELLS.ANCIENT_TEACHINGS
+            }
+          />
+        }
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -114,7 +129,7 @@ class JadefireTeachings extends Analyzer {
     );
   }
 
-  getJadefireTeachingsDataItems() {
+  getAncientTeachingsDataItems() {
     const items = [
       {
         spell: this.currentRskTalent,
@@ -183,18 +198,26 @@ class JadefireTeachings extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> -{' '}
-            <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
+            <SpellLink
+              spell={
+                this.hasJadefireTeachings
+                  ? TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT
+                  : SPELLS.ANCIENT_TEACHINGS
+              }
+            />{' '}
+            - <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={
+          this.hasJadefireTeachings ? STATISTIC_CATEGORY.TALENTS : STATISTIC_CATEGORY.GENERAL
+        }
         position={STATISTIC_ORDER.CORE(6)}
         smallFooter
       >
-        <TalentAggregateBars bars={this.getJadefireTeachingsDataItems()}></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }
 }
 
-export default JadefireTeachings;
+export default AncientTeachings;
