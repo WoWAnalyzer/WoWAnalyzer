@@ -88,7 +88,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.soothingMist.soomTicks *
       (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0) *
       manaMultiplier;
-    spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }
 
