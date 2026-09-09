@@ -137,7 +137,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.risingMist.totalHealing +
       this.rapidDiffusion.remHealingFromRSK +
       this.rapidDiffusion.mistyPeakHealingFromRskRem +
-      this.craneStyle.rskHealing;
+      this.craneStyle.rskHealing +
+      this.jadefireTeachings.rskHealing;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
