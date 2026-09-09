@@ -36,5 +36,13 @@ export {
   rankImprovementPriorities,
   priorityImpact,
   DEFAULT_PRIORITY_LIMIT,
+  activeTimePriority,
+  castEfficiencyPriority,
+  resourceWastePriority,
+  linearScore,
+  performanceForHigherIsBetter,
+  performanceForLowerIsBetter,
+  plural,
   type ImprovementPriority,
+  type PerformanceThresholds,
 } from './ImprovementPriorities';

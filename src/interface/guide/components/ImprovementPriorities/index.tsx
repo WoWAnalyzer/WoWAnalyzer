@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Section } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { qualitativePerformanceToNumber } from 'common/combineQualitativePerformances';
-import { TipBox, PerformanceTipBox } from './TipBox';
+import { TipBox, PerformanceTipBox } from '../TipBox';
 
 /**
  * One thing a player can change to improve their throughput.
@@ -138,3 +138,14 @@ export default function ImprovementPriorities({
     </Section>
   );
 }
+
+export {
+  activeTimePriority,
+  castEfficiencyPriority,
+  linearScore,
+  performanceForHigherIsBetter,
+  performanceForLowerIsBetter,
+  plural,
+  resourceWastePriority,
+  type PerformanceThresholds,
+} from './helpers';

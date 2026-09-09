@@ -1,9 +1,5 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  priorityImpact,
-  rankImprovementPriorities,
-  type ImprovementPriority,
-} from './ImprovementPriorities';
+import { priorityImpact, rankImprovementPriorities, type ImprovementPriority } from './index';
 
 const priority = (
   id: string,

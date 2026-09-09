@@ -4,22 +4,20 @@ import TALENTS from 'common/TALENTS/warlock';
 import { formatDuration, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
-import ImprovementPriorities, {
-  type ImprovementPriority,
-} from 'interface/guide/components/ImprovementPriorities';
 import type { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SoulShardTracker from 'analysis/retail/warlock/shared/resources/SoulShardTracker';
-import {
+import ImprovementPriorities, {
   activeTimePriority,
   castEfficiencyPriority,
   linearScore,
   performanceForHigherIsBetter,
   performanceForLowerIsBetter,
   plural,
-  soulShardWastePriority,
-} from 'analysis/retail/warlock/shared/guide/priorities';
+  type ImprovementPriority,
+} from 'interface/guide/components/ImprovementPriorities';
+import { soulShardWastePriority } from 'analysis/retail/warlock/shared/guide/priorities';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import DemonicTyrant, { type TyrantCastData } from '../features/DemonicTyrant';
 import DemonboltHardcasts from '../features/DemonboltHardcasts';
