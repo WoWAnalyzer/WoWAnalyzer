@@ -74,32 +74,6 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: SPELLS.CHARHOUND_SUMMON.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.GLOOMHOUND_SUMMON.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.SHADOW_BOLT_DEMO.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

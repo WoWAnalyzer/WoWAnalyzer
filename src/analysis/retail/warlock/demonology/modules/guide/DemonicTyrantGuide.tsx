@@ -19,7 +19,7 @@ import { useAnalyzer, useInfo } from 'interface/guide';
 const TYRANT_PRE_WINDOW = 7000;
 const TYRANT_POST_BUFFER = 3000;
 
-interface ScoreBreakdown {
+export interface ScoreBreakdown {
   total: number;
   totalSpenderCasts: number;
   maxExpectedCasts: number;
@@ -33,7 +33,7 @@ interface ScoreBreakdown {
 }
 
 // Computes a weighted 0–100 score for a single Tyrant window across spender casts, cooldown usage, and resource management.
-function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBreakdown {
+export function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBreakdown {
   const totalSpenderCasts = cast.handOfGuldanCasts;
 
   // Pro-rate the max HoG cast expectation based on how much of the window actually occurred.
@@ -132,7 +132,7 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
 
 // Maps a numeric window score to a performance rating.
 // Perfect requires ≥ maxExpectedCasts spender casts; Good requires ≥ 6.
-function scoreToPerf(
+export function scoreToPerf(
   score: number,
   totalSpenderCasts?: number,
   maxExpectedCasts = 8,

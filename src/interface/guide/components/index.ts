@@ -31,3 +31,10 @@ export {
   FilterBadge,
 } from './GuideDataWrapper';
 export { HelperTextRow } from './GuideDataWrapper';
+export {
+  default as ImprovementPriorities,
+  rankImprovementPriorities,
+  priorityImpact,
+  DEFAULT_PRIORITY_LIMIT,
+  type ImprovementPriority,
+} from './ImprovementPriorities';

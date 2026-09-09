@@ -7,10 +7,13 @@ import DefensivesGuide from '../shared/Defensives';
 import UnstableAfflictionGuide from './modules/guide/UnstableAfflictionGuide';
 import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
 import DarkHarvestGuide from './modules/guide/DarkHarvestGuide';
+import ImprovementPrioritiesSection from './modules/guide/ImprovementPrioritiesSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <ImprovementPrioritiesSection />
+
       {/* Always Be Casting Section */}
       <Section title="Always Be Casting">{modules.alwaysBeCasting.guideSubsection}</Section>
 

@@ -6,10 +6,12 @@ import ResourceUsage from './modules/guide/ResourceUsage';
 import DefensivesGuide from '../shared/Defensives';
 import DemonicTyrantGuide from './modules/guide/DemonicTyrantGuide';
 import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
+import ImprovementPrioritiesSection from './modules/guide/ImprovementPrioritiesSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <ImprovementPrioritiesSection />
       <CoreSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <DefensivesSection modules={modules} events={events} info={info} />

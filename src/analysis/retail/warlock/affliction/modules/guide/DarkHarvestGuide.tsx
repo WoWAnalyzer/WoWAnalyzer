@@ -51,7 +51,7 @@ function missingToPerformance(missing: number): QualitativePerformance {
   return QualitativePerformance.Fail;
 }
 
-function castPerformance(cast: DarkHarvestCastData): QualitativePerformance {
+export function castPerformance(cast: DarkHarvestCastData): QualitativePerformance {
   if (cast.hits.length === 0) return QualitativePerformance.Fail;
   const scoreUA = cast.hits.length === 1;
   const worstMissing = Math.max(...cast.hits.map((hit) => missingDotCount(hit, scoreUA)));

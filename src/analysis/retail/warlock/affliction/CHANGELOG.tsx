@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import {Katorri} from 'CONTRIBUTORS';
+import {Katorri, Zea} from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 
 export default [
+  change(date(2026, 9, 9), <>Add a "What to Focus On" section at the top of the guide. It ranks up to four changes by impact: uptime, DoT uptime, <SpellLink spell={TALENTS.SUMMON_DARKGLARE_TALENT} /> and <SpellLink spell={TALENTS.DARK_HARVEST_TALENT} /> usage, and Soul Shard waste.</>, Zea),
   change(date(2026, 8, 15), <>Create <SpellLink spell={TALENTS.DARK_HARVEST_TALENT} /> guide section tracking per-cast DoT coverage across every target it hits and <SpellLink spell={TALENTS.CULL_THE_WEAK_TALENT} /> CDR efficiency.</>, Katorri),
   change(date(2026, 8, 15), "Update Haunt baseline percent increase, update Compatibility for 12.1.0", Katorri),
   change(date(2026, 5, 31), "Add Always Be Casting guide section; adjust DoT Uptimes guide section; add contextual tip to UA uptime section for cleave/AoE fights; register SiphonLife analyzer and correct damage bonus from 20% to 30%; remove outdated Darkglare dot extension tracking.", Katorri),
