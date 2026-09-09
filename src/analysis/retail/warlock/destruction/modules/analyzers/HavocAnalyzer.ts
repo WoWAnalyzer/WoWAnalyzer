@@ -2,8 +2,16 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  ApplyDebuffEvent,
+  RemoveDebuffEvent,
+  DamageEvent,
+} from 'parser/core/Events';
 import Abilities from '../core/Abilities';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
+
+const EXECUTE_RANGE_THRESHOLD = 0.2;
 
 export default class HavocAnalyzer extends Analyzer {
   static dependencies = {
@@ -14,6 +22,7 @@ export default class HavocAnalyzer extends Analyzer {
 
   havocData: HavocWindowData[] = [];
   currentHavoc: HavocWindowData | null = null;
+  executeRangeMap: Map<string, boolean> = new Map();
 
   havocDuration = 15000;
 
@@ -42,6 +51,15 @@ export default class HavocAnalyzer extends Analyzer {
 
     // Spell casts during window
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onDamage(event: DamageEvent): void {
+    if (event.targetIsFriendly) return;
+
+    const targetString = encodeTargetString(event.targetID, event.targetInstance);
+    const isExecute = (event.hitPoints ?? 1) / (event.maxHitPoints ?? 1) <= EXECUTE_RANGE_THRESHOLD;
+    this.executeRangeMap.set(targetString, isExecute);
   }
 
   onHavocApplied(event: ApplyDebuffEvent): void {
@@ -50,6 +68,7 @@ export default class HavocAnalyzer extends Analyzer {
       end: event.timestamp + this.havocDuration,
       chaosBolts: 0,
       shadowburns: 0,
+      shadowburnsInExecute: 0,
       casts: [], // store havocable casts
     };
 
@@ -87,6 +106,13 @@ export default class HavocAnalyzer extends Analyzer {
 
     if (spellId === TALENTS.SHADOWBURN_TALENT.id) {
       this.currentHavoc.shadowburns += 1;
+
+      if (event.targetID !== undefined) {
+        const targetString = encodeTargetString(event.targetID, event.targetInstance);
+        if (this.executeRangeMap.get(targetString)) {
+          this.currentHavoc.shadowburnsInExecute += 1;
+        }
+      }
     }
   }
 
@@ -102,4 +128,5 @@ export interface HavocWindowData {
   shadowburns: number;
   casts: CastEvent[]; // only tracks Havocable spells
   targetDied?: boolean;
+  shadowburnsInExecute: number;
 }
