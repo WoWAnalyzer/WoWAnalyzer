@@ -45,7 +45,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 15,
       },
-      //soothing mist's category is entirely dependent on your talent selections
       {
         spell: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.SOOTHING_MIST_TALENT),
@@ -54,15 +53,6 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         timelineSortIndex: 100,
-      },
-      {
-        spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS_MONK.EMPERORS_ELIXIR_TALENT),
-        gcd: {
-          base: 1500,
-        },
       },
       // Cooldowns
       {
@@ -158,6 +148,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
+        spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 4,
+      },
+      {
         spell: TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         enabled: combatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
@@ -166,23 +165,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 10,
         timelineSortIndex: 15,
-      },
-      {
-        spell: SPELLS.EXPEL_HARM.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1000,
-        },
-        cooldown: 15,
-      },
-      {
-        spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: combatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT) ? 4 : 8,
       },
 
       // Utility Spells
@@ -300,7 +282,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+        enabled: !combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+        category: combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
@@ -308,23 +291,20 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+          suggestion: combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT),
         },
         timelineSortIndex: 100,
       },
       {
         spell: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
-        category:
-          combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ||
-          combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        enabled: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+          suggestion: true,
         },
         timelineSortIndex: 100,
       },

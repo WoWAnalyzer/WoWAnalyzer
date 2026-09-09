@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -10,9 +9,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { SpellLink, TooltipElement } from 'interface';
-import { formatNumber } from 'common/format';
 
 class JadefireStomp extends Analyzer {
   static dependencies = {
@@ -30,21 +26,10 @@ class JadefireStomp extends Analyzer {
   targetsDamaged = 0;
   targetsHealed = 0;
 
-  ///mistweaver specific params
-  specIsMW = false;
-  healing = 0;
-  overhealing = 0;
-  gomHealing = 0;
-  gomOverhealing = 0;
-
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT);
-    this.specIsMW = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
@@ -66,21 +51,6 @@ class JadefireStomp extends Analyzer {
     );
   }
 
-  get totalHealing() {
-    return this.healing;
-  }
-
-  get rawHealing() {
-    return this.overhealing + this.gomOverhealing;
-  }
-  get averageHealingPerCast() {
-    return this.totalHealing / this.jfsCasts;
-  }
-
-  get rawHealingPerCast() {
-    return (this.totalHealing + this.rawHealing) / this.jfsCasts;
-  }
-
   casts() {
     this.jfsCasts += 1;
   }
@@ -98,8 +68,6 @@ class JadefireStomp extends Analyzer {
 
   heal(event: HealEvent) {
     this.targetsHealed += 1;
-    this.healing += event.amount + (event.absorbed || 0);
-    this.overhealing += event.overheal || 0;
   }
 
   statistic() {
@@ -108,65 +76,20 @@ class JadefireStomp extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            {this.specIsMW && (
-              <ul>
-                <li>
-                  {formatNumber(this.healing)}{' '}
-                  <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
-                  {formatNumber(this.overhealing)} overheal){' '}
-                </li>
-                <li>
-                  {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} />{' '}
-                  healing ({formatNumber(this.gomOverhealing)} overheal)
-                </li>
-                <li>
-                  {this.resets} <small>resets</small>{' '}
-                </li>
-                <li>
-                  {(this.targetsDamaged / this.jfsCasts).toFixed(2)}{' '}
-                  <small>Foes Hit per cast</small>
-                </li>
-                <li>
-                  {(this.targetsHealed / this.jfsCasts).toFixed(2)}{' '}
-                  <small>Allies Hit per cast</small>
-                </li>
-              </ul>
-            )}
-          </>
-        }
       >
         <TalentSpellText talent={TALENTS_MONK.JADEFIRE_STOMP_TALENT}>
-          {this.specIsMW ? (
-            <>
-              <div>
-                <ItemHealingDone amount={this.totalHealing} />
-              </div>
-              <TooltipElement
-                content={
-                  <>
-                    {formatNumber(this.rawHealingPerCast)} <small>raw healing per cast</small>
-                  </>
-                }
-              >
-                {formatNumber(this.averageHealingPerCast)} <small>healing per cast</small>
-              </TooltipElement>
-            </>
-          ) : (
-            <>
-              <div>
-                {this.resets} <small>resets</small>
-              </div>
-              <div>
-                {(this.targetsDamaged / this.jfsCasts).toFixed(2)}{' '}
-                <small>Foes Hit per cast</small>{' '}
-              </div>
-              <div>
-                {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
-              </div>
-            </>
-          )}
+          <>
+            <div>
+              {this.resets} <small>resets</small>
+            </div>
+            <div>
+              {(this.targetsDamaged / this.jfsCasts).toFixed(2)}{' '}
+              <small>Foes Hit per cast</small>{' '}
+            </div>
+            <div>
+              {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
+            </div>
+          </>
         </TalentSpellText>
       </Statistic>
     );

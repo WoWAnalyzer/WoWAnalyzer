@@ -9,7 +9,6 @@ class SoothingMist extends Analyzer {
     statTracker: StatTracker,
   };
   soomTicks = 0;
-  gustsHealing = 0;
   startStamp = 0;
   endStamp = 0;
   soomInProgress = false;

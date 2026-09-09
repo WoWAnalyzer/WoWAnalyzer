@@ -4,12 +4,13 @@ import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
-import JadefireStompHealing from '../spells/JadefireStompHealing';
+import { VITAL_EXPENDITURE_MANA_INCREASE } from '../../constants';
+
 import EnvelopingMists from '../spells/EnvelopingMists';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import JadefireTeachings from '../spells/JadefireTeachings';
+import AncientTeachings from '../spells/AncientTeachings';
 import RapidDiffusion from '../spells/RapidDiffusion';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
@@ -27,8 +28,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
-    jadefireStompHealing: JadefireStompHealing,
-    jadefireTeachings: JadefireTeachings,
+    ancientTeachings: AncientTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     mistyPeaks: MistyPeaks,
@@ -42,8 +42,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
-  protected jadefireStompHealing!: JadefireStompHealing;
-  protected jadefireTeachings!: JadefireTeachings;
+  protected ancientTeachings!: AncientTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
   protected mistyPeaks!: MistyPeaks;
@@ -71,8 +70,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
-      spellInfo = this.getJFSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
       spellInfo = this.getZenPulseDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.SHEILUNS_GIFT_TALENT.id) {
@@ -84,9 +81,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
+    const manaMultiplier = this.selectedCombatant.hasTalent(TALENTS_MONK.VITAL_EXPENDITURE_TALENT)
+      ? 1 + VITAL_EXPENDITURE_MANA_INCREASE
+      : 1;
     spellInfo.manaSpent =
-      this.soothingMist.soomTicks * (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0);
-    spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
+      this.soothingMist.soomTicks *
+      (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0) *
+      manaMultiplier;
     return spellInfo;
   }
 
@@ -142,7 +143,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.risingMist.totalHealing +
       this.rapidDiffusion.remHealingFromRSK +
       this.rapidDiffusion.mistyPeakHealingFromRskRem +
-      this.craneStyle.rskHealing;
+      this.craneStyle.rskHealing +
+      this.ancientTeachings.rskHealing;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
@@ -164,14 +166,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getSheilunsGiftDetails(spellInfo: SpellInfoDetails) {
-    return spellInfo;
-  }
-
-  getJFSDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.jadefireStompHealing.jfsHealing;
-    spellInfo.healingDone += this.jadefireTeachings.totalHealing;
-    spellInfo.overhealingDone = this.jadefireStompHealing.jfsOverhealing;
-    spellInfo.overhealingDone += this.jadefireTeachings.overhealing;
     return spellInfo;
   }
 
