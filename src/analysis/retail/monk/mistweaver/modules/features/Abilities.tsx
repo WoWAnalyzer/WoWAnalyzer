@@ -45,7 +45,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 15,
       },
-      //soothing mist's category is entirely dependent on your talent selections
       {
         spell: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.SOOTHING_MIST_TALENT),
