@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { CSSProperties, JSX } from 'react';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import ShadowDance, { ShadowDanceData } from '../modules/spells/ShadowDance';
 import Analyzer from 'parser/core/Analyzer';
@@ -20,7 +20,7 @@ import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import InformationIcon from 'interface/icons/Information';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { PerformanceMark } from 'interface/guide';
-import { getHeroTree, getMaxComboPoints, HeroTree } from '../constants';
+import { getMaxComboPoints, HeroTree } from '../constants';
 
 /** One graded aspect of a Shadow Dance window, rendered as its own row in the cast details. */
 interface DanceCheck {
@@ -35,6 +35,13 @@ const SECRET_TECHNIQUE_MAX_FINISHER_POSITION = 2;
 /** The one Shadow Dance that is expected to happen without Secret Technique ready. */
 const SECOND_DANCE_UNDER_SHADOW_BLADES = 2;
 
+const BREAKDOWN_PANEL_STYLE: CSSProperties = {
+  padding: '10px 12px',
+  borderRadius: '6px',
+  border: '1px solid rgba(255,255,255,0.08)',
+  background: 'rgba(0,0,0,0.16)',
+};
+
 const EVISCERATE_ENERGY_COST = 35;
 const SECRET_TECHNIQUE_ENERGY_COST = 30;
 
@@ -47,10 +54,7 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
   protected shadowDance!: ShadowDance;
   protected eventHistory!: EventHistory;
 
-  // Derived from the combatant rather than from `this.shadowDance`: injected dependencies are not
-  // usable yet while class fields initialize, but `selectedCombatant` reads through `owner`, which
-  // the Module constructor has already assigned by then.
-  heroTree = getHeroTree(this.selectedCombatant);
+  heroTree = this.deps.shadowDance.heroTree;
   isTrickster = this.heroTree === HeroTree.Trickster;
   isDeathstalker = this.heroTree === HeroTree.Deathstalker;
 
@@ -66,17 +70,34 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
     };
   }
 
+  /**
+   * One line of inline text for the details TipBox: what held the window back, or a confirmation
+   * when nothing did. The TipBox lays its icon and content out inline, so the full breakdown goes
+   * in the block section below it instead.
+   */
+  private renderSummary(checks: DanceCheck[]): string {
+    const problems = checks.filter((check) => check.performance !== QualitativePerformance.Perfect);
+
+    if (problems.length === 0) {
+      return 'Everything lined up in this window.';
+    }
+
+    return problems.map((check) => `${check.label} - ${check.detail}`).join(' ');
+  }
+
   /** Renders each graded aspect as its own row, so a failing check is obvious at a glance. */
   private renderChecks(checks: DanceCheck[]) {
     return (
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-        {checks.map((check) => (
-          <li key={check.label}>
-            <PerformanceMark perf={check.performance} /> <strong>{check.label}:</strong>{' '}
-            {check.detail}
-          </li>
-        ))}
-      </ul>
+      <div style={BREAKDOWN_PANEL_STYLE}>
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          {checks.map((check) => (
+            <li key={check.label}>
+              <PerformanceMark perf={check.performance} /> <strong>{check.label}:</strong>{' '}
+              {check.detail}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 
@@ -105,26 +126,25 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
    */
   private evaluateSecretTechniqueTiming(dance: ShadowDanceData): DanceCheck | null {
     const label = 'Secret Technique';
-    const isSecondDanceUnderShadowBlades =
-      dance.danceIndexInShadowBlades === SECOND_DANCE_UNDER_SHADOW_BLADES;
-
-    if (!this.shadowDance.isSecretTechniqueUsable(dance)) {
-      if (isSecondDanceUnderShadowBlades) {
-        return null;
-      }
-
-      return {
-        label,
-        performance: QualitativePerformance.Fail,
-        detail:
-          'entered Shadow Dance without it available. The two should be used together, except ' +
-          'on the second Shadow Dance of a Shadow Blades window.',
-      };
-    }
-
     const position = this.shadowDance.getSecretTechniqueFinisherPosition(dance);
 
-    if (position === null) {
+    if (position !== null) {
+      return position <= SECRET_TECHNIQUE_MAX_FINISHER_POSITION
+        ? {
+            label,
+            performance: QualitativePerformance.Perfect,
+            detail: `used as finisher #${position}.`,
+          }
+        : {
+            label,
+            performance: QualitativePerformance.Fail,
+            detail:
+              `used as finisher #${position} - it should be one of the first ` +
+              `${SECRET_TECHNIQUE_MAX_FINISHER_POSITION}.`,
+          };
+    }
+
+    if (this.shadowDance.isSecretTechniqueUsable(dance)) {
       return {
         label,
         performance: QualitativePerformance.Fail,
@@ -132,20 +152,18 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
       };
     }
 
-    if (position <= SECRET_TECHNIQUE_MAX_FINISHER_POSITION) {
-      return {
-        label,
-        performance: QualitativePerformance.Perfect,
-        detail: `used as finisher #${position}.`,
-      };
+    // Not available and not expected to be: the one window where that is intended drops out of the
+    // grade entirely rather than counting as a pass.
+    if (dance.danceIndexInShadowBlades === SECOND_DANCE_UNDER_SHADOW_BLADES) {
+      return null;
     }
 
     return {
       label,
       performance: QualitativePerformance.Fail,
       detail:
-        `used as finisher #${position} - it should be one of the first ` +
-        `${SECRET_TECHNIQUE_MAX_FINISHER_POSITION}.`,
+        'entered Shadow Dance without it available. The two should be used together, except ' +
+        'on the second Shadow Dance of a Shadow Blades window.',
     };
   }
 
@@ -440,13 +458,20 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
             tooltip: <>Total casts</>,
           },
         ],
-        details: this.renderChecks(evaluation.checks),
-        additionalContent: sequenceEntry
-          ? {
-              title: 'Cast Sequence',
-              content: <SpellSequence casts={sequenceEntry.casts} iconSize={40} />,
-            }
-          : undefined,
+        details: this.renderSummary(evaluation.checks),
+        additionalContent: {
+          title: 'Window Breakdown',
+          content: (
+            <div style={{ display: 'grid', gap: '0.9rem' }}>
+              {this.renderChecks(evaluation.checks)}
+              {sequenceEntry && (
+                <div style={BREAKDOWN_PANEL_STYLE}>
+                  <SpellSequence casts={sequenceEntry.casts} iconSize={40} />
+                </div>
+              )}
+            </div>
+          ),
+        },
       };
     });
 

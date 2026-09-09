@@ -30,6 +30,13 @@ export const SECRET_TECHNIQUE_GRACE_MS = 2000;
  */
 export const SECRET_TECHNIQUE_PAIRING_BUFFER_MS = 250;
 
+/**
+ * Ancient Arts has to be set up by an earlier cast, so an Eviscerate with less than a GCD left in
+ * the window could not have been paired with it. Graded on time remaining rather than on being the
+ * last cast, so a lone Eviscerate early in a window is still judged.
+ */
+export const ANCIENT_ARTS_PAIRING_WINDOW_MS = 1000;
+
 /** The finishers that can be spent inside a Shadow Dance window. */
 const FINISHER_SPELL_IDS: number[] = [
   SPELLS.EVISCERATE.id,
@@ -120,11 +127,6 @@ export default class ShadowDance extends Analyzer.withDependencies({
       duration: removed - event.timestamp,
       energyAtCast: this.energyTracker.current,
       comboPointsAtCast: this.comboPointTracker.current,
-      // Read during the event rather than at render time: SpellUsable only describes the current
-      // point in the fight, so reading it later would report the state at fight end for every
-      // window.
-      // Spending it right as the window opens counts as available: the cooldown SpellUsable
-      // reports at this point was started by that very cast.
       secretTechniqueAvailable:
         !this.spellUsable.isOnCooldown(SPELLS.SECRET_TECHNIQUE.id) ||
         pairedSecretTechnique !== null,
@@ -212,18 +214,17 @@ export default class ShadowDance extends Analyzer.withDependencies({
   /**
    * Eviscerates cast under Darkest Night that were missing Ancient Arts.
    *
-   * The last cast of a Shadow Dance is exempt: there is no room left in the window to line the two
-   * buffs up, so dropping Ancient Arts there is expected rather than a mistake.
+   * Casts in the last {@link ANCIENT_ARTS_PAIRING_WINDOW_MS} of the window are exempt: there was
+   * no time left to line the two buffs up, so dropping Ancient Arts there is expected rather than
+   * a mistake.
    */
   getMissedAncientArtsEviscerates(dance: ShadowDanceData): DanceCast[] {
-    const lastCast = dance.casts.at(-1);
-
     return dance.casts.filter(
       (cast) =>
         cast.spellId === SPELLS.EVISCERATE.id &&
         cast.hasDarkestNight &&
         !cast.hasAncientArts &&
-        cast !== lastCast,
+        dance.removed - cast.timestamp > ANCIENT_ARTS_PAIRING_WINDOW_MS,
     );
   }
 
@@ -240,21 +241,10 @@ export default class ShadowDance extends Analyzer.withDependencies({
   }
 
   /**
-   * Whether Secret Technique could realistically be spent in this window.
-   *
-   * Actually casting it inside the window is the strongest possible evidence and is checked first:
-   * cooldown state sampled at the applybuff can be misleading, because Shadow Dance and Secret
-   * Technique are macroed together and SpellUsable may have already started the cooldown from that
-   * very cast by the time the buff event is handled.
-   *
-   * Otherwise it counts as usable when it was off cooldown on entry, or close enough to coming off
-   * that it still fits in the window.
+   * Whether Secret Technique could be spent in this window: it was off cooldown when the window
+   * opened, or close enough to coming off that it still lands early in the window.
    */
   isSecretTechniqueUsable(dance: ShadowDanceData): boolean {
-    if (dance.casts.some((cast) => cast.spellId === SPELLS.SECRET_TECHNIQUE.id)) {
-      return true;
-    }
-
     return (
       dance.secretTechniqueAvailable ||
       dance.secretTechniqueCooldownRemaining <= SECRET_TECHNIQUE_GRACE_MS
