@@ -1,0 +1,37 @@
+.BarsContainer {
+  margin-left: calc(var(--offset) * 1px);
+}
+
+.RowsContainer {
+  margin-top: 4px;
+  margin-left: calc(var(--offset) * 1px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Row {
+  position: relative;
+  min-height: calc(var(--iconSize) * 1px);
+  display: flex;
+  align-items: center;
+}
+
+.RowIcon {
+  position: absolute;
+  left: calc(var(--iconSize) * -1px);
+  top: 0;
+  width: calc(var(--iconSize) * 1px);
+  height: calc(var(--iconSize) * 1px);
+  z-index: 1;
+
+  :global(img.icon.game) {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+    border: 1px solid #75736d;
+    border-radius: 0;
+    box-shadow: 0 0 3px #000;
+  }
+}

@@ -15,6 +15,7 @@ import {
   PERFECT_ASP_WASTED,
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import OffensiveTimeline from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/OffensiveTimeline';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { ASTRAL_POWER_SCALE_FACTOR, cdSpell } from 'analysis/retail/druid/balance/constants';
 
@@ -117,7 +118,13 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
 
       <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
-      <Section title="Eclipse">{modules.eclipse.guideSubsection}</Section>
+      <Section title="Eclipse">
+        {modules.eclipse.guideSubsection}
+        <div style={{ marginBottom: '20px' }} />
+        {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
+          <OffensiveTimeline />
+        )}
+      </Section>
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}
