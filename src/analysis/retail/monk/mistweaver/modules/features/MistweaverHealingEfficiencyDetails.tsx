@@ -28,20 +28,20 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
               {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT) && (
                 <>
                   <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> is given to the spell
-                  that procced it.
+                  that procced it.{' '}
                 </>
               )}
               {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
                 <>
                   <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
                   source cast of the <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that procced
-                  it.
+                  it.{' '}
                 </>
               )}
               {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (
                 <>
                   <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> healing is attributed to{' '}
-                  <SpellLink spell={SPELLS.VIVIFY} />.
+                  <SpellLink spell={SPELLS.VIVIFY} />.{' '}
                 </>
               )}
             </p>
