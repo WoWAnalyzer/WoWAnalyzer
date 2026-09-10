@@ -6,7 +6,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
-import { TipBox } from 'interface/guide/components';
+import { PerformanceTipBox, TipBox } from 'interface/guide/components';
 
 import PrismaticBolt, { PrismaticBoltCast } from '../analyzers/PrismaticBolt';
 import { CastDetail, PerCastData, type PerCastStat } from 'interface/guide/components';
@@ -99,18 +99,6 @@ class PrismaticBoltGuide extends Analyzer {
     }
 
     // PERFECT CONDITIONS
-    if (
-      this.isSpellslinger &&
-      pb.salvoStacks >= 13 &&
-      (!pb.hasClearcasting || pb.cumulativePowerStacks >= 6 || !pb.has4pc)
-    ) {
-      return {
-        timestamp: pb.timestamp,
-        performance: QualitativePerformance.Perfect,
-        reason: `Had ${pb.salvoStacks} Arcane Salvo Stacks ${pb.hasClearcasting ? 'with Clearcasting' : 'without Clearcasting'} and ${pb.has4pc ? `and ${pb.cumulativePowerStacks} Cumulative Power stacks.` : 'no 4pc tier set bonus.'}`,
-      };
-    }
-
     if (this.isSunfury && pb.cumulativePowerStacks >= 8) {
       return {
         timestamp: pb.timestamp,
@@ -120,6 +108,18 @@ class PrismaticBoltGuide extends Analyzer {
     }
 
     // GOOD CONDITIONS
+    if (
+      this.isSpellslinger &&
+      pb.salvoStacks >= 13 &&
+      (!pb.hasClearcasting || pb.cumulativePowerStacks >= 6 || !pb.has4pc)
+    ) {
+      return {
+        timestamp: pb.timestamp,
+        performance: QualitativePerformance.Good,
+        reason: `Had ${pb.salvoStacks} Arcane Salvo Stacks ${pb.hasClearcasting ? 'with Clearcasting' : 'without Clearcasting'} and ${pb.has4pc ? `and ${pb.cumulativePowerStacks} Cumulative Power stacks.` : 'no 4pc tier set bonus.'}`,
+      };
+    }
+
     if (this.isSpellslinger && pb.targetsHit >= 2) {
       return {
         timestamp: pb.timestamp,
@@ -225,6 +225,10 @@ class PrismaticBoltGuide extends Analyzer {
             you get the buff.
           </p>
         )}
+        <PerformanceTipBox performance={QualitativePerformance.Perfect} title="Perfection">
+          Casting {prismaticBolt} with 8 stacks of {cumulativePower} will increase your rating to
+          Perfect and net you moderate DPS increase if you are consistently being rated "Good".
+        </PerformanceTipBox>
       </>
     );
 
