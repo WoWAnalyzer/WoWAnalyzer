@@ -13,11 +13,11 @@ import CastSequence, {
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 import ArcaneSurge, { ArcaneSurgeData } from '../analyzers/ArcaneSurge';
-import { TipBox } from 'interface/guide/components';
+import { PerformanceTipBox, TipBox } from 'interface/guide/components';
 import { formatPercentage } from 'common/format';
 
 const SURGE_PRE_WINDOW = 10000;
-const SURGE_POST_WINDOW = 5000; // 7.5 seconds before and after
+const SURGE_POST_WINDOW = 5000;
 
 class ArcaneSurgeGuide extends Analyzer {
   static dependencies = {
@@ -75,6 +75,10 @@ class ArcaneSurgeGuide extends Analyzer {
           While it may seem beneficial to have a high amount of mana before casting {arcaneSurge},
           this is not enough of a meaningful benefit to play around.
         </TipBox>
+        <PerformanceTipBox performance={QualitativePerformance.Perfect} title="Perfection">
+          Increasing your Active Time to at least 95% will increase your rating to Perfect and net
+          you a minor DPS increase if you are consistently being rated "Good".
+        </PerformanceTipBox>
       </>
     );
 

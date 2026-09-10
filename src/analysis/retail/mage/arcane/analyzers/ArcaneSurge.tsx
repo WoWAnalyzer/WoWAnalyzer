@@ -33,7 +33,8 @@ export default class ArcaneSurge extends Analyzer {
 
   onSurgeCast(event: CastEvent) {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
-    const buffRemove: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
+    const buffRemove: RemoveBuffEvent | undefined =
+      buffApply && GetRelatedEvent(buffApply, EventType.RemoveBuff);
 
     this.surgeData.push({
       cast: event.timestamp,

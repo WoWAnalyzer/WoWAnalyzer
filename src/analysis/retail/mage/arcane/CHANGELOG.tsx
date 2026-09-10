@@ -17,6 +17,9 @@ const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 const cumulativePower = <SpellLink spell={SPELLS.CUMULATIVE_POWER_BUFF} />;
 
 export default [
+  change(date(2026, 9, 10), <>Added Tip Boxes to explain the "Perfect" conditions for the spells that have them.</>, Sharrq),
+  change(date(2026, 9, 10), <>Fixed {arcaneSurge} Active Time calculations.</>, Sharrq),
+  change(date(2026, 9, 10), <>Added {prismaticBolt} and {cumulativePower} buffs to timeline highlighting.</>, Sharrq),
   change(date(2026, 8, 29), <>Fixed {prismaticBolt} not being accounted for on {arcaneMissiles} Cast Delay.</>, Sharrq),
   change(date(2026, 8, 29), <>Fixed the logic that determined how many targets {arcaneOrb} hit.</>, Sharrq),
   change(date(2026, 8, 29), <>Fixed {prismaticBolt}, again. It now correctly identifies munched procs that were actually munched.</>, Sharrq),
