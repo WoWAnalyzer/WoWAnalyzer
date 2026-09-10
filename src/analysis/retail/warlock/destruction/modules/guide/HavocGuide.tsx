@@ -187,10 +187,12 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
       );
     }
 
-    if (targetDied)
+    if (targetDied) {
+      const proRatedBar = executeBurnBars ? executeBurnBars.perfect : maxExpectedSpenders;
       feedback.push(
-        `The target died before the debuff expired, shortening your Havoc window -- expectation was pro-rated to ${maxExpectedSpenders} shard${maxExpectedSpenders !== 1 ? 's' : ''} worth of spending.`,
+        `The target died before the debuff expired, shortening your Havoc window -- expectation was pro-rated to ${proRatedBar}${executeBurnBars ? ' Shadowburn' : ' shard'}${proRatedBar !== 1 ? 's' : ''}${executeBurnBars ? '' : ' worth of spending'}.`,
       );
+    }
 
     return (
       <ul style={{ paddingLeft: 20, margin: 0 }}>
