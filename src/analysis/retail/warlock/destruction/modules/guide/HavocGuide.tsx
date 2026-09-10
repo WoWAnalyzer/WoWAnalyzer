@@ -89,9 +89,11 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
     shardsSpent: number,
     shadowburns: number,
     shadowburnsInExecute: number,
+    shardsOnCast: number,
     hasFiendishCruelty: boolean,
     maxExpectedSpenders: number,
     executeBurnBars: { perfect: number; good: number; ok: number } | null,
+    startWasFabricated: boolean,
     casts: CastEvent[],
     duration: number,
     targetDied?: boolean,
@@ -146,6 +148,26 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
         );
     }
 
+    if (!startWasFabricated) {
+      if (shardsOnCast >= 4) {
+        feedback.push(
+          `You entered Havoc with ${shardsOnCast.toFixed(1)} Soul Shard${shardsOnCast !== 1 ? 's' : ''} banked -- great job.`,
+        );
+      } else if (shardsOnCast >= 3) {
+        feedback.push(
+          'You entered Havoc with 3 Soul Shards banked -- a decent pool, but getting closer to max lets you spend faster during the window.',
+        );
+      } else if (shardsOnCast >= 2) {
+        feedback.push(
+          'You entered Havoc with only 2 Soul Shards banked. Try pooling more shards to get closer to max before casting Havoc.',
+        );
+      } else {
+        feedback.push(
+          `You cast Havoc with ${shardsOnCast.toFixed(1)} Soul Shard${shardsOnCast !== 1 ? 's' : ''} banked, which delays your first spenders. Pooling more before casting Havoc lets you start spending immediately.`,
+        );
+      }
+    }
+
     if (shadowburnsInExecute > 0) {
       feedback.push(
         `${shadowburnsInExecute} Shadowburn${shadowburnsInExecute !== 1 ? 's' : ''} landed while the target was in execute range -- good use of Havoc during execute.`,
@@ -155,7 +177,7 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
     const nonExecuteShadowburns = shadowburns - shadowburnsInExecute;
     if (nonExecuteShadowburns > 0 && hasFiendishCruelty) {
       feedback.push(
-        `${nonExecuteShadowburns} Shadowburn${nonExecuteShadowburns !== 1 ? 's' : ''} cast via a Fiendish Cruelty proc (free, no shard cost) outside of execute range - good use of the free cast.`,
+        `${nonExecuteShadowburns} Shadowburn${nonExecuteShadowburns !== 1 ? 's' : ''} cast via a Fiendish Cruelty proc (free, no shard cost) - good use of the free cast.`,
       );
     }
 
@@ -171,11 +193,11 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
       );
 
     return (
-      <>
+      <ul style={{ paddingLeft: 20, margin: 0 }}>
         {feedback.map((line, i) => (
-          <div key={i}>{line}</div>
+          <li key={i}>{line}</li>
         ))}
-      </>
+      </ul>
     );
   }
 
@@ -236,14 +258,21 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
           value: window.casts.length,
           tooltip: 'Total Havocable spells cast during this Havoc window',
         },
+        {
+          label: 'Soul Shards at Cast',
+          value: window.shardsOnCast.toFixed(1),
+          tooltip: 'Soul Shards you had banked when Havoc was applied',
+        },
       ],
       details: getHavocFeedback(
         shardsSpent,
         window.shadowburns,
         window.shadowburnsInExecute,
+        window.shardsOnCast,
         hasFiendishCruelty,
         maxExpectedSpenders,
         executeBurnBars,
+        window.startWasFabricated ?? false,
         window.casts,
         havocAnalyzer.havocDuration,
         window.targetDied,
