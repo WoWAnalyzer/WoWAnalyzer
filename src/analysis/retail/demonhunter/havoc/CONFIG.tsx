@@ -11,7 +11,7 @@ const CONFIG: Config = {
   contributors: [Topple, Hezaerd, Zogmaw],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.1',
+  patchCompatibility: '12.1.0',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -104,7 +104,7 @@ const CONFIG: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec is mostly updated for 12.1. If anything is missing or incorrect, please ping{' '}
+          This spec is mostly updated for 12.1.0. If anything is missing or incorrect, please ping{' '}
           <code>@Zogmaw</code> in the Fel Hammer Discord.
         </AlertWarning>
       ),
@@ -112,7 +112,8 @@ const CONFIG: Config = {
   },
 
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: `/report/N7gwMKY8bRqGJZzt/9-Heroic+Nek'zali+the+Soulcoiler+-+Kill+(5:27)/350-Zogmaw/standard`,
+  exampleReport:
+    "/report/N7gwMKY8bRqGJZzt/9-Heroic+Nek'zali+the+Soulcoiler+-+Kill+(5:27)/350-Zogmaw/standard",
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
