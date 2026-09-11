@@ -6,6 +6,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 3), <>Fixed <SpellLink spell={talents.RAISE_DEAD_TALENT} /> cooldown</>, Badkad),
+
   change(date(2026, 8, 29), <>Added <SpellLink spell={talents.VISCERAL_STRENGTH_TALENT} /> tracking</>, Gazh),
   change(date(2026, 8, 28), <>Added <SpellLink spell={SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF} /> tracking</>, Gazh),
   change(date(2026, 8, 27), <>Added basic 12.1 support and <SpellLink spell={talents.ABOMINATION_LIMB_TALENT}></SpellLink> tracking</>, Badkad),

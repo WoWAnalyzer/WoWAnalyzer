@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.RAISE_DEAD_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 90,
+        cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
       },
       {
         spell: TALENTS.REAPERS_MARK_TALENT.id,
