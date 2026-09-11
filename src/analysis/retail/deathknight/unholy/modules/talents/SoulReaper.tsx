@@ -1,52 +1,47 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
-import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   CastEvent,
   DamageEvent,
   FightEndEvent,
+  EventType,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Enemies from 'parser/shared/modules/Enemies';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-import Abilities from 'parser/core/modules/Abilities';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import type { JSX } from 'react';
-import SpellUsable from '../core/SpellUsable';
+import SoulReaperTimeline, { MissedFreeSoulReaperRecord } from '../guide/SoulReaperTimeline';
+import SoulReaperConsumption from '../guide/SoulReaperConsumption';
+import { LesserGhoulConsumption } from '../../normalizers/LesserGhoulConsumption';
 
 const SOUL_REAPER_EXECUTE_THRESHOLD = 0.35;
 const SOUL_REAPER_COOLDOWN_MS = 15_000;
-const SOUL_REAPER_NEXT_DT_BAD_WINDOW_MS = 15_000;
 const ATTRIBUTED_PLAYER_DAMAGE_SPELL_IDS = new Set([
   SPELLS.DREAD_PLAGUE.id,
   SPELLS.VIRULENT_PLAGUE.id,
 ]);
 
 interface SoulReaperCastRecord {
+  event: CastEvent;
+  stacksBeforeCast: number;
   timestamp: number;
   darkTransformationWindowId: number | null;
-  putrefyChargesAtCast: number;
-}
-
-interface MissedFreeSoulReaperRecord {
-  timestamp: number;
-  darkTransformationWindowId: number;
 }
 
 class SoulReaper extends ExecuteHelper.withDependencies({
-  spellUsable: SpellUsable,
   enemies: Enemies,
-  abilities: Abilities,
 }) {
   public static readonly executeSources = SELECTED_PLAYER;
   public static readonly lowerThreshold = SOUL_REAPER_EXECUTE_THRESHOLD;
@@ -55,12 +50,13 @@ class SoulReaper extends ExecuteHelper.withDependencies({
 
   maxCasts = 0;
 
+  private lesserGhoulStacks = 0;
+  private readonly consumedStacks = new Map<CastEvent, number | null>();
   private dtWindowOpen = false;
   private debuffWindowDamage = 0;
   private currentDarkTransformationWindowId: number | null = null;
   private currentDarkTransformationStartedAt: number | null = null;
   private darkTransformationWindowIdCounter = 0;
-  private readonly darkTransformationStartTimestamps: number[] = [];
   private readonly soulReaperCasts: SoulReaperCastRecord[] = [];
   private readonly missedFreeSoulReaperWindows: MissedFreeSoulReaperRecord[] = [];
 
@@ -72,19 +68,42 @@ class SoulReaper extends ExecuteHelper.withDependencies({
       return;
     }
 
-    // Dark Transformation window tracking — DT resets SR's cooldown and allows
-    // one free cast on any target
+    // With Reaping, Dark Transformation resets Soul Reaper and allows a cast
+    // above the usual execute health threshold.
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_TRANSFORMATION_BUFF),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .to(SELECTED_PLAYER)
+        .spell(SPELLS.DARK_TRANSFORMATION_BUFF),
       this.onDTApply,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_TRANSFORMATION_BUFF),
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .to(SELECTED_PLAYER)
+        .spell(SPELLS.DARK_TRANSFORMATION_BUFF),
       this.onDTRemove,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOUL_REAPER_TALENT),
       this.onSRCast,
+    );
+
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulApply,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulStack,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulRemove,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
+      this.onGhoulRemove,
     );
 
     // Caster-only sources for debuff attribution.
@@ -112,37 +131,63 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     this.darkTransformationWindowIdCounter = darkTransformationWindowId;
     this.currentDarkTransformationWindowId = darkTransformationWindowId;
     this.currentDarkTransformationStartedAt = _event.timestamp;
-    this.darkTransformationStartTimestamps.push(_event.timestamp);
-    this.dtWindowOpen = true;
-    this.maxCasts += 1;
+    this.dtWindowOpen = this.selectedCombatant.hasTalent(TALENTS.REAPING_TALENT);
+    if (this.dtWindowOpen) {
+      this.maxCasts += 1;
+    }
   }
 
   private onDTRemove(event: RemoveBuffEvent) {
     this.closeDarkTransformationWindow(event.timestamp);
   }
 
-  private getPutrefyChargesBeforeCast(timestamp: number): number {
-    const putrefyStateBeforeCast = this.deps.spellUsable
-      .history(TALENTS.PUTREFY_TALENT.id)
-      .getBefore(timestamp, true);
-
-    if (putrefyStateBeforeCast) {
-      return putrefyStateBeforeCast.chargesAvailable;
-    }
-
-    return this.deps.abilities.getMaxCharges(TALENTS.PUTREFY_TALENT.id) || 1;
-  }
-
   private onSRCast(event: CastEvent) {
     this.soulReaperCasts.push({
+      event,
+      stacksBeforeCast: this.lesserGhoulStacks,
       timestamp: event.timestamp,
       darkTransformationWindowId: this.currentDarkTransformationWindowId,
-      putrefyChargesAtCast: this.getPutrefyChargesBeforeCast(event.timestamp),
     });
 
     if (this.dtWindowOpen) {
       this.dtWindowOpen = false;
     }
+  }
+
+  private onGhoulApply(_event: ApplyBuffEvent) {
+    this.lesserGhoulStacks = 1;
+  }
+
+  private onGhoulStack(event: ApplyBuffStackEvent) {
+    this.lesserGhoulStacks = event.stack;
+  }
+
+  private onGhoulRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    const remaining = event.type === EventType.RemoveBuffStack ? event.stack : 0;
+    const removed = this.lesserGhoulStacks - remaining;
+    this.lesserGhoulStacks = remaining;
+    const cast = LesserGhoulConsumption.first(event);
+    if (!cast || cast.ability.guid !== TALENTS.SOUL_REAPER_TALENT.id) {
+      return;
+    }
+
+    const previous = this.consumedStacks.has(cast) ? this.consumedStacks.get(cast)! : 0;
+    // Missing stack history or an impossible total is ungraded, not a zero.
+    this.consumedStacks.set(
+      cast,
+      previous === null || removed <= 0 || previous + removed > 3 ? null : previous + removed,
+    );
+  }
+
+  private get consumptionCasts() {
+    return this.soulReaperCasts.map((cast) => ({
+      timestamp: cast.timestamp,
+      stacksConsumed: this.consumedStacks.has(cast.event)
+        ? this.consumedStacks.get(cast.event)!
+        : cast.stacksBeforeCast === 0 && !LesserGhoulConsumption.reverse.first(cast.event)
+          ? 0
+          : null,
+    }));
   }
 
   private onPlayerDamage(event: DamageEvent) {
@@ -173,7 +218,7 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     return event.ability.name === TALENTS.PUTREFY_TALENT.name;
   }
 
-  private closeDarkTransformationWindow(fallbackTimestamp: number) {
+  private closeDarkTransformationWindow(fallbackTimestamp: number, endedAtFightEnd = false) {
     const darkTransformationWindowId = this.currentDarkTransformationWindowId;
     const darkTransformationStartedAt = this.currentDarkTransformationStartedAt;
     this.currentDarkTransformationWindowId = null;
@@ -185,6 +230,8 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     this.missedFreeSoulReaperWindows.push({
       darkTransformationWindowId,
       timestamp: darkTransformationStartedAt ?? fallbackTimestamp,
+      endTimestamp: fallbackTimestamp,
+      endedAtFightEnd,
     });
     this.dtWindowOpen = false;
   }
@@ -196,6 +243,9 @@ class SoulReaper extends ExecuteHelper.withDependencies({
   }
 
   private getFreeDarkTransformationCastsDuringExecute(): number {
+    if (!this.selectedCombatant.hasTalent(TALENTS.REAPING_TALENT)) {
+      return 0;
+    }
     const countedWindows = new Set<number>();
 
     for (const cast of this.soulReaperCasts) {
@@ -221,273 +271,60 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / SOUL_REAPER_COOLDOWN_MS);
     this.maxCasts -= this.getFreeDarkTransformationCastsDuringExecute();
-    this.closeDarkTransformationWindow(event.timestamp);
-  }
-
-  private getNextDarkTransformationTimestamp(
-    castTimestamp: number,
-    nextDarkTransformationIndex: number,
-  ): { nextDarkTransformationIndex: number; nextDarkTransformationTimestamp: number | null } {
-    let nextIndex = nextDarkTransformationIndex;
-    while (
-      nextIndex < this.darkTransformationStartTimestamps.length &&
-      this.darkTransformationStartTimestamps[nextIndex] <= castTimestamp
-    ) {
-      nextIndex += 1;
-    }
-
-    return {
-      nextDarkTransformationIndex: nextIndex,
-      nextDarkTransformationTimestamp: this.darkTransformationStartTimestamps[nextIndex] ?? null,
-    };
-  }
-
-  private formatSeconds(durationMs: number): string {
-    return (durationMs / 1000).toFixed(1);
-  }
-
-  private getDarkTransformationCooldownRemaining(
-    castTimestamp: number,
-    nextDarkTransformationTimestamp: number | null,
-  ): string {
-    const darkTransformationCooldownState = this.deps.spellUsable
-      .history(TALENTS.DARK_TRANSFORMATION_TALENT.id)
-      .getBefore(castTimestamp, true);
-
-    const remainingMs = darkTransformationCooldownState?.isOnCooldown
-      ? darkTransformationCooldownState.expectedRechargeTimestamp - castTimestamp
-      : nextDarkTransformationTimestamp === null
-        ? 0
-        : Math.min(
-            SOUL_REAPER_COOLDOWN_MS,
-            Math.max(0, nextDarkTransformationTimestamp - castTimestamp),
-          );
-
-    return `${this.formatSeconds(Math.max(0, remainingMs))}s`;
-  }
-
-  private getDarkTransformationAssessment(
-    darkTransformationWindowId: number,
-    firstCastInDarkTransformationWindows: Set<number>,
-  ): { assessment: JSX.Element; performance: QualitativePerformance } {
-    const firstCastInWindow = !firstCastInDarkTransformationWindows.has(darkTransformationWindowId);
-    firstCastInDarkTransformationWindows.add(darkTransformationWindowId);
-
-    return {
-      performance: QualitativePerformance.Good,
-      assessment: firstCastInWindow ? (
-        <>
-          You used your free <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> during{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        </>
-      ) : (
-        <>
-          You used <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> on cooldown during{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        </>
-      ),
-    };
-  }
-
-  private getOutsideDarkTransformationAssessment(
-    cast: SoulReaperCastRecord,
-    nextDarkTransformationTimestamp: number | null,
-  ): { assessment: JSX.Element; performance: QualitativePerformance } {
-    const usedWithinNextDarkTransformationWindow =
-      nextDarkTransformationTimestamp !== null &&
-      nextDarkTransformationTimestamp - cast.timestamp <= SOUL_REAPER_NEXT_DT_BAD_WINDOW_MS;
-    const usedWithPutrefyStacks = cast.putrefyChargesAtCast > 0;
-
-    if (!usedWithPutrefyStacks && !usedWithinNextDarkTransformationWindow) {
-      return {
-        performance: QualitativePerformance.Good,
-        assessment: (
-          <>
-            You used <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> without Putrefy stacks outside{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-          </>
-        ),
-      };
-    }
-
-    if (usedWithPutrefyStacks && usedWithinNextDarkTransformationWindow) {
-      return {
-        performance: QualitativePerformance.Fail,
-        assessment: (
-          <>
-            You used <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> outside{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} /> with available{' '}
-            <SpellLink spell={TALENTS.PUTREFY_TALENT} /> stacks and less than 15s until your next{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-          </>
-        ),
-      };
-    }
-
-    if (usedWithPutrefyStacks) {
-      return {
-        performance: QualitativePerformance.Fail,
-        assessment: (
-          <>
-            You used <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> with stacks from{' '}
-            <SpellLink spell={TALENTS.PUTREFY_TALENT} /> outside{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-          </>
-        ),
-      };
-    }
-
-    return {
-      performance: QualitativePerformance.Fail,
-      assessment: (
-        <>
-          You used <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> within 15s of your next{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        </>
-      ),
-    };
-  }
-
-  private getCastAssessment(
-    cast: SoulReaperCastRecord,
-    firstCastInDarkTransformationWindows: Set<number>,
-    nextDarkTransformationTimestamp: number | null,
-  ): { assessment: JSX.Element; performance: QualitativePerformance } {
-    if (cast.darkTransformationWindowId !== null) {
-      return this.getDarkTransformationAssessment(
-        cast.darkTransformationWindowId,
-        firstCastInDarkTransformationWindows,
-      );
-    }
-
-    return this.getOutsideDarkTransformationAssessment(cast, nextDarkTransformationTimestamp);
-  }
-
-  private buildCastStats(
-    windowLabel: string,
-    putrefyStacks: number | '-',
-    darkTransformationCooldownRemaining: string,
-    putrefyTooltip: JSX.Element = (
-      <>
-        Estimated <SpellLink spell={TALENTS.PUTREFY_TALENT} /> charges available when{' '}
-        <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> was cast.
-      </>
-    ),
-  ) {
-    return [
-      {
-        value: windowLabel,
-        label: 'Window',
-      },
-      {
-        value: putrefyStacks,
-        label: 'Putrefy stacks',
-        tooltip: putrefyTooltip,
-      },
-      {
-        value: darkTransformationCooldownRemaining,
-        label: 'DT CD remaining',
-      },
-    ];
-  }
-
-  private buildCastDetails(): PerCastData[] {
-    const details: { timestamp: number; data: PerCastData }[] = [];
-    const firstCastInDarkTransformationWindows = new Set<number>();
-
-    let nextDarkTransformationIndex = 0;
-    for (const cast of this.soulReaperCasts) {
-      const darkTransformationContext = this.getNextDarkTransformationTimestamp(
-        cast.timestamp,
-        nextDarkTransformationIndex,
-      );
-      nextDarkTransformationIndex = darkTransformationContext.nextDarkTransformationIndex;
-
-      const castAssessment = this.getCastAssessment(
-        cast,
-        firstCastInDarkTransformationWindows,
-        darkTransformationContext.nextDarkTransformationTimestamp,
-      );
-      const inDarkTransformation = cast.darkTransformationWindowId !== null;
-      const darkTransformationCooldownRemaining = inDarkTransformation
-        ? 'Active'
-        : this.getDarkTransformationCooldownRemaining(
-            cast.timestamp,
-            darkTransformationContext.nextDarkTransformationTimestamp,
-          );
-
-      details.push({
-        timestamp: cast.timestamp,
-        data: {
-          performance: castAssessment.performance,
-          timestamp: this.owner.formatTimestamp(cast.timestamp),
-          stats: this.buildCastStats(
-            inDarkTransformation ? 'During DT' : 'Outside DT',
-            cast.putrefyChargesAtCast,
-            darkTransformationCooldownRemaining,
-          ),
-          details: castAssessment.assessment,
-        },
-      });
-    }
-
-    for (const missedFreeSoulReaperWindow of this.missedFreeSoulReaperWindows) {
-      details.push({
-        timestamp: missedFreeSoulReaperWindow.timestamp,
-        data: {
-          performance: QualitativePerformance.Fail,
-          timestamp: this.owner.formatTimestamp(missedFreeSoulReaperWindow.timestamp),
-          stats: this.buildCastStats(
-            'During DT',
-            '-',
-            'Active',
-            <>
-              No <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> cast happened in this{' '}
-              <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} /> window.
-            </>,
-          ),
-          details: (
-            <>
-              You did not cast your free <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> during
-              this <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} /> window.
-            </>
-          ),
-        },
-      });
-    }
-
-    details.sort((a, b) => a.timestamp - b.timestamp);
-
-    return details.map((entry) => entry.data);
+    this.closeDarkTransformationWindow(event.timestamp, true);
   }
 
   get guideSubsection(): JSX.Element {
+    const hasReaping = this.selectedCombatant.hasTalent(TALENTS.REAPING_TALENT);
+    // Three-stack preparation is explicitly recommended by the 12.1 rotation guide:
+    // https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-rotation-cooldowns-abilities
     const explanation = (
       <>
         <p>
-          <strong>
-            <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} />
-          </strong>{' '}
-          should be prioritized during <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} /> and
-          managed carefully outside of it.
+          Prepare three <SpellLink spell={SPELLS.LESSER_GHOUL_BUFF} /> stacks before{' '}
+          <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> to get the most minion damage from each
+          cast. It can consume all three at once, summoning ghouls or triggering attacks from your
+          existing army during <SpellLink spell={TALENTS.ARMY_OF_THE_DEAD_TALENT} />.
         </p>
-        <p>
-          During each <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} /> window, always spend the
-          free <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> cast, then continue using{' '}
-          <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> on cooldown while the window remains
-          active.
-        </p>
-        <p>
-          Outside <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />, use{' '}
-          <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> only when you do not have stacks from{' '}
-          <SpellLink spell={TALENTS.PUTREFY_TALENT} /> available and you are not within 15 seconds
-          of your next <SpellLink spell={SPELLS.DARK_TRANSFORMATION_BUFF} />.
-        </p>
+        {hasReaping && (
+          <p>
+            <SpellLink spell={TALENTS.REAPING_TALENT} /> lets you use Soul Reaper during{' '}
+            <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> even above 35% target health.
+          </p>
+        )}
       </>
     );
-
-    const data = <CastDetail title="Soul Reaper Casts" casts={this.buildCastDetails()} />;
-
+    const data = (
+      <div>
+        {this.soulReaperCasts.length === 0 && (
+          <p>
+            No Soul Reaper casts were recorded. Look for targets below 35% health
+            {hasReaping && ' and opportunities from Reaping after Dark Transformation'} to use Soul
+            Reaper next time.
+          </p>
+        )}
+        {hasReaping &&
+          this.darkTransformationWindowIdCounter > 0 &&
+          this.missedFreeSoulReaperWindows.length === 0 && (
+            <p>
+              You used Soul Reaper in every observed Reaping window. Keep using that opportunity
+              each time you activate Dark Transformation.
+            </p>
+          )}
+        <SoulReaperConsumption
+          casts={this.consumptionCasts}
+          fightStart={this.owner.fight.start_time}
+          fightEnd={this.owner.fight.end_time}
+          formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+        />
+        <SoulReaperTimeline
+          missedWindows={this.missedFreeSoulReaperWindows}
+          fightStart={this.owner.fight.start_time}
+          fightEnd={this.owner.fight.end_time}
+          formatTimestamp={(timestamp) => this.owner.formatTimestamp(timestamp)}
+        />
+      </div>
+    );
     return explanationAndDataSubsection(explanation, data, 40);
   }
 
@@ -517,9 +354,9 @@ class SoulReaper extends ExecuteHelper.withDependencies({
           </div>
           {this.missedFreeSoulReaperWindows.length > 0 && (
             <div>
-              <span style={{ color: 'red' }}>{this.missedFreeSoulReaperWindows.length}</span>{' '}
+              <span>{this.missedFreeSoulReaperWindows.length}</span>{' '}
               <small>
-                wasted Dark Transformation window
+                Dark Transformation window without an observed Soul Reaper cast
                 {this.missedFreeSoulReaperWindows.length > 1 ? 's' : ''}
               </small>
             </div>

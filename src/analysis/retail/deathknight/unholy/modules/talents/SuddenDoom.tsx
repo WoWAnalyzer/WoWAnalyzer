@@ -736,7 +736,7 @@ class SuddenDoom extends Analyzer.withDependencies({
             <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} />
           </strong>{' '}
           should be consumed as soon as possible. Letting a proc expire or get overwritten at 2
-          stacks is a direct damage loss — you lose a free, empowered{' '}
+          stacks is a direct damage loss because you lose a free, empowered{' '}
           <SpellLink spell={SPELLS.DEATH_COIL} /> cast. This section tracks every proc window from
           gain until consumption or loss, and records each cast made while the proc was active.
         </p>

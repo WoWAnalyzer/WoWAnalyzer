@@ -83,7 +83,7 @@ class LesserGhoul extends Analyzer {
     this.buffAppliedAt = null;
   }
 
-  get stacksExpired() {
+  get stacksNotConsumed() {
     return this.stacksGained - this.stacksConsumed;
   }
 
@@ -101,13 +101,15 @@ class LesserGhoul extends Analyzer {
             <div>
               You consumed {this.stacksConsumed} out of {this.stacksGained} Lesser Ghoul stacks.
             </div>
-            <div>{this.stacksExpired} stacks expired without being used.</div>
+            <div>
+              {this.stacksNotConsumed} stacks not consumed, including stacks remaining at fight end.
+            </div>
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.LESSER_GHOUL_BUFF}>
           <>
-            {formatPercentage(this.efficiency)} % <small>stack efficiency</small>
+            {formatPercentage(this.efficiency)} % <small>stacks consumed</small>
           </>
         </BoringSpellValueText>
       </Statistic>

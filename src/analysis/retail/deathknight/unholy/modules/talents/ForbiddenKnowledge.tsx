@@ -105,14 +105,14 @@ export default class ForbiddenKnowledge extends ExecuteHelper.withDependencies({
                 label: 'Necrotic Coil',
                 spellId: SPELLS.NECROTIC_COIL.id,
                 value: this.necroticCoilDamage,
-                valueTooltip: `${formatNumber(necroticCoilDps)} DPS — ${formatNumber(this.necroticCoilDamage)} total`,
+                valueTooltip: `${formatNumber(necroticCoilDps)} DPS, ${formatNumber(this.necroticCoilDamage)} total`,
               },
               {
                 color: '#22c55e',
                 label: 'Graveyard',
                 spellId: SPELLS.GRAVEYARD.id,
                 value: this.graveyardDamage,
-                valueTooltip: `${formatNumber(graveyardDps)} DPS — ${formatNumber(this.graveyardDamage)} total`,
+                valueTooltip: `${formatNumber(graveyardDps)} DPS, ${formatNumber(this.graveyardDamage)} total`,
               },
             ]}
           />

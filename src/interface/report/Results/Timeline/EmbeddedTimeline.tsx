@@ -8,7 +8,7 @@ import Auras from 'parser/core/modules/Auras';
 import AuraTimeline from './Auras';
 
 import TimeIndicators from './TimeIndicators';
-import Casts, { isApplicableEvent } from './Casts';
+import Casts, { CastHighlight, isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 import Abilities from 'parser/core/modules/Abilities';
 import { TimelineSettingsContext } from './Settings';
@@ -156,6 +156,8 @@ export interface EmbeddedTimelineProps {
    * Whether to display the cooldown legend. Defaults to true. In smaller embeds, it can be beneficial to disable it.
    */
   cooldownLegend?: boolean;
+  /** Informational cast outlines, independent of performance grading. */
+  highlightedCasts?: CastHighlight[];
 }
 
 function toSpellId(value: number | Spell): number {
@@ -173,6 +175,7 @@ function EmbeddedTimelineRaw({
   cooldownOrder,
   overlapOffGcds,
   cooldownLegend = true,
+  highlightedCasts,
 }: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
@@ -227,17 +230,24 @@ function EmbeddedTimelineRaw({
           />
         )}
         <TimeIndicators seconds={secondsShown} offset={offset} skipInterval={2}>
-          <Casts start={range.start} events={filteredEvents} overlapOffGcds={overlapOffGcds} />
+          <Casts
+            start={range.start}
+            events={filteredEvents}
+            overlapOffGcds={overlapOffGcds}
+            highlightedCasts={highlightedCasts}
+          />
         </TimeIndicators>
-        <Cooldowns
-          start={range.start}
-          end={range.end}
-          eventsBySpellId={cooldownEventsBySpellId}
-          abilities={abilities}
-          castsOmitted
-          fixedCooldownOrder={cooldownOrder === 'fixed'}
-          disableLegend={!cooldownLegend}
-        />
+        {cooldownEventsBySpellId.size > 0 && (
+          <Cooldowns
+            start={range.start}
+            end={range.end}
+            eventsBySpellId={cooldownEventsBySpellId}
+            abilities={abilities}
+            castsOmitted
+            fixedCooldownOrder={cooldownOrder === 'fixed'}
+            disableLegend={!cooldownLegend}
+          />
+        )}
       </SpellTimeline>
     </AutoSizerTimelineContainer>
   );

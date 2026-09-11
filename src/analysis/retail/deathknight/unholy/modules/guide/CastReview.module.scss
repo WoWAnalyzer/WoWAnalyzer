@@ -1,0 +1,56 @@
+.review {
+  min-width: 0;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.castLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.control {
+  color-scheme: dark;
+  background: #252525;
+  color: #fab700;
+  border: 1px solid #686764;
+  border-radius: 6px;
+  padding: 6px 10px;
+  min-height: 36px;
+  font: inherit;
+  line-height: 1.4;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #383024;
+    border-color: #fab700;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fab700;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: #252525;
+    color: #aaa;
+    border-color: #494949;
+    cursor: default;
+    opacity: 1;
+  }
+
+  option {
+    background: #252525;
+    color: #eee;
+  }
+}
