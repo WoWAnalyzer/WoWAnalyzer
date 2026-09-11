@@ -105,6 +105,16 @@ const spells = {
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
   },
+  JADE_SANCTUARY_BUFF: {
+    id: 448508,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
+  JADE_SANCTUARY_HEAL: {
+    id: 443028,
+    name: 'Jade Sanctuary',
+    icon: 'inv_leather_raidmonk_r_01_bracer',
+  },
   COURAGE_OF_THE_WHITE_TIGER_HEAL: {
     id: 443106,
     name: 'Courage of the White Tiger',
@@ -123,7 +133,7 @@ const spells = {
   STRENGTH_OF_THE_BLACK_OX_BUFF: {
     id: 443112,
     name: 'Strength of the Black Ox',
-    icon: 'ability_monk_chargingoxwave',
+    icon: 'ability_monk_leeroftheox',
   },
   STRENGTH_OF_THE_BLACK_OX_SHIELD: {
     id: 443113,
@@ -231,6 +241,11 @@ const spells = {
     id: 1269159,
     name: 'Rushing Wind Kick',
     icon: 'inv12_ability_monk_rushingwindkick',
+  },
+  MW_S2_4PC_BUFF: {
+    id: 1296687,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
   },
   VIVIFY: {
     id: 116670,
@@ -859,6 +874,11 @@ const spells = {
     name: 'Extra Kick',
     icon: 'inv_flaming_splinter',
   },
+  UNBROKEN_RHYTHM_BUFF: {
+    id: 1297033,
+    name: 'Unbroken Rhythm',
+    icon: 'ability_monk_boughstrike',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
@@ -959,7 +979,7 @@ const spells = {
   RUSHING_WIND_KICK_DAMAGE: {
     id: 468179,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WINDS_BUFF: {
     id: 467341,
@@ -1008,6 +1028,11 @@ const spells = {
   },
   DANCE_OF_CHI_JI_BUFF: {
     id: 325202,
+    name: 'Dance of Chi-Ji',
+    icon: 'ability_monk_quitornado',
+  },
+  DANCE_OF_CHI_JI_MW_BUFF: {
+    id: 438443,
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },

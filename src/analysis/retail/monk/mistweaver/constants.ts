@@ -33,6 +33,9 @@ export const LOTUS_INFUSION_BOOST = 0.06;
 export const SHEILUNS_GIFT_MAX_CLOUDS = 10;
 export const LEGACY_OF_WISDOM_TARGETS = 2;
 export const SHEILUNS_GIFT_TARGETS = 3;
+export const JADE_SANCTUARY_DR = 0.15;
+export const JADE_SANCTUARY_HEAL = 0.1;
+export const ELUSIVE_MISTS_DR = 0.06;
 export const EMPERORS_FAVOR_TARGETS = 1;
 export const EMPERORS_FAVOR_INCREASE = 0.2;
 export const INVIGORATING_MISTS_INCREASE = 5;
@@ -72,8 +75,12 @@ export const SPIRITFONT_R1_ENV_RSK_INCREASE = 0.1;
 export const SPIRITFONT_R2_ENV_RSK_INCREASE = 0.2;
 export const SPIRITFONT_INCREASE_DURING_HOT = 1.5;
 export const SECRET_INFUSION_INCREASE_PER_RANK = 0.04;
-export const MORNING_BREEZE_INCREASE = 0.2; // per mw mastery %
+export const MORNING_BREEZE_INCREASE = 0.08; // per mw mastery %
 export const HEART_OF_THE_JADE_SERPENT_DURATION = 8000;
+export const MISTLINE_INCREASE = 5.0;
+export const VITAL_EXPENDITURE_HEALING_INCREASE = 3.0;
+export const VITAL_EXPENDITURE_MANA_INCREASE = 2.0;
+export const DANCE_OF_CHI_JI_INCREASE = 4.0;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
@@ -96,6 +103,7 @@ export const ATTRIBUTION_STRINGS = {
   },
   YULON: "Yu'lon",
   THUNDER_FOCUS_TEA: 'Thunder Focus Tea - Midnight S1 4pc',
+  S2_FOUR_PIECE: 'Rapid Diffusion - Midnight S2 4pc',
 };
 
 export const SECRET_INFUSION_BUFFS = [
@@ -125,6 +133,7 @@ export const SPELL_COLORS = {
   ZEN_PULSE: '#c6f4f5',
   THUNDER_FOCUS_TEA: '#96ade5',
   LIFE_COCOON: '#a8d8a8',
+  CHI_JI: '#d4380d',
 };
 
 export const ID_TO_SPELL_COLOR: Partial<Record<number, string>> = {
@@ -149,6 +158,12 @@ export const ID_TO_SPELL_COLOR: Partial<Record<number, string>> = {
   [TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id]: SPELL_COLORS.THUNDER_FOCUS_TEA,
   [TALENTS_MONK.LIFE_COCOON_TALENT.id]: SPELL_COLORS.LIFE_COCOON,
 };
+
+export const SOOTHING_MIST_SOURCES = [
+  { spell: TALENTS_MONK.SOOTHING_MIST_TALENT, heal: TALENTS_MONK.SOOTHING_MIST_TALENT },
+  { spell: TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT, heal: SPELLS.SOOTHING_MIST_STATUE },
+  { spell: TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT, heal: SPELLS.SPIRITFONT_HOT },
+] as const;
 
 export function getCurrentRSKTalent(player: Combatant): Talent {
   return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)

@@ -6,6 +6,7 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 17), <>Update Brewmaster for patch 12.1</>, emallson),
   change(date(2026, 6, 29), <>Added <SpellLink spell={SPELLS.SAVE_THEM_ALL_TALENT} /> module.</>, swirl),
   change(date(2026, 5, 6), <>Adjust <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> logic to apply CDR before consuming a charge (replicating the in-game bug).</>, emallson),
   change(date(2026, 5, 6), <>Update <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> CDR to reflect the recent nerfs.</>, emallson),

@@ -12,15 +12,16 @@ import {
   describe,
   hasResource,
   hasTalent,
+  inBloodlust,
+  not,
   or,
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
   aboutToCapEnergy,
   buildComboStrikesApl,
-  danceOfChiJiExpiring,
-  notAtTwoBlackoutKickStacks,
-  notInZenithWithObsidianSpiral,
+  getZenithDurationMs,
+  notEnoughChiForFistsOfFury,
   optionalTouchOfDeath,
   whirlingDragonPunchReady,
 } from './common';
@@ -44,20 +45,25 @@ const activeHotJSRemaining = (range: { atLeast?: number; atMost?: number }) =>
 
 const celestialConduitCastable = buffPresent(SPELLS.CELESTIAL_CONDUIT_CASTABLE_WW);
 
+const xuenNotReadySoon = or(
+  not(hasTalent(TALENTS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT)),
+  spellCooldownRemaining(TALENTS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT, { atLeast: 10000 }),
+);
+
 export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
   return buildComboStrikesApl([
     {
-      spell: TALENTS.FISTS_OF_FURY_TALENT,
-      condition: describe(activeHotJSRemaining({ atMost: 1000 }), () => (
-        <>
-          <SpellLink spell={SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF} /> has less than 1 second
-          remaining
-        </>
-      )),
-    },
-    {
       spell: SPELLS.TOUCH_OF_DEATH,
       condition: optionalTouchOfDeath,
+    },
+    {
+      spell: TALENTS.WHIRLING_DRAGON_PUNCH_TALENT,
+      condition: describe(and(whirlingDragonPunchReady, xuenNotReadySoon), () => (
+        <>
+          <SpellLink spell={TALENTS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT} /> will not be available
+          within 10 seconds
+        </>
+      )),
     },
     {
       spell: TALENTS.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
@@ -68,27 +74,56 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
       )),
     },
     {
-      spell: TALENTS.WHIRLING_DRAGON_PUNCH_TALENT,
-      condition: whirlingDragonPunchReady,
-    },
-    {
-      spell: SPELLS.TIGER_PALM,
+      spell: TALENTS.ZENITH_STOMP_TALENT,
       condition: describe(
-        and(
-          hasResource(RESOURCE_TYPES.CHI, { atMost: 3 }),
-          notAtTwoBlackoutKickStacks,
-          aboutToCapEnergy(combatant),
-          notInZenithWithObsidianSpiral,
+        or(
+          hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
+          and(
+            buffPresent(TALENTS.ZENITH_TALENT),
+            buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), { atMost: 3000 }),
+          ),
         ),
         () => (
           <>
-            you have less than 4 <SpellLink spell={RESOURCE_TYPES.CHI} />, fewer than 2 stacks of{' '}
-            <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />, and are about to cap energy
+            you are low on <SpellLink spell={RESOURCE_TYPES.CHI} /> or{' '}
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is almost over
           </>
         ),
       ),
     },
-    TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
+    {
+      spell: TALENTS.FISTS_OF_FURY_TALENT,
+      condition: describe(activeHotJSRemaining({ atMost: 1000 }), () => (
+        <>
+          <SpellLink spell={SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF} /> has less than 1 second
+          remaining
+        </>
+      )),
+    },
+    {
+      spell: SPELLS.TIGER_PALM,
+      condition: describe(
+        or(
+          and(
+            hasResource(RESOURCE_TYPES.CHI, { atMost: 3 }),
+            aboutToCapEnergy(combatant),
+            not(buffPresent(TALENTS.ZENITH_TALENT)),
+            not(inBloodlust()),
+          ),
+          and(
+            spellCooldownRemaining(TALENTS.FISTS_OF_FURY_TALENT, { atMost: 1 }),
+            notEnoughChiForFistsOfFury(combatant),
+          ),
+        ),
+        () => (
+          <>
+            you are about to cap energy outside <SpellLink spell={TALENTS.ZENITH_TALENT} /> or do
+            not have enough <SpellLink spell={RESOURCE_TYPES.CHI} /> for{' '}
+            <SpellLink spell={TALENTS.FISTS_OF_FURY_TALENT} />
+          </>
+        ),
+      ),
+    },
     TALENTS.FISTS_OF_FURY_TALENT,
     {
       spell: SPELLS.RUSHING_WIND_KICK_CAST,
@@ -96,59 +131,64 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
     },
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
+      condition: describe(buffPresent(SPELLS.UNBROKEN_RHYTHM_BUFF), () => (
+        <>
+          you have <SpellLink spell={SPELLS.UNBROKEN_RHYTHM_BUFF} />
+        </>
+      )),
+    },
+    TALENTS.RISING_SUN_KICK_TALENT,
+    {
+      spell: SPELLS.BLACKOUT_KICK,
       condition: describe(
-        and(danceOfChiJiExpiring, notAtTwoBlackoutKickStacks, notInZenithWithObsidianSpiral),
+        or(
+          buffPresent(SPELLS.COMBO_BREAKER_BUFF),
+          and(buffPresent(TALENTS.ZENITH_TALENT), hasTalent(TALENTS.OBSIDIAN_SPIRAL_TALENT)),
+        ),
         () => (
           <>
-            <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} /> has less than 4 seconds remaining, and
-            you have fewer than 2 stacks of <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />
+            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> or{' '}
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active with{' '}
+            <SpellLink spell={TALENTS.OBSIDIAN_SPIRAL_TALENT} />
           </>
         ),
       ),
     },
-    TALENTS.RISING_SUN_KICK_TALENT,
-    TALENTS.ZENITH_STOMP_TALENT,
     {
-      spell: SPELLS.TIGER_PALM,
+      spell: SPELLS.SPINNING_CRANE_KICK,
       condition: describe(
-        or(
-          and(
-            spellCooldownRemaining(TALENTS.STRIKE_OF_THE_WINDLORD_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
-          ),
-          and(
-            spellCooldownRemaining(TALENTS.FISTS_OF_FURY_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
-          ),
-          and(
-            hasTalent(TALENTS.RUSHING_WIND_KICK_WINDWALKER_TALENT),
-            buffPresent(SPELLS.RUSHING_WIND_KICK_BUFF),
-            spellCooldownRemaining(SPELLS.RUSHING_WIND_KICK_CAST, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
-          ),
-          and(danceOfChiJiExpiring, hasResource(RESOURCE_TYPES.CHI, { atMost: 1 })),
-          and(
-            spellCooldownRemaining(TALENTS.RISING_SUN_KICK_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
+        and(
+          buffPresent(TALENTS.ZENITH_TALENT),
+          or(
+            hasResource(RESOURCE_TYPES.CHI, { atLeast: 5 }),
+            buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
           ),
         ),
-        () => <>a higher-priority chi spender is ready, and you do not have enough chi for it</>,
+        () => (
+          <>
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active and you either have more than 4{' '}
+            <SpellLink spell={RESOURCE_TYPES.CHI} /> or{' '}
+            <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
+          </>
+        ),
       ),
     },
     {
-      spell: SPELLS.BLACKOUT_KICK,
-      condition: describe(buffPresent(SPELLS.COMBO_BREAKER_BUFF), () => (
+      spell: SPELLS.TIGER_PALM,
+      condition: hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
+    },
+    {
+      spell: SPELLS.SPINNING_CRANE_KICK,
+      condition: describe(buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF), () => (
         <>
-          you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />
+          you have <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
         </>
       )),
     },
-    TALENTS.SLICING_WINDS_TALENT,
     {
-      spell: SPELLS.SPINNING_CRANE_KICK,
-      condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
+      spell: SPELLS.TIGER_PALM,
+      condition: hasResource(RESOURCE_TYPES.CHI, { atMost: 4 }),
     },
     SPELLS.BLACKOUT_KICK,
-    SPELLS.TIGER_PALM,
   ]);
 }

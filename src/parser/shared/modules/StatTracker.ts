@@ -67,6 +67,7 @@ class StatTracker extends Analyzer {
     //region Phials
     // TODO: Figure out how to make this work with multiple ranks of phials
     [SPELLS.FLASK_OF_THE_BLOOD_KNIGHTS.id]: { haste: 152 },
+    [SPELLS.FLASK_OF_THE_SHATTERED_SUN.id]: { crit: 165 },
     // endregion
 
     //region Food
@@ -94,6 +95,17 @@ class StatTracker extends Analyzer {
       haste: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(400, 2365, item?.itemLevel ?? selectedCombatant.ilvl),
     },
+    [SPELLS.FREIGHTRUNNERS_FLASK.id]: {
+      itemId: ITEMS.FREIGHTRUNNERS_FLASK.id,
+      crit: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(289, 531, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
+    [SPELLS.AKILZONS_CLARITY.id]: {
+      itemId: ITEMS.DRUM_OF_RENEWED_BONDS.id,
+      crit: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(315, 452, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
+
     // endregion
 
     // region Other
@@ -518,6 +530,12 @@ class StatTracker extends Analyzer {
     isSecondary = true,
     coef = 1,
   ): number {
+    //Stat rating below 0 does not negatively impact the player.
+    //At -150 haste rating, you'd still have your baseline haste rating - it would not increase your cast time.
+    //This is specific to RATING, percentage modifiers (debuff giving -10% haste) can put a player into the negatives
+    if (rating < 0) {
+      return 0;
+    }
     //Which penalty thresholds we should use based on type of stat
     const penaltyThresholds = isSecondary
       ? this.secondaryStatPenaltyThresholds

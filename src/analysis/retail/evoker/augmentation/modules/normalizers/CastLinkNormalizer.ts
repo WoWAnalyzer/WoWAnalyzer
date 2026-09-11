@@ -61,6 +61,8 @@ const DREAM_ESSENCE_BURST_CONSUME = 'dreamEssenceBurstConsume';
 export const EMPOWER_SANDS_APPLY = 'empowerSandsApply';
 export const FIRE_BREATH_INFERNOS_APPLY = 'fireBreathInfernosApply';
 export const EMERALD_BLOSSOM_SYMBIOTIC_APPLY = 'emeraldBlossomSymbioticApply';
+const EBON_MIGHT_DOUBLE_TIME_APPLY = 'ebonMightDoubleTimeApply';
+const EONS_DOUBLE_TIME_APPLY = 'eonsDoubleTimeApply';
 
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
@@ -425,6 +427,34 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (C) => C.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT),
     maximumLinks: 1,
   },
+  {
+    linkRelation: EBON_MIGHT_DOUBLE_TIME_APPLY,
+    reverseLinkRelation: EBON_MIGHT_DOUBLE_TIME_APPLY,
+    linkingEventId: TALENTS.EBON_MIGHT_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DOUBLE_TIME_EBON_MIGHT_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.DOUBLE_TIME_TALENT),
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: EONS_DOUBLE_TIME_APPLY,
+    reverseLinkRelation: EONS_DOUBLE_TIME_APPLY,
+    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DOUBLE_TIME_EBON_MIGHT_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: BREATH_EBON_BUFFER,
+    isActive: (C) => C.hasTalent(TALENTS.DOUBLE_TIME_TALENT),
+    maximumLinks: 1,
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, EBON_MIGHT_DOUBLE_TIME_APPLY);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -536,6 +566,16 @@ export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
   );
 }
 
+export function getMassEruptionTargetCount(event: CastEvent, maxTargets: number) {
+  /** TODO: fix this target count logic and abstract into a getEruptionTargetCount helper
+   *   basically this is currently based on eruption events and not mass eruption events
+   *   which whilst technically correct enough *most* of the time.
+   *   It *should* be prone to undercounting for spread targets */
+  /** TODO also: Find a better way to get maxTargets. */
+  const damageEvents = getMassEruptionDamageEvents(event);
+  return Math.min(maxTargets, damageEvents.length);
+}
+
 export function eruptionConsumedEssenceBurst(event: CastEvent) {
   return HasRelatedEvent(event, ERUPTION_ESSENCE_BURST_CONSUME);
 }
@@ -546,6 +586,13 @@ export function dreamConsumedEssenceBurst(event: CastEvent) {
 
 export function hasEruptionCastLink(event: DamageEvent) {
   return HasRelatedEvent(event, ERUPTION_CAST_DAM_LINK);
+}
+
+export function proccedDoubleTime(event: CastEvent) {
+  return (
+    HasRelatedEvent(event, EBON_MIGHT_DOUBLE_TIME_APPLY) ||
+    HasRelatedEvent(event, EONS_DOUBLE_TIME_APPLY)
+  );
 }
 
 export default CastLinkNormalizer;

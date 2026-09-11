@@ -378,13 +378,15 @@ abstract class Entity {
   }
 
   // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  applyBuff(buff: BuffEvent<any> & { start: number }) {
+  applyBuff(buff: BuffEvent<any> & { start: number; stacks?: number }) {
+    // Buffs already active at the pull can start with multiple stacks
+    const stacks = buff.stacks ?? 1;
     this.buffs.push({
       end: null,
-      stackHistory: [{ stacks: 1, timestamp: buff.timestamp }],
       refreshHistory: [],
-      stacks: 1,
       ...buff,
+      stacks,
+      stackHistory: [{ stacks, timestamp: buff.timestamp }],
     });
 
     if (buff.sourceID !== undefined) {

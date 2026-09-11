@@ -764,10 +764,10 @@ const spells = {
   },
 
   //Shadow Archon
-  SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_DEBUFF: {
+  SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_BUFF: {
     id: 453850,
     name: 'Resonant Energy',
-    icon: 'ability_priest_halo',
+    icon: 'inv_1205_voidforge_sovereignvoidcores_midnight',
   },
 
   SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF: {

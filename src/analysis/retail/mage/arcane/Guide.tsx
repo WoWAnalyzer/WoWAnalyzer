@@ -85,17 +85,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 
       <Section title="Burn Phase">
         <>
-          The largest contribution to your overall damage is going to come from your major and minor
-          burn phases. These burn phases happen roughly every 45s, alternating between your major
-          burn and your minor burn, and typically revolve around stacking as much damage as possible
-          into your <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> as possible. To do this,
-          you will stack other buffs such as and <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />{' '}
-          to allow your other damaging abilities such as <SpellLink spell={SPELLS.ARCANE_BLAST} />{' '}
-          and <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> (with{' '}
-          <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />) to hit harder. As such, you want to make
-          sure you are casting as much as possible during{' '}
-          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and that you properly setup for
-          that window ahead of time.
+          The Arcane Mage rotation is largely built around the balance between your burn phases and
+          your conserve phases. The burn phases will occur every 45 seconds, alternating between a
+          minor burn phase with only <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and a
+          major burn phase with both <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />. In order to get the most out of those
+          burn phases, you should stack as many damage amplifiers as you can into those burn phases,
+          the major burn phase in particular. Additionally the 45 second cooldown on{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and the 90 second cooldown on{' '}
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> will mean that it is very important that
+          you are using those two cooldowns as quickly as possible to prevent them from getting
+          offset.
         </>
 
         {info.combatant.hasTalent(TALENTS.ARCANE_SURGE_TALENT) &&
@@ -110,6 +110,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           for your burn phases so you can get the most out of them.
         </>
         {modules.arcaneMissilesGuide.guideSubsection}
+        {modules.prismaticBoltGuide.guideSubsection}
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&

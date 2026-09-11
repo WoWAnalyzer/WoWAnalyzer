@@ -7,7 +7,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const HARMONY_OF_THE_GROVE_HEALING_INCREASE = 0.05;
 
@@ -19,6 +20,7 @@ const HARMONY_OF_THE_GROVE_HEALING_INCREASE = 0.05;
  */
 export default class HarmonyOfTheGrove extends Analyzer {
   totalHealing = 0;
+  totalOverhealing = 0;
   totalStacks = 0;
   healEvents = 0;
 
@@ -43,6 +45,10 @@ export default class HarmonyOfTheGrove extends Analyzer {
       event,
       HARMONY_OF_THE_GROVE_HEALING_INCREASE * stacks,
     );
+    this.totalOverhealing += calculateOverhealing(
+      event,
+      HARMONY_OF_THE_GROVE_HEALING_INCREASE * stacks,
+    );
   }
 
   get avgStacks() {
@@ -58,6 +64,10 @@ export default class HarmonyOfTheGrove extends Analyzer {
         tooltip={
           <>
             Average stacks while healing: <strong>{this.avgStacks.toFixed(2)}</strong>
+            <br />
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
           </>
         }
       >

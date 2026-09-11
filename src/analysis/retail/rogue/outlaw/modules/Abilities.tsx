@@ -99,11 +99,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.THISTLE_TEA_TALENT.id,
+        spell: [TALENTS.THISTLE_TEA_1_TALENT.id, TALENTS.THISTLE_TEA_2_TALENT.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         charges: 3,
-        enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.THISTLE_TEA_1_TALENT) ||
+          combatant.hasTalent(TALENTS.THISTLE_TEA_2_TALENT),
       },
       {
         spell: TALENTS.BLADE_RUSH_TALENT.id,

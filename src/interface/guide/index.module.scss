@@ -21,7 +21,11 @@
 
 .SectionExpandable {
   @include design.level(1);
-  padding: 0 design.$gaps_large design.$gaps_small design.$gaps_large;
+  padding: 0 design.$gaps_large 0 design.$gaps_large;
+
+  &:global(.expanded) {
+    padding-bottom: design.$gaps_large;
+  }
 
   & :global(.details) > div {
     background: unset;
@@ -38,7 +42,7 @@
 
 .SubSectionContainer {
   /* including .guide-container here is a specificity hack */
-  :global(.guide-container) & {
+  :global(.guide-container) &:not(:first-child) {
     margin-top: design.$gaps_large;
   }
 

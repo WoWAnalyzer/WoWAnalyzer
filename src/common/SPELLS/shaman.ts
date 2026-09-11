@@ -10,12 +10,18 @@ const spells = {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 75000,
+    manaCost: 5950,
   },
   WATER_SHIELD: {
     id: 52127,
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
+  },
+  ANCESTRAL_SPIRIT: {
+    id: 2008,
+    name: 'Ancestral Spirit',
+    icon: 'ability_shaman_watershield',
+    manaCost: 2000,
   },
   EARTH_SHOCK_OVERLOAD: {
     id: 381725,
@@ -128,6 +134,21 @@ const spells = {
     name: 'Hex',
     icon: 'ability_mount_fossilizedraptor',
   },
+  HEX_WICKER: {
+    id: 277784,
+    name: 'Hex',
+    icon: 'inv_wickerbeastpet',
+  },
+  HEX_TENDONRIPPER: {
+    id: 277778,
+    name: 'Hex',
+    icon: 'inv_zandalaribabyraptorred',
+  },
+  HEX_HONEY: {
+    id: 309328,
+    name: 'Hex',
+    icon: 'ability_creature_amber_02',
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -174,7 +195,7 @@ const spells = {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 5000,
+    manaCost: 500,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -290,6 +311,7 @@ const spells = {
     id: 188389,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
+    manaCost: 750,
   },
   FLAME_SHOCK_DUPLICATE: {
     id: 470411,
@@ -345,6 +367,11 @@ const spells = {
     id: 470077,
     name: 'Coalescing Water',
     icon: 'inv_helm_mail_raidshamanmythic_s_01',
+  },
+  PURGING_FLAMES_BUFF: {
+    id: 1259491,
+    name: 'Purging Flames',
+    icon: 'inv12_ability_shaman_purgingflames',
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -488,8 +515,8 @@ const spells = {
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
-  VOLTAIC_BLAZE_BUFF: {
-    id: 470058,
+  VOLTAIC_BLAZE_DAMAGE: {
+    id: 1259101,
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
@@ -579,6 +606,7 @@ const spells = {
     id: 462854,
     name: 'Skyfury',
     icon: 'achievement_raidprimalist_windelemental',
+    manaCost: 2500,
   },
   ELEMENTAL_HEALING: {
     id: 198249,
@@ -706,11 +734,17 @@ const spells = {
     icon: 'spell_nature_thunderclap',
   },
   // Restoration Shaman
+  ANCESTRAL_VISION: {
+    id: 212048,
+    name: 'Ancestral Vision',
+    icon: 'spell_shaman_elementaloath',
+    manaCost: 2000,
+  },
   HEALING_SURGE: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 110000, // enh/ele cost is higher
+    manaCost: 250000, // enh/ele only
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -726,6 +760,7 @@ const spells = {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
+    manaCost: 4500,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -796,6 +831,11 @@ const spells = {
     // casted by totem
     id: 325174,
     name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
+  SPOUTING_SPIRITS: {
+    id: 462384,
+    name: 'Spouting Spirits',
     icon: 'spell_shaman_spiritlink',
   },
   CLOUDBURST_TOTEM_HEAL: {
@@ -913,6 +953,11 @@ const spells = {
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
   },
+  PRIMORDIAL_BOND_BUFF: {
+    id: 381755,
+    name: 'Primordial Bond',
+    icon: 'inv_elemental_primal_earth',
+  },
   PRIMORDIAL_STORM_CAST: {
     id: 1218090,
     name: 'Primordial Storm',
@@ -982,6 +1027,7 @@ const spells = {
     id: 462603,
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
+    manaCost: 4500,
   },
   DOWNPOUR_HEAL: {
     id: 207778,
@@ -997,6 +1043,11 @@ const spells = {
     id: 378597,
     name: 'Acid Rain',
     icon: 'spell_nature_acid_01',
+  },
+  REACTIVE_WARDING_HEAL: {
+    id: 462477,
+    name: 'Reactive Warding',
+    icon: 'inv_10_elementalcombinedfoozles_water',
   },
 
   /** HERO TALENTS **/
@@ -1046,6 +1097,11 @@ const spells = {
     id: 447433,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  HYDROBUBBLE_BUFF: {
+    id: 444490,
+    name: 'Hydrobubble',
+    icon: 'spell_winston_bubble',
   },
   // Totemic
   SURGING_TOTEM_RECALL: {
@@ -1108,12 +1164,37 @@ const spells = {
     name: 'Primal Catalyst',
     icon: 'misc_legionfall_shaman',
   },
+  POWER_OF_THE_MAELSTROM_BUFF: {
+    id: 191877,
+    name: 'Power of the Maelstrom',
+    icon: 'inv_misc_questionmark',
+  },
 
   // Tier sets
   MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF: {
     id: 1272101,
     name: 'Thunderous Velocity',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  MIDNIGHT_S2_FLOWING_ELEMENTS: {
+    id: 1300219,
+    name: 'Flowing Elements',
+    icon: 'ability_shaman_echooftheelements',
+  },
+  MIDNIGHT_S2_OVERCHARGE: {
+    id: 1300222,
+    name: 'Overcharge',
+    icon: 'spell_shaman_ancestralawakening',
+  },
+  MIDNIGHT_S2_BURNING_CORE: {
+    id: 1299975,
+    name: 'Burning Core',
+    icon: 'spell_shaman_improvedfirenova',
+  },
+  MIDNIGHT_S2_SHORT_CIRCUIT: {
+    id: 1299991,
+    name: 'Short Circuit',
+    icon: 'spell_nature_unrelentingstorm',
   },
 } satisfies Record<string, Spell>;
 

@@ -148,7 +148,8 @@ class Abilities extends SharedAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          90 *
+          (90 -
+            (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 15 : 0)) *
           (1 -
             (combatant.hasTalent(TALENTS.CYCLE_OF_BINDING_TALENT)
               ? CYCLE_OF_BINDING_SIGIL_CDR
@@ -158,12 +159,10 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: TALENTS.SIGIL_OF_CHAINS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SIGIL_OF_CHAINS_TALENT),
+        spell: SPELLS.SIGIL_OF_CHAINS.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          (90 -
-            (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0)) *
+          60 *
           (1 -
             (combatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_BINDING_TALENT)
               ? CYCLE_OF_BINDING_SIGIL_CDR

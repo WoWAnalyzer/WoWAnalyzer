@@ -12,6 +12,7 @@ import RenewingMist from '../spells/RenewingMist';
 import SheilunsGift from '../spells/SheilunsGift';
 import Vivify from '../spells/Vivify';
 import CraneStyle from '../spells/CraneStyle';
+import InvokeChiJi from '../spells/InvokeChiJi';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
@@ -20,6 +21,7 @@ class MasteryStats extends Analyzer {
     vivify: Vivify,
     sheilunsGift: SheilunsGift,
     craneStyle: CraneStyle,
+    invokeChiJi: InvokeChiJi,
   };
 
   protected envelopingMists!: EnvelopingMists;
@@ -27,6 +29,7 @@ class MasteryStats extends Analyzer {
   protected vivify!: Vivify;
   protected sheilunsGift!: SheilunsGift;
   protected craneStyle!: CraneStyle;
+  protected invokeChiJi!: InvokeChiJi;
 
   get totalMasteryHealing() {
     return (
@@ -34,7 +37,8 @@ class MasteryStats extends Analyzer {
       (this.renewingMist.gustsHealing || 0) +
       (this.envelopingMists.gustsHealing || 0) +
       (this.sheilunsGift.gomHealing || 0) +
-      (this.craneStyle.gomHealing || 0)
+      (this.craneStyle.gomHealing || 0) +
+      (this.invokeChiJi.gustHealing || 0)
     );
   }
 
@@ -82,6 +86,16 @@ class MasteryStats extends Analyzer {
         spellId: TALENTS_MONK.CRANE_STYLE_TALENT.id,
         value: this.craneStyle.gomHealing,
         valueTooltip: formatThousands(this.craneStyle.gomHealing),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.CHI_JI,
+        label: 'Chi-Ji',
+        spellId: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
+        value: this.invokeChiJi.gustHealing,
+        valueTooltip: formatThousands(this.invokeChiJi.gustHealing),
       });
     }
 

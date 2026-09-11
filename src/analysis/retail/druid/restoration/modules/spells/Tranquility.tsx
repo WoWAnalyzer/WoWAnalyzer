@@ -17,6 +17,8 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const MAX_TRANQ_TICKS = 7;
+/** Official 12.1 ramp: extend as many Regrowths as possible into Tranquility */
+const REGROWTH_RAMP_THRESHOLD = 5;
 
 /**
  * Tracks stats relating to Tranquility
@@ -48,6 +50,7 @@ class Tranquility extends Analyzer {
       this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
       this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
     const wgsOnCast = this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id);
+    const regrowthsOnCast = this.hotTracker.getHotCount(SPELLS.REGROWTH.id);
     const timestamp = event.timestamp;
     const channeledTicks = getTranquilityTicks(event).length;
     this.tranqCasts.push({
@@ -55,6 +58,7 @@ class Tranquility extends Analyzer {
       directHealing,
       wgsOnCast,
       rejuvsOnCast,
+      regrowthsOnCast,
       channeledTicks,
     });
   }
@@ -81,31 +85,38 @@ class Tranquility extends Analyzer {
           <>
             <p>
               In Midnight, <strong>Flourish is passive on Tranquility</strong>. Each Tranquility
-              tick extends active HoTs by 2 seconds (up to 10 seconds overall), so the value of
-              every cast depends heavily on how many HoTs are active when you start channeling.
+              tick extends active HoTs by 2 seconds (up to 10 seconds overall). The most valuable
+              HoT to extend is <SpellLink spell={SPELLS.REGROWTH} />. Those extended HoTs give you a
+              wide window to keep casting Regrowth afterwards
+              {this.selectedCombatant.hasTalent(TALENTS_DRUID.NATURES_BOUNTY_TALENT) ? (
+                <>
+                  , and those casts splash via{' '}
+                  <SpellLink spell={TALENTS_DRUID.NATURES_BOUNTY_TALENT} />
+                </>
+              ) : null}
+              .
             </p>
             <p>
-              In the lead-up to Tranquility, prioritize setting up as many{' '}
-              <SpellLink spell={SPELLS.REJUVENATION} />s as possible, then cast{' '}
-              <SpellLink spell={SPELLS.SWIFTMEND} />, one more{' '}
-              <SpellLink spell={SPELLS.REJUVENATION} />, and a{' '}
-              <SpellLink spell={SPELLS.WILD_GROWTH} /> before channeling Tranquility. After the
-              channel starts, use the extended HoT window to cast as many{' '}
-              <SpellLink spell={SPELLS.REGROWTH} />s as needed.
+              Start the ramp about 15–20 seconds before Tranquility is assigned:{' '}
+              <SpellLink spell={SPELLS.SWIFTMEND} />, a few{' '}
+              <SpellLink spell={SPELLS.REJUVENATION} />
+              s, as many <SpellLink spell={SPELLS.REGROWTH} />s as you can, Swiftmend again, another
+              Regrowth, <SpellLink spell={SPELLS.WILD_GROWTH} />, then Tranquility, then Regrowth
+              spam. After the channel, keep spending on Regrowth while the extended HoTs last.
             </p>
           </>
         )}
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) && (
           <p>
-            If you are talented into{' '}
-            <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />, it's often worth
-            combining it with Tranquility, since channeling Tranquility pauses the remaining
-            duration of your Tree buff.
+            If you take <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />, it is
+            often worth combining it with Tranquility because channeling Tranquility pauses the
+            remaining duration of your Tree buff.
           </p>
         )}
         <p>
           Watch your positioning before casting so you can complete the full channel without moving
-          and avoid clipping ticks at the end.
+          and avoid clipping ticks at the end. In dungeons, Tranquility is used more for the healing
+          it does by itself than for its ramp combo. Press it when the group is in danger.
         </p>
       </>
     );
@@ -124,10 +135,11 @@ class Tranquility extends Analyzer {
           );
 
           const wgRamp = cast.wgsOnCast > 0;
-          const rejuvRamp = cast.rejuvsOnCast > 10;
+          const rejuvRamp = cast.rejuvsOnCast >= 5;
+          const rgRamp = cast.regrowthsOnCast >= REGROWTH_RAMP_THRESHOLD;
           const channeledMaxTicks = cast.channeledTicks === MAX_TRANQ_TICKS;
           const overallPerf =
-            wgRamp && rejuvRamp && channeledMaxTicks
+            wgRamp && rgRamp && channeledMaxTicks
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 
@@ -144,7 +156,20 @@ class Tranquility extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink spell={SPELLS.REJUVENATION} /> ramp
+                <SpellLink spell={SPELLS.REGROWTH} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={rgRamp} />,
+            details: (
+              <>
+                ({cast.regrowthsOnCast} HoTs active, aim for {REGROWTH_RAMP_THRESHOLD}+)
+              </>
+            ),
+          });
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink spell={SPELLS.REJUVENATION} />s active
               </>
             ),
             result: <PassFailCheckmark pass={rejuvRamp} />,
@@ -207,10 +232,12 @@ interface TranquilityCast {
   timestamp: number;
   /** The healing from this cast's direct portion */
   directHealing: number;
-  /** The number of Wild Growths out at the moment this Convoke is cast */
+  /** The number of Wild Growths out at the moment this Tranquility is cast */
   wgsOnCast: number;
-  /** The number of Rejuvs out at the moment this Convoke is cast */
+  /** The number of Rejuvs out at the moment this Tranquility is cast */
   rejuvsOnCast: number;
+  /** The number of Regrowths out at the moment this Tranquility is cast */
+  regrowthsOnCast: number;
   /** The number of ticks that were channeled in this cast */
   channeledTicks: number;
 }

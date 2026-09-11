@@ -90,7 +90,7 @@ export default class Abilities extends CoreAbilities {
         spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id],
         enabled:
           this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT) &&
-          !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT),
+          !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           (120 -

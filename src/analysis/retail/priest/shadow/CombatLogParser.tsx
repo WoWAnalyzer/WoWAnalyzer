@@ -54,7 +54,6 @@ import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/MaddeningTouch';
 import ShatteredPsyche from './modules/talents/ShatteredPsyche';
 import Mastermind from './modules/talents/Mastermind';
-import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
 import PerfectedForm from './modules/talents/Archon/PerfectedForm';
 import EnergyCompression from './modules/talents/Archon/EnergyCompression';
@@ -76,7 +75,6 @@ import DescendingDarkness from './modules/talents/DescendingDarkness';
 import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import HauntingShadows from './modules/talents/HauntingShadows';
 import MentalDecay from './modules/talents/MentalDecay';
-import PhantomMenace from './modules/talents/PhatomMenace';
 import InstilledDoubt from './modules/talents/InstilledDoubt';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -110,7 +108,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spec talents:
     auspiciousSpirits: AuspiciousSpirits,
-    darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
     desperatePrayer: DesperatePrayer,
     dispersion: Dispersion,
@@ -142,7 +139,6 @@ class CombatLogParser extends MainCombatLogParser {
     surgeOfInsanity: SurgeOfInsanity,
     hauntingShadows: HauntingShadows,
     mentalDecay: MentalDecay,
-    phantomMenace: PhantomMenace,
     instilledDoubt: InstilledDoubt,
 
     // Class Talents:

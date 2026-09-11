@@ -1,10 +1,29 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/monk';
-import { Durpn, swirl } from 'CONTRIBUTORS';
+import { Durpn, swirl, TastyArsenic } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(
+    date(2026, 9, 3),
+    <>
+      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> is no longer suggested in the Shado-Pan APL
+      unless <SpellLink spell={TALENTS.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> is talented.
+    </>,
+    TastyArsenic,
+  ),
+  change(
+    date(2026, 7, 22),
+    <>
+      Updated Shado-Pan and Conduit of the Celestials APL priorities for{' '}
+      <SpellLink spell={TALENTS.WHIRLING_DRAGON_PUNCH_TALENT} />,{' '}
+      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} />, and{' '}
+      <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} />, including Bloodlust-aware energy capping and
+      <SpellLink spell={TALENTS.HARMONIC_COMBO_TALENT} /> Chi costs.
+    </>,
+    Durpn,
+  ),
   change(
     date(2026, 6, 29), 
     <>

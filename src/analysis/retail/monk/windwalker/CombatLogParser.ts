@@ -50,7 +50,6 @@ import DanceOfChiJiCastLinkNormalizer from './normalizers/DanceOfChiJiCastLinkNo
 import CelestialConduit from './modules/talents/CelestialConduit';
 import CyclonesDrift from './modules/talents/CyclonesDrift';
 import SlicingWinds from './modules/spells/SlicingWinds';
-import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
 import RushingWindKick from './modules/talents/RushingWindKick';
 import GloryOfTheDawnLinkNormalizer from './normalizers/GloryOfTheDawnLinkNormalizer';
@@ -119,7 +118,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
-    t34ConduitTierSet: T34ConduitTier,
 
     // apl
     apl: AplCheck,

@@ -1,7 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -81,6 +81,8 @@ abstract class HotTracker extends Analyzer {
   refreshHooks: Record<number, RefreshCallback[]> = {};
   /** All Attributions seen, indexed by name. */
   attributions: Record<string, Attribution> = {};
+  /** Maps periodic heal spell IDs to buff spell IDs when they differ */
+  private healSpellIdToBuffId: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);
@@ -103,25 +105,42 @@ abstract class HotTracker extends Analyzer {
       this.active = false;
     }
     this.hotInfo = {};
-    hotInfoList.forEach((hi) => (this.hotInfo[hi.spell.id] = hi));
+    hotInfoList.forEach((hi) => {
+      this.hotInfo[hi.spell.id] = hi;
+      if (hi.healSpell && hi.healSpell.id !== hi.spell.id) {
+        this.healSpellIdToBuffId[hi.healSpell.id] = hi.spell.id;
+      }
+    });
 
     // for each HoT we need the apply/refresh/remove buff events and also the heals
-    const spellList = hotInfoList.map((hi) => hi.spell);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(spellList), this.hotApplied);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellList), this.hotHeal);
+    const buffSpellList = hotInfoList.map((hi) => hi.spell);
+    const healSpellList = hotInfoList.map((hi) => hi.healSpell ?? hi.spell);
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(spellList),
+      Events.applybuff.by(SELECTED_PLAYER).spell(buffSpellList),
+      this.hotApplied,
+    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(healSpellList), this.hotHeal);
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(buffSpellList),
       this.hotReapplied,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(spellList),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(buffSpellList),
       this.hotReapplied,
     );
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(spellList), this.hotRemoved);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(buffSpellList),
+      this.hotRemoved,
+    );
 
     if (debug) {
       this.addEventListener(Events.fightend, this.onFightEndDebug);
     }
+  }
+
+  /** Resolves a heal spell ID to the buff spell ID used for tracker lookup */
+  public getBuffSpellIdForHeal(healSpellId: number): number {
+    return this.healSpellIdToBuffId[healSpellId] ?? healSpellId;
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +156,7 @@ abstract class HotTracker extends Analyzer {
     return {
       name,
       healing: 0,
+      overheal: 0,
       procs: 0,
       totalExtension: 0,
     };
@@ -476,17 +496,19 @@ abstract class HotTracker extends Analyzer {
       return; // direct heal attributions need to be handled separately
     }
     // ensure this is a target we care about and everything is in a good state
-    const spellId = event.ability.guid;
+    const healSpellId = event.ability.guid;
+    const spellId = this.getBuffSpellIdForHeal(healSpellId);
     const target = this._getTarget(event);
     if (!target) {
       return;
     }
     const targetId = event.targetID;
-    if (!this._validateHot(event)) {
+    if (!this._validateHot(event, spellId)) {
       return;
     }
 
     const healing = event.amount + (event.absorbed || 0);
+    const overheal = event.overheal || 0;
     const hot = this.hots[targetId][spellId];
 
     // keep a tally of healing due to extensions in general
@@ -500,6 +522,7 @@ abstract class HotTracker extends Analyzer {
     // tally proc attributions
     hot.attributions.forEach((att) => {
       att.healing += healing;
+      att.overheal += overheal;
     });
     // tally boost attributions
     hot.boosts.forEach((boost: Boost) => {
@@ -510,6 +533,7 @@ abstract class HotTracker extends Analyzer {
         return;
       }
       boostAtt.healing += calculateEffectiveHealing(event, boost.increase);
+      boostAtt.overheal += calculateOverhealing(event, boost.increase);
     });
     // tally extension attributions
     this._tallyExtensions(hot, event);
@@ -683,6 +707,7 @@ abstract class HotTracker extends Analyzer {
     const timeSinceLastTick = event.timestamp - hot.lastTick;
     let extension = Math.min(timeSinceOriginalEnd, timeSinceLastTick);
     const healingPerTime = (event.amount + (event.absorbed || 0)) / timeSinceLastTick;
+    const overhealPerTime = (event.overheal || 0) / timeSinceLastTick;
 
     // go through extensions in order and attribute healing until extension amount is used up
     hot.extensions.forEach((ext) => {
@@ -692,6 +717,7 @@ abstract class HotTracker extends Analyzer {
       const extUsed = Math.min(extension, ext.amount);
       const healingAttributed = extUsed * healingPerTime;
       ext.attribution.healing += healingAttributed;
+      ext.attribution.overheal += extUsed * overhealPerTime;
       ext.amount -= extUsed;
       extension -= extUsed;
       extensionDebug &&
@@ -902,10 +928,12 @@ abstract class HotTracker extends Analyzer {
   /**
    * Returns true iff the HoT tracking involving this event is in the expected state.
    * If unexpected state is found, returns falso and logs an appropriate warning.
+   * @param event the event being validated
+   * @param buffSpellId optional override for the buff spell ID (when heal ID differs from buff ID)
    */
   // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  _validateHot(event: AbilityEvent<any> & TargettedEvent<any>) {
-    const spellId = event.ability.guid;
+  _validateHot(event: AbilityEvent<any> & TargettedEvent<any>, buffSpellId?: number) {
+    const spellId = buffSpellId ?? event.ability.guid;
     const targetId = event.targetID;
 
     if (
@@ -1002,6 +1030,8 @@ export interface Attribution {
   name: string;
   /** the amount of effective healing attributable - will be updated */
   healing: number;
+  /** the amount of overhealing attributable - will be updated */
+  overheal: number;
   /** the number of times this attribution was made - will be updated */
   procs: number;
   /** the number of total milliseconds extended (for an extension attribution) */
@@ -1029,8 +1059,13 @@ type HotInfoMap = Record<number, HotInfo>;
 
 /** Information about a Heal over Time spell specific to tracking */
 export interface HotInfo {
-  /** The spell object for this HoT. This should be the spell for the buff/heal, not the cast. */
+  /** The spell object for this HoT. This should be the spell for the buff, not the cast. */
   spell: Spell;
+  /**
+   * Optional separate spell for periodic heal ticks when it differs from the buff ID.
+   * Defaults to `spell` when omitted.
+   */
+  healSpell?: Spell;
   /** HoT's base duration, in ms. Either static or dynamically generated based on combatant state at time of application. */
   duration: number | ((c: Combatant) => number);
   /** HoT's base period between ticks, in ms. */

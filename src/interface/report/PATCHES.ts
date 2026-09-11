@@ -6,9 +6,10 @@
 */
 
 import Expansion from 'game/Expansion';
+import { AnyPatchVersion } from 'parser/Config';
 
 export interface Patch {
-  name: string;
+  name: AnyPatchVersion;
   timestamp: number;
   urlPrefix: string;
   isCurrent: boolean;
@@ -18,10 +19,18 @@ export interface Patch {
 
 const PATCHES: Patch[] = [
   {
+    name: '12.1.0',
+    timestamp: 1787004000000, // GMT: Mon Aug 17 2026 22:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: true,
+    gameVersion: 1, // retail
+    expansion: Expansion.Midnight,
+  },
+  {
     name: '12.0.7',
     timestamp: 1781647200000, // GMT: Tue Jun 16 2026 22:00:00 GMT+0000
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.Midnight,
   },

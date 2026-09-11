@@ -30,6 +30,12 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
         triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
       },
+      {
+        spellId: SPELLS.PRIMORDIAL_BOND_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_BOND_TALENT),
+        triggeredBySpellId: TALENTS.EARTH_ELEMENTAL_TALENT.id,
+        timelineHighlight: true,
+      },
     ];
   }
 }

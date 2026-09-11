@@ -7,7 +7,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const BOUNTEOUS_BLOOM_HEALING_INCREASE = 0.3;
 
@@ -19,6 +20,7 @@ const BOUNTEOUS_BLOOM_HEALING_INCREASE = 0.3;
  */
 export default class BounteousBloom extends Analyzer {
   totalHealing = 0;
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +37,7 @@ export default class BounteousBloom extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalHealing += calculateEffectiveHealing(event, BOUNTEOUS_BLOOM_HEALING_INCREASE);
+    this.totalOverhealing += calculateOverhealing(event, BOUNTEOUS_BLOOM_HEALING_INCREASE);
   }
 
   statistic() {
@@ -43,6 +46,13 @@ export default class BounteousBloom extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.BOUNTEOUS_BLOOM_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

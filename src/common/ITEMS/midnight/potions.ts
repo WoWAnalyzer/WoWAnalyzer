@@ -121,6 +121,30 @@ const potions = {
     icon: 'inv_12_profession_alchemy_lightpotion_yellow',
     craftQuality: 2,
   },
+  LIQUID_LUSTER_R1: {
+    id: 271886,
+    name: 'Liquid Luster',
+    icon: 'inv_121_professions_alchemy_potion_amani_blue',
+    craftQuality: 1,
+  },
+  LIQUID_LUSTER_R2: {
+    id: 271887,
+    name: 'Liquid Luster',
+    icon: 'inv_121_professions_alchemy_potion_amani_blue',
+    craftQuality: 2,
+  },
+  ALLURING_NOSTRUM_R1: {
+    id: 271889,
+    name: 'Alluring Nostrum',
+    icon: 'inv_121_professions_alchemy_potion_amani_purple',
+    craftQuality: 1,
+  },
+  ALLURING_NOSTRUM_R2: {
+    id: 271890,
+    name: 'Alluring Nostrum',
+    icon: 'inv_121_professions_alchemy_potion_amani_purple',
+    craftQuality: 2,
+  },
 } satisfies Record<string, CraftedItem>;
 
 export default potions;

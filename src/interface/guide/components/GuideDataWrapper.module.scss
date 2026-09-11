@@ -173,9 +173,10 @@
 }
 
 .PerfBadgeGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .PerfBadgeCount {

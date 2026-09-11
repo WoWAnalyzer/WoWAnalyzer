@@ -1,148 +1,350 @@
 import type { JSX } from 'react';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
+import { PerformanceMark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import BoringValue from 'parser/ui/BoringValueText';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastDetail, {
+  type PerCastData,
+  type PerCastStat,
+} from 'interface/guide/components/CastDetail';
+import CastOverview from 'interface/guide/components/CastOverview';
+import { TipBox } from 'interface/guide/components';
 
-/** Number of targets WG must effectively heal in order to be efficient */
-const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
-/** Max time after WG apply to watch for high overhealing */
+const WG_BASE_TARGETS = 5;
+const IMPROVED_WG_EXTRA_TARGETS = 2;
+const TOL_EXTRA_WG_TARGETS = 2;
+
+/** Max time after WG apply to measure early overhealing */
 const OVERHEAL_BUFFER = 3000;
-/** Overheal percent within OVERHEAL_BUFFER of application that will count as 'too much' */
-const OVERHEAL_THRESHOLD = 0.6;
+/** Early overheal thresholds for the Early Overheal stat (and Perfect cast grade) */
+const PERFECT_OVERHEAL_THRESHOLD = 0.1;
+const GOOD_OVERHEAL_THRESHOLD = 0.4;
+const OK_OVERHEAL_THRESHOLD = 0.7;
+
+interface WgCastRecord {
+  timestamp: number;
+  performance: QualitativePerformance;
+  hits: number;
+  expectedTargets: number;
+  earlyOverhealPct: number;
+  /** Effective healing from this hardcast's HoTs (until next WG / fight end) */
+  healing: number;
+  duringTreeOfLife: boolean;
+  beforeCooldown: boolean;
+  cooldownSpellId?: number;
+  manaCost: number;
+}
 
 /**
- * Tracks stats relating to Wild Growth
+ * Tracks Wild Growth cast quality: target count, early overheal, Tranq/Convoke pairing,
+ * and (on boss kills) leftover mana that could have funded extra casts.
  */
 class WildGrowth extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    hotTracker: HotTrackerRestoDruid,
+    manaValues: ManaValues,
   };
 
-  abilityTracker!: AbilityTracker;
+  hotTracker!: HotTrackerRestoDruid;
+  manaValues!: ManaValues;
+
+  hasImprovedWildGrowth: boolean;
+  hasTreeOfLife: boolean;
+  hasGroveGuardians: boolean;
+  hasTranquility: boolean;
+  hasConvoke: boolean;
 
   recentWgTimestamp = 0;
-  /** Tracker for the overhealing on targets hit by a recent hardcast Wild Growth, indexed by targetID */
+  recentExpectedTargets = WG_BASE_TARGETS;
+  recentDuringToL = false;
+  recentManaCost = 0;
+  recentBeforeCooldown = false;
+  recentCooldownSpellId: number | undefined = undefined;
+  /** True while a hardcast WG window is open and waiting to be tallied */
+  castInProgress = false;
+  /** Tracker for healing on targets hit by a recent hardcast Wild Growth */
   recentWgTargetHealing: Record<
     number,
-    { appliedTimestamp: number; total: number; overheal: number }
+    {
+      appliedTimestamp: number;
+      earlyTotal: number;
+      earlyOverheal: number;
+      healing: number;
+    }
   > = {};
 
-  /** Total Wild Growth hardcasts (not tallied until the rest of the fields) */
-  totalCasts = 0;
+  casts: WgCastRecord[] = [];
+
   /** Total Wild Growth HoTs applied by hardcasts */
   totalHardcastHits = 0;
-  /** Total Wild Growth HoTs applied by hardcasts that didn't overheal too much early */
+  /** Total Wild Growth HoTs that did not overheal too much early */
   totalEffectiveHits = 0;
-  /** Wild Growth hardcasts that were 'ineffective' */
-  ineffectiveCasts = 0;
-  /** Wild Growth hardcasts that hit too many total targets (effective or not) */
-  tooFewHitsCasts = 0;
-  /** Wild Growth hardcasts that had too much early overhealing */
-  tooMuchOverhealCasts = 0;
-
-  /** Box row entry for each WG cast */
-  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
+
+    this.hasImprovedWildGrowth = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.IMPROVED_WILD_GROWTH_TALENT,
+    );
+    this.hasTreeOfLife = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT,
+    );
+    this.hasGroveGuardians = this.selectedCombatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT);
+    this.hasTranquility = this.selectedCombatant.hasTalent(TALENTS_DRUID.TRANQUILITY_TALENT);
+    this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCastWg);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onHealWg);
+
+    if (this.hasTranquility) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRANQUILITY_CAST),
+        this.onHealingCooldown,
+      );
+    }
+    if (this.hasConvoke) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS),
+        this.onHealingCooldown,
+      );
+    }
+
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
+  private expectedTargetsAt(timestamp: number): number {
+    let expected = WG_BASE_TARGETS;
+    if (this.hasImprovedWildGrowth) {
+      expected += IMPROVED_WG_EXTRA_TARGETS;
+    }
+    if (
+      this.hasTreeOfLife &&
+      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id, timestamp)
+    ) {
+      expected += TOL_EXTRA_WG_TARGETS;
+    }
+    return expected;
+  }
+
+  private getManaCost(event: CastEvent): number {
+    if (event.resourceCost?.[RESOURCE_TYPES.MANA.id] !== undefined) {
+      return event.resourceCost[RESOURCE_TYPES.MANA.id];
+    }
+    const manaResource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.MANA.id,
+    );
+    return manaResource?.cost ?? 0;
+  }
+
   onFightEnd() {
-    this._tallyLastCast(); // make sure the last cast is closed out
+    this.tallyLastCast();
   }
 
   onCastWg(event: CastEvent) {
-    this._tallyLastCast(); // make sure the previous cast is closed out
-    this._trackNewCast(event);
+    this.tallyLastCast();
+    this.trackNewCast(event);
   }
 
   onHealWg(event: HealEvent) {
-    const recentWgHealTracker = this.recentWgTargetHealing[event.targetID];
-    if (recentWgHealTracker !== undefined) {
-      const healVal = HealingValue.fromEvent(event);
-      recentWgHealTracker.total += healVal.raw;
-      recentWgHealTracker.overheal += healVal.overheal;
+    const tracker = this.recentWgTargetHealing[event.targetID];
+    if (tracker === undefined) {
+      return;
+    }
+    const healVal = HealingValue.fromEvent(event);
+    tracker.healing += healVal.effective;
+    // Early window is only used for overheal context, not cast pass/fail
+    if (event.timestamp <= tracker.appliedTimestamp + OVERHEAL_BUFFER) {
+      tracker.earlyTotal += healVal.raw;
+      tracker.earlyOverheal += healVal.overheal;
     }
   }
 
-  /**
-   * Follows the 'AppliedHeal' tag from the CastEvents to each of the HoTs it created,
-   * and initializes a recentWgTargetHealing entry for each.
-   */
-  _trackNewCast(event: CastEvent) {
-    this.recentWgTargetHealing = {};
-    this.recentWgTimestamp = event.timestamp;
-    getHeals(event).forEach(
-      (applyHot: AnyEvent) =>
-        (applyHot.type === EventType.ApplyBuff || applyHot.type === EventType.RefreshBuff) &&
-        (this.recentWgTargetHealing[applyHot.targetID] = {
-          appliedTimestamp: applyHot.timestamp,
-          total: 0,
-          overheal: 0,
-        }),
-    );
+  onHealingCooldown(event: CastEvent) {
+    // Most common case: WG was just cast and hasn't been tallied yet
+    if (this.castInProgress) {
+      this.recentBeforeCooldown = true;
+      this.recentCooldownSpellId = event.ability.guid;
+      return;
+    }
+
+    // Earlier WG whose HoT is still up when Tranq/Convoke is pressed
+    if (this.casts.length === 0 || this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id) <= 0) {
+      return;
+    }
+    const lastCast = this.casts[this.casts.length - 1];
+    lastCast.beforeCooldown = true;
+    lastCast.cooldownSpellId = event.ability.guid;
+    lastCast.performance = this.scoreCast(lastCast);
   }
 
-  /**
-   * Closes out the 'recent cast' tallies if there is one open and enough time has passed
-   */
-  _tallyLastCast() {
-    this.totalCasts += 1;
-    if (this.totalCasts === 1) {
-      return; // there is no last cast
+  private trackNewCast(event: CastEvent) {
+    this.recentWgTargetHealing = {};
+    this.recentWgTimestamp = event.timestamp;
+    this.recentExpectedTargets = this.expectedTargetsAt(event.timestamp);
+    this.recentDuringToL =
+      this.hasTreeOfLife &&
+      this.selectedCombatant.hasBuff(
+        TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
+        event.timestamp,
+      );
+    this.recentManaCost = this.getManaCost(event);
+    this.recentBeforeCooldown = false;
+    this.recentCooldownSpellId = undefined;
+    this.castInProgress = true;
+
+    getHeals(event).forEach((applyHot: AnyEvent) => {
+      if (applyHot.type === EventType.ApplyBuff || applyHot.type === EventType.RefreshBuff) {
+        this.recentWgTargetHealing[applyHot.targetID] = {
+          appliedTimestamp: applyHot.timestamp,
+          earlyTotal: 0,
+          earlyOverheal: 0,
+          healing: 0,
+        };
+      }
+    });
+  }
+
+  private tallyLastCast() {
+    if (!this.castInProgress) {
+      return;
     }
 
     const hits = Object.values(this.recentWgTargetHealing);
-    const effectiveHits = hits.filter((wg) => wg.total * OVERHEAL_THRESHOLD > wg.overheal).length;
+    const hitCount = hits.length;
+    const rawEarly = hits.reduce((sum, h) => sum + h.earlyTotal, 0);
+    const overhealEarly = hits.reduce((sum, h) => sum + h.earlyOverheal, 0);
+    const earlyOverhealPct = rawEarly > 0 ? overhealEarly / rawEarly : 0;
+    const healing = hits.reduce((sum, h) => sum + h.healing, 0);
+
+    const effectiveHits = hits.filter(
+      (wg) => wg.earlyTotal > 0 && wg.earlyOverheal / wg.earlyTotal < GOOD_OVERHEAL_THRESHOLD,
+    ).length;
+    this.totalHardcastHits += hitCount;
     this.totalEffectiveHits += effectiveHits;
 
-    if (effectiveHits < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
-      this.ineffectiveCasts += 1;
-      if (hits.length - effectiveHits >= 2) {
-        this.tooMuchOverhealCasts += 1;
-      }
-      if (hits.length < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
-        this.tooFewHitsCasts += 1;
-      }
+    const record: WgCastRecord = {
+      timestamp: this.recentWgTimestamp,
+      hits: hitCount,
+      expectedTargets: this.recentExpectedTargets,
+      earlyOverhealPct,
+      healing,
+      duringTreeOfLife: this.recentDuringToL,
+      beforeCooldown: this.recentBeforeCooldown,
+      cooldownSpellId: this.recentCooldownSpellId,
+      manaCost: this.recentManaCost,
+      performance: QualitativePerformance.Fail,
+    };
+    record.performance = this.scoreCast(record);
+    this.casts.push(record);
+
+    this.castInProgress = false;
+    this.recentWgTargetHealing = {};
+    this.recentBeforeCooldown = false;
+    this.recentCooldownSpellId = undefined;
+  }
+
+  private scoreCast(
+    cast: Pick<WgCastRecord, 'hits' | 'expectedTargets' | 'earlyOverhealPct' | 'beforeCooldown'>,
+  ): QualitativePerformance {
+    const missed = Math.max(0, cast.expectedTargets - cast.hits);
+
+    // Missing targets is the only real failure mode — high overheal is often unavoidable
+    if (missed > 1) {
+      return QualitativePerformance.Fail;
+    }
+    if (missed === 1) {
+      return QualitativePerformance.Ok;
     }
 
-    // add cast perf entry
-    const value = effectiveHits >= 3 ? QualitativePerformance.Good : QualitativePerformance.Fail;
-    const tooltip = (
-      <>
-        @ <strong>{this.owner.formatTimestamp(this.recentWgTimestamp)}</strong>, Hits:{' '}
-        <strong>{hits.length}</strong>, Effective: <strong>{effectiveHits}</strong>
-      </>
-    );
-    this.castEntries.push({ value, tooltip });
+    // Full targets — low early overheal (or pre-CD setup) is Perfect; otherwise Good
+    if (cast.earlyOverhealPct < PERFECT_OVERHEAL_THRESHOLD || cast.beforeCooldown) {
+      return QualitativePerformance.Perfect;
+    }
+    return QualitativePerformance.Good;
   }
 
   get averageEffectiveHits() {
-    return this.totalEffectiveHits / this.totalCasts || 0;
+    return this.casts.length === 0 ? 0 : this.totalEffectiveHits / this.casts.length;
   }
 
-  get actualRejuvCasts() {
-    return this.abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
+  get averageHits() {
+    return this.casts.length === 0
+      ? 0
+      : this.casts.reduce((sum, c) => sum + c.hits, 0) / this.casts.length;
   }
 
-  /** Guide subsection describing the proper usage of Wild Growth */
+  get averageEarlyOverheal() {
+    if (this.casts.length === 0) {
+      return 0;
+    }
+    return this.casts.reduce((sum, c) => sum + c.earlyOverhealPct, 0) / this.casts.length;
+  }
+
+  get averageHealingPerCast() {
+    if (this.casts.length === 0) {
+      return 0;
+    }
+    return this.casts.reduce((sum, c) => sum + c.healing, 0) / this.casts.length;
+  }
+
+  get fullTargetCastRate() {
+    if (this.casts.length === 0) {
+      return 0;
+    }
+    return this.casts.filter((c) => c.hits >= c.expectedTargets).length / this.casts.length;
+  }
+
+  get averageManaCost() {
+    const costs = this.casts.map((c) => c.manaCost).filter((cost) => cost > 0);
+    if (costs.length === 0) {
+      return 0;
+    }
+    return costs.reduce((sum, cost) => sum + cost, 0) / costs.length;
+  }
+
+  /** Boss kill pulls only — leftover mana converted to potential extra WG casts */
+  get showManaAnalysis(): boolean {
+    return Boolean(this.owner.fight.kill) && (this.owner.fight.boss ?? 0) > 0;
+  }
+
+  get extraCastsFromLeftoverMana(): number | null {
+    if (!this.showManaAnalysis) {
+      return null;
+    }
+    const avgCost = this.averageManaCost;
+    if (avgCost <= 0 || this.manaValues.endingMana <= 0) {
+      return null;
+    }
+    return Math.floor(this.manaValues.endingMana / avgCost);
+  }
+
+  get possiblePerformances(): QualitativePerformance[] {
+    return [
+      QualitativePerformance.Perfect,
+      QualitativePerformance.Good,
+      QualitativePerformance.Ok,
+      QualitativePerformance.Fail,
+    ];
+  }
+
   get guideSubsection(): JSX.Element {
     const explanation = (
       <>
@@ -150,49 +352,234 @@ class WildGrowth extends Analyzer {
           <b>
             <SpellLink spell={SPELLS.WILD_GROWTH} />
           </b>{' '}
-          is your best healing spell when multiple raiders are injured. It quickly heals a lot, but
-          has a high mana cost. Use Wild Growth when there are at least 3 injured targets.
+          is a high-HPS, high-cost spell. Push it when the raid is in danger. This is your primary
+          mana throttle, so if you are running out of mana, cut Wild Growths from safer parts of the
+          fight. Avoid casting it whenever it is available just because it is off cooldown
+          {this.hasGroveGuardians ? (
+            <>
+              . It also summons <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT} />
+            </>
+          ) : null}
+          .
         </p>
         <p>
-          Remember that only allies within 30 yds of the primary target can be hit - don't cast this
-          on an isolated player!
+          Always aim to hit the maximum number of targets. Wild Growth only jumps to allies within
+          30 yards of your primary target, so avoid casting it on players who are standing away from
+          the group. A bit of overhealing is fine if it means hitting every target.
         </p>
+        {(this.hasTranquility || this.hasConvoke) && (
+          <p>
+            Try to cast Wild Growth before <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> or{' '}
+            <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> so the HoT is already active when you
+            channel them.
+          </p>
+        )}
+        <TipBox hideIcon>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect - Full targets with
+            low early overheal (&lt;{formatPercentage(PERFECT_OVERHEAL_THRESHOLD, 0)}%)
+            {(this.hasTranquility || this.hasConvoke) && (
+              <>
+                , or full targets set up for{' '}
+                {this.hasTranquility && <SpellLink spell={SPELLS.TRANQUILITY_CAST} />}
+                {this.hasTranquility && this.hasConvoke && '/'}
+                {this.hasConvoke && <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />}
+              </>
+            )}
+          </div>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Good} /> Good - Full targets
+          </div>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Ok} /> Ok - Missed one target
+          </div>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Fail} /> Bad - Missed more than one target
+          </div>
+        </TipBox>
       </>
     );
 
-    const data = (
-      <div>
-        <CastSummaryAndBreakdown
+    const stats = [
+      {
+        value: `${formatPercentage(this.fullTargetCastRate, 0)}%`,
+        label: 'Full Target Casts',
+        tooltip: (
+          <>
+            Share of hardcasts that hit every available target (base {WG_BASE_TARGETS}
+            {this.hasImprovedWildGrowth ? ` + ${IMPROVED_WG_EXTRA_TARGETS} Improved` : ''}
+            {this.hasTreeOfLife ? ` + ${TOL_EXTRA_WG_TARGETS} during Tree of Life` : ''})
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.fullTargetCastRate,
+          isGreaterThanOrEqual: { perfect: 0.9, good: 0.75, ok: 0.6 },
+        }),
+      },
+      {
+        value: `${formatPercentage(this.averageEarlyOverheal, 0)}%`,
+        label: 'Avg Early Overheal',
+        tooltip: (
+          <>
+            Average overheal across Wild Growth ticks in the first {OVERHEAL_BUFFER / 1000}s after
+            each apply. High overheal alone does not fail a cast.
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.averageEarlyOverheal,
+          isLessThan: {
+            perfect: PERFECT_OVERHEAL_THRESHOLD,
+            good: GOOD_OVERHEAL_THRESHOLD,
+            ok: OK_OVERHEAL_THRESHOLD,
+          },
+        }),
+      },
+      {
+        value: formatNumber(this.averageHealingPerCast),
+        label: 'Avg Healing Per Cast',
+        tooltip: <>Average effective healing from each hardcast Wild Growth HoT</>,
+      },
+    ];
+
+    const extraCasts = this.extraCastsFromLeftoverMana;
+    if (extraCasts !== null) {
+      stats.push({
+        value: `${extraCasts}`,
+        label: 'Extra Casts Available',
+        tooltip: (
+          <>
+            Boss kill: ending mana ({formatNumber(this.manaValues.endingMana)}) could have funded
+            about this many more Wild Growths at your average cost (
+            {formatNumber(this.averageManaCost)} mana)
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: extraCasts,
+          isLessThanOrEqual: { perfect: 0, good: 1, ok: 3 },
+        }),
+      });
+    }
+
+    return (
+      <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
+        <CastOverview
           spell={SPELLS.WILD_GROWTH}
-          castEntries={this.castEntries}
-          badExtraExplanation={
+          title={
             <>
-              effective on fewer than three targets. A hit is considered "ineffective" if over the
-              first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more than{' '}
-              {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing
+              <SpellLink spell={SPELLS.WILD_GROWTH} /> Overview
             </>
           }
+          stats={stats}
         />
-      </div>
+        <CastDetail
+          title="Wild Growth Casts"
+          casts={this.buildCastDetails()}
+          possiblePerformances={this.possiblePerformances}
+        />
+      </GuideSection>
     );
+  }
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  private buildCastDetails(): PerCastData[] {
+    return this.casts.map((cast) => {
+      const missed = Math.max(0, cast.expectedTargets - cast.hits);
+      const reasonParts: string[] = [];
+
+      if (cast.hits >= cast.expectedTargets) {
+        reasonParts.push(`Full targets (${cast.hits})`);
+      } else if (missed === 1) {
+        reasonParts.push(`${cast.hits}/${cast.expectedTargets} targets`);
+      } else {
+        reasonParts.push(`Missed ${missed} targets (${cast.hits}/${cast.expectedTargets})`);
+      }
+
+      if (cast.duringTreeOfLife) {
+        reasonParts.push('Tree of Life');
+      }
+      if (cast.beforeCooldown && cast.cooldownSpellId !== undefined) {
+        reasonParts.push(
+          cast.cooldownSpellId === SPELLS.TRANQUILITY_CAST.id
+            ? 'Before Tranquility'
+            : 'Before Convoke',
+        );
+      } else if (cast.earlyOverhealPct < PERFECT_OVERHEAL_THRESHOLD) {
+        reasonParts.push('Low early overheal');
+      }
+
+      const targetPerf =
+        missed === 0
+          ? QualitativePerformance.Perfect
+          : missed === 1
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail;
+
+      const stats: PerCastStat[] = [
+        {
+          value: `${cast.hits}/${cast.expectedTargets}`,
+          label: 'Targets',
+          performance: targetPerf,
+        },
+        {
+          value: `${formatPercentage(cast.earlyOverhealPct, 0)}%`,
+          label: 'Early Overheal',
+          performance: evaluateQualitativePerformanceByThreshold({
+            actual: cast.earlyOverhealPct,
+            isLessThan: {
+              perfect: PERFECT_OVERHEAL_THRESHOLD,
+              good: GOOD_OVERHEAL_THRESHOLD,
+              ok: OK_OVERHEAL_THRESHOLD,
+            },
+          }),
+        },
+        {
+          value: formatNumber(cast.healing),
+          label: 'Healing',
+          ungraded: true,
+        },
+      ];
+
+      if (this.hasTranquility || this.hasConvoke) {
+        stats.push(
+          cast.beforeCooldown
+            ? {
+                value: 'Yes',
+                label: 'Pre-CD',
+                performance: QualitativePerformance.Good,
+              }
+            : {
+                value: 'No',
+                label: 'Pre-CD',
+                ungraded: true,
+              },
+        );
+      }
+
+      return {
+        performance: cast.performance,
+        timestamp: this.owner.formatTimestamp(cast.timestamp),
+        stats,
+        details: (
+          <>
+            {cast.performance}: {reasonParts.join(' · ')}
+          </>
+        ),
+      };
+    });
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(19)} // chosen for fixed ordering of general stats
+        position={STATISTIC_ORDER.CORE(19)}
         tooltip={
           <>
-            This is the average number of effective hits per Wild Growth cast. Because its healing
-            is so frontloaded, we consider a hit effective only if it does less than{' '}
-            {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing over its first{' '}
+            Average allies hit per Wild Growth hardcast that did less than{' '}
+            {formatPercentage(GOOD_OVERHEAL_THRESHOLD, 0)}% overhealing over the first{' '}
             {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds.
-            <br /> <br />
-            This statistic only considers hardcasts, Wild Growths procced by Convoke the Spirits are
-            ignored.
+            <br />
+            <br />
+            Convoke-procced Wild Growths are ignored.
           </>
         }
       >

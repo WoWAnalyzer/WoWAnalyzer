@@ -9,7 +9,7 @@ const DOTS = [
     name: 'Rend',
     debuffId: SPELLS.REND_DOT_ARMS.id,
     castId: TALENTS.REND_TALENT.id,
-    duration: 21000,
+    duration: 14000,
   },
 ];
 

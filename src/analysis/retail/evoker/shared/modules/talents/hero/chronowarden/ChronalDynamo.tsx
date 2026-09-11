@@ -1,5 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+// Add HealEvent import when updating for Pres
+import Events, { DamageEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -11,7 +12,8 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPECS from 'game/SPECS';
 import { isFromAfterimageDamage } from '../../../normalizers/ChronowardenCastLinkNormalizer';
 import { CHRONAL_DYNAMO_MULTIPLIER } from 'analysis/retail/evoker/shared';
-import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+// Add CalculateEffectiveHealing import when updating for Pres
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 /**
  * The cast time of Chrono Flames is reduced by 10%.
@@ -25,16 +27,7 @@ class ChronalDynamo extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CHRONAL_DYNAMO_TALENT);
-    if (this.owner.selectedCombatant.specId === SPECS.AUGMENTATION_EVOKER.id) {
-      // As Echo and Lifespark do not exist for Aug, and it has no healing empowers,
-      // no checks are needed for healing events.
-      // Rather than check the player's spec on each event, we can just call a different
-      // handler for heal events depending on spec.
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
-        this.onHealAug,
-      );
-    }
+    // Healing handler removed for Aug as not useful info
     // Needs a separate damage handler for Preservation with Lifespark [NYI]
     if (!this.selectedCombatant.hasTalent(TALENTS.LIFESPARK_TALENT)) {
       this.addEventListener(
@@ -42,10 +35,6 @@ class ChronalDynamo extends Analyzer {
         this.onDamageNoLifespark,
       );
     }
-  }
-
-  onHealAug(event: HealEvent) {
-    this.chronalDynamoHealing += calculateEffectiveHealing(event, CHRONAL_DYNAMO_MULTIPLIER);
   }
 
   onDamageNoLifespark(event: DamageEvent) {
@@ -63,11 +52,13 @@ class ChronalDynamo extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS.CHRONAL_DYNAMO_TALENT}>
+          {this.owner.selectedCombatant.specId === SPECS.PRESERVATION_EVOKER.id && (
+            <div>
+              <ItemHealingDone amount={this.chronalDynamoHealing} />
+            </div>
+          )}
           <div>
             <ItemDamageDone amount={this.chronalDynamoDamage} />
-          </div>
-          <div>
-            <ItemHealingDone amount={this.chronalDynamoHealing} />
           </div>
         </TalentSpellText>
       </Statistic>

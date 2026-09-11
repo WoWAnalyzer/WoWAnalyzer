@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/priest';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  DamageEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
@@ -15,6 +16,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 class VoidVolley extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
@@ -30,6 +32,8 @@ class VoidVolley extends ExecuteHelper {
   };
 
   maxCasts = 0;
+  castTS = 0; //Number of Tentacle Slams Cast (relevant for S2 set bonus)
+  castVF = 0; //number of voidforms entered
   castVB = 0; //casts of Voidbolt
   miss = 0; //missed potential casts of Void Bolt
   VB = [0]; //timestamps of voidbolt spellusable updates
@@ -42,12 +46,22 @@ class VoidVolley extends ExecuteHelper {
 
     this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_CAST),
-      this.onVBUpdate,
+      this.onVVUpdate,
     );
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_CAST),
-      this.onVBCast,
+      this.onVVCast,
+    );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_DAMAGE),
+      this.onVVDamage,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.TENTACLE_SLAM_TALENT),
+      this.onTSCast,
     );
 
     this.addEventListener(
@@ -80,13 +94,21 @@ class VoidVolley extends ExecuteHelper {
     });
   }
 
-  onVBUpdate(event: UpdateSpellUsableEvent) {
+  onVVUpdate(event: UpdateSpellUsableEvent) {
     //this adds timestamps of voidbolt spellusable updates
     this.VB.push(event.timestamp);
   }
 
-  onVBCast() {
+  onVVCast() {
     this.castVB += 1;
+  }
+
+  onVVDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
+  onTSCast() {
+    this.castTS += 1;
   }
 
   //VB is an unusal spell. It is likely that using ExecuteHelper would be better than this for most spells.
@@ -125,6 +147,7 @@ class VoidVolley extends ExecuteHelper {
   }
 
   enterVoidform(event: ApplyBuffEvent) {
+    this.castVF += 1;
     //reset the tracker of VB update timestamps.
     this.VB = [0];
     //to find the time between the first voidbolt update and start of voidform we need to add it in here.
@@ -139,7 +162,13 @@ class VoidVolley extends ExecuteHelper {
   }
 
   adjustMaxCasts() {
-    this.maxCasts = this.miss + this.castVB;
+    const pervoidform =
+      3 +
+      (this.selectedCombatant.hasTalent(TALENTS.IMPROVED_VOIDFORM_TALENT) ? 1 : 0) +
+      (this.selectedCombatant.hasTalent(TALENTS.CRUSHING_VOID_TALENT) ? 1 : 0);
+    this.maxCasts =
+      this.castVF * pervoidform +
+      (this.selectedCombatant.has4PieceByTier(TIERS.MID2) ? this.castTS : 0);
   }
 
   statistic() {

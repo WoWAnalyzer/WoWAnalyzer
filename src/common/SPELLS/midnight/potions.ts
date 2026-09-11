@@ -1,6 +1,11 @@
 import Spell from '../Spell';
 
 const Potions = {
+  CONCENTRATED_SILVERMOON_HEALTH_POTION: {
+    name: 'Concentrated Silvermoon Health Potion',
+    id: 1295247,
+    icon: 'inv_potion_49',
+  },
   SILVERMOON_HEALTH_POTION: {
     name: 'Silvermoon Health Potion',
     id: 1234768,
@@ -20,6 +25,16 @@ const Potions = {
     id: 1236590,
     name: 'Refreshing Serum',
     icon: 'inv_alchemy_80_potion01purple',
+  },
+  ALLURING_NOSTRUM: {
+    name: 'Alluring Nostrum',
+    id: 1295015,
+    icon: 'inv_121_professions_alchemy_potion_amani_purple',
+  },
+  LIQUID_LUSTER: {
+    name: 'Liquid Luster',
+    id: 1295132,
+    icon: 'inv_121_professions_alchemy_potion_amani_blue',
   },
   LIGHTS_POTENTIAL: {
     id: 1236616,

@@ -7,6 +7,7 @@ import { CAST_BUFFER_MS, STRENGTH_OF_THE_BLACK_OX } from './EventLinkConstants';
 export const HERO_TALENT_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: STRENGTH_OF_THE_BLACK_OX,
+    reverseLinkRelation: STRENGTH_OF_THE_BLACK_OX,
     linkingEventId: SPELLS.STRENGTH_OF_THE_BLACK_OX_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: [SPELLS.ENVELOPING_MIST_TFT.id, TALENTS_MONK.ENVELOPING_MIST_TALENT.id],

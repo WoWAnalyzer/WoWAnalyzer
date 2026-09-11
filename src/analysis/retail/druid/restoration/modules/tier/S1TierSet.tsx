@@ -2,10 +2,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TIERS } from 'game/TIERS';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatNumber } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { DRUID_MID1_ID } from 'common/ITEMS';
@@ -28,6 +29,7 @@ class S1TierSet extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   twoPieceHealing = 0;
+  twoPieceOverhealing = 0;
   fourPieceEffectiveCDR = 0;
   fourPieceWastedCDR = 0;
   fourPieceManaReduction = 0;
@@ -51,6 +53,7 @@ class S1TierSet extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.twoPieceHealing += calculateEffectiveHealing(event, TWO_PIECE_HEALING_INCREASE);
+    this.twoPieceOverhealing += calculateOverhealing(event, TWO_PIECE_HEALING_INCREASE);
   }
 
   onWildGrowthCast(event: CastEvent) {
@@ -86,6 +89,10 @@ class S1TierSet extends Analyzer {
         tooltip={
           <>
             <strong>2pc Healing: {formatNumber(this.twoPieceHealing)}</strong>
+            <br />
+            <strong>
+              Overhealing: {formatOverhealing(this.twoPieceOverhealing, this.twoPieceHealing)}
+            </strong>
             <br />
             {this.hasFourPiece && (
               <>

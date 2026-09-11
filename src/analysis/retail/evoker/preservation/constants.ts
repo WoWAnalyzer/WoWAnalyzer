@@ -52,7 +52,6 @@ export const HIT_ECHO_HEALS = [
   SPELLS.DREAM_BREATH_ECHO,
   SPELLS.LIVING_FLAME_HEAL,
   SPELLS.VERDANT_EMBRACE_HEAL,
-  SPELLS.LIFEBIND_HEAL,
   SPELLS.GOLDEN_HOUR_HEAL,
   SPELLS.MERITHRAS_BLESSING_CAST,
 ];
@@ -70,6 +69,7 @@ export const STASIS_CAST_IDS = [
   TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
   SPELLS.DREAM_BREATH_FONT.id,
   SPELLS.NATURALIZE.id,
+  SPELLS.MERITHRAS_BLESSING_CAST.id,
 ];
 
 export const CYCLE_SPELLS = [
@@ -108,6 +108,8 @@ export const TIMELESS_MAGIC = 0.15;
 export const TIMELORD_INCREASE = 0.25;
 export const DOUBLE_TIME_EXTENSION = 2;
 export const LIFEBIND_DURATION = 5000;
+export const INNER_FLAME_STASIS = 15000;
+export const INNER_FLAME_DREAMFLIGHT = 20000;
 
 export function getSpellIds(spells: Spell[]) {
   return spells.map((spell) => spell.id);

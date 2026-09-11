@@ -12,6 +12,7 @@ import {
   EMPOWER_MINIMUM_GCD,
   HEAVY_WINGBEATS_CDR,
 } from '../constants';
+import { hastedCooldown } from 'common/abilitiesConstants';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
@@ -107,7 +108,10 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 24 * interwovenThreadsMultiplier,
+        cooldown:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? hastedCooldown(18)
+            : 24 * interwovenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
         gcd: {
           base: 1500,

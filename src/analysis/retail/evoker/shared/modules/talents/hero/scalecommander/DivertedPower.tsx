@@ -17,11 +17,16 @@ import {
 import { formatPercentage } from 'common/format';
 import Soup from 'interface/icons/Soup';
 import { InformationIcon } from 'interface/icons';
+import Enemies from 'parser/shared/modules/Enemies';
 
 /**
  * Bombardments have a chance to generate Essence Burst.
  */
 class DivertedPower extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+  protected enemies!: Enemies;
   essenceBurstGenerated = 0;
   essenceBurstWasted = 0;
 
@@ -38,13 +43,25 @@ class DivertedPower extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.procAttempts += 1;
-
     if (eventGeneratedEB(event, EBSource.DivertedPower)) {
       this.essenceBurstGenerated += 1;
     } else if (eventWastedEB(event, EBSource.DivertedPower)) {
       this.essenceBurstWasted -= 1;
     }
+    // Proccing Bombardments yourself triggers both the damage event
+    // and the support event. Ignore one of those to avoid double counting.
+    if (event.supportID === this.owner.selectedCombatant.id) {
+      return;
+    }
+    // Reduce the number of proc attempts to 1 or 2 per Bombardments proc, even in AOE.
+    // Due to travel time, the damage event can occur slightly after the debuff expires (seen up to 343 ms),
+    // so a 500 ms buffer is added.
+    // To-do: Try and improve this to just 1 per Bombardments proc, even if the debuff is spread.
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy || !enemy.getBuff(SPELLS.BOMBARDMENTS_DEBUFF.id, null, 500)) {
+      return;
+    }
+    this.procAttempts += 1;
   }
 
   get procRate() {

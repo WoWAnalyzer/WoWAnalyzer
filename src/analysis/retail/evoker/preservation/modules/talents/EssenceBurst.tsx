@@ -4,6 +4,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { maybeGetSpell } from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Events, {
   EventType,
@@ -24,8 +26,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -178,7 +179,6 @@ class EssenceBurst extends Analyzer {
     this.casts.forEach((cast) => {
       sourceCount.set(cast.source, (sourceCount.get(cast.source) ?? 0) + 1);
     });
-    console.log(sourceCount);
     const items = [
       {
         color: SPELL_COLORS.MERITHRAS_BLESSING,
@@ -250,27 +250,33 @@ class EssenceBurst extends Analyzer {
       </p>
     );
 
-    const entries: BoxRowEntry[] = [];
-    this.casts.forEach((info) => {
-      let value = QualitativePerformance.Good;
+    const perCastData: PerCastData[] = this.casts.map((info) => {
+      let performance = QualitativePerformance.Perfect;
+      const twinEchoes =
+        (info.spell === TALENTS_EVOKER.ECHO_TALENT.id ||
+          info.spell === SPELLS.EMERALD_BLOSSOM_CAST.id) &&
+        this.selectedCombatant.hasTalent(TALENTS_EVOKER.TWIN_ECHOES_TALENT)
+          ? this.selectedCombatant.getBuffStacks(SPELLS.TWIN_ECHOES_BUFF.id, info.timestamp)
+          : null;
       if (
         !this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENERGY_LOOP_TALENT) &&
         info.spell === SPELLS.DISINTEGRATE.id
       ) {
-        value = QualitativePerformance.Fail;
+        performance = QualitativePerformance.Fail;
       }
       if (info.spell === TALENTS_EVOKER.ECHO_TALENT.id) {
         if (
           !this.selectedCombatant.hasTalent(TALENTS_EVOKER.TWIN_ECHOES_TALENT) ||
           this.selectedCombatant.getBuffStacks(SPELLS.TWIN_ECHOES_BUFF.id, info.timestamp) !== 2
         ) {
-          value = QualitativePerformance.Ok;
+          performance = QualitativePerformance.Good;
         }
       }
       if (info.spell === 0) {
-        value = QualitativePerformance.Fail;
+        performance = QualitativePerformance.Fail;
       }
-      const spellString =
+
+      const details =
         info.spell === 0 ? (
           `Wasted from ${info.expired ? 'expiration' : 'refresh'}`
         ) : (
@@ -278,23 +284,47 @@ class EssenceBurst extends Analyzer {
             Consume ability: <SpellLink spell={info.spell} />
           </>
         );
-      const tooltip = (
-        <>
-          <p>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</p>
-          {spellString}
-        </>
-      );
-      entries.push({ value, tooltip });
+
+      const spell = maybeGetSpell(info.spell) ?? { name: '' };
+      const stats = [
+        {
+          label: 'Usage',
+          value: info.spell === 0 ? 'Wasted' : <SpellIcon spell={info.spell} />,
+          tooltip:
+            info.spell === 0
+              ? `Wasted from ${info.expired ? 'expiration' : 'refresh'}`
+              : `Consumed with ${spell.name}.`,
+        },
+      ];
+
+      if (twinEchoes !== null) {
+        stats.push({
+          label: 'Twin Echoes',
+          value: twinEchoes.toString(),
+          tooltip:
+            info.spell === 0
+              ? `Wasted from ${info.expired ? 'expiration' : 'refresh'}`
+              : `Consumed with ${spell.name}.`,
+        });
+      }
+
+      return {
+        performance,
+        timestamp: this.owner.formatTimestamp(info.timestamp),
+        details,
+        stats,
+        tooltip: (
+          <>
+            <p>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</p>
+            {details}
+          </>
+        ),
+      };
     });
 
     const data = (
       <div>
-        <RoundedPanel>
-          <strong>
-            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> consumptions
-          </strong>
-          <PerformanceBoxRow values={entries} />
-        </RoundedPanel>
+        <CastDetail title="Essence Burst consumptions" casts={perCastData} />
       </div>
     );
 

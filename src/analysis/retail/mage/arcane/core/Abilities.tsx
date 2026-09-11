@@ -55,6 +55,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.PRISMATIC_BOLT.id,
+        buffSpellId: SPELLS.PRISMATIC_BOLT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BOLT_3_ARCANE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       // Cooldowns
       {
@@ -62,7 +71,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT),
         cooldown: 45,
-        charges: combatant.hasTalent(TALENTS.TOUCH_OF_THE_ARCHMAGE_1_ARCANE_TALENT) ? 2 : 1,
+        charges: 1,
         gcd: null,
         castEfficiency: {
           suggestion: true,

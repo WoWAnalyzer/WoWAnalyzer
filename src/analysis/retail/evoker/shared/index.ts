@@ -31,12 +31,9 @@ export { default as Chronoflame } from './modules/talents/hero/chronowarden/Chro
 export { default as Reverberations } from './modules/talents/hero/chronowarden/Reverberations';
 export { default as Primacy } from './modules/talents/hero/chronowarden/Primacy';
 export { default as TimeConvergence } from './modules/talents/hero/chronowarden/TimeConvergence';
-export { default as GoldenOpportunity } from './modules/talents/hero/chronowarden/GoldenOpportunity';
-export { default as DoubleTime } from './modules/talents/hero/chronowarden/DoubleTime';
 export { default as MotesOfAcceleration } from './modules/talents/hero/chronowarden/MotesOfAcceleration';
 export { default as RefinedEssence } from './modules/talents/hero/scalecommander/RefinedEssence';
 export { default as CommandSquadron } from './modules/talents/hero/scalecommander/CommandSquadron';
-export { default as NozdormuAdept } from './modules/talents/hero/chronowarden/NozdormuAdept';
 export { default as ImminentDestructionCastLinkNormalizer } from './modules/normalizers/ImminentDestructionCastLinkNormalizer';
 export { default as EssenceWell } from './modules/talents/hero/flameshaper/EssenceWell';
 export { default as TwinFlame } from './modules/talents/hero/flameshaper/TwinFlame';

@@ -5,10 +5,8 @@ import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
-import { ManaChart as ManaChartComponent } from '../../shared/components';
-import ManaValues from 'parser/shared/modules/ManaValues';
+import { TimelineHeatmapGrid, type TimelineHeatmapBracket } from 'interface/guide/components';
 import ArcaneSurge from '../analyzers/ArcaneSurge';
-import TouchOfTheMagi from '../analyzers/TouchOfTheMagi';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Spell from 'common/SPELLS/Spell';
@@ -16,22 +14,24 @@ import Spell from 'common/SPELLS/Spell';
 const SPELL_COLORS = {
   ARCANE_SURGE: '#db35acff', // Pinkish purple
   EVOCATION: '#10B981', // Green
-  TOUCH_OF_THE_MAGI: '#F59E0B', // Orange
 } as const;
+
+const MANA_BRACKETS: TimelineHeatmapBracket[] = [
+  { label: '81–100%', min: 80, color: '#4CAF50' },
+  { label: '61–79%', min: 60, color: '#8BC34A' },
+  { label: '41–59%', min: 40, color: '#FFC107' },
+  { label: '21–39%', min: 20, color: '#FF9800' },
+  { label: '<20%', min: 0, color: '#F44336' },
+];
 
 class ManaChart extends Analyzer {
   static dependencies = {
-    manaValues: ManaValues,
     arcaneSurge: ArcaneSurge,
-    touchOfTheMagi: TouchOfTheMagi,
   };
 
-  protected manaValues!: ManaValues;
   protected arcaneSurge!: ArcaneSurge;
-  protected touchOfTheMagi!: TouchOfTheMagi;
 
-  private manaUpdates: Array<{ timestamp: number; current: number; max: number; used: number }> =
-    [];
+  private manaUpdates: Array<{ timestamp: number; current: number; max: number }> = [];
   private evocationCasts: Array<{ timestamp: number; spell: Spell }> = [];
 
   constructor(options: Options) {
@@ -54,7 +54,6 @@ class ManaChart extends Analyzer {
         timestamp: event.timestamp,
         current: currentMana,
         max: manaResource.max,
-        used: manaResource.cost || 0,
       });
     }
 
@@ -68,43 +67,32 @@ class ManaChart extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
+    const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
 
     const explanation = (
       <>
-        <b>Mana Management</b> is crucial for Arcane Mage performance. Proper mana usage involves:
+        <b>Mana Management</b> plays a large role in your Arcane rotation, but is relatively simple
+        to manage if you are doing your rotation properly. However, if you are hanging onto your{' '}
+        {arcaneCharge} stacks for too long, you can easily burn through all your mana without
+        realizing it. If you are having trouble managing your mana, focus on the below items first:
         <ul>
+          <li>Focus on your {arcaneBarrage} usage as that will help regulate your mana.</li>
+          <li>Make sure you are using {arcaneSurge} as quickly as possible.</li>
           <li>
-            <strong>Burn Phase:</strong> Use {arcaneSurge} and {touchOfTheMagi} while maintaining
-            mana for the full duration. Don't go OOM during major cooldowns.
-          </li>
-          <li>
-            <strong>Conserve Phase:</strong> Use {arcaneBarrage} at 4 stacks to maintain mana
-            efficiency while waiting for cooldowns.
-          </li>
-          <li>
-            <strong>Mana Recovery:</strong> Use {evocation} to restore mana during conserve phases
-            or between burn windows.
-          </li>
-          <li>
-            <strong>Fight Ending:</strong> Aim to end fights with minimal mana remaining - unused
-            mana is wasted potential damage.
+            If you are still struggling, consider taking {evocation} until you get used to the
+            rotation and no longer need it.
           </li>
         </ul>
       </>
     );
 
-    const arcaneSurgeCasts = this.arcaneSurge.surgeData.map((cast) => ({
-      timestamp: cast.cast,
-      spell: TALENTS.ARCANE_SURGE_TALENT,
-      color: SPELL_COLORS.ARCANE_SURGE,
-    }));
-
-    const evocationCasts = this.evocationCasts.map((cast) => ({
-      ...cast,
-      color: SPELL_COLORS.EVOCATION,
+    const arcaneSurgeCasts = this.arcaneSurge.surgeData.map((cast) => cast.cast);
+    const evocationCasts = this.evocationCasts.map((cast) => cast.timestamp);
+    const manaDataPoints = this.manaUpdates.map((update) => ({
+      timestamp: update.timestamp,
+      value: (update.current / update.max) * 100,
     }));
 
     return (
@@ -114,17 +102,25 @@ class ManaChart extends Analyzer {
         explanation={explanation}
         verticalLayout
       >
-        <ManaChartComponent
-          manaUpdates={this.manaUpdates}
+        <TimelineHeatmapGrid
+          dataPoints={manaDataPoints}
+          brackets={MANA_BRACKETS}
+          valueLabel="Mana"
           startTime={this.owner.fight.start_time}
           endTime={this.owner.fight.end_time}
-          annotations={[
-            { events: arcaneSurgeCasts, type: 'cast' },
-            { events: evocationCasts, type: 'cast' },
+          bucketCount={25}
+          markerGroups={[
+            {
+              label: 'Arcane Surge',
+              color: SPELL_COLORS.ARCANE_SURGE,
+              timestamps: arcaneSurgeCasts,
+            },
+            {
+              label: 'Evocation',
+              color: SPELL_COLORS.EVOCATION,
+              timestamps: evocationCasts,
+            },
           ]}
-          lowManaThreshold={0.1}
-          showBossHealth
-          reportCode={this.owner.report.code}
         />
       </GuideSection>
     );

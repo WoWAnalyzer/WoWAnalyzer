@@ -36,7 +36,7 @@ class ImmolateUptime extends Analyzer {
         {this.selectedCombatant.hasTalent(TALENTS_WARLOCK.WITHER_TALENT) && (
           <p>
             When playing Hellcaller, maintain <SpellLink spell={SPELLS.WITHER_DEBUFF} />. This DoT
-            contributes a massive amount of damage and nables rotational synergies with{' '}
+            contributes a massive amount of damage and enables rotational synergies with{' '}
             <SpellLink spell={SPELLS.CONFLAGRATE} /> and other Destruction talents.
           </p>
         )}

@@ -22,16 +22,25 @@ export const apl = (info: PlayerInfo): Apl => {
   const executeThreshold = info.combatant.hasTalent(TALENTS.MASSACRE_SPEC_TALENT)
     ? MASSACRE_EXECUTE_THRESHOLD
     : DEFAULT_EXECUTE_THRESHOLD;
-  const executeUsable = cnd.or(
-    cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
-    cnd.and(
-      cnd.inExecute(executeThreshold),
-      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 200 }),
-    ),
-  );
+
   const executeSpell = info.combatant.hasTalent(TALENTS.MASSACRE_SPEC_TALENT)
     ? SPELLS.EXECUTE_GLYPHED
     : SPELLS.EXECUTE;
+  const executeUsable = {
+    ...cnd.or(
+      cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
+      cnd.and(
+        cnd.inExecute(executeThreshold),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 200 }),
+      ),
+    ),
+    describe: () => (
+      <>
+        <SpellLink spell={executeSpell} /> was usable, or{' '}
+        <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} /> was active
+      </>
+    ),
+  };
 
   return info.combatant.hasTalent(TALENTS.SLAYERS_DOMINANCE_TALENT)
     ? buildSlayerApl(executeThreshold, executeUsable, executeSpell)
@@ -64,28 +73,52 @@ export const buildSlayerApl = (
     {
       spell: SPELLS.MORTAL_STRIKE,
       condition: cnd.and(
-        cnd.or(
-          cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
-          cnd.debuffPresent(SPELLS.COLOSSUS_SMASH_DEBUFF),
-        ),
+        cnd.buffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
         cnd.inExecute(executeThreshold),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range during{' '}
-          <SpellLink spell={SPELLS.COLOSSUS_SMASH_DEBUFF} /> or with 2 stacks of{' '}
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range with 2 stacks of{' '}
           <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} />
         </>
       ),
     },
 
-    // OP inside execute with low rage
+    // OP inside execute with 2opp
     {
       spell: SPELLS.OVERPOWER,
-      condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 800 }), executeUsable),
+      condition: cnd.and(
+        cnd.buffStacks(SPELLS.OPPORTUNIST, { atLeast: 2 }),
+        cnd.inExecute(executeThreshold),
+      ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with below 80 rage
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with 2 stacks of{' '}
+          <SpellLink spell={SPELLS.OPPORTUNIST} />
+        </>
+      ),
+    },
+
+    // Exe in execute with SD
+    {
+      spell: executeSpell,
+      condition: {
+        ...cnd.and(
+          executeUsable,
+          cnd.inExecute(executeThreshold),
+          cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
+        ),
+        describe: () => (
+          <>
+            you were in execute range with <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />{' '}
+            active
+          </>
+        ),
+      },
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} /> while in execute range with{' '}
+          <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
         </>
       ),
     },
@@ -93,10 +126,17 @@ export const buildSlayerApl = (
     // Exe in execute
     {
       spell: executeSpell,
-      condition: cnd.and(executeUsable, cnd.inExecute(executeThreshold)),
+      condition: {
+        ...cnd.and(
+          executeUsable,
+          cnd.inExecute(executeThreshold),
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 400 }),
+        ),
+        describe: () => <>you were in execute range with at least 40 rage</>,
+      },
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} /> while in execute range
+          Cast <SpellLink spell={executeSpell} /> while in execute range with at least 40 rage
         </>
       ),
     },
@@ -121,6 +161,18 @@ export const buildSlayerApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} />
+        </>
+      ),
+    },
+
+    // OP  with 2opp
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.buffStacks(SPELLS.OPPORTUNIST, { atLeast: 2 }),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> with 2 stacks of{' '}
+          <SpellLink spell={SPELLS.OPPORTUNIST} />
         </>
       ),
     },
@@ -196,17 +248,27 @@ export const buildColossusApl = (
     // MS in exe
     {
       spell: SPELLS.MORTAL_STRIKE,
-      condition: cnd.and(
-        cnd.inExecute(executeThreshold),
-        cnd.or(
-          cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
-          cnd.not(cnd.hasTalent(TALENTS.EXECUTIONERS_PRECISION_TALENT)),
+      condition: {
+        ...cnd.and(
+          cnd.inExecute(executeThreshold),
+          cnd.or(
+            cnd.buffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
+            cnd.buffStacks(SPELLS.COLOSSAL_MIGHT, { atMost: 9 }),
+          ),
         ),
-      ),
+        describe: () => (
+          <>
+            in execute range with 2 stacks of{' '}
+            <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> or below 10 stacks of{' '}
+            <SpellLink spell={SPELLS.COLOSSAL_MIGHT} />
+          </>
+        ),
+      },
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range, with 2 stacks of{' '}
-          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> if it is talented
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range with 2 stacks of{' '}
+          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> or below 10 stacks of{' '}
+          <SpellLink spell={SPELLS.COLOSSAL_MIGHT} />
         </>
       ),
     },
@@ -229,11 +291,18 @@ export const buildColossusApl = (
     // Exe with DW and high rage
     {
       spell: executeSpell,
-      condition: cnd.and(
-        cnd.inExecute(executeThreshold),
-        cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
-      ),
+      condition: {
+        ...cnd.and(
+          cnd.inExecute(executeThreshold),
+          cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT),
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
+        ),
+        describe: () => (
+          <>
+            you were above 75 rage with <SpellLink spell={TALENTS.DEEP_WOUNDS_TALENT} /> talented
+          </>
+        ),
+      },
       description: (
         <>
           Cast <SpellLink spell={executeSpell} /> with above 75 rage if{' '}
@@ -256,11 +325,14 @@ export const buildColossusApl = (
     // exe in exe
     {
       spell: executeSpell,
-      condition: cnd.and(
-        executeUsable,
-        cnd.inExecute(executeThreshold),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
-      ),
+      condition: {
+        ...cnd.and(
+          executeUsable,
+          cnd.inExecute(executeThreshold),
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
+        ),
+        describe: () => <>you were above 75 rage in execute range</>,
+      },
       description: (
         <>
           Cast <SpellLink spell={executeSpell} /> in execute range while above 75 rage
@@ -268,18 +340,22 @@ export const buildColossusApl = (
       ),
     },
 
-    // slam in exe
+    // outside execute prio
+
+    // MS below 10 CM
     {
-      spell: SPELLS.SLAM,
-      condition: cnd.inExecute(executeThreshold),
+      spell: SPELLS.MORTAL_STRIKE,
+      condition: cnd.and(
+        cnd.not(cnd.inExecute(executeThreshold)),
+        cnd.buffStacks(SPELLS.COLOSSAL_MIGHT, { atMost: 9 }),
+      ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.SLAM} /> in execute range
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while below 10 stacks of{' '}
+          <SpellLink spell={SPELLS.COLOSSAL_MIGHT} />
         </>
       ),
     },
-
-    // outside execute prio
 
     // HS
     {
@@ -288,6 +364,18 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} />
+        </>
+      ),
+    },
+
+    // Exe with 2 SD
+    {
+      spell: executeSpell,
+      condition: cnd.buffStacks(SPELLS.SUDDEN_DEATH_TALENT_BUFF, { atLeast: 2 }),
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} /> with 2 stacks of{' '}
+          <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
         </>
       ),
     },
@@ -303,17 +391,6 @@ export const buildColossusApl = (
       ),
     },
 
-    // OP no exe
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(cnd.not(cnd.inExecute(executeThreshold))),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} />
-        </>
-      ),
-    },
-
     // Exe with SD
     {
       spell: executeSpell,
@@ -325,10 +402,21 @@ export const buildColossusApl = (
       ),
     },
 
+    // OP no exe
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.not(cnd.inExecute(executeThreshold)),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} />
+        </>
+      ),
+    },
+
     // slam
     {
       spell: SPELLS.SLAM,
-      condition: cnd.and(cnd.not(cnd.inExecute(executeThreshold))),
+      condition: cnd.not(cnd.inExecute(executeThreshold)),
       description: (
         <>
           Cast <SpellLink spell={SPELLS.SLAM} />

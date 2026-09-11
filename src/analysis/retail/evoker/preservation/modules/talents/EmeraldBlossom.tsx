@@ -1,153 +1,144 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TalentSpellText from 'parser/ui/TalentSpellText';
+import Events, { HealEvent, CastEvent, GetRelatedEvents } from 'parser/core/Events';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ThresholdStyle } from 'parser/core/ParseResults';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/EventLinking/helpers';
 import { SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { formatNumber } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-
-const BOUNTIFUL_ADDITIONAL_TARGETS = 2;
-const BASE_TARGETS = 3;
+import CastDetail, {
+  type PerCastData,
+  type PerCastStat,
+} from 'interface/guide/components/CastDetail';
+import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import { EMERALD_BLOSSOM_CAST } from '../../normalizers/EventLinking/constants';
 
 class EmeraldBlossom extends Analyzer {
-  bountifulBloomHealing = 0;
-  bountifulBloomOverhealing = 0;
-  extraBountifulHits = 0;
   numBlossoms = 0;
   totalHits = 0;
   totalHealing = 0;
   totalOverhealing = 0;
   countedTimestamps: Set<number> = new Set<number>();
-  castEntries: BoxRowEntry[] = [];
-  bountifulRank = 0;
+  castEntries: PerCastData[] = [];
   goodThreshold = 0;
   perfectThreshold = 0;
   totalCastHits = 0;
 
   constructor(options: Options) {
     super(options);
-    this.bountifulRank = this.selectedCombatant.getTalentRank(
-      TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT,
-    );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
-      this.onHealBatch,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM_CAST),
+      this.onBlossomCast,
     );
-    this.perfectThreshold = BASE_TARGETS + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS;
-    this.goodThreshold = BASE_TARGETS - 1 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS;
   }
 
-  get averageNumTargets() {
-    return this.totalHits / this.numBlossoms;
-  }
-
-  get averageExtraTargets() {
-    return this.extraBountifulHits / this.numBlossoms;
-  }
-
-  processBatch(events: HealEvent[]) {
-    if (events.some((ev) => isFromFieldOfDreams(ev))) {
-      return;
-    }
-    this.totalCastHits += events.length;
-    let value = QualitativePerformance.Perfect;
-    let effective = 0;
-    let overheal = 0;
-    let timestamp = events.at(0)!.timestamp;
-    events.forEach((ev) => {
-      effective += ev.amount + (ev.absorbed || 0);
-      overheal = ev.overheal || 0;
-      timestamp = timestamp < ev.timestamp ? timestamp : ev.timestamp;
-    });
-    const overhealPercent = overheal / (overheal + effective);
-    if (events.length < this.goodThreshold) {
-      value = QualitativePerformance.Fail;
-    } else if (overhealPercent > 0.7) {
-      value = QualitativePerformance.Ok;
-    } else if (events.length < this.perfectThreshold || overhealPercent > 0.6) {
-      value = QualitativePerformance.Good;
-    }
-    const tooltip = (
-      <>
-        <p>
-          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong>, Targets hit:{' '}
-          <strong>{events.length}</strong>
-        </p>
-        <p>
-          Healing: {formatNumber(effective)} ({formatPercentage(overhealPercent)}% overheal)
-        </p>
-      </>
-    );
-    this.castEntries.push({ value, tooltip });
-  }
-
-  // batch process all healevents for single cast to easily decide which to attribute to bountiful
-  onHealBatch(event: HealEvent) {
-    if (this.countedTimestamps.has(event.timestamp)) {
-      return;
-    }
-
-    const allHealingEvents = getHealEvents(event);
-    this.totalHits += allHealingEvents.length;
-    this.numBlossoms += 1;
-    for (let i = 0; i < allHealingEvents.length; i += 1) {
-      const ev = allHealingEvents[i];
-      this.totalHealing += (ev.amount || 0) + (ev.absorbed || 0);
-      this.totalOverhealing += ev.overheal || 0;
-      if (i >= BASE_TARGETS) {
-        // bountiful blossom target
-        this.bountifulBloomHealing += (ev.amount || 0) + (ev.absorbed || 0);
-        this.bountifulBloomOverhealing += ev.overheal || 0;
-        this.extraBountifulHits += 1;
-      }
-    }
-    this.countedTimestamps.add(event.timestamp);
-    this.processBatch(allHealingEvents);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.averageNumTargets,
-      isLessThan: {
-        minor: 2.5 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS,
-        average: 2 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS,
-      },
-      style: ThresholdStyle.NUMBER,
+  onBlossomCast(event: CastEvent) {
+    const blossomHealing = GetRelatedEvents<HealEvent>(event, EMERALD_BLOSSOM_CAST);
+    const blossomHeals = [];
+    const seedlingsHeals = [];
+    const data = {
+      essenceBurst: isCastFromEB(event),
+      totalTargets: 0,
+      blossomTargets: 0,
+      blossomHealing: 0,
+      seedlingsTargets: 0,
+      seedlingsHealing: 0,
     };
-  }
 
-  get avgHitsFromCast() {
-    return this.totalCastHits / this.castEntries.length;
+    blossomHealing.forEach((heal) => {
+      data.totalTargets++;
+      if (heal.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
+        seedlingsHeals.push(heal);
+        data.seedlingsTargets++;
+        data.seedlingsHealing += (heal.amount || 0) + (heal.absorbed || 0);
+      } else {
+        blossomHeals.push(heal);
+        data.blossomTargets++;
+        data.blossomHealing += (heal.amount || 0) + (heal.absorbed || 0);
+      }
+    });
+
+    let info = '';
+    let performance = QualitativePerformance.Perfect;
+    if (!data.essenceBurst) {
+      performance = QualitativePerformance.Fail;
+      info = 'Emerald Blossom should be cast with an essence burst.';
+    } else if (data.totalTargets < 3) {
+      performance = QualitativePerformance.Fail;
+    } else if (data.totalTargets < 5) {
+      performance = QualitativePerformance.Ok;
+    } else if (data.totalTargets < 7) {
+      performance = QualitativePerformance.Good;
+    }
+
+    const stats: PerCastStat[] = [
+      {
+        label: 'Essence',
+        value: data.essenceBurst ? 'Essence Burst' : 'Natural Essence',
+        tooltip: data.essenceBurst
+          ? 'This Blossom was cast while Essence Burst was active.'
+          : 'This Blossom was cast with natural Essence.',
+      },
+      {
+        label: 'Blossom Targets',
+        value: `${data.blossomTargets}`,
+        tooltip: `This cast hit ${data.blossomTargets} targets.`,
+      },
+      {
+        label: 'Blossom Healing',
+        value: formatNumber(data.blossomHealing),
+        tooltip: `Emerald Blossom Healing: ${formatNumber(data.blossomHealing)}.`,
+      },
+      {
+        label: 'Seedlings',
+        value: `${data.seedlingsTargets}`,
+        tooltip: `This Blossom produced ${data.seedlingsTargets} Fluttering Seedlings.`,
+      },
+      {
+        label: 'Seedling Heal',
+        value: formatNumber(data.seedlingsHealing),
+        tooltip: `Healing dealt by Fluttering Seedlings: ${formatNumber(data.seedlingsHealing)}.`,
+      },
+    ];
+
+    const castEntry = {
+      performance: performance,
+      timestamp: this.owner.formatTimestamp(event.timestamp),
+      stats,
+      details: info,
+      tooltip: (
+        <>
+          <p>
+            @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+          </p>
+        </>
+      ),
+    };
+
+    this.castEntries.push(castEntry);
   }
 
   get guideSubsection(): JSX.Element {
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
     const explanation = (
-      <p>
-        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> is a core spell in the Preservation Evoker kit.
-        It is important to cast it on targets that are nearby other allies and only while you have{' '}
-        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> available. Every{' '}
-        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> cast will generate a stack of{' '}
-        <SpellLink spell={TALENTS_EVOKER.TWIN_ECHOES_TALENT} /> which gives you an extra{' '}
-        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> later on.
-      </p>
+      <>
+        <p>
+          <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> is a core spell in the Preservation Evoker
+          kit and you should use the vast majority of your{' '}
+          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> on it. Every{' '}
+          <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> cast will generate a stack of{' '}
+          <SpellLink spell={TALENTS_EVOKER.TWIN_ECHOES_TALENT} /> which gives you an extra{' '}
+          <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> later on.
+        </p>
+        <p>
+          Thanks to <SpellLink spell={TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT} /> you don't need
+          to aim the <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> towards a stacked group of
+          players, as any misses will be replaced by seedlings that do a very similar amount of
+          healing.
+        </p>
+      </>
     );
 
     const data =
@@ -162,63 +153,12 @@ class EmeraldBlossom extends Analyzer {
       ) : (
         <div>
           <RoundedPanel>
-            <div>
-              <strong>
-                <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> casts
-              </strong>{' '}
-              <small>
-                {' '}
-                - Blue is a perfect cast with {this.perfectThreshold} targets hit, Green is a good
-                cast with {this.goodThreshold} or more with moderate to low overhealing, Yellow is
-                an ok cast with a moderate amount of overheal, and Red is a bad cast with high
-                overheal or few targets hit.
-              </small>
-              <PerformanceBoxRow values={this.castEntries} />
-            </div>
-            <div style={styleObj}>
-              <small style={styleObjInner}>
-                <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> -{' '}
-              </small>
-              <strong>{this.avgHitsFromCast.toFixed(2)}</strong>{' '}
-              <small>
-                average targets hit per <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
-              </small>
-            </div>
+            <CastDetail title="Emerald Blossom Casts" casts={this.castEntries} />
           </RoundedPanel>
         </div>
       );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return this.bountifulRank > 0 && this.averageExtraTargets > 0 ? (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(1)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <ul>
-            <li>
-              Total Healing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
-              {formatNumber(this.bountifulBloomHealing)}
-            </li>
-            <li>
-              Total Overhealing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
-              {formatNumber(this.bountifulBloomOverhealing)}
-            </li>
-            <li>
-              Average extra hits from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
-              {this.averageExtraTargets.toFixed(2)}
-            </li>
-          </ul>
-        }
-      >
-        <TalentSpellText talent={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT}>
-          <ItemHealingDone amount={this.bountifulBloomHealing} />
-        </TalentSpellText>
-      </Statistic>
-    ) : null;
   }
 }
 

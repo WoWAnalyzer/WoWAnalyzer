@@ -1,3 +1,4 @@
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -23,10 +24,20 @@ import {
 class Verdancy extends Analyzer {
   /** Verdancy healing from normal Lifebloom blooms (expiry/refresh) */
   normalBloomHealing = 0;
+  /** Verdancy overhealing from normal Lifebloom blooms (expiry/refresh) */
+  normalBloomOverhealing = 0;
   /** Verdancy healing from Photosynthesis-triggered blooms */
   photoBloomHealing = 0;
+  /** Verdancy overhealing from Photosynthesis-triggered blooms */
+  photoBloomOverhealing = 0;
+  /** Verdancy healing that could not be linked to a source bloom (should not happen) */
+  unlinkedBloomHealing = 0;
+  /** Verdancy overhealing that could not be linked to a source bloom (should not happen) */
+  unlinkedBloomOverhealing = 0;
   /** Verdancy healing from Everbloom Blooming Frenzy blooms */
   everbloomBloomHealing = 0;
+  /** Verdancy overhealing from Everbloom Blooming Frenzy blooms */
+  everbloomBloomOverhealing = 0;
 
   private hasPhotosynthesis = false;
   private hasEverbloomRank3 = false;
@@ -48,20 +59,44 @@ class Verdancy extends Analyzer {
 
   private onVerdancyHeal = (event: HealEvent) => {
     const effectiveHealing = event.amount + (event.absorbed || 0);
+    const overhealing = event.overheal || 0;
     const sourceBloom = getSourceBloom(event);
 
     if (sourceBloom && isFromEverbloom(sourceBloom)) {
       this.everbloomBloomHealing += effectiveHealing;
+      this.everbloomBloomOverhealing += overhealing;
     } else if (sourceBloom && isFromExpiringLifebloom(sourceBloom)) {
       this.normalBloomHealing += effectiveHealing;
-    } else {
-      // Photosynthesis or unlinked blooms
+      this.normalBloomOverhealing += overhealing;
+    } else if (sourceBloom) {
       this.photoBloomHealing += effectiveHealing;
+      this.photoBloomOverhealing += overhealing;
+    } else {
+      this.unlinkedBloomHealing += effectiveHealing;
+      this.unlinkedBloomOverhealing += overhealing;
+      this.warn(
+        'Verdancy: unlinked bloom heal @ ' + this.owner.formatTimestamp(event.timestamp, 1),
+        event,
+      );
     }
   };
 
   get totalVerdancyHealing() {
-    return this.normalBloomHealing + this.photoBloomHealing + this.everbloomBloomHealing;
+    return (
+      this.normalBloomHealing +
+      this.photoBloomHealing +
+      this.everbloomBloomHealing +
+      this.unlinkedBloomHealing
+    );
+  }
+
+  get totalVerdancyOverhealing() {
+    return (
+      this.normalBloomOverhealing +
+      this.photoBloomOverhealing +
+      this.everbloomBloomOverhealing +
+      this.unlinkedBloomOverhealing
+    );
   }
 
   statistic() {
@@ -90,6 +125,10 @@ class Verdancy extends Analyzer {
                 </li>
               )}
             </ul>
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(this.totalVerdancyOverhealing, this.totalVerdancyHealing)}
+            </strong>
           </>
         }
       >

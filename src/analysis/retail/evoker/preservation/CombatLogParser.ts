@@ -27,10 +27,12 @@ import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
 import FlutteringSeedlings from './modules/talents/FlutteringSeedlings';
 import DreamFlight from './modules/talents/DreamFlight';
+import InnerFlame from './modules/talents/InnerFlame';
 import ExhilBurst from './modules/talents/ExhilBurst';
-//import Stasis from './modules/talents/Stasis';
+import Stasis from './modules/talents/Stasis';
 import TimeOfNeed from './modules/talents/TimeOfNeed';
 import Lifespark from './modules/talents/Lifespark';
+import LifeforceMender from './modules/talents/LifeforceMender';
 import TitansGift from './modules/talents/TitansGift';
 import MerithrasBlessing from './modules/talents/MerithrasBlessing';
 import EnergyLoop from './modules/talents/EnergyLoop';
@@ -43,6 +45,7 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import DoubleTime from './modules/talents/DoubleTime';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -61,7 +64,6 @@ import {
   ExpandedLungs,
   Reverberations,
   Chronoflame,
-  DoubleTime,
   Primacy,
   TimeConvergence,
   MotesOfAcceleration,
@@ -124,6 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoBreakdown: EchoBreakdown,
     dreamBreath: DreamBreath,
     dreamFlight: DreamFlight,
+    innerFlame: InnerFlame,
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
     gracePeriod: GracePeriod,
@@ -131,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callOfYsera: CallOfYsera,
     essenceBurst: EssenceBurst,
     titansGift: TitansGift,
+    lifeforceMender: LifeforceMender,
     emeraldBlossom: EmeraldBlossom,
     resonatingSphere: ResonatingSphere,
     timeLord: TimeLord,
@@ -139,7 +143,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fieldOfDreams: FieldOfDreams,
     flutteringSeedlings: FlutteringSeedlings,
     exhilBurst: ExhilBurst,
-    //stasis: Stasis,
+    stasis: Stasis,
     timeOfNeed: TimeOfNeed,
     energyLoop: EnergyLoop,
     sparkOfInsight: SparkOfInsight,

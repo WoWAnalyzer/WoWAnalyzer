@@ -56,7 +56,7 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         {info.combatant.hasTalent(TALENTS.TEMPORAL_BURST_TALENT) && (
           <CastEfficiencyBar
             spell={TALENTS.TIP_THE_SCALES_TALENT}
-            gapHighlightMode={GapHighlight.All}
+            gapHighlightMode={GapHighlight.FullCooldown}
             minimizeIcons
           />
         )}

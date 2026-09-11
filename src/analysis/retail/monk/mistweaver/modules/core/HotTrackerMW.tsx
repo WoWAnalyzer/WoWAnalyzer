@@ -165,6 +165,11 @@ class HotTrackerMW extends HotTracker {
     return hot.attributions.some((a) => a.name === ATTRIBUTION_STRINGS.THUNDER_FOCUS_TEA);
   }
 
+  //tier set s2 midnight
+  fromS2FourPiece(hot: Tracker): boolean {
+    return hot.attributions.some((a) => a.name === ATTRIBUTION_STRINGS.S2_FOUR_PIECE);
+  }
+
   duringCelestial(hot: Tracker): boolean {
     return hot.attributions.some(
       (a) => a.name === ATTRIBUTION_STRINGS.DURING_CELESTIAL_ENVELOPING_MIST,

@@ -7,7 +7,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const CENARIUS_MIGHT_HEALING_INCREASE = 0.2;
 
@@ -19,6 +20,7 @@ const CENARIUS_MIGHT_HEALING_INCREASE = 0.2;
  */
 export default class CenariusMight extends Analyzer {
   totalHealing = 0;
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -30,6 +32,7 @@ export default class CenariusMight extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalHealing += calculateEffectiveHealing(event, CENARIUS_MIGHT_HEALING_INCREASE);
+    this.totalOverhealing += calculateOverhealing(event, CENARIUS_MIGHT_HEALING_INCREASE);
   }
 
   statistic() {
@@ -38,6 +41,13 @@ export default class CenariusMight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.CENARIUS_MIGHT_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

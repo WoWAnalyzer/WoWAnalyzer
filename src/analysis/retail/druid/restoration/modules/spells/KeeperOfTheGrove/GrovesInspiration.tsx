@@ -8,7 +8,12 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing, calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import {
+  calculateEffectiveHealing,
+  calculateEffectiveDamage,
+  calculateOverhealing,
+} from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const GROVES_INSPIRATION_HEALING_INCREASE = 0.09;
 const GROVES_INSPIRATION_DAMAGE_INCREASE = 0.1;
@@ -22,6 +27,7 @@ const GROVES_INSPIRATION_DAMAGE_INCREASE = 0.1;
  */
 export default class GrovesInspiration extends Analyzer {
   totalHealing = 0;
+  totalOverhealing = 0;
   totalDamage = 0;
 
   constructor(options: Options) {
@@ -32,7 +38,7 @@ export default class GrovesInspiration extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.REGROWTH, SPELLS.WILD_GROWTH, SPELLS.SWIFTMEND, SPELLS.NATURES_BOUNTY]),
+        .spell([SPELLS.REGROWTH, SPELLS.WILD_GROWTH, SPELLS.SWIFTMEND]),
       this.onHeal,
     );
 
@@ -44,6 +50,7 @@ export default class GrovesInspiration extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalHealing += calculateEffectiveHealing(event, GROVES_INSPIRATION_HEALING_INCREASE);
+    this.totalOverhealing += calculateOverhealing(event, GROVES_INSPIRATION_HEALING_INCREASE);
   }
 
   onDamage(event: DamageEvent) {
@@ -56,6 +63,13 @@ export default class GrovesInspiration extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.GROVES_INSPIRATION_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

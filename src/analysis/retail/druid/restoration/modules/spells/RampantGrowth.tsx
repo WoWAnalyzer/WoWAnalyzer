@@ -10,6 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const REGROWTH_HOT_BOOST = 1.0;
 
@@ -60,6 +61,14 @@ class RampantGrowth extends Analyzer {
           <>
             This counts both the healing from Regrowth HoTs that splash onto Lifebloom targets and
             also the boost to the healing on normally applied Regrowth HoTs
+            <br />
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(
+                this.hotAttributor.rampantGrowthAttrib.overheal,
+                this.hotAttributor.rampantGrowthAttrib.healing,
+              )}
+            </strong>
           </>
         }
       >

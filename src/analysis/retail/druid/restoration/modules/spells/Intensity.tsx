@@ -2,13 +2,14 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const INTENSITY_CRIT_HEAL_INCREASE = 2.6 / 2 - 1;
 
@@ -20,6 +21,7 @@ const INTENSITY_CRIT_HEAL_INCREASE = 2.6 / 2 - 1;
  */
 class Intensity extends Analyzer {
   totalEffectiveHealing = 0;
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -37,6 +39,7 @@ class Intensity extends Analyzer {
     }
 
     this.totalEffectiveHealing += calculateEffectiveHealing(event, INTENSITY_CRIT_HEAL_INCREASE);
+    this.totalOverhealing += calculateOverhealing(event, INTENSITY_CRIT_HEAL_INCREASE);
   }
 
   statistic() {
@@ -45,6 +48,11 @@ class Intensity extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(8)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
+        tooltip={
+          <strong>
+            Overhealing: {formatOverhealing(this.totalOverhealing, this.totalEffectiveHealing)}
+          </strong>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.INTENSITY_TALENT}>
           <ItemPercentHealingDone amount={this.totalEffectiveHealing} />

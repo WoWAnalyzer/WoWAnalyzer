@@ -10,7 +10,12 @@ import Events, {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { getZenPulseHitsPerCast, isZenPulseConsumed } from '../../normalizers/CastLinkNormalizer';
+import {
+  getZenPulseConsumingCast,
+  getZenPulseHitsPerCast,
+  getZenPulseOvercapCast,
+} from '../../normalizers/CastLinkNormalizer';
+import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -131,14 +136,31 @@ class ZenPulse extends Analyzer {
         stats: [],
         details: `Buff refreshed at ${MAX_STACKS} stacks`,
       });
+
+      const overcapCast = getZenPulseOvercapCast(event);
+      if (overcapCast) {
+        addInefficientCastReason(
+          overcapCast,
+          <>
+            This cast procced <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> while already at{' '}
+            {MAX_STACKS} stacks, wasting the proc.
+          </>,
+        );
+      }
     }
   }
 
   private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const isConsumed = isZenPulseConsumed(event);
-    if (isConsumed) {
+    const consumingCast = getZenPulseConsumingCast(event);
+    if (consumingCast) {
       this.consumedBuffs += 1;
       this.currentBuffs -= 1;
+      addEnhancedCastReason(
+        consumingCast,
+        <>
+          This cast consumed <SpellLink spell={SPELLS.ZEN_PULSE_BUFF} />.
+        </>,
+      );
     } else {
       this.expiredBuffs += 1;
       this.currentBuffs = 0;

@@ -7,6 +7,7 @@ export { default as spellAvailable } from './spellAvailable';
 export { default as spellCooldownRemaining } from './spellCooldownRemaining';
 export { default as buffRemaining } from './buffRemaining';
 export { default as hasResource } from './hasResource';
+export { default as inBloodlust } from './inBloodlust';
 export { default as inExecute } from './inExecute';
 export { default as or } from './or';
 export { default as not } from './not';

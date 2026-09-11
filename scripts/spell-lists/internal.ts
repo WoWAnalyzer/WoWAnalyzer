@@ -10,7 +10,7 @@ const FILE_LISTS: Record<string, FileList> = {};
 
 export const CURRENT_GAME_VERSIONS = {
   classic: '5.5.4.68042',
-  retail: '12.0.1.65337',
+  retail: '12.1.0.69299',
 };
 
 export async function generateSpellData(

@@ -1,13 +1,14 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ACCRETION_CDR_MS,
   DUPLICATE_EBON_MIGHT_MULTIPLIER,
   EMPOWER_EXTENSION_MS,
   SANDS_OF_TIME_CRIT_MOD,
+  MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'parser/ui/Statistic';
@@ -23,9 +24,17 @@ import {
   isFromAfterimageDamage,
 } from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { getMassEruptionTargetCount, isFromMassEruption } from '../normalizers/CastLinkNormalizer';
+import {
+  CONCENTRATED_POWER_EXTRA_TARGETS,
+  MASS_DISINTEGRATE_TARGETS,
+} from 'analysis/retail/evoker/shared/constants';
+import { TIERS } from 'game/TIERS';
 
 /**
  * Eruption reduces the remaining cooldown of Upheaval by 1.0 sec.
+ * To-do: Fix Mass Eruption so Concentrated Power doesn't have to be checked;
+ * add Overlord (requires castlink).
  */
 class Accretion extends Analyzer {
   static dependencies = {
@@ -34,6 +43,7 @@ class Accretion extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
   protected stats!: StatTracker;
+  maxTargets = MASS_DISINTEGRATE_TARGETS;
 
   currentUpheaval = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
     ? SPELLS.UPHEAVAL_FONT
@@ -43,7 +53,6 @@ class Accretion extends Analyzer {
     this.selectedCombatant.getTalentRank(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) / 2;
 
   totalEbonMightDamage = 0;
-  totalEruptionCasts = 0;
   totalShiftingSandsDamage = 0;
   totalShiftingSandsApplications = 0;
   totalAfterimageDamage = 0;
@@ -54,16 +63,22 @@ class Accretion extends Analyzer {
   ebonMightUpheavalExtension = 0;
   totalDuplicateDamage = 0;
   duplicateUpheavalExtension = 0;
+  totalFateMirrorDamage = 0;
 
   accretionEbonMight = 0;
   accretionShiftingSands = 0;
   accretionAfterimage = 0;
   accretionUpheaval = 0;
   accretionDuplicate = 0;
+  accretionFateMirror = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ACCRETION_TALENT);
+
+    if (this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT)) {
+      this.maxTargets += CONCENTRATED_POWER_EXTRA_TARGETS;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
       this.onCast,
@@ -99,16 +114,25 @@ class Accretion extends Analyzer {
         this.onEbonDamageNoDupe,
       );
     }
+    if (this.selectedCombatant.has4PieceByTier(TIERS.MID2)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FATE_MIRROR_DAMAGE),
+        this.onFateMirrorDamage,
+      );
+    }
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerCast);
     this.addEventListener(Events.fightend, this.calcAccretionValue);
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
+    let eruptionCount = 1;
+    if (isFromMassEruption(event)) {
+      eruptionCount = getMassEruptionTargetCount(event, this.maxTargets);
+    }
     this.effectiveUpheavalCDR += this.spellUsable.reduceCooldown(
       this.currentUpheaval.id,
-      ACCRETION_CDR_MS,
+      ACCRETION_CDR_MS * eruptionCount,
     );
-    this.totalEruptionCasts += 1;
   }
 
   onBuffApply() {
@@ -150,6 +174,24 @@ class Accretion extends Analyzer {
     }
   }
 
+  onFateMirrorDamage(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MAGNIFIED_FATE_BUFF.id)) {
+      const playerId = event.supportID ? event.supportID : event.sourceID;
+      if (
+        playerId === this.selectedCombatant.id &&
+        !this.selectedCombatant.hasOwnBuff(SPELLS.PRESCIENCE_BUFF.id)
+      ) {
+        // This damage belongs to another Aug, ignore it
+        return;
+      }
+
+      this.totalFateMirrorDamage += calculateEffectiveDamage(
+        event,
+        MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER,
+      );
+    }
+  }
+
   onDamage(event: DamageEvent) {
     if (
       event.ability.guid === SPELLS.UPHEAVAL_DAM.id ||
@@ -185,6 +227,10 @@ class Accretion extends Analyzer {
     const avgAfterimageDamage = this.totalAfterimageDamage / this.totalEmpowerCasts;
 
     this.accretionAfterimage = avgAfterimageDamage * additionalUpheavalCastsViaCdr;
+
+    const avgFateMirrorDamage = this.totalFateMirrorDamage / this.totalUpheavalCasts;
+
+    this.accretionFateMirror = avgFateMirrorDamage * additionalUpheavalCastsViaCdr;
 
     const cdrUpheavalExtension =
       (this.ebonMightUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
@@ -234,6 +280,15 @@ class Accretion extends Analyzer {
         spellId: TALENTS.DUPLICATE_1_AUGMENTATION_TALENT.id,
         valueTooltip: formatNumber(this.accretionDuplicate),
         value: this.accretionDuplicate,
+      });
+    }
+    if (this.selectedCombatant.has4PieceByTier(TIERS.MID2)) {
+      damageSources.push({
+        color: 'rgb(255, 255, 128)',
+        label: 'Fate Mirror (Tier)',
+        spellId: SPELLS.MAGNIFIED_FATE_BUFF.id,
+        valueTooltip: formatNumber(this.accretionFateMirror),
+        value: this.accretionFateMirror,
       });
     }
     return (

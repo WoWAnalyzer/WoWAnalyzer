@@ -33,6 +33,7 @@ export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_CAST = 'ZenPulseCast';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
+export const ZEN_PULSE_OVERCAP = 'ZenPulseOvercap';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 export const SHEILUNS_GIFT = 'SheilunsGift';
 export const SHEILUNS_GIFT_MAIN_TARGET = 'SheilunsGiftMainTarget';
@@ -54,8 +55,10 @@ export const MANA_TEA_YULONS_WHISPER = 'MTYulonsWhisper';
 export const TIGER_PALM_CAST_LINK = 'TigerPalmCastLink';
 export const BLACKOUT_KICK_CAST_LINK = 'BlackoutKickCastLink';
 export const RSK_CAST_LINK = 'RisingSunKickCastLink';
+export const RWK_DAMAGE_CAST_LINK = 'RushingWindKickDamageCastLink';
 export const CJL_CAST_LINK = 'CracklingJadeLightningCastLink';
 export const SCK_CAST_LINK = 'SpinningCraneKickCastLink';
+export const DANCE_OF_CHI_JI_CONSUME = 'DanceOfChiJiConsume';
 
 // Ancient Teachings
 export const AT_TIGER_PALM = 'ATTigerPalm';
@@ -72,11 +75,18 @@ export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
 export const RUSHING_WIND_KICK = 'RWK';
 
+// S2 Tier
+export const MID_S2_4PC_TRIGGER = 'MidS24pcTrigger';
+export const MID_S2_4PC_CONSUME = 'MidS24pcConsume';
+// ~110-120ms observed between triggering cast and applybuff
+export const S2_4PC_TRIGGER_BUFFER_MS = 200;
+
 // Spiritfont
 export const SPIRITFONT_PROC = 'SpiritfontProc';
 export const SPIRITFONT_TFT = 'SpiritfontTFT';
 export const SPIRITFONT_CONSUMED = 'SpiritfontConsumed';
 export const SPIRITFONT_FALSE_REFRESH = 'SpiritfontFalseRefresh';
+export const SPIRITFONT_OVERCAP = 'SpiritfontOvercap';
 
 // Soothing Mist Channel
 export const SOOTHING_MIST_CHANNEL_START = 'SoothingMistChannelStart';

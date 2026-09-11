@@ -80,15 +80,6 @@ class CooldownThroughputTracker extends Analyzer {
   static cooldownSpells: BuffCooldownSpell[] = [
     // Retail
     {
-      spell: SPELLS.INNERVATE.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-      branch: GameBranch.Retail,
-    },
-    {
       spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
       branch: GameBranch.Retail,

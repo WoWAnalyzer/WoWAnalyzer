@@ -32,7 +32,7 @@ import {
   getAveragePerf,
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
-import { getApplicableRules, HighPriorityAbilities } from '../../common';
+import { getApplicableRules, HighPriorityAbilities, isHighPriorityAbility } from '../../common';
 import {
   EnhancementEventLinks,
   GCD_TOLERANCE,
@@ -138,6 +138,7 @@ class HotHand extends Analyzer.withDependencies({
   maelstromWeaponTracker: MaelstromWeaponTracker,
 }) {
   private windows: HotHandWindow[] = [];
+  private readonly highPriorityAbilities: HighPriorityAbilities = [...HIGH_PRIORITY_ABILITIES];
 
   private activeWindow: HotHandWindow | null = null;
   private globalCooldownEnds = 0;
@@ -172,6 +173,10 @@ class HotHand extends Analyzer.withDependencies({
     this.hasSurgingTotem = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
     this.hasThorims = this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT);
     this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS.HOT_HAND_TALENT)];
+
+    if (this.selectedCombatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT)) {
+      this.highPriorityAbilities.push(SPELLS.VOLTAIC_BLAZE_CAST.id);
+    }
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
@@ -497,7 +502,7 @@ class HotHand extends Analyzer.withDependencies({
   }
 
   private isValidCastDuringHotHand(event: CastEvent): boolean {
-    const firstApplicableRule = getApplicableRules(event, HIGH_PRIORITY_ABILITIES)?.at(0);
+    const firstApplicableRule = getApplicableRules(event, this.highPriorityAbilities)?.at(0);
 
     if (!firstApplicableRule) {
       return true;
@@ -609,7 +614,16 @@ class HotHand extends Analyzer.withDependencies({
       const idleEndsAt = Math.min(nextAvailabilityTimestamp ?? cast.end, cast.end);
       const idleDuration = idleEndsAt - availableAt;
       const additionalOpportunities = Math.floor((idleDuration - avgGcd) / lavaLashCycle);
-      totalOpportunities += 1 + Math.max(additionalOpportunities, 0);
+      const displacedByHighPriority = cast.casts.filter(
+        (event) =>
+          event.timestamp >= availableAt &&
+          event.timestamp < idleEndsAt &&
+          isHighPriorityAbility(event, this.highPriorityAbilities),
+      ).length;
+      totalOpportunities += Math.max(
+        0,
+        1 + Math.max(additionalOpportunities, 0) - displacedByHighPriority,
+      );
     }
 
     if (this.canSpendRemainingMaelstromForExtraLavaLash(cast)) {

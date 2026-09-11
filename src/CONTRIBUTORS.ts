@@ -71,6 +71,10 @@ export const Dummy: Contributor = {
   twitter: '@Dummy',
   avatar: avatar('zerotorescue-avatar.jpg'),
 };
+export const TastyArsenic: Contributor = {
+  nickname: 'TastyArsenic',
+  github: 'francozanini',
+};
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -2468,11 +2472,12 @@ export const Gazh: Contributor = {
   discord: 'gazh_',
   mains: [
     {
-      name: 'Meurthe',
-      spec: SPECS.DEMONOLOGY_WARLOCK,
-      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
+      name: 'Arakaaly',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/worldsoul/eu/armory/character/twisting-nether/Arakaaly',
     },
   ],
+  avatar: avatar('gazh-avatar.jpg'),
 };
 
 export const Humperella: Contributor = {
@@ -2763,36 +2768,42 @@ export const swirl: Contributor = {
     {
       name: 'Swirl',
       spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Swirl',
-    },
-    {
-      name: 'Devotion',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Devotion',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/illidan/Swirl',
     },
   ],
   alts: [
     {
-      name: 'Schizo',
-      spec: SPECS.DISCIPLINE_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Schizo',
-    },
-    {
-      name: 'Niceorbs',
-      spec: SPECS.PRESERVATION_EVOKER,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Niceorbs',
-    },
-    {
-      name: 'Efflo',
+      name: 'Cowinpasture',
       spec: SPECS.RESTORATION_DRUID,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Efflo',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Cowinpasture',
     },
     {
-      name: 'Tend',
+      name: 'Bunkyunker',
       spec: SPECS.RESTORATION_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Tend',
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Bunkyunker',
+    },
+    {
+      name: 'Yeaitspink',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Y',
+    },
+    {
+      name: 'Toadbucket',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Toadbucket',
+    },
+    {
+      name: 'Squidpilled',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/worldsoul/us/armory/character/zuljin/Squidpilled',
     },
   ],
+  links: {
+    'Wowhead Guide': 'https://www.wowhead.com/guide/classes/monk/mistweaver/overview-pve-healer',
+    Website: 'https://waitimramping.com',
+    Twitch: 'https://www.twitch.tv/lolswirl',
+    YouTube: 'https://www.youtube.com/@lolswirl',
+  },
 };
 
 export const Leftyxiv: Contributor = {
@@ -2965,6 +2976,15 @@ export const Baumritter: Contributor = {
   nickname: 'Baumritter',
   github: 'Baumritter',
   discord: 'baumritter',
+  avatar: avatar('Baumritter-avatar.png'),
+  about: 'Devastation Evoker Theorycrafter',
+  mains: [
+    {
+      name: 'Braumritter',
+      spec: SPECS.DEVASTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/antonidas/braumritter',
+    },
+  ],
 };
 
 export const Nooseknitter: Contributor = {
@@ -3081,4 +3101,15 @@ export const apolex: Contributor = {
 export const KushGene: Contributor = {
   nickname: 'KushGene',
   github: 'KushGene',
+};
+
+export const Baloop: Contributor = {
+  nickname: 'Baloop',
+  github: 'Baloop20',
+};
+
+export const Fyperia: Contributor = {
+  nickname: 'Fyperia',
+  github: 'fyperia',
+  discord: 'Fyperia',
 };

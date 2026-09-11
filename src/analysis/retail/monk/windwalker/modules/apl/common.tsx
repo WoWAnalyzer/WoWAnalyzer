@@ -25,6 +25,7 @@ import {
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 const DANCE_OF_CHI_JI_DURATION_MS = 15000;
+export const BASE_ZENITH_DURATION_MS = 20000;
 
 const MASTERY_AFFECTED_IDS = new Set(ABILITIES_AFFECTED_BY_MASTERY.map((spell) => spell.id));
 
@@ -143,6 +144,14 @@ export const aboutToCapEnergy = (combatant: Combatant) =>
       0.85,
   });
 
+export function fistsOfFuryChiCost(combatant: Combatant) {
+  return combatant.hasTalent(TALENTS.HARMONIC_COMBO_TALENT) ? 2 : 3;
+}
+
+export function notEnoughChiForFistsOfFury(combatant: Combatant) {
+  return hasResource(RESOURCE_TYPES.CHI, { atMost: fistsOfFuryChiCost(combatant) - 1 });
+}
+
 /**
  * Combo Breaker is considered "not capped" until Blackout Kick! reaches 2
  * stacks, which is the point where further proc value can be lost.
@@ -181,6 +190,12 @@ export const danceOfChiJiExpiring = and(
   buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
   buffRemaining(SPELLS.DANCE_OF_CHI_JI_BUFF, DANCE_OF_CHI_JI_DURATION_MS, { atMost: 4000 }),
 );
+
+export function getZenithDurationMs(combatant: Combatant) {
+  return (
+    BASE_ZENITH_DURATION_MS + (combatant.hasTalent(TALENTS.DRINKING_HORN_COVER_TALENT) ? 5000 : 0)
+  );
+}
 
 /**
  * Touch of Death castability depends on game state the analyzer does not

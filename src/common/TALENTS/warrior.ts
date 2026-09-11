@@ -75,8 +75,8 @@ const talents = {
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
     maxRanks: 1,
-    entryIds: [114740],
-    definitionIds: [{ id: 119747, specId: 71 }],
+    entryIds: [135933],
+    definitionIds: [{ id: 140688, specId: 71 }],
   },
   BATTLE_SCARRED_VETERAN_TALENT: {
     id: 386394,
@@ -191,6 +191,14 @@ const talents = {
     entryIds: [112261],
     definitionIds: [{ id: 117266, specId: 72 }],
   },
+  BLOOD_AND_THUNDER_TALENT: {
+    id: 384277,
+    name: 'Blood and Thunder',
+    icon: 'warrior_talent_icon_bloodandthunder',
+    maxRanks: 1,
+    entryIds: [137471],
+    definitionIds: [{ id: 142231, specId: 73 }],
+  },
   BONESHAKER_TALENT: {
     id: 429639,
     name: 'Boneshaker',
@@ -270,6 +278,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [136068],
     definitionIds: [{ id: 140823, specId: 73 }],
+  },
+  CARVING_BLADES_TALENT: {
+    id: 1300463,
+    name: 'Carving Blades',
+    icon: 'inv_knife_1h_goblinrogue_c_01',
+    maxRanks: 1,
+    entryIds: [137487],
+    definitionIds: [{ id: 142247, specId: 72 }],
   },
   CELERITOUS_CONCLUSION_TALENT: {
     id: 1270710,
@@ -885,14 +901,6 @@ const talents = {
     entryIds: [112259],
     definitionIds: [{ id: 117264, specId: 72 }],
   },
-  IMPROVED_SWEEPING_STRIKES_TALENT: {
-    id: 383155,
-    name: 'Improved Sweeping Strikes',
-    icon: 'ability_rogue_slicedice',
-    maxRanks: 1,
-    entryIds: [114641],
-    definitionIds: [{ id: 119647, specId: 71 }],
-  },
   IMPROVED_WHIRLWIND_TALENT: {
     id: 12950,
     name: 'Improved Whirlwind',
@@ -967,7 +975,7 @@ const talents = {
   JAVELINEER_TALENT: {
     id: 1271948,
     name: 'Javelineer',
-    icon: 'inv_spear_01',
+    icon: '8026700',
     maxRanks: 1,
     entryIds: [136625],
     definitionIds: [{ id: 141397, specId: 73 }],
@@ -1060,8 +1068,8 @@ const talents = {
     name: 'Mass Execution',
     icon: 'warrior_talent_icon_mastercleaver',
     maxRanks: 1,
-    entryIds: [136700],
-    definitionIds: [{ id: 141472, specId: 71 }],
+    entryIds: [137473],
+    definitionIds: [{ id: 142233, specId: 71 }],
   },
   MASTER_OF_WARFARE_1_ARMS_TALENT: {
     id: 1269314,
@@ -1092,8 +1100,8 @@ const talents = {
     name: 'Master Tactician',
     icon: 'ability_warrior_revenge',
     maxRanks: 1,
-    entryIds: [135933],
-    definitionIds: [{ id: 140688, specId: 71 }],
+    entryIds: [114740],
+    definitionIds: [{ id: 119747, specId: 71 }],
   },
   MEAT_CLEAVER_TALENT: {
     id: 280392,
@@ -1402,8 +1410,8 @@ const talents = {
     icon: 'ability_gouge',
     maxRanks: 1,
     entryIds: [135597],
-    definitionIds: [{ id: 140353, specId: 73 }],
-    rageCost: 20,
+    definitionIds: [{ id: 140353, specId: 71 }],
+    rageCost: 10,
   },
   RESONANT_VOICE_TALENT: {
     id: 1243660,
@@ -1581,6 +1589,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [112198],
     definitionIds: [{ id: 117203, specId: 73 }],
+  },
+  STORM_OF_BLOOD_TALENT: {
+    id: 1299025,
+    name: 'Storm of Blood',
+    icon: 'ability_ironmaidens_whirlofblood',
+    maxRanks: 1,
+    entryIds: [137472],
+    definitionIds: [{ id: 142232, specId: 72 }],
   },
   STORM_SHIELD_TALENT: {
     id: 438597,

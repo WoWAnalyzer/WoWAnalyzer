@@ -330,6 +330,11 @@ const spells = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },
+  STASIS_RELEASE: {
+    id: 370564,
+    name: 'Stasis',
+    icon: 'ability_evoker_stasis',
+  },
   INSURANCE_HOT_EVOKER: {
     id: 1215550,
     name: 'Insurance',
@@ -583,6 +588,11 @@ const spells = {
     name: 'Engulf',
     icon: 'inv_ability_flameshaperevoker_engulf',
   },
+  INNER_FLAME: {
+    id: 1242747,
+    name: 'Inner Flame',
+    icon: 'ability_evoker_infernosblessing',
+  },
   CONSUME_FLAME_HEAL: {
     id: 445495,
     name: 'Consume Flame',
@@ -794,6 +804,11 @@ const spells = {
     name: 'Twin Flame',
     icon: 'ability_evoker_infernosblessing',
   },
+  TWIN_FLAME_HEAL: {
+    id: 1265991,
+    name: 'Twin Flame',
+    icon: 'ability_evoker_infernosblessing',
+  },
   RISING_FURY_BUFF: {
     id: 1271783,
     name: 'Rising Fury',
@@ -808,6 +823,41 @@ const spells = {
     id: 1266165,
     name: 'Strafing Run',
     icon: 'ability_evoker_blackattunementalt',
+  },
+  DOUBLE_TIME_EBON_MIGHT_BUFF: {
+    id: 460688,
+    name: 'Double-time',
+    icon: 'spell_holy_borrowedtime',
+  },
+  FATE_MIRROR_DAMAGE: {
+    id: 404908,
+    name: 'Fate Mirror',
+    icon: 'trade_archaeology_highbornesoulmirror',
+  },
+  FATE_MIRROR_HEAL: {
+    id: 413786,
+    name: 'Fate Mirror',
+    icon: 'trade_archaeology_highbornesoulmirror',
+  },
+  MAGNIFIED_FATE_BUFF: {
+    id: 1297728,
+    name: 'Magnified Fate',
+    icon: 'abilit_evoker_masterylifebinder_black',
+  },
+  UNBOUND_FLAME: {
+    id: 1292321,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_BUFF: {
+    id: 1292323,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_DAMAGE: {
+    id: 1292322,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
   },
   // endregion
 } satisfies Record<string, Spell>;

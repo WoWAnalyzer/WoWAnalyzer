@@ -37,13 +37,20 @@ export const apl = (info: PlayerInfo): Apl => {
   const executeSpell = info.combatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
     ? SPELLS.EXECUTE_FURY_MASSACRE
     : SPELLS.EXECUTE_FURY;
-  const rampageUsable = cnd.or(
-    cnd.and(
-      cnd.buffPresent(SPELLS.RECKLESSNESS),
-      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
+  const rampageUsable = {
+    ...cnd.or(
+      cnd.and(
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
+      ),
+      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
     ),
-    cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
-  );
+    describe: () => (
+      <>
+        <SpellLink spell={SPELLS.RAMPAGE} /> was usable
+      </>
+    ),
+  };
 
   return info.combatant.hasTalent(TALENTS.SLAYERS_DOMINANCE_TALENT)
     ? buildSlayerApl(
@@ -70,56 +77,92 @@ export const buildSlayerApl = (
   apexRampageRageReduction: number,
 ): Apl => {
   return build([
-    // Enrage or high rage ramp
+    // Enrage
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        rampageUsable,
-        cnd.or(
-          cnd.buffMissing(SPELLS.ENRAGE),
+      condition: cnd.and(rampageUsable, cnd.buffMissing(SPELLS.ENRAGE)),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> to apply <SpellLink spell={SPELLS.ENRAGE} /> if
+          it is missing
+        </>
+      ),
+    },
+
+    // high rage rampage during reck
+    {
+      spell: SPELLS.RAMPAGE,
+      condition: {
+        ...cnd.and(
+          cnd.buffPresent(SPELLS.RECKLESSNESS),
+          rampageUsable,
           cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
         ),
-      ),
+        describe: () => (
+          <>
+            above {rampageRageThreshold / 10} rage during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          </>
+        ),
+      },
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage, or to
-          apply <SpellLink spell={SPELLS.ENRAGE} /> if it is missing
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage during{' '}
+          <SpellLink spell={SPELLS.RECKLESSNESS} />
         </>
       ),
     },
 
-    // BB regardless of rage
-    {
-      spell: SPELLS.BLOODBATH,
-      condition: cnd.and(
-        cnd.spellAvailable(SPELLS.BLOODTHIRST),
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.BLOODBATH} />
-        </>
-      ),
-    },
-
-    // rampage during reck
+    // rampage during reck before BS
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(cnd.buffPresent(SPELLS.RECKLESSNESS), rampageUsable),
+      condition: {
+        ...cnd.and(
+          cnd.buffPresent(SPELLS.RECKLESSNESS),
+          rampageUsable,
+          cnd.spellAvailable(SPELLS.BLADESTORM),
+        ),
+        describe: () => (
+          <>
+            during <SpellLink spell={SPELLS.RECKLESSNESS} /> before{' '}
+            <SpellLink spell={SPELLS.BLADESTORM} />
+          </>
+        ),
+      },
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />{' '}
+          before <SpellLink spell={SPELLS.BLADESTORM} />
         </>
       ),
     },
 
-    // Exe conditions
+    // Exe with SD during reck
     {
       spell: executeSpell,
-      condition: executeUsable,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+        cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
+      ),
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} />
+          Cast <SpellLink spell={executeSpell} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />{' '}
+          with <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
+        </>
+      ),
+    },
+
+    // rampage during reck without HnS
+    {
+      spell: SPELLS.RAMPAGE,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+        rampageUsable,
+        cnd.buffMissing(SPELLS.HACK_AND_SLASH),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />{' '}
+          if <SpellLink spell={SPELLS.HACK_AND_SLASH} /> is missing
         </>
       ),
     },
@@ -138,14 +181,66 @@ export const buildSlayerApl = (
       ),
     },
 
-    // BT below rage threshold
+    // Exe  during reck
     {
-      spell: SPELLS.BLOODTHIRST,
-      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
-
+      spell: executeSpell,
+      condition: cnd.and(executeUsable, cnd.buffPresent(SPELLS.RECKLESSNESS)),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
+          Cast <SpellLink spell={executeSpell} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
+        </>
+      ),
+    },
+
+    // BB regardless of rage
+    {
+      spell: SPELLS.BLOODBATH,
+      condition: cnd.and(
+        cnd.spellAvailable(SPELLS.BLOODTHIRST),
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.BLOODBATH} />
+        </>
+      ),
+    },
+
+    // high rage ramp
+    {
+      spell: SPELLS.RAMPAGE,
+      condition: {
+        ...cnd.and(
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+          rampageUsable,
+        ),
+        describe: () => <>above {rampageRageThreshold / 10} rage</>,
+      },
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage
+        </>
+      ),
+    },
+
+    // Exe
+    {
+      spell: executeSpell,
+      condition: executeUsable,
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} />
+        </>
+      ),
+    },
+
+    // RB below rage threshold
+    {
+      spell: SPELLS.RAGING_BLOW,
+      condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />
         </>
       ),
     },
@@ -161,13 +256,14 @@ export const buildSlayerApl = (
       ),
     },
 
-    // RB below rage threshold
+    // BT below rage threshold
     {
-      spell: SPELLS.RAGING_BLOW,
-      condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
+      spell: SPELLS.BLOODTHIRST,
+      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
+
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />
+          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
         </>
       ),
     },
@@ -185,17 +281,41 @@ export const buildThaneApl = (
     // Enrage or high rage ramp
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        rampageUsable,
-        cnd.or(
-          cnd.buffMissing(SPELLS.ENRAGE),
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+      condition: {
+        ...cnd.and(
+          rampageUsable,
+          cnd.or(
+            cnd.buffMissing(SPELLS.ENRAGE),
+            cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+          ),
         ),
-      ),
+        describe: () => (
+          <>
+            <SpellLink spell={SPELLS.ENRAGE} /> was missing, or above {rampageRageThreshold / 10}{' '}
+            rage during <SpellLink spell={SPELLS.RECKLESSNESS} />
+          </>
+        ),
+      },
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage, or to
           apply <SpellLink spell={SPELLS.ENRAGE} /> if it is missing
+        </>
+      ),
+    },
+
+    // BB to stack tier
+    // there is no buff in the logs for the tier :)
+    // so just made this an optional rule
+    {
+      spell: SPELLS.BLOODBATH,
+      condition: cnd.optionalRule(
+        cnd.and(cnd.spellAvailable(SPELLS.BLOODTHIRST), cnd.buffPresent(SPELLS.RECKLESSNESS)),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.BLOODBATH} /> to stack 12.1 tier set - there is no logged
+          buff for this, so just use your brain to track it
         </>
       ),
     },
@@ -210,6 +330,22 @@ export const buildThaneApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.THUNDER_BLAST} /> with 2 stacks
+        </>
+      ),
+    },
+
+    // CB with HnS
+    {
+      spell: SPELLS.CRUSHING_BLOW,
+      condition: cnd.and(
+        cnd.spellAvailable(SPELLS.RAGING_BLOW),
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+        cnd.buffPresent(SPELLS.HACK_AND_SLASH),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} /> with{' '}
+          <SpellLink spell={SPELLS.HACK_AND_SLASH} />
         </>
       ),
     },
@@ -255,30 +391,7 @@ export const buildThaneApl = (
       ),
     },
 
-    // BT below rage threshold
-    {
-      spell: SPELLS.BLOODTHIRST,
-      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
-
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
-        </>
-      ),
-    },
-
-    // Exe conditions
-    {
-      spell: executeSpell,
-      condition: executeUsable,
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} />
-        </>
-      ),
-    },
-
-    // CB regardless of rage
+    // CB
     {
       spell: SPELLS.CRUSHING_BLOW,
       condition: cnd.and(
@@ -288,6 +401,21 @@ export const buildThaneApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} />
+        </>
+      ),
+    },
+
+    // RB with HnS
+    {
+      spell: SPELLS.CRUSHING_BLOW,
+      condition: cnd.and(
+        cnd.spellAvailable(SPELLS.RAGING_BLOW),
+        cnd.buffPresent(SPELLS.HACK_AND_SLASH),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAGING_BLOW} /> with{' '}
+          <SpellLink spell={SPELLS.HACK_AND_SLASH} />
         </>
       ),
     },
@@ -317,10 +445,33 @@ export const buildThaneApl = (
       ),
     },
 
-    // RB below rage threshold
+    // BT below rage threshold
     {
-      spell: SPELLS.RAGING_BLOW,
-      condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
+      spell: SPELLS.BLOODTHIRST,
+      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
+
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
+        </>
+      ),
+    },
+
+    // Exe conditions
+    {
+      spell: executeSpell,
+      condition: executeUsable,
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} />
+        </>
+      ),
+    },
+
+    // RB
+    {
+      spell: SPELLS.CRUSHING_BLOW,
+      condition: cnd.and(cnd.spellAvailable(SPELLS.RAGING_BLOW)),
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAGING_BLOW} />

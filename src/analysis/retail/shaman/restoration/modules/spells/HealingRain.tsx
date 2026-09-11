@@ -14,6 +14,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { HEALING_RAIN_TARGETS } from '../../constants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -37,7 +38,9 @@ class HealingRain extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
     if (!this.active) {
       return;
     }
@@ -151,6 +154,7 @@ class HealingRain extends Analyzer {
 
     return (
       <StatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon spell={SPELLS.HEALING_RAIN_HEAL} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}

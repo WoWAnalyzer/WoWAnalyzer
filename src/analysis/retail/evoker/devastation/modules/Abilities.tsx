@@ -46,6 +46,15 @@ class Abilities extends CoreAbilities {
         range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.AZURE_SWEEP_TALENT),
       },
+      {
+        spell: SPELLS.UNBOUND_FLAME.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        range: BASE_EVOKER_RANGE,
+        enabled: combatant.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
+      },
       //endregion
       //region Cooldowns
       {

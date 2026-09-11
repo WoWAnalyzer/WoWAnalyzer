@@ -788,7 +788,6 @@ const SPELLS = {
     type: 'talent',
     iconID: 236155,
     passive: true,
-    hidden: 'always',
     name: 'Gift of the Ox',
     icon: 'ability_druid_giftoftheearthmother.jpg',
   },
@@ -1304,11 +1303,11 @@ const SPELLS = {
       ],
     },
     cooldown: {
-      duration: 45000,
+      duration: 90000,
       hasted: false,
       modifiers: [
         {
-          duration: -9000,
+          duration: -18000,
           requiredSpells: [325093],
         },
       ],
@@ -2439,11 +2438,11 @@ const SPELLS = {
       ],
     },
     cooldown: {
-      duration: 45000,
+      duration: 90000,
       hasted: false,
       modifiers: [
         {
-          duration: -9000,
+          duration: -18000,
           requiredSpells: [325093],
         },
       ],

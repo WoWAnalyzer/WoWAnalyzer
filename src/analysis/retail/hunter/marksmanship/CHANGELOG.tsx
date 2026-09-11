@@ -1,9 +1,16 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
-import { Azortharion } from 'CONTRIBUTORS';
+import { Azortharion, Arlie } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface/index';
 export default [
+  change(
+    date(2026, 8, 6),
+  <>
+    Update for 12.1.0.69111 PTR talent changes (Incendiary Ammunition removed, Explosive Shot cooldown fixed at 30s).
+  </>,
+    Arlie,
+  ),
   change(
     date(2026, 7, 15),
     <>

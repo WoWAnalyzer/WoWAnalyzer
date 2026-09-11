@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
+import SPECS from 'game/SPECS';
 
 class Chronoflame extends Analyzer {
   chronoflameHealing = 0;
@@ -16,10 +17,13 @@ class Chronoflame extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.CHRONO_FLAME_TALENT);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHRONO_FLAME_HEAL),
-      this.onChronoHeal,
-    );
+    if (this.owner.selectedCombatant.specId === SPECS.PRESERVATION_EVOKER.id) {
+      // Don't include healing for Aug as not useful info
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHRONO_FLAME_HEAL),
+        this.onChronoHeal,
+      );
+    }
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHRONO_FLAME_DAMAGE),
       this.onChronoDamage,
@@ -42,11 +46,13 @@ class Chronoflame extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_EVOKER.CHRONO_FLAME_TALENT}>
+          {this.owner.selectedCombatant.specId === SPECS.PRESERVATION_EVOKER.id && (
+            <div>
+              <ItemHealingDone amount={this.chronoflameHealing} />
+            </div>
+          )}
           <div>
             <ItemDamageDone amount={this.chronoflameDamage} />
-          </div>
-          <div>
-            <ItemHealingDone amount={this.chronoflameHealing} />
           </div>
         </TalentSpellText>
       </Statistic>

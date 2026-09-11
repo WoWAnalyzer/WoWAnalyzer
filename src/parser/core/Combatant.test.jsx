@@ -1,4 +1,5 @@
 import COMBATANTINFO from 'parser/core/tests/COMBATANTINFO.json';
+import SPELLS from 'common/SPELLS';
 
 import { FullCombatant } from './Combatant';
 
@@ -124,6 +125,63 @@ describe('Combatant', () => {
     it('returns false when neither weapon carries the enchant', () => {
       // mainhand 128868 has no permanentEnchant in the fixture
       expect(getCombatant().hasWeaponEnchant({ effectId: 99999 })).toBe(false);
+    });
+  });
+
+  describe('inBloodlust', () => {
+    it('returns true when a bloodlust-family buff is active', () => {
+      const combatant = getCombatant();
+      combatant.applyBuff({
+        type: 'applybuff',
+        timestamp: 10,
+        ability: {
+          guid: SPELLS.HEROISM.id,
+          name: SPELLS.HEROISM.name,
+          type: 0,
+          abilityIcon: SPELLS.HEROISM.icon,
+        },
+        sourceID: 22,
+        sourceIsFriendly: true,
+        targetID: combatant.id,
+        targetIsFriendly: true,
+      });
+
+      expect(combatant.inBloodlust()).toBe(true);
+    });
+
+    it('returns true when a bloodlust-family buff is present prepull', () => {
+      const combatant = getCombatant(null, {
+        ...COMBATANTINFO,
+        auras: [
+          {
+            ability: SPELLS.TIME_WARP.id,
+            icon: `${SPELLS.TIME_WARP.icon}.jpg`,
+            source: 22,
+          },
+        ],
+      });
+
+      expect(combatant.inBloodlust()).toBe(true);
+    });
+
+    it('returns false when only unrelated buffs are active', () => {
+      const combatant = getCombatant();
+      combatant.applyBuff({
+        type: 'applybuff',
+        timestamp: 10,
+        ability: {
+          guid: SPELLS.STORMLASH.id,
+          name: SPELLS.STORMLASH.name,
+          type: 0,
+          abilityIcon: SPELLS.STORMLASH.icon,
+        },
+        sourceID: 22,
+        sourceIsFriendly: true,
+        targetID: combatant.id,
+        targetIsFriendly: true,
+      });
+
+      expect(combatant.inBloodlust()).toBe(false);
     });
   });
 

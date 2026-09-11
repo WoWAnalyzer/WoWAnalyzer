@@ -26,6 +26,7 @@ class TeachingsOfTheMonestary extends Analyzer {
   }
 
   get averageStacks() {
+    if (this.numCasts == 0) return 0;
     return this.totalStacks / this.numCasts;
   }
 

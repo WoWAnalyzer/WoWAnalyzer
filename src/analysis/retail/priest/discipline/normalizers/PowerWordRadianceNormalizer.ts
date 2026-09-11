@@ -23,7 +23,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast) {
+      if (event.type === EventType.Cast || event.type === EventType.FreeCast) {
         const spellId = event.ability.guid;
         if (spellId === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
           lastRadianceTimestamp = event.timestamp;
