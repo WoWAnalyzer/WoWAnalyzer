@@ -47,16 +47,13 @@ export default class ArcaneMissiles extends Analyzer {
       EventType.Damage,
     );
     const salvoStacks =
-      this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp - 10)?.stacks || 0;
+      this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp)?.stacks || 0;
 
     this.missileData.push({
       cast: event,
       ticks: damageTicks.length,
       clipped: damageTicks && damageTicks.length < maxTicks,
-      opMissiles: this.selectedCombatant.hasBuff(
-        SPELLS.OVERPOWERED_MISSILES_BUFF,
-        event.timestamp - 10,
-      ),
+      opMissiles: this.selectedCombatant.hasBuff(SPELLS.OVERPOWERED_MISSILES_BUFF, event.timestamp),
       clearcastingCapped:
         (this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0) >= maxCCStacks,
       clearcastingProcs: this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0,
