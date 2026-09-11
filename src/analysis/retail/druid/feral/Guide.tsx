@@ -112,6 +112,7 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
       <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
+      {modules.tigersFuryWindows.guideSubsection}
     </Section>
   );
 }
