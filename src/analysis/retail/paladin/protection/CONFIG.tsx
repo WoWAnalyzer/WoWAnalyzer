@@ -23,9 +23,9 @@ export default {
       , a Brewmaster main and Paladin fan, with assistance from the Protection theorycraft team.
       <br />
       <br />
-      If you are new to the spec, focus first on hitting the targets in the Checklist and
-      Suggestions tabs. The statistics below provide further insight both into your performance and
-      into the effectiveness of your gear and stats.
+      The Guide covers the fundamentals: Holy Power usage, rotation, and your defensive cooldowns.
+      The Statistics tab provides further insight into your performance and the effectiveness of
+      your gear and stats.
       <br />
       <br />
       If you have questions about the output, please ask in the <code>
@@ -37,7 +37,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/kbXaPnY9cDyVhCfz/72-Mythic+Lightblinded+Vanguard+-+Kill+(4:56)/318-Mightyteapot/standard',
+    "/report/PcGQ7mxz6BVD1Jgk/20-Mythic+Nek'zali+the+Soulcoiler+-+Kill+(7:29)/Shieldboy/standard",
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.PROTECTION_PALADIN,

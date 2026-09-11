@@ -322,6 +322,11 @@ const spells = {
     name: 'Blessed Assurance',
     icon: 'spell_holy_blessedlife',
   },
+  RITE_OF_SANCTIFICATION_BUFF: {
+    id: 433550,
+    name: 'Rite of Sanctification',
+    icon: 'inv_inscription_weaponscroll01',
+  },
   EMPYREAN_LEGACY_BUFF: {
     id: 387178,
     name: 'Empyrean Legacy',
@@ -557,6 +562,32 @@ const spells = {
     name: 'Grand Crusader',
     icon: 'inv_helmet_74',
   },
+  // Protection casts log under this ID; TALENTS.HAMMER_OF_WRATH_TALENT (1241288) is the passive/override spell
+  HAMMER_OF_WRATH_PROTECTION: {
+    id: 1241413,
+    name: 'Hammer of Wrath',
+    icon: 'inv12_ability_paladin_hammerofwrath',
+  },
+  VANGUARD_BUFF: {
+    id: 1268810,
+    name: 'Vanguard',
+    icon: 'inv_ability_holyfire_missile',
+  },
+  GLORY_OF_THE_VANGUARD_DAMAGE: {
+    id: 1269175,
+    name: 'Glory of the Vanguard',
+    icon: 'inv_ability_holyfire_missile',
+  },
+  VALOR: {
+    id: 1269179,
+    name: 'Valor',
+    icon: 'inv_12al_armyoflight_defense_shield01',
+  },
+  BLAZE_OF_GLORY: {
+    id: 1269224,
+    name: 'Blaze of Glory',
+    icon: 'inv12_apextalent_paladin_gloryofthevanguard',
+  },
 
   // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
@@ -584,11 +615,39 @@ const spells = {
     name: 'Overflowing Light',
     icon: 'spell_holy_holyguidance',
   },
+  FAITHS_ARMOR_BUFF: {
+    id: 379017,
+    name: "Faith's Armor",
+    icon: 'inv_shield_1h_newplayer_a_01',
+  },
   //DEBUFFS
   BLESSED_HAMMER_DEBUFF: {
     id: 204301,
     name: 'Blessed Hammer',
     icon: 'paladin_retribution',
+  },
+  SEAL_OF_REPRISAL_DEBUFF: {
+    id: 1302139,
+    name: 'Seal of Reprisal',
+    icon: 'spell_holy_sealoffury',
+  },
+  REFINING_FIRE_DOT: {
+    id: 469882,
+    name: 'Refining Fire',
+    icon: 'inv_everburningignition_yellow',
+  },
+  // Tier sets
+  // MID1 4pc buff
+  LIGHT_BLESSED_SHIELD_BUFF: {
+    id: 1272298,
+    name: 'Light-Blessed Shield',
+    icon: 'inv_shield_1h_arator_d_01',
+  },
+  // MID2 4pc proc damage
+  UNRELENTING_EDICT: {
+    id: 1300662,
+    name: 'Unrelenting Edict',
+    icon: 'spell_holy_summonlightwell',
   },
   // Shared:
   CONSECRATION_CAST: {
@@ -662,11 +721,15 @@ const spells = {
     id: 427453,
     name: 'Hammer of Light',
     icon: 'inv_mace_1h_gryphonrider_d_02_silver.jpg',
-    holyPowerCost: 5,
+    holyPowerCost: 3,
   },
   LIGHTS_DELIVERANCE_FREE_CAST_BUFF: {
     ...talents.LIGHTS_DELIVERANCE_TALENT,
     id: 433732,
+  },
+  LIGHTS_DELIVERANCE_STACK_BUFF: {
+    ...talents.LIGHTS_DELIVERANCE_TALENT,
+    id: 433674,
   },
   EMPYREAN_HAMMER: {
     id: 431398,
@@ -675,6 +738,11 @@ const spells = {
   },
   SACROSANCT_CRUSADE_BUFF: {
     id: 461867,
+    name: 'Sacrosanct Crusade',
+    icon: 'inv_plate_raidpaladinprimalist_d_01_cape.jpg',
+  },
+  SACROSANCT_CRUSADE_HEAL: {
+    id: 461885,
     name: 'Sacrosanct Crusade',
     icon: 'inv_plate_raidpaladinprimalist_d_01_cape.jpg',
   },
@@ -690,6 +758,11 @@ const spells = {
   SHAKE_THE_HEAVENS_BUFF: {
     ...talents.SHAKE_THE_HEAVENS_TALENT,
     id: 431536,
+  },
+  SANCTIFICATION_BUFF: {
+    id: 433671,
+    name: 'Sanctification',
+    icon: 'ability_paladin_blessedhands',
   },
   HAMMER_AND_ANVIL_HEAL: {
     id: 433722,
