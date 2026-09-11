@@ -17,6 +17,7 @@ const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 const cumulativePower = <SpellLink spell={SPELLS.CUMULATIVE_POWER_BUFF} />;
 
 export default [
+  change(date(2026, 9, 10), <>Fixed the {cumulativePower} and {arcaneSalvo} buff stack counts for {prismaticBolt}.</>, Sharrq),
   change(date(2026, 9, 10), <>Added Tip Boxes to explain the "Perfect" conditions for the spells that have them.</>, Sharrq),
   change(date(2026, 9, 10), <>Fixed {arcaneSurge} Active Time calculations.</>, Sharrq),
   change(date(2026, 9, 10), <>Added {prismaticBolt} and {cumulativePower} buffs to timeline highlighting.</>, Sharrq),

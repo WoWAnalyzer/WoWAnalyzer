@@ -28,6 +28,10 @@ export default class PrismaticBolt extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.PRISMATIC_BOLT_BUFF),
       this.onBoltApply,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRISMATIC_BOLT),
+      this.onPrismaticBolt,
+    );
   }
 
   onBoltApply(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -44,18 +48,35 @@ export default class PrismaticBolt extends Analyzer {
       damage,
       munched,
       expired,
+      cumulativePowerStacks: 0,
+      salvoStacks: 0,
       has4pc: this.selectedCombatant.has4PieceByTier(TIERS.MID2),
-      hasClearcasting: this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE),
-      hasArcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF),
       targetsHit: damage?.length || 0,
-      cumulativePowerStacks: cast
-        ? this.selectedCombatant.getBuffStacks(SPELLS.CUMULATIVE_POWER_BUFF, cast.timestamp)
-        : 0,
-      salvoStacks: cast
-        ? this.selectedCombatant.getBuffStacks(SPELLS.ARCANE_SALVO_BUFF, cast.timestamp)
-        : 0,
       delay: cast ? cast.timestamp - event.timestamp : undefined,
     });
+  }
+
+  onPrismaticBolt(event: CastEvent) {
+    const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
+    if (!buffApply) {
+      return;
+    }
+
+    const cumulativePowerStacks =
+      this.selectedCombatant.getBuff(SPELLS.CUMULATIVE_POWER_BUFF, event.timestamp)?.stacks || 0;
+    const salvoStacks =
+      this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp)?.stacks || 0;
+    const hasClearcasting = this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE);
+    const hasArcaneSoul = this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF);
+
+    const index = this.prismaticBolts.findIndex((pb) => pb.timestamp === buffApply.timestamp);
+    this.prismaticBolts[index] = {
+      ...this.prismaticBolts[index],
+      cumulativePowerStacks,
+      salvoStacks,
+      hasClearcasting,
+      hasArcaneSoul,
+    };
   }
 }
 
@@ -67,8 +88,8 @@ export interface PrismaticBoltCast {
   expired: boolean;
   targetsHit: number;
   has4pc: boolean;
-  hasClearcasting: boolean;
-  hasArcaneSoul: boolean;
+  hasClearcasting?: boolean;
+  hasArcaneSoul?: boolean;
   cumulativePowerStacks: number;
   salvoStacks: number;
   delay?: number;
