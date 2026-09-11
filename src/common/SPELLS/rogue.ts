@@ -392,13 +392,6 @@ const spells = {
     name: 'Internal Bleeding',
     icon: 'ability_rogue_bloodsplattter',
   },
-
-  //Cooldowns
-  PREPARATION: {
-    id: 1277933,
-    name: 'Preparation',
-    icon: 'ability_rogue_preparation',
-  },
   //Procs/Poisons
   DEADLY_POISON_PROC: {
     id: 113780,
@@ -543,6 +536,11 @@ const spells = {
   },
   BLADE_FLURRY_DAMAGE: {
     id: 22482,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
+  BLADE_FLURRY_COMBO_POINT: {
+    id: 426586,
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
   },
