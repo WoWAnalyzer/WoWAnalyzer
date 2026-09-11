@@ -47,6 +47,7 @@ import PresenceOfMind from './analyzers/PresenceOfMind';
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
+import ClearcastingNormalizer from './normalizers/Clearcasting';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
+    clercastingNormalizer: ClearcastingNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
 
     //Analyzers
