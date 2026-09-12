@@ -117,15 +117,6 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
       },
-      {
-        spell: SPELLS.FORTITUDE_OF_THE_BEAR.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 120,
-        gcd: {
-          static: 0,
-        },
-      },
       //endregion
 
       //region Baseline Utility
