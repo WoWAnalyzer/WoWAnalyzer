@@ -21,6 +21,9 @@ interface HavocGuideProps {
 
 export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps): JSX.Element {
   const havoc = <SpellLink spell={SPELLS.HAVOC} />;
+  const hasFiendishCruelty = havocAnalyzer.selectedCombatant.hasTalent(
+    TALENTS_WARLOCK.FIENDISH_CRUELTY_TALENT,
+  );
 
   const explanation = (
     <>
@@ -33,6 +36,22 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
         Ideally, you should enter Havoc with Soul Shards already pooled so you can immediately begin
         casting <SpellLink spell={SPELLS.CHAOS_BOLT} />.
       </p>
+      <p>
+        Once the target drops below 20% health,{' '}
+        <SpellLink spell={TALENTS_WARLOCK.SHADOWBURN_TALENT} />
+        becomes the priority Havoc spender instead of <SpellLink spell={SPELLS.CHAOS_BOLT} />.
+        You'll want to generate as many shards as possible to then just spam cast Shadowburn.
+      </p>
+      {hasFiendishCruelty && (
+        <p>
+          With <SpellLink spell={TALENTS_WARLOCK.FIENDISH_CRUELTY_TALENT} /> talented, critical
+          strikes from <SpellLink spell={SPELLS.CHAOS_BOLT} />,{' '}
+          <SpellLink spell={SPELLS.CONFLAGRATE} />, or <SpellLink spell={SPELLS.INCINERATE} /> have
+          a chance to make your next <SpellLink spell={TALENTS_WARLOCK.SHADOWBURN_TALENT} /> free
+          and usable on any target regardless of health. Use these procs during Havoc as soon as
+          they're available.
+        </p>
+      )}
     </>
   );
 
@@ -59,23 +78,22 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
     [havocAnalyzer.havocData, havocAnalyzer.havocDuration],
   );
 
-  function rateHavocWindow(chaosBolts: number, duration: number): QualitativePerformance {
-    if (duration === 20000) {
-      if (chaosBolts >= 6) return QualitativePerformance.Perfect;
-      if (chaosBolts === 5) return QualitativePerformance.Good;
-      if (chaosBolts === 4) return QualitativePerformance.Ok;
-      return QualitativePerformance.Fail;
-    }
-
-    if (chaosBolts >= 5) return QualitativePerformance.Perfect;
-    if (chaosBolts === 4) return QualitativePerformance.Good;
-    if (chaosBolts === 3) return QualitativePerformance.Ok;
+  function rateHavocWindow(spenders: number, maxExpectedSpenders: number): QualitativePerformance {
+    if (spenders >= maxExpectedSpenders) return QualitativePerformance.Perfect;
+    if (spenders >= Math.round(maxExpectedSpenders * 0.75)) return QualitativePerformance.Good;
+    if (spenders >= Math.round(maxExpectedSpenders * 0.625)) return QualitativePerformance.Ok;
     return QualitativePerformance.Fail;
   }
 
   function getHavocFeedback(
-    spenders: number,
+    shardsSpent: number,
     shadowburns: number,
+    shadowburnsInExecute: number,
+    shardsOnCast: number,
+    hasFiendishCruelty: boolean,
+    maxExpectedSpenders: number,
+    executeBurnBars: { perfect: number; good: number; ok: number } | null,
+    startWasFabricated: boolean,
     casts: CastEvent[],
     duration: number,
     targetDied?: boolean,
@@ -83,32 +101,84 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
     const feedback: string[] = [];
     const isImproved = duration === 20000;
 
-    if (isImproved) {
-      if (spenders >= 6)
-        feedback.push('Excellent Havoc usage. You maximized Chaos Bolt casts during the window.');
-      else if (spenders === 5)
-        feedback.push('Good Havoc window. One additional Chaos Bolt would make this perfect.');
-      else if (spenders === 4)
+    if (executeBurnBars) {
+      if (shadowburns >= executeBurnBars.perfect)
         feedback.push(
-          'Decent Havoc window, but you could likely fit another Chaos Bolt by pooling more Soul Shards beforehand.',
+          'Excellent Havoc usage. You maximized your Shadowburn casts during the execute window.',
+        );
+      else if (shadowburns >= executeBurnBars.good)
+        feedback.push('Good execute window. A few more Shadowburns would make this perfect.');
+      else if (shadowburns >= executeBurnBars.ok)
+        feedback.push(
+          'Decent execute window, but you could likely fit more Shadowburns with better Soul Shard availability.',
         );
       else
         feedback.push(
-          'Low Chaos Bolt count during Havoc. Try pooling Soul Shards before casting Havoc.',
+          'Low Shadowburn count for a pure execute window. Try entering execute with more Soul Shards banked.',
+        );
+    } else if (isImproved) {
+      if (shardsSpent >= 14)
+        feedback.push(
+          'Excellent Havoc usage. You maximized your shard spending during the window.',
+        );
+      else if (shardsSpent >= 11)
+        feedback.push('Good Havoc window. A bit more shard spending would make this perfect.');
+      else if (shardsSpent >= 9)
+        feedback.push(
+          'Decent Havoc window, but you could likely spend more shards by pooling Soul Shards beforehand.',
+        );
+      else
+        feedback.push(
+          'Low shard spending during Havoc. Try pooling Soul Shards before casting Havoc.',
         );
     } else {
-      if (spenders >= 5)
-        feedback.push('Excellent Havoc usage. You maximized Chaos Bolt casts during the window.');
-      else if (spenders === 4)
-        feedback.push('Good Havoc window. One additional Chaos Bolt would make this perfect.');
-      else if (spenders === 3)
+      if (shardsSpent >= 10)
         feedback.push(
-          'Decent Havoc window, but you could likely fit another Chaos Bolt by pooling more Soul Shards beforehand.',
+          'Excellent Havoc usage. You maximized your shard spending during the window.',
+        );
+      else if (shardsSpent >= 8)
+        feedback.push('Good Havoc window. A bit more shard spending would make this perfect.');
+      else if (shardsSpent >= 6)
+        feedback.push(
+          'Decent Havoc window, but you could likely spend more shards by pooling Soul Shards beforehand.',
         );
       else
         feedback.push(
-          'Low Chaos Bolt count during Havoc. Try pooling Soul Shards before casting Havoc.',
+          'Low shard spending during Havoc. Try pooling Soul Shards before casting Havoc.',
         );
+    }
+
+    if (!startWasFabricated) {
+      if (shardsOnCast >= 4) {
+        feedback.push(
+          `You entered Havoc with ${shardsOnCast.toFixed(1)} Soul Shard${shardsOnCast !== 1 ? 's' : ''} banked -- great job.`,
+        );
+      } else if (shardsOnCast >= 3) {
+        feedback.push(
+          'You entered Havoc with 3 Soul Shards banked -- a decent pool, but getting closer to max lets you spend faster during the window.',
+        );
+      } else if (shardsOnCast >= 2) {
+        feedback.push(
+          'You entered Havoc with only 2 Soul Shards banked. Try pooling more shards to get closer to max before casting Havoc.',
+        );
+      } else {
+        feedback.push(
+          `You cast Havoc with ${shardsOnCast.toFixed(1)} Soul Shard${shardsOnCast !== 1 ? 's' : ''} banked, which delays your first spenders. Pooling more before casting Havoc lets you start spending immediately.`,
+        );
+      }
+    }
+
+    if (shadowburnsInExecute > 0) {
+      feedback.push(
+        `${shadowburnsInExecute} Shadowburn${shadowburnsInExecute !== 1 ? 's' : ''} landed while the target was in execute range -- good use of Havoc during execute.`,
+      );
+    }
+
+    const nonExecuteShadowburns = shadowburns - shadowburnsInExecute;
+    if (nonExecuteShadowburns > 0 && hasFiendishCruelty) {
+      feedback.push(
+        `${nonExecuteShadowburns} Shadowburn${nonExecuteShadowburns !== 1 ? 's' : ''} cast via a Fiendish Cruelty proc (free, no shard cost) - good use of the free cast.`,
+      );
     }
 
     if (casts.length < 6) {
@@ -117,25 +187,63 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
       );
     }
 
-    if (targetDied)
-      feedback.push('The target died before the debuff expired, shortening your Havoc window.');
+    if (targetDied) {
+      const proRatedBar = executeBurnBars ? executeBurnBars.perfect : maxExpectedSpenders;
+      feedback.push(
+        `The target died before the debuff expired, shortening your Havoc window -- expectation was pro-rated to ${proRatedBar}${executeBurnBars ? ' Shadowburn' : ' shard'}${proRatedBar !== 1 ? 's' : ''}${executeBurnBars ? '' : ' worth of spending'}.`,
+      );
+    }
 
     return (
-      <>
+      <ul style={{ paddingLeft: 20, margin: 0 }}>
         {feedback.map((line, i) => (
-          <div key={i}>{line}</div>
+          <li key={i}>{line}</li>
         ))}
-      </>
+      </ul>
     );
   }
 
   const perCastData: PerCastData[] = havocAnalyzer.havocData.map((window, index) => {
     const sequenceEntry = havocSequenceEvents[index];
-    const spenders = window.chaosBolts + window.shadowburns;
+    const shardsSpent = window.chaosBolts * 2 + window.shadowburns;
+    const actualWindowDurationMs =
+      (window.end ?? window.start + havocAnalyzer.havocDuration) - window.start;
+    const windowFraction = actualWindowDurationMs / havocAnalyzer.havocDuration;
+    const isExecuteBurnWindow = window.chaosBolts === 0 && window.shadowburnsInExecute > 0;
+    const fullPerfectBar = havocAnalyzer.havocDuration === 20000 ? 14 : 10;
+    const maxExpectedSpenders = window.targetDied
+      ? Math.max(1, Math.round(fullPerfectBar * windowFraction))
+      : fullPerfectBar;
+
+    const executeBurnFullBar = havocAnalyzer.havocDuration === 20000 ? 12 : 9;
+    const executeBurnBars = isExecuteBurnWindow
+      ? (() => {
+          const perfect = window.targetDied
+            ? Math.max(1, Math.round(executeBurnFullBar * windowFraction))
+            : executeBurnFullBar;
+          return {
+            perfect,
+            good: Math.round(perfect * (10 / 12)),
+            ok: Math.round(perfect * (8 / 12)),
+          };
+        })()
+      : null;
+
+    let performance: QualitativePerformance;
+    if (executeBurnBars) {
+      if (window.shadowburns >= executeBurnBars.perfect)
+        performance = QualitativePerformance.Perfect;
+      else if (window.shadowburns >= executeBurnBars.good)
+        performance = QualitativePerformance.Good;
+      else if (window.shadowburns >= executeBurnBars.ok) performance = QualitativePerformance.Ok;
+      else performance = QualitativePerformance.Fail;
+    } else {
+      performance = rateHavocWindow(shardsSpent, maxExpectedSpenders);
+    }
 
     return {
       timestamp: formatTimestamp(window.start),
-      performance: rateHavocWindow(spenders, havocAnalyzer.havocDuration),
+      performance,
       stats: [
         {
           label: 'Chaos Bolts',
@@ -152,10 +260,21 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
           value: window.casts.length,
           tooltip: 'Total Havocable spells cast during this Havoc window',
         },
+        {
+          label: 'Soul Shards at Cast',
+          value: window.shardsOnCast.toFixed(1),
+          tooltip: 'Soul Shards you had banked when Havoc was applied',
+        },
       ],
       details: getHavocFeedback(
-        spenders,
+        shardsSpent,
         window.shadowburns,
+        window.shadowburnsInExecute,
+        window.shardsOnCast,
+        hasFiendishCruelty,
+        maxExpectedSpenders,
+        executeBurnBars,
+        window.startWasFabricated ?? false,
         window.casts,
         havocAnalyzer.havocDuration,
         window.targetDied,

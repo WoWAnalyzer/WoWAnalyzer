@@ -24,6 +24,7 @@ import FlashPoint from './modules/analyzers/FlashPoint';
 import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Immolate from './modules/analyzers/Immolate';
 import HavocAnalyzer from './modules/analyzers/HavocAnalyzer';
+import HavocPrepullNormalizer from './modules/normalizers/HavocPrepullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
+    havocPrepullNormalizer: HavocPrepullNormalizer,
 
     // Talents
     soulFire: SoulFire,
