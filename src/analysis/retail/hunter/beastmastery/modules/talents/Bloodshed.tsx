@@ -67,11 +67,10 @@ class Bloodshed extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.BLOODSHED_TALENT}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-            <p />
+          <ItemDamageDone amount={this.damage} />
+          <p>
             {formatNumber(this.damagePerBestialWrath)} <small>damage per Bestial Wrath</small>
-          </>
+          </p>
         </BoringSpellValueText>
       </Statistic>
     );
