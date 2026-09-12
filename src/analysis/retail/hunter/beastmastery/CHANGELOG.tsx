@@ -1,8 +1,17 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
-import { Azortharion, Putro, SheenMachine} from 'CONTRIBUTORS';
+import { Azortharion, LittleBoyBlu, Putro, SheenMachine} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface/index';
 export default [
+  change(
+    date(2026, 9, 12),
+    <>
+      Re-added a statistic for <SpellLink spell={TALENTS_HUNTER.BLOODSHED_TALENT} />, showing the
+      total damage of its bleed and its damage per{' '}
+      <SpellLink spell={TALENTS_HUNTER.BESTIAL_WRATH_TALENT} /> cast
+    </>,
+    LittleBoyBlu,
+  ),
   change(
     date(2026, 7, 9),
     <>
