@@ -1,7 +1,7 @@
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import { useConfig } from './ConfigContext';
@@ -30,11 +30,17 @@ import Report from 'parser/core/Report';
 import { Link, useNavigate } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
 import handleApiError from './handleApiError';
-import { EventType, type CombatantInfoEvent } from 'parser/core/Events';
+import { AnyEvent, EventType, type CombatantInfoEvent } from 'parser/core/Events';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { fetchCombatants } from 'common/fetchWclApi';
 import { normalizedEncounterId } from 'game/raids';
+import useDungeonPullList from './DungeonPullList/DungeonPullListCombatParser';
+import { useWaSelector } from 'interface/utils/useWaSelector';
+import { isMythicPlus } from 'common/isMythicPlus';
+import { useSelectedPull } from './DungeonPullList';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { setPull, clearPull } from 'interface/reducers/navigation';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -100,11 +106,83 @@ const ResultsLoader = () => {
   const { fight } = useFight();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
+  const pull = useWaSelector((state) => state.navigation.pull);
+  const dispatch = useWaDispatch();
+  const [selectedPull] = useSelectedPull(fight);
+
+  const isWaitingOnPullSelection = isMythicPlus(fight) && pull === undefined;
+
+  useEffect(() => {
+    if (selectedPull) {
+      dispatch(setPull({ id: selectedPull === 'all' ? selectedPull : selectedPull.id }));
+    } else {
+      dispatch(clearPull());
+    }
+  }, [selectedPull, dispatch]);
+
+  useEffect(() => {
+    if (typeof pull === 'number') {
+      setSelectedPhase(pull - 1); // wcl is 1-indexed
+      const pullObj = fight.dungeonPulls?.find((pullObj) => pullObj.id === pull);
+
+      if (pullObj) {
+        setTimeFilter({
+          start: pullObj.start_time,
+          end: pullObj.end_time,
+        });
+      }
+
+      // DungeonPullList handles redux state updates when the pull is not present
+    } else if (isMythicPlus(fight)) {
+      setSelectedPhase(SELECTION_ALL_PHASES);
+      setTimeFilter(null);
+    }
+  }, [fight, pull]);
 
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, currentTime, error } = useEvents({ report, fight, player });
+  const {
+    events: rawEvents,
+    currentTime,
+    error,
+    pulls,
+    allDeaths,
+  } = useEvents({ report, fight, player });
+
+  const partialEvents = useRef<{ pull: number; events: AnyEvent[] } | null>(null);
+
+  useEffect(() => {
+    partialEvents.current = null;
+  }, [fight, report]);
+
+  // beware: turning off `events` here is performant, toggling `dependenciesLoading` in the `useEventsParser` call is NOT.
+  const events = useMemo(() => {
+    if (isWaitingOnPullSelection) {
+      partialEvents.current = null;
+      return null;
+    }
+
+    if (typeof pull === 'number' && partialEvents.current?.pull === pull) {
+      return partialEvents.current.events;
+    }
+
+    if (!rawEvents && typeof pull === 'number' && pulls) {
+      const index = pulls.findIndex((chunk) => chunk.target.id === pull + 1);
+      if (index < 0) {
+        return null;
+      }
+
+      const partial = pulls
+        .slice(0, index + 1)
+        .reduce((a, b) => a.concat(b.events), [] as AnyEvent[]);
+      partialEvents.current = { pull, events: partial };
+      return partial;
+    }
+
+    return rawEvents;
+  }, [rawEvents, isWaitingOnPullSelection, pull, pulls]);
+
   const isLoadingEvents = events == null;
 
   const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
@@ -171,7 +249,8 @@ const ResultsLoader = () => {
   const [playerCombatantInfo, setPlayerCombatantInfo] = useState<CombatantInfoEvent | undefined>();
 
   useEffect(() => {
-    const existing = events?.find(
+    // we optimistically check both the rawEvent list and the first pull from a dungeon to avoid the "missing combatantinfo" intermediate state
+    const existing = (rawEvents ?? pulls[0]?.events)?.find(
       (event): event is CombatantInfoEvent =>
         event.type === EventType.CombatantInfo && event.sourceID === player.id,
     );
@@ -212,7 +291,7 @@ const ResultsLoader = () => {
     return () => {
       cancelled = true;
     };
-  }, [events, player.id, report, fight]);
+  }, [rawEvents, player.id, report, fight, pulls]);
 
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&
@@ -239,6 +318,24 @@ const ResultsLoader = () => {
     dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
     playerCombatantInfo,
   });
+
+  const dungeonPullDetails = useDungeonPullList({
+    report,
+    fight,
+    config,
+    player,
+    allPlayers,
+    parser: parserClass,
+    characterProfile,
+    pulls,
+    allDeaths,
+  });
+
+  const makeTabUrl = useCallback(
+    (tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab, undefined, pull),
+    [report, fight, player, pull],
+  );
+
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
   const pageProgress = (currentTime - fight.start_time) / (fight.end_time - fight.start_time);
@@ -251,16 +348,27 @@ const ResultsLoader = () => {
     (!isFilteringEvents ? 0.05 : 0) +
     parsingEventsProgress! * 0.75;
 
-  const loadingStatus: LoadingStatus = {
-    progress: progress,
-    isLoadingParser: isLoadingParser,
-    isLoadingEvents: isLoadingEvents,
-    bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
-    isLoadingCharacterProfile: isLoadingCharacterProfile,
-    isLoadingPhases: false,
-    isFilteringEvents: isFilteringEvents,
-    parsingState: parsingState,
-  };
+  const loadingStatus: LoadingStatus = useMemo(
+    () => ({
+      progress: progress,
+      isLoadingParser: isLoadingParser,
+      isLoadingEvents: isLoadingEvents,
+      bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
+      isLoadingCharacterProfile: isLoadingCharacterProfile,
+      isLoadingPhases: false,
+      isFilteringEvents: isFilteringEvents,
+      parsingState: parsingState,
+    }),
+    [
+      progress,
+      isLoadingParser,
+      isLoadingEvents,
+      bossPhaseEventsLoadingState,
+      isLoadingCharacterProfile,
+      isFilteringEvents,
+      parsingState,
+    ],
+  );
 
   if (events && !playerCombatantInfo) {
     // display error instead of crashing. this can happen in rare cases where `combatantinfo` is not a part of the fight
@@ -289,7 +397,8 @@ const ResultsLoader = () => {
       handlePhaseSelection={applyPhaseFilter}
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter ?? undefined}
-      makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+      makeTabUrl={makeTabUrl}
+      dungeonPullDetails={dungeonPullDetails}
     />
   );
 };

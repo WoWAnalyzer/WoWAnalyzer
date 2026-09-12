@@ -4,6 +4,12 @@
   @include design.level(1);
   padding: 1rem;
   margin-bottom: 2.5rem;
+
+  padding-bottom: 0;
+
+  &.MiniHeader {
+    padding-bottom: design.$gaps_small;
+  }
 }
 
 .TabStrip {
