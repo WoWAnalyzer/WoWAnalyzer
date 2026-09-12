@@ -3113,3 +3113,9 @@ export const Fyperia: Contributor = {
   github: 'fyperia',
   discord: 'Fyperia',
 };
+
+export const LittleBoyBlu: Contributor = {
+  nickname: 'LittleBoyBlu',
+  github: 'RyanMBlue',
+  discord: 'lbb',
+};

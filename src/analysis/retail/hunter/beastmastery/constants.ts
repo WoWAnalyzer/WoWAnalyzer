@@ -16,9 +16,6 @@ export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 0.75;
 // Pack Tactics causes Barbed Shot to instantly generate 25 focus.
 export const PACK_TACTICS_BARBED_SHOT_FOCUS_REGEN = 25;
-/** Bloodshed */
-//Bloodshed increases the damage done by pets by 15%
-export const BLOODSHED_DAMAGE_AMP = 0.15;
 /** Dire Beast */
 //Dire Beast lasts for 8 seconds baseline
 export const DIRE_BEAST_BASE_DURATION = 8000;
