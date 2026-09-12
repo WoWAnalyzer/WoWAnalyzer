@@ -9,14 +9,19 @@ import {
 
 export const INFUSION_OF_LIGHT_EVENT_LINKS: EventLink[] = [
   // Attribute a charge leaving the buff to the cast that spent it. A removal with no
-  // linked cast is a proc that expired rather than one that was used.
+  // linked cast is a charge that expired rather than one that was used. Hammer of Wrath
+  // spends a charge just like Judgment, even though the tooltip only names Judgment.
   {
     linkRelation: INFUSION_OF_LIGHT_CONSUME,
     // So a cast can also ask whether it spent a charge, not just the other way round.
     reverseLinkRelation: INFUSION_OF_LIGHT_CONSUME,
     linkingEventId: SPELLS.INFUSION_OF_LIGHT.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [SPELLS.FLASH_OF_LIGHT.id, SPELLS.JUDGMENT_CAST_HOLY.id],
+    referencedEventId: [
+      SPELLS.FLASH_OF_LIGHT.id,
+      SPELLS.JUDGMENT_CAST_HOLY.id,
+      SPELLS.HAMMER_OF_WRATH_CAST.id,
+    ],
     referencedEventType: EventType.Cast,
     maximumLinks: 1,
     backwardBufferMs: INFUSION_OF_LIGHT_CONSUME_BUFFER_MS,
