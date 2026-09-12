@@ -521,6 +521,11 @@ const spells = {
     name: 'Essence Break',
     icon: 'spell_shadow_ritualofsacrifice',
   },
+  ESSENCE_BREAK_EXTRA_DAMAGE: {
+    id: 1245759,
+    name: 'Essence Break',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
   GLAIVE_TEMPEST_DAMAGE: {
     id: 342857,
     name: 'Glaive Tempest',

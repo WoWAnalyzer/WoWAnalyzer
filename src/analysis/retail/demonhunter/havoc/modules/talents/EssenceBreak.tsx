@@ -1,528 +1,186 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import {
   getBuffedCasts,
-  getPreviousVengefulRetreat,
+  getBuffedCastsMID2Tier,
+  getInitialHits,
 } from '../../normalizers/EssenceBreakNormalizer';
-import { Expandable, SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
-import DemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/DemonicExplanation';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import { ReactNode } from 'react';
-import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemonicExplanation';
-import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
-import { SectionHeader } from 'interface/guide';
+import { TIERS } from 'game/TIERS';
 
-/*
-  example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
- */
-
-interface EssenceBreakCooldownCast extends CooldownTrigger<CastEvent> {
-  buffedCasts: number;
-  deathSweepCasts: number;
-  annihilationCasts: number;
-  bladeDanceCasts: number;
-  chaosStrikeCasts: number;
-  hasInitiativeOnCast: boolean;
-  hasMetamorphosisOnCast: boolean;
-  metamorphosisAvailable: boolean;
+export interface EssenceBreakCastData {
+  event: CastEvent; //raw cast event
+  hits: number; //number of enemies hit by the initial cast
+  buffedCasts: number; //number of buffed casts during the window
+  unbuffedCasts: number; //number of unbuffed casts during the window (hitting the wrong target)
+  deathSweepCasts: number; //number of buffed death sweep casts during the window
+  annihilationCasts: number; //number of buffed annihilation casts during the window
+  bladeDanceCasts: number; //number of buffed blade dance casts during the window
+  chaosStrikeCasts: number; //number of buffed chaos strike casts during the window
+  hasMetamorphosisOnCast: boolean; //whether or not metamorphosis was up on cast
+  eyebeamCooldown: number; //Remaining cd of Eyebeam
 }
 
-const DAMAGE_SPELLS = [
-  SPELLS.CHAOS_STRIKE_MH_DAMAGE,
-  SPELLS.CHAOS_STRIKE_OH_DAMAGE,
-  SPELLS.ANNIHILATION_MH_DAMAGE,
-  SPELLS.ANNIHILATION_OH_DAMAGE,
-  SPELLS.BLADE_DANCE_DAMAGE,
-  SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT,
-  SPELLS.DEATH_SWEEP_DAMAGE,
-  SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT,
-];
-const DAMAGE_INCREASE = 0.4;
-
-class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
+class EssenceBreak extends Analyzer {
   static dependencies = {
-    ...MajorCooldown.dependencies,
     enemies: Enemies,
     spellUsable: SpellUsable,
   };
 
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
-  private extraDamage = 0;
-  private talentDamage = 0;
+
+  MID24PC = false;
+  casts: EssenceBreakCastData[] = [];
+  private totalInitialDamage = 0;
+  private totalExtraDamage = 0;
+  private totalDamage = 0;
 
   constructor(options: Options) {
-    super({ spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT }, options);
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT);
+    if (!this.active) {
+      return;
+    }
+
+    this.MID24PC = this.selectedCombatant.has4PieceByTier(TIERS.MID2);
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS),
-      this.onBuffedSpellDamage,
-    );
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT),
-      this.onEssBDamage,
+      this.onEssenceBreakInitialHit,
+    );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BREAK_EXTRA_DAMAGE),
+      this.onEssenceBreakExtraDamage,
     );
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.casts.filter((cast) => cast.buffedCasts < 2).length,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
+  private onCast(event: CastEvent) {
+    if (this.MID24PC) {
+      // Debugging for later improvements - performace based on casting on the wrong target
+
+      // console.log('OnCastAnni');
+      // const cs = getBuffedCastsMID2Tier(event).filter(
+      //   (it) => it.ability.guid === SPELLS.ANNIHILATION.id,
+      // );
+      // if (cs.length > 0) {
+      //   console.log(cs);
+      //   console.log('Break it down');
+      //   cs.map((it) =>
+      //     console.log(
+      //       it,
+      //       this.enemies.getEntity(it),
+      //       this.enemies.getEntity(it)?.hasBuff(SPELLS.ESSENCE_BREAK_DAMAGE.id, it.timestamp),
+      //     ),
+      //   );
+      // }
+
+      this.casts.push({
+        event,
+        hits: getInitialHits(event).length || 0,
+        buffedCasts: getBuffedCastsMID2Tier(event).length,
+        unbuffedCasts: 0,
+        deathSweepCasts: getBuffedCastsMID2Tier(event).filter(
+          (it) => it.ability.guid === SPELLS.DEATH_SWEEP.id,
+        ).length,
+        annihilationCasts: getBuffedCastsMID2Tier(event).filter(
+          (it) => it.ability.guid === SPELLS.ANNIHILATION.id,
+        ).length,
+        bladeDanceCasts: getBuffedCastsMID2Tier(event).filter(
+          (it) => it.ability.guid === SPELLS.BLADE_DANCE.id,
+        ).length,
+        chaosStrikeCasts: getBuffedCastsMID2Tier(event).filter(
+          (it) => it.ability.guid === SPELLS.CHAOS_STRIKE.id,
+        ).length,
+        hasMetamorphosisOnCast: this.selectedCombatant.hasBuff(
+          SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+          event.timestamp,
+        ),
+        eyebeamCooldown: this.spellUsable.cooldownRemaining(
+          TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
+          event.timestamp,
+        ),
+      });
+    } else {
+      this.casts.push({
+        event,
+        hits: getInitialHits(event).length || 0,
+        buffedCasts: getBuffedCasts(event).length,
+        unbuffedCasts: 0,
+        deathSweepCasts: getBuffedCasts(event).filter(
+          (it) => it.ability.guid === SPELLS.DEATH_SWEEP.id,
+        ).length,
+        annihilationCasts: getBuffedCasts(event).filter(
+          (it) => it.ability.guid === SPELLS.ANNIHILATION.id,
+        ).length,
+        bladeDanceCasts: getBuffedCasts(event).filter(
+          (it) => it.ability.guid === SPELLS.BLADE_DANCE.id,
+        ).length,
+        chaosStrikeCasts: getBuffedCasts(event).filter(
+          (it) => it.ability.guid === SPELLS.CHAOS_STRIKE.id,
+        ).length,
+        hasMetamorphosisOnCast: this.selectedCombatant.hasBuff(
+          SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+          event.timestamp,
+        ),
+        eyebeamCooldown: this.spellUsable.cooldownRemaining(
+          TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
+          event.timestamp,
+        ),
+      });
+    }
+  }
+
+  private onEssenceBreakInitialHit(event: DamageEvent) {
+    this.totalInitialDamage += event.amount;
+  }
+
+  private onEssenceBreakExtraDamage(event: DamageEvent) {
+    this.totalExtraDamage += event.amount;
   }
 
   statistic() {
-    const totalDamage = this.extraDamage + this.talentDamage;
-
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(6)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {formatThousands(this.talentDamage)} talent damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {formatThousands(this.extraDamage)} damage added to Chaos Strike/Annihilation/Blade
-            Dance/Death Sweep
+            <p>{formatThousands(this.totalInitialDamage)} initial damage</p>
+            <p>{formatThousands(this.totalExtraDamage)} extra damage</p>
+            <p>{formatThousands(this.totalInitialDamage + this.totalExtraDamage)} total damage</p>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT}>
-          <ItemDamageDone amount={totalDamage} />
+          <ItemDamageDone amount={this.totalInitialDamage + this.totalExtraDamage} />
+          <p>
+            {formatThousands(this.totalInitialDamage)} <small>initial damage</small>
+          </p>
+          <p>
+            {formatThousands(this.totalExtraDamage)} <small>extra damage</small>
+          </p>
+          <p>
+            {formatThousands(this.totalInitialDamage + this.totalExtraDamage)}{' '}
+            <small>total damage</small>
+          </p>
         </TalentSpellText>
       </Statistic>
     );
-  }
-
-  description(): ReactNode {
-    const hasDemonic = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT);
-    const hasInitiative = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT);
-    const hasInnerDemon = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INNER_DEMON_TALENT);
-
-    return (
-      <>
-        <ExplanationSection>
-          <p>
-            <strong>
-              <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-            </strong>{' '}
-            is a powerful burst of damage that also amplifies the damage done by{' '}
-            <SpellLink spell={SPELLS.CHAOS_STRIKE} />, <SpellLink spell={SPELLS.ANNIHILATION} />,{' '}
-            <SpellLink spell={SPELLS.BLADE_DANCE} />, and <SpellLink spell={SPELLS.DEATH_SWEEP} />.
-            You want to fit as many empowered casts into each Essence Break window as you can.
-          </p>
-        </ExplanationSection>
-        <ExplanationSection>
-          <NoDemonicExplanation />
-          <DemonicExplanation />
-          <InitiativeExplanation />
-        </ExplanationSection>
-        <Expandable
-          header={
-            <SectionHeader>
-              <strong>
-                When <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> is available
-              </strong>
-            </SectionHeader>
-          }
-          element="section"
-        >
-          <div>
-            An <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window with{' '}
-            <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
-            <ul>
-              {hasDemonic && (
-                <li>
-                  <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />
-                </li>
-              )}
-              {hasInnerDemon && (
-                <li>
-                  <SpellLink spell={SPELLS.ANNIHILATION} />
-                </li>
-              )}
-              {hasInitiative && (
-                <li>
-                  <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-                </li>
-              )}
-              <li>
-                <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.DEATH_SWEEP} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.DEATH_SWEEP} />
-              </li>
-            </ul>
-          </div>
-        </Expandable>
-        <Expandable
-          header={
-            <SectionHeader>
-              <strong>Standard</strong>
-            </SectionHeader>
-          }
-          element="section"
-        >
-          <div>
-            An <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window without{' '}
-            <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
-            <ul>
-              {hasDemonic && (
-                <li>
-                  <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />
-                </li>
-              )}
-              {hasInnerDemon && (
-                <li>
-                  <SpellLink spell={SPELLS.ANNIHILATION} />
-                </li>
-              )}
-              {hasInitiative && (
-                <li>
-                  <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-                </li>
-              )}
-              <li>
-                <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.DEATH_SWEEP} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.ANNIHILATION} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.ANNIHILATION} />
-              </li>
-            </ul>
-          </div>
-        </Expandable>
-      </>
-    );
-  }
-
-  explainPerformance(cast: EssenceBreakCooldownCast): SpellUse {
-    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT)) {
-      return {
-        event: cast.event,
-        performance: QualitativePerformance.Fail,
-        performanceExplanation: 'Bad Usage',
-        checklistItems: [
-          {
-            check: 'demonic',
-            performance: QualitativePerformance.Fail,
-            timestamp: cast.event.timestamp,
-            summary: (
-              <div>
-                Did not have <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented
-              </div>
-            ),
-            details: (
-              <div>
-                Did not have <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented. In
-                order to get the maximum amount of damage possible out of Essence Break, you should
-                use <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
-              </div>
-            ),
-          },
-        ],
-      };
-    }
-
-    const inMetamorphosisPerformance = this.inMetamorphosisOnCastPerformance(cast);
-    const initiativePerformance = this.initiativePerformance(cast);
-    const essbWindowCastPerformance = this.essbWindowCastPerformance(cast);
-
-    const checklistItems: ChecklistUsageInfo[] = [
-      { check: 'in-metamorphosis', timestamp: cast.event.timestamp, ...inMetamorphosisPerformance },
-      {
-        check: 'buffed-casts',
-        timestamp: cast.event.timestamp,
-        ...essbWindowCastPerformance,
-      },
-    ];
-    if (initiativePerformance) {
-      checklistItems.push({
-        check: 'initiative',
-        timestamp: cast.event.timestamp,
-        ...initiativePerformance,
-      });
-    }
-
-    const actualPerformance = combineQualitativePerformances(
-      checklistItems.map((item) => item.performance),
-    );
-    return {
-      event: cast.event,
-      checklistItems: checklistItems,
-      performance: actualPerformance,
-      performanceExplanation:
-        actualPerformance !== QualitativePerformance.Fail
-          ? `${actualPerformance} Usage`
-          : 'Bad Usage',
-    };
-  }
-
-  private inMetamorphosisOnCastPerformance(cast: EssenceBreakCooldownCast): UsageInfo {
-    const summary = (
-      <div>
-        Have <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast
-      </div>
-    );
-
-    if (!cast.hasMetamorphosisOnCast) {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: summary,
-        details: (
-          <div>
-            Have <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast. Not having the buff
-            means that you can't cast <SpellLink spell={SPELLS.DEATH_SWEEP} /> or{' '}
-            <SpellLink spell={SPELLS.ANNIHILATION} />, instead having to cast{' '}
-            <SpellLink spell={SPELLS.BLADE_DANCE} /> and <SpellLink spell={SPELLS.CHAOS_STRIKE} />.
-          </div>
-        ),
-      };
-    }
-    return {
-      performance: QualitativePerformance.Perfect,
-      summary: summary,
-      details: (
-        <div>
-          You were in <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> when you cast{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />. Good job!
-        </div>
-      ),
-    };
-  }
-
-  private initiativePerformance(cast: EssenceBreakCooldownCast): UsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT)) {
-      return undefined;
-    }
-
-    const summary = (
-      <div>
-        Had <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
-      </div>
-    );
-
-    const previousVengefulRetreat = getPreviousVengefulRetreat(cast.event);
-    if (cast.hasInitiativeOnCast) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary: summary,
-        details: (
-          <div>
-            Had <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff.
-          </div>
-        ),
-      };
-    }
-    if (previousVengefulRetreat) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary: summary,
-        details: (
-          <div>
-            Cast shortly after casting{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. You might have been
-            damaged and lost your <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff,
-            but that's okay, you still did your rotation correctly.
-          </div>
-        ),
-      };
-    }
-    return {
-      performance: QualitativePerformance.Fail,
-      summary: summary,
-      details: (
-        <div>
-          Cast without previously casting{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. Try casting{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> before casting for the
-          critical strike chance buff that it applies (courtesy of{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} />
-          ).
-        </div>
-      ),
-    };
-  }
-
-  private essbWindowCastPerformance(cast: EssenceBreakCooldownCast): UsageInfo {
-    const maximumNumberOfDeathSweepsPossible =
-      (cast.hasMetamorphosisOnCast ? 1 : 0) + (cast.metamorphosisAvailable ? 1 : 0);
-    const nonDeathSweepBuffedCasts = Math.max(0, cast.buffedCasts - cast.deathSweepCasts);
-
-    const maxDeathSweepsSummary = (
-      <div>
-        Cast {maximumNumberOfDeathSweepsPossible}+ <SpellLink spell={SPELLS.DEATH_SWEEP} />
-        (s) during window
-      </div>
-    );
-
-    // if meta is available and we've cast EssB, the sequence should be
-    // EssB -> DS -> Meta -> DS
-    if (cast.metamorphosisAvailable) {
-      if (cast.deathSweepCasts >= maximumNumberOfDeathSweepsPossible) {
-        return {
-          performance: QualitativePerformance.Perfect,
-          summary: maxDeathSweepsSummary,
-          details: (
-            <div>
-              You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} />
-              (s).
-            </div>
-          ),
-        };
-      }
-      return {
-        performance:
-          cast.deathSweepCasts > 0 ? QualitativePerformance.Ok : QualitativePerformance.Fail,
-        summary: maxDeathSweepsSummary,
-        details: (
-          <div>
-            You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} />
-            (s) when you could have cast {maximumNumberOfDeathSweepsPossible} by pressing{' '}
-            <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />.
-          </div>
-        ),
-      };
-    }
-
-    // meta isn't available and we've cast EssB, the sequence should be
-    // EssB -> DS -> Anni -> Anni
-    if (cast.deathSweepCasts === 0) {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: maxDeathSweepsSummary,
-        details: (
-          <div>
-            You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} />
-            (s). Always try to cast <SpellLink spell={SPELLS.DEATH_SWEEP} /> during your{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window.
-          </div>
-        ),
-      };
-    }
-    // means we have at least 1 cast of DS, so we should check if we have other buffed casts
-    if (nonDeathSweepBuffedCasts === 0) {
-      return {
-        performance: QualitativePerformance.Ok,
-        summary: maxDeathSweepsSummary,
-        details: (
-          <div>
-            You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} /> and no other
-            buffed spells. Try adding another <SpellLink spell={SPELLS.ANNIHILATION} /> or{' '}
-            <SpellLink spell={SPELLS.CHAOS_STRIKE} /> inside your{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window.
-          </div>
-        ),
-      };
-    }
-    if (nonDeathSweepBuffedCasts === 1) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary: maxDeathSweepsSummary,
-        details: (
-          <div>
-            You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} />,{' '}
-            {cast.bladeDanceCasts} <SpellLink spell={SPELLS.BLADE_DANCE} />,{' '}
-            {cast.annihilationCasts} <SpellLink spell={SPELLS.ANNIHILATION} />, and{' '}
-            {cast.chaosStrikeCasts} <SpellLink spell={SPELLS.CHAOS_STRIKE} />. Try adding another{' '}
-            <SpellLink spell={SPELLS.ANNIHILATION} /> or <SpellLink spell={SPELLS.CHAOS_STRIKE} />{' '}
-            inside your <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window.
-          </div>
-        ),
-      };
-    }
-    return {
-      performance:
-        nonDeathSweepBuffedCasts > 1 ? QualitativePerformance.Perfect : QualitativePerformance.Good,
-      summary: maxDeathSweepsSummary,
-      details: (
-        <div>
-          You cast {cast.deathSweepCasts} <SpellLink spell={SPELLS.DEATH_SWEEP} /> and{' '}
-          {nonDeathSweepBuffedCasts} other buffed spell(s).
-        </div>
-      ),
-    };
-  }
-
-  private onCast(event: CastEvent) {
-    this.recordCooldown({
-      event,
-      buffedCasts: getBuffedCasts(event).length,
-      deathSweepCasts: getBuffedCasts(event).filter(
-        (it) => it.ability.guid === SPELLS.DEATH_SWEEP.id,
-      ).length,
-      bladeDanceCasts: getBuffedCasts(event).filter(
-        (it) => it.ability.guid === SPELLS.BLADE_DANCE.id,
-      ).length,
-      annihilationCasts: getBuffedCasts(event).filter(
-        (it) => it.ability.guid === SPELLS.ANNIHILATION.id,
-      ).length,
-      chaosStrikeCasts: getBuffedCasts(event).filter(
-        (it) => it.ability.guid === SPELLS.CHAOS_STRIKE.id,
-      ).length,
-      hasInitiativeOnCast: this.selectedCombatant.hasBuff(
-        SPELLS.INITIATIVE_BUFF.id,
-        event.timestamp,
-      ),
-      hasMetamorphosisOnCast: this.selectedCombatant.hasBuff(
-        SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
-        event.timestamp,
-      ),
-      metamorphosisAvailable: this.spellUsable.isAvailable(SPELLS.METAMORPHOSIS_HAVOC.id),
-    });
-  }
-
-  private onBuffedSpellDamage(event: DamageEvent) {
-    const target = this.enemies.getEntity(event);
-    if (!target) {
-      return;
-    }
-    const hasEssenceBreakDebuff = target.hasBuff(SPELLS.ESSENCE_BREAK_DAMAGE.id, event.timestamp);
-
-    if (hasEssenceBreakDebuff) {
-      this.extraDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE);
-    }
-  }
-
-  private onEssBDamage(event: DamageEvent) {
-    this.talentDamage += event.amount;
   }
 }
 
