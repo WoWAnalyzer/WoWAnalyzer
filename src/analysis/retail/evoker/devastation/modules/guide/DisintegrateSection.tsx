@@ -215,8 +215,8 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
               },
             ]}
           />
+          {modules.betterDisint.guideSubSection()}
         </RoundedPanel>
-        {modules.betterDisint.guideSubSection()}
       </SubSection>
     </Section>
   );

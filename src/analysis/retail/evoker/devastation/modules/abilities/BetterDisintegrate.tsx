@@ -30,7 +30,6 @@ import { GetDisintegrateTicks } from '../../constants';
 import { BadColor } from 'interface/guide';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import {
   CastWindow,
   DisintegrateWindowAnalysis,
@@ -385,7 +384,7 @@ class BetterDisintegrate extends Analyzer {
       return;
     }
 
-    if (!this.activeCast.followingCast) this.activeCast.tickCount = 0;
+    // if (!this.activeCast.followingCast) this.activeCast.tickCount = 0;
   }
 
   private onFightEnd(event: FightEndEvent) {
@@ -416,10 +415,11 @@ class BetterDisintegrate extends Analyzer {
   }
 
   private endCast(event: CastEvent | BeginCastEvent | ApplyDebuffEvent) {
+    if (!this.activeCast.dragonRageActive) this.checkRecordingWindowEnd(event);
     this.casts.push(this.activeCast);
     this.previousCast = this.activeCast;
     this.activeCast = structuredClone(this.defaultCast);
-    this.checkRecordingWindowEnd(event);
+    if (this.previousCast.dragonRageActive) this.checkRecordingWindowEnd(event);
   }
 
   private endWindow(event: AnyEvent) {
@@ -617,11 +617,10 @@ class BetterDisintegrate extends Analyzer {
   private generateWindowStats(casts: TrackedCast[]): PerWindowStat[] {
     const stats = [];
 
-    let disclaimerFlag = false;
     const actualTicks = [0, 0, 0],
       totalTicks = [0, 0, 0];
 
-    casts.forEach((c) => {
+    casts.forEach((c, idx) => {
       if (c.massDisTargets) {
         actualTicks[0] += c.massDisTicks! + c.maxTickCount - c.tickCount;
         totalTicks[0] += c.massDisTargets * this.ticksPerDisintegrate;
@@ -629,15 +628,13 @@ class BetterDisintegrate extends Analyzer {
         actualTicks[1] += c.maxTickCount - c.tickCount;
         totalTicks[1] += this.ticksPerDisintegrate;
         if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-          totalTicks[1]++;
-          disclaimerFlag = true;
+          actualTicks[1]--;
         }
       } else {
         actualTicks[2] += c.maxTickCount - c.tickCount;
         totalTicks[2] += this.ticksPerDisintegrate;
         if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-          totalTicks[2]++;
-          disclaimerFlag = true;
+          actualTicks[2]--;
         }
       }
     });
@@ -654,14 +651,11 @@ class BetterDisintegrate extends Analyzer {
               ? QualitativePerformance.Ok
               : QualitativePerformance.Fail,
         tooltip:
-          (actualTicks[2] === totalTicks[2] ||
+          actualTicks[2] === totalTicks[2] ||
           this.activeChainClipLogic.allowGoodClipping ||
           this.activeChainClipLogic.thresholdEarlyChainTicks > 1
             ? 'You casted all Disintegrates correctly.'
-            : "You lost some ticks when you shouldn't have.") +
-          (disclaimerFlag
-            ? ' The addtional ticks are gained from the Mass Disintegrate casts you incorrectly chained from.'
-            : ''),
+            : "You lost some ticks when you shouldn't have.",
       });
     if (totalTicks[1] > 0)
       stats.push({
@@ -675,14 +669,11 @@ class BetterDisintegrate extends Analyzer {
               ? QualitativePerformance.Ok
               : QualitativePerformance.Fail,
         tooltip:
-          (actualTicks[1] === totalTicks[1] ||
+          actualTicks[1] === totalTicks[1] ||
           this.activeChainClipLogic.allowGoodClippingDragonrage ||
           this.activeChainClipLogic.thresholdEarlyChainTicksDragonrage > 1
             ? 'You casted all Disintegrates correctly.'
-            : "You lost some ticks when you shouldn't have.") +
-          (disclaimerFlag
-            ? ' The addtional ticks are gained from the Mass Disintegrate casts you incorrectly chained from.'
-            : ''),
+            : "You lost some ticks when you shouldn't have.",
       });
     if (totalTicks[0] > 0)
       stats.push({
@@ -785,9 +776,7 @@ class BetterDisintegrate extends Analyzer {
 
     return (
       <>
-        <RoundedPanel>
-          <DisintegrateWindowAnalysis windows={windowData} title="Cast Window Analysis" />
-        </RoundedPanel>
+        <DisintegrateWindowAnalysis windows={windowData} title="Cast Window Analysis" />
       </>
     );
   }
