@@ -20,6 +20,7 @@ import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 import Focus from './modules/resources/Focus';
 import BeastCleave from './modules/talents/BeastCleave';
 import BestialWrath from './modules/talents/BestialWrath';
+import Bloodshed from './modules/talents/Bloodshed';
 import CobraShot from './modules/talents/CobraShot';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aspectOfTheBeast: AspectOfTheBeast,
     barbedScales: BarbedScales,
     bindingShot: BindingShot,
+    bloodshed: Bloodshed,
     darkHound: DarkHound,
     deathblow: Deathblow,
     direBeast: DireBeast,
