@@ -89,18 +89,6 @@ interface TrackedCast {
   timestamp: number;
 }
 
-// const defaultCastCounter = {
-//   DisintCasts: 0,
-//   DisintTicks: 0,
-//   DragonrageTicks: 0,
-//   DragonrageCasts: 0,
-//   MassDisintCasts: 0,
-//   MassDisintTicks: 0,
-//   MassDisintTargets: 0,
-//   MassDisintIntoDisChainTicks: 0, // This is here for one reason. Chaining Mass Dis into Disint will break the tick counters. This fixes that.
-// };
-// type CastCounter = typeof defaultCastCounter;
-
 interface WindowData {
   name: string;
   start: number;
@@ -125,7 +113,6 @@ interface WindowData {
  * Along with points pointing out good and bad casts, along with explanations.
  *
  */
-
 class BetterDisintegrate extends Analyzer {
   /** Spells that you *can* clip with
    * Any other spell used to clip Disintegrate
@@ -211,7 +198,6 @@ class BetterDisintegrate extends Analyzer {
       this.selectedCombatant,
     ).disintegrateChainedTicks;
 
-    //Baum: Look into whether those are needed
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       this.onApplyDragonrage,
@@ -282,8 +268,6 @@ class BetterDisintegrate extends Analyzer {
     }
   }
 
-  // Event Order when chaining : Buff Refresh -> Cast -> Debuff Refresh
-
   /** Grab the spell we clipped with - this event always happens before the debuffRemove event
    * (Atleast for all the logs I've looked at so far) */
   private onGeneralCast(event: CastEvent | BeginCastEvent) {
@@ -291,7 +275,7 @@ class BetterDisintegrate extends Analyzer {
       this.activeCast.followingCast = event.ability.guid;
     }
 
-    if (this.activeCast.active) this.endCast(event);
+    if (this.activeCast.active || this.isPullEndDungeon(event)) this.endCast(event);
   }
 
   private onApplyDragonrage(event: ApplyBuffEvent) {
@@ -326,7 +310,7 @@ class BetterDisintegrate extends Analyzer {
         ? SPELLS.MASS_DISINTEGRATE_BUFF.id
         : SPELLS.DISINTEGRATE.id;
     }
-    if (this.activeCast.active) this.endCast(event);
+    if (this.activeCast.active || this.isPullEndDungeon(event)) this.endCast(event);
 
     this.activeCast.active = true;
     this.activeCast.timestamp = event.timestamp;
@@ -383,8 +367,6 @@ class BetterDisintegrate extends Analyzer {
     if (this.activeCast.mainTarget !== encodeEventTargetString(event)) {
       return;
     }
-
-    // if (!this.activeCast.followingCast) this.activeCast.tickCount = 0;
   }
 
   private onFightEnd(event: FightEndEvent) {
@@ -400,65 +382,61 @@ class BetterDisintegrate extends Analyzer {
     this.windows.forEach((w) => {
       if (w.casts) w.casts = this.RateCasts(w.casts);
     });
-    // Sanity Checks
-    // if (
-    //   this.totalCastCounter.MassDisintTicks >
-    //   this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate
-    // ) {
-    //   this.addDebugAnnotation(event, {
-    //     color: BadColor,
-    //     summary: `More Mass Disintegrate Ticks than possible. (${this.totalCastCounter.MassDisintTicks}/${this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate}). See other annotations for a likely cause`,
-    //   });
-    // }
-    // console.log(this.windows);
-    // console.log(this.CastCounter);
   }
 
   private endCast(event: CastEvent | BeginCastEvent | ApplyDebuffEvent) {
-    if (!this.activeCast.dragonRageActive) this.checkRecordingWindowEnd(event);
-    this.casts.push(this.activeCast);
+    let pushed = false;
+    if (!this.activeCast.dragonRageActive) {
+      this.checkRecordingWindowEnd(event);
+      pushed = true;
+    }
+    if (this.activeCast.active) this.casts.push(this.activeCast);
     this.previousCast = this.activeCast;
     this.activeCast = structuredClone(this.defaultCast);
-    if (this.previousCast.dragonRageActive) this.checkRecordingWindowEnd(event);
+    if (!pushed) this.checkRecordingWindowEnd(event);
   }
 
   private endWindow(event: AnyEvent) {
-    if (this.windowData.start !== 0) {
-      this.windowData.end = event.timestamp;
-      this.windowData.casts = this.casts;
-      this.windowData.windowEndedOrPushed = true;
-      this.windows.push(this.windowData);
+    if (!this.isMythicPlus) {
+      if (this.windowData.start !== 0) {
+        this.windowData.end = event.timestamp;
+        this.windowData.casts = this.casts;
+        this.windowData.windowEndedOrPushed = true;
+        this.windows.push(this.windowData);
+      }
+      this.windowData = {
+        start: event.timestamp,
+        end: 0,
+        windowEndedOrPushed: false,
+        name: 'Window',
+      };
+      this.casts = [];
+    } else {
+      this.pullData[this.pullIndex].casts = this.casts;
+      this.pullData[this.pullIndex].windowEndedOrPushed = true;
+      this.windows.push(this.pullData[this.pullIndex]);
+      console.log(this.casts);
     }
-    this.windowData = {
-      start: event.timestamp,
-      end: 0,
-      windowEndedOrPushed: false,
-      name: 'Window',
-    };
-    this.casts = [];
   }
 
   private checkRecordingWindowEnd(event: AnyEvent) {
     // Check if the pull/dragonrage window has ended
     if (!this.isMythicPlus && this.windowData.windowEndedOrPushed) {
       this.endWindow(event);
-    } else if (
+    } else if (this.isPullEndDungeon(event)) {
+      this.pullData[this.pullIndex].end = event.timestamp;
+      if (!this.pullData[this.pullIndex].windowEndedOrPushed) this.endWindow(event);
+      this.pullIndex++;
+      this.casts = [];
+    }
+  }
+
+  private isPullEndDungeon(event: AnyEvent) {
+    return (
       this.isMythicPlus &&
       this.pullIndex < this.pullData.length - 1 &&
       event.timestamp > this.pullData[this.pullIndex + 1].start
-    ) {
-      this.pullData[this.pullIndex].end = event.timestamp;
-      if (!this.pullData[this.pullIndex].windowEndedOrPushed) this.endWindow(event);
-      // Pulls don't care if Dragonrage is still running so we need to push another "start" for the graph to show the window
-      // if (this.inDragonRageWindow) {
-      //   this.dragonrageBuffCounter.push({
-      //     timestamp: this.pullData[this.pullIndex + 1].start - WINDOW_BUFFER,
-      //     count: this.ticksPerChainedDisintegrate,
-      //     tooltip: '',
-      //   });
-      // }
-      this.pullIndex++;
-    }
+    );
   }
 
   private isActiveCastMassDis(): boolean {
