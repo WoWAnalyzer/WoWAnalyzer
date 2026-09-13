@@ -1,8 +1,17 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
 import { Azortharion, LittleBoyBlu, Putro, SheenMachine} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface/index';
 export default [
+  change(
+    date(2026, 9, 12),
+    <>
+      Removed <SpellLink spell={SPELLS.FORTITUDE_OF_THE_BEAR} /> from the Abilities list, since it
+      was reworked to a passive in patch 12.0.0
+    </>,
+    LittleBoyBlu,
+  ),
   change(
     date(2026, 9, 12),
     <>

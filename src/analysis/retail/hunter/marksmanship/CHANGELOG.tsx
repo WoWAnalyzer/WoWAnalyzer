@@ -1,9 +1,17 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
-import { Azortharion, Arlie } from 'CONTRIBUTORS';
+import { Azortharion, Arlie, LittleBoyBlu } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface/index';
 export default [
+  change(
+    date(2026, 9, 12),
+    <>
+      Removed <SpellLink spell={SPELLS.FORTITUDE_OF_THE_BEAR} /> from the Abilities list, since
+      Marksmanship no longer learns it as of patch 11.1.0
+    </>,
+    LittleBoyBlu,
+  ),
   change(
     date(2026, 8, 6),
   <>
