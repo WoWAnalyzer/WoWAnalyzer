@@ -5,7 +5,6 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
 //import AplCheck from './modules/AplCheck/AplCheck';
-import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/talents/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
@@ -82,7 +81,7 @@ import MID2Devastation4P from './modules/midnight/MID2Devastation4P';
 import RisingFury from './modules/talents/RisingFury';
 import DragonrageNormalizer from './modules/normalizers/DragonrageNormalizer';
 import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
-import BetterDisintegrate from './modules/abilities/BetterDisintegrate';
+import Disintegrate from './modules/abilities/Disintegrate';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -170,7 +169,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // core abilities
     disintegrate: Disintegrate,
-    betterDisint: BetterDisintegrate,
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
