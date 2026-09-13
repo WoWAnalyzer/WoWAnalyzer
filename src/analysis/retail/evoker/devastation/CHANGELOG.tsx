@@ -7,6 +7,7 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 9, 13), <>Updated <SpellLink spell={SPELLS.DISINTEGRATE} /> module and all of the proc analysis module visuals </>, Baumritter),
   change(date(2026, 8, 30), <>Added Midnight Season 2 Tierset modules.</>, Baumritter),
   change(date(2026, 8, 30), <>Updated <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT} /> for inclusion of <SpellLink spell={SPELLS.UNBOUND_FLAME}/>.</>, Baumritter),
   change(date(2026, 8, 29), <>Updated <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT} /> module.</>, KYZ),
