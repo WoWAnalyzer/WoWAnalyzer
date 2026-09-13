@@ -38,12 +38,12 @@ export default class ArcaneBarrage extends Analyzer {
     const activeBuffs: number[] = [];
 
     // Clearcasting
-    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE, event.timestamp - 10)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE, event.timestamp)) {
       activeBuffs.push(SPELLS.CLEARCASTING_ARCANE.id);
     }
 
     // Arcane Soul
-    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF, event.timestamp - 10)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF, event.timestamp)) {
       activeBuffs.push(SPELLS.ARCANE_SOUL_BUFF.id);
     }
 

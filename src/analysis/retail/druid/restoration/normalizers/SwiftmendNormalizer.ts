@@ -26,7 +26,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.REJUVENATION_GERMINATION.id,
     ],
     referencedEventType: EventType.RemoveBuff,
-    anyTarget: true,
+    // Same target only — anyTarget would claim a nearby HoT expiry as this consume
     forwardBufferMs: REMOVE_BUFFER_MS,
     backwardBufferMs: REMOVE_BUFFER_MS,
     maximumLinks: 1,

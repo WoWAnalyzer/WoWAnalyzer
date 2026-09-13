@@ -979,7 +979,7 @@ const spells = {
   RUSHING_WIND_KICK_DAMAGE: {
     id: 468179,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WINDS_BUFF: {
     id: 467341,

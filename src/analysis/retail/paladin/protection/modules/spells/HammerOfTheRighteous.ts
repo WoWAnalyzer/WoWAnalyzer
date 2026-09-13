@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -15,12 +12,14 @@ export default class HammerOfTheRighteous extends Analyzer {
     abilities: Abilities,
     spells: SpellUsable,
   };
+  protected abilities!: Abilities;
+  protected spells!: SpellUsable;
 
   activeSpell = TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT;
   _badCasts = 0;
   _casts = 0;
 
-  constructor(props) {
+  constructor(props: Options) {
     super(props);
     if (this.selectedCombatant.hasTalent(TALENTS.BLESSED_HAMMER_TALENT)) {
       this.activeSpell = TALENTS.BLESSED_HAMMER_TALENT;
@@ -55,28 +54,5 @@ export default class HammerOfTheRighteous extends Analyzer {
       },
       style: 'percentage',
     };
-  }
-
-  suggestions(when) {
-    when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should avoid casting <SpellLink spell={this.activeSpell} /> while better spells
-          (namely <SpellLink spell={TALENTS.IMPROVED_JUDGMENT_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} />) are available. This is a{' '}
-          <em>filler</em> ability and should only be used when you have no better spells to cast.
-        </>,
-      )
-        .icon(this.activeSpell.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.protection.suggestions.hammerOfTheRighteous.efficiency',
-            message: `${formatPercentage(
-              this.badCastRatio,
-            )}% of casts while better spells were available`,
-          }),
-        )
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }

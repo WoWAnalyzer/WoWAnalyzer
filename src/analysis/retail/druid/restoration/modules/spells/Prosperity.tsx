@@ -1,6 +1,7 @@
 import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import type Spell from 'common/SPELLS/Spell';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -131,14 +132,6 @@ class Prosperity extends Analyzer {
     return hardcastUses / this.soulOfTheForest.totalUses;
   }
 
-  /** Hardcast PotA proc fraction (excludes Convoke) */
-  private get powerOfTheArchdruidHardcastFraction(): number {
-    if (!this.powerOfTheArchdruid.active || this.powerOfTheArchdruid.procs === 0) {
-      return 0;
-    }
-    return this.powerOfTheArchdruid.totalHardcastProcs / this.powerOfTheArchdruid.procs;
-  }
-
   /** Direct Swiftmend hardcast healing */
   get directHealing(): number {
     return this.swiftmend.hardcastSwiftmendHealing;
@@ -167,13 +160,23 @@ class Prosperity extends Analyzer {
     return this.soulOfTheForest.totalOverhealing * this.soulOfTheForestHardcastFraction;
   }
 
-  /** PotA healing from hardcast SotF consumptions */
+  /**
+   * PotA extras come from the same SotF spends as SotF healing.
+   * Using the SotF hardcast share (not the PotA proc-buff list), which can be empty
+   * even when extras were attributed.
+   */
   get powerOfTheArchdruidHealing(): number {
-    return this.powerOfTheArchdruid.totalHealing * this.powerOfTheArchdruidHardcastFraction;
+    if (!this.powerOfTheArchdruid.active) {
+      return 0;
+    }
+    return this.powerOfTheArchdruid.totalHealing * this.soulOfTheForestHardcastFraction;
   }
 
   get powerOfTheArchdruidOverhealing(): number {
-    return this.powerOfTheArchdruid.totalOverhealing * this.powerOfTheArchdruidHardcastFraction;
+    if (!this.powerOfTheArchdruid.active) {
+      return 0;
+    }
+    return this.powerOfTheArchdruid.totalOverhealing * this.soulOfTheForestHardcastFraction;
   }
 
   /** Everbloom Blooming Frenzy splash healing (not Photosynthesis / natural expiry) */
@@ -263,9 +266,39 @@ class Prosperity extends Analyzer {
     return this.swiftmendPackageHealing * this.prosperityCastFraction;
   }
 
+  /** Extra-cast share of remaining HoT healing eaten, net of the 40% already in Direct */
+  get extraCastConsumedHotNetLoss(): number {
+    if (this.swiftmend.hasVi) {
+      return 0;
+    }
+    return (
+      Math.max(
+        0,
+        this.swiftmend.consumedHotRemainingHealing - this.swiftmend.consumedHotBonusHealing,
+      ) * this.prosperityCastFraction
+    );
+  }
+
+  private share(healing: number): number {
+    return healing * this.prosperityCastFraction;
+  }
+
+  private packageItem(spell: Spell, healing: number) {
+    if (healing <= 0) {
+      return null;
+    }
+    return (
+      <li key={spell.id}>
+        <SpellLink spell={spell} />:{' '}
+        <strong>{this.owner.formatItemHealingDone(this.share(healing))}</strong>
+      </li>
+    );
+  }
+
   statistic() {
     const extraCasts = this.extraCasts;
     const fraction = this.prosperityCastFraction;
+    const consumedNetLoss = this.extraCastConsumedHotNetLoss;
 
     return (
       <Statistic
@@ -274,76 +307,47 @@ class Prosperity extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Time spent at exactly 1 <SpellLink spell={SPELLS.SWIFTMEND} /> charge (while the 2nd
-            recharges) is recharge you could not bank with a 1-charge Swiftmend. That duration (
-            {formatDuration(this.timeAtOneChargeMs)}) ÷ recharge time ≈ extra casts. Healing is a
-            proportional share of the hardcast Swiftmend package:
+            ≈{extraCasts.toFixed(1)} extra <SpellLink spell={SPELLS.SWIFTMEND} />
+            {extraCasts === 1 ? '' : 's'} from {formatDuration(this.timeAtOneChargeMs)} spent at 1
+            charge ({(fraction * 100).toFixed(0)}% of {this.hardcastSwiftmendCasts} casts). Healing
+            is that share of the Swiftmend package:
             <ul>
-              <li>
-                Extra casts: <strong>{extraCasts.toFixed(1)}</strong> of{' '}
-                <strong>{this.hardcastSwiftmendCasts}</strong> Swiftmend casts (
-                {(fraction * 100).toFixed(0)}%)
-              </li>
-              <li>
-                Direct Swiftmend:{' '}
-                <strong>{this.owner.formatItemHealingDone(this.directHealing * fraction)}</strong>
-              </li>
-              {this.verdantInfusion.active && (
+              {this.directHealing > 0 && (
                 <li>
-                  <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT} />:{' '}
+                  Direct <SpellLink spell={SPELLS.SWIFTMEND} />:{' '}
                   <strong>
-                    {this.owner.formatItemHealingDone(this.verdantInfusionHealing * fraction)}
+                    {this.owner.formatItemHealingDone(this.share(this.directHealing))}
                   </strong>
                 </li>
               )}
-              {this.soulOfTheForest.active && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT} />:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.soulOfTheForestHealing * fraction)}
-                  </strong>
-                </li>
+              {this.packageItem(TALENTS_DRUID.VERDANT_INFUSION_TALENT, this.verdantInfusionHealing)}
+              {this.packageItem(
+                TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT,
+                this.soulOfTheForestHealing,
               )}
-              {this.powerOfTheArchdruid.active && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT} />:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.powerOfTheArchdruidHealing * fraction)}
-                  </strong>
-                </li>
+              {this.packageItem(
+                TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT,
+                this.powerOfTheArchdruidHealing,
               )}
-              {this.everbloomFrenzyHealing > 0 && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT} /> Blooming
-                  Frenzy:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.everbloomFrenzyHealing * fraction)}
-                  </strong>
-                </li>
+              {this.packageItem(
+                TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT,
+                this.everbloomFrenzyHealing,
               )}
-              {this.groveGuardians.active && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT} /> from extra Swiftmends:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.groveGuardiansHealing * fraction)}
-                  </strong>
-                </li>
-              )}
-              {this.reforestation.active && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} />:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.reforestationHealing * fraction)}
-                  </strong>
-                </li>
-              )}
+              {this.packageItem(TALENTS_DRUID.GROVE_GUARDIANS_TALENT, this.groveGuardiansHealing)}
+              {this.packageItem(TALENTS_DRUID.REFORESTATION_TALENT, this.reforestationHealing)}
             </ul>
-            Total package healing: <strong>{formatNumber(this.swiftmendPackageHealing)}</strong>
+            {consumedNetLoss > 0 && (
+              <>
+                Extra Swiftmends also consume a HoT. Net remaining HoT healing lost:{' '}
+                <strong>{formatNumber(consumedNetLoss)}</strong> (40% of remaining is already in
+                Direct).
+                <br />
+              </>
+            )}
+            Package healing: <strong>{formatNumber(this.swiftmendPackageHealing)}</strong>
             <br />
-            <strong>
-              Overhealing:{' '}
-              {formatOverhealing(this.swiftmendPackageOverhealing, this.swiftmendPackageHealing)}
-            </strong>
+            Overhealing:{' '}
+            {formatOverhealing(this.swiftmendPackageOverhealing, this.swiftmendPackageHealing)}
           </>
         }
       >

@@ -18,7 +18,7 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 
 import EventHistory from 'parser/shared/modules/EventHistory';
-import { TipBox } from 'interface/guide/components';
+import { PerformanceTipBox, TipBox } from 'interface/guide/components';
 
 const TOUCH_WINDOW_BUFFER_MS = 7500; // 7.5 seconds before and after
 
@@ -118,6 +118,10 @@ class TouchOfTheMagiGuide extends Analyzer {
           second cooldown of {arcaneSurge} in sync so that every other {touchOfTheMagi} can line up
           with {arcaneSurge}.
         </TipBox>
+        <PerformanceTipBox performance={QualitativePerformance.Perfect} title="Perfection">
+          Increasing your Active Time to at least 95% will increase your rating to Perfect and net
+          you a minor DPS increase if you are consistently being rated "Good".
+        </PerformanceTipBox>
       </>
     );
 

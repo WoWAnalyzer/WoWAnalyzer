@@ -60,6 +60,7 @@ import TheHunt from 'analysis/retail/demonhunter/havoc/modules/talents/TheHunt';
 import DemonBlades from 'analysis/retail/demonhunter/havoc/modules/spells/DemonBlades';
 import EternalHunt from './modules/talents/EternalHunt';
 import EternalHuntNormalizer from './normalizers/EternalHuntNormalizer';
+import EssenceBreakGuide from './guide/EssenceBreakGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -123,6 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eyeBeam: EyeBeam,
     unboundChaos: UnboundChaos,
     eternalHunt: EternalHunt,
+    essenceBreakGuide: EssenceBreakGuide,
 
     // Hero
     demonsurge: Demonsurge,
