@@ -3059,7 +3059,7 @@ export const Xinito: Contributor = {
 
 export const Naltarunir: Contributor = {
   nickname: 'Naltarunir',
-  discord: 'ghosti#1783',
+  discord: 'ghosti1783',
   github: 'Naltarunir',
   about: 'Healer and Nobundo fanboy',
   avatar: avatar('naltarunir-avatar.png'),
