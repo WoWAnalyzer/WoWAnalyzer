@@ -1,0 +1,28 @@
+@use 'interface/design-system' as design;
+
+.AnalysisContainer {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.EmptySpell {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  height: 4em;
+  width: 4em;
+  border-radius: 6px;
+}
+
+.DragonrageBorder {
+  border: 3px solid rgba(255, 102, 0);
+  border-radius: 8px;
+}
+
+.SpellHeader {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.5);
+  padding-bottom: 6px;
+}

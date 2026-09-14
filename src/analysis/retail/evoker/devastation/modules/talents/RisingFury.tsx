@@ -11,6 +11,7 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   DamageEvent,
+  FightEndEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -29,6 +30,10 @@ import Soup from 'interface/icons/Soup';
 import { WarningIcon } from 'interface/icons';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { CastEvaluation } from 'interface/guide/components';
+import { AnalysisData } from '../components/ProcAnalysis';
+import { hasUnboundFlameConsume } from '../normalizers/CastLinkNormalizer';
 
 /**
  * (1) While Dragonrage is active you gain Rising Fury every 6 sec, increasing your haste by 4%, stacking up to 5 times.
@@ -53,6 +58,7 @@ class RisingFury extends Analyzer {
     usedStacks: 0,
     totalStacks: 0,
   };
+  casts: CastEvaluation[] = [];
 
   risingFuryStacks = 0;
   unboundFlameStacks = 0;
@@ -110,6 +116,8 @@ class RisingFury extends Analyzer {
         Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEV_BUFF),
         this.onRefreshEssenceBurst,
       );
+
+      this.addEventListener(Events.fightend, this.onFightEnd);
     }
   }
 
@@ -141,18 +149,53 @@ class RisingFury extends Analyzer {
   }
 
   private onRemoveUnboundFlame(event: RemoveBuffEvent) {
+    if (!hasUnboundFlameConsume(event))
+      this.castAnalysis(event.timestamp, QualitativePerformance.Fail);
     this.unboundFlameStacks = 0;
   }
 
   private onApplyEssenceBurst(event: ApplyBuffEvent | ApplyBuffStackEvent) {
     if (isEBFrom(event, EBSource.UnboundFlame)) {
       this.essenceBurstGenerated += 1;
+      this.castAnalysis(event.timestamp, QualitativePerformance.Good);
     }
   }
   private onRefreshEssenceBurst(event: RefreshBuffEvent) {
     if (isEBFrom(event, EBSource.UnboundFlame)) {
       this.essenceBurstWasted += 1;
+      this.castAnalysis(event.timestamp, QualitativePerformance.Fail, true);
     }
+  }
+
+  private onFightEnd(event: FightEndEvent) {
+    if (this.unboundFlameStacks > 0) {
+      this.castAnalysis(event.timestamp, QualitativePerformance.Ok);
+    }
+  }
+
+  private castAnalysis(timestamp: number, performance: QualitativePerformance, ebWaste = false) {
+    let info: string;
+
+    switch (performance) {
+      case QualitativePerformance.Ok:
+        info = `Fight ended, leaving ${this.unboundFlameStacks} stack(s) unused`;
+        break;
+      case QualitativePerformance.Fail:
+        if (ebWaste) info = `Overcapped Essence Burst`;
+        else info = `Buff expired, wasting ${this.unboundFlameStacks} stack(s)`;
+        break;
+      default:
+        info = 'Buff used';
+        break;
+    }
+
+    const castEntry: CastEvaluation = {
+      performance: performance,
+      timestamp: timestamp,
+      reason: info,
+    };
+
+    this.casts.push(castEntry);
   }
 
   get usedUnboundFlameStacks() {
@@ -161,6 +204,13 @@ class RisingFury extends Analyzer {
 
   get totalUnboundFlameStacks() {
     return this.statsUnboundFlame.totalStacks;
+  }
+
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.UNBOUND_FLAME,
+    };
   }
 
   statistic() {

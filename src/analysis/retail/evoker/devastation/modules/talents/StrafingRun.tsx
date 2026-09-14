@@ -13,14 +13,16 @@ import { formatNumber } from 'common/format';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellLink from 'interface/SpellLink';
 import { getPrimaryDeepBreathEvent, isFromStrafingRunConsume } from '../normalizers/StrafingRun';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { CastEvaluation } from 'interface/guide/components';
+import { AnalysisData } from '../components/ProcAnalysis';
 
 /** Deep Breath deals 20% increased damage and can be cast again within 18 sec of being used. */
 class StrafingRun extends Analyzer {
   damageFromAmp = 0;
   damageFromExtraCasts = 0;
 
-  buffsWasted = 0;
-  buffsConsumed = 0;
+  casts: CastEvaluation[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -55,22 +57,38 @@ class StrafingRun extends Analyzer {
 
   private onRemoveBuff(event: RemoveBuffEvent) {
     if (isFromStrafingRunConsume(event)) {
-      this.buffsConsumed += 1;
+      this.castAnalysis(event.timestamp, QualitativePerformance.Good);
     } else {
-      this.buffsWasted += 1;
+      this.castAnalysis(event.timestamp, QualitativePerformance.Fail);
     }
   }
 
-  get consumedBuffs() {
-    return this.buffsConsumed;
+  private castAnalysis(timestamp: number, performance: QualitativePerformance) {
+    let info: string;
+
+    switch (performance) {
+      case QualitativePerformance.Fail:
+        info = `Buff expired`;
+        break;
+      default:
+        info = 'Buff used';
+        break;
+    }
+
+    const castEntry: CastEvaluation = {
+      performance: performance,
+      timestamp: timestamp,
+      reason: info,
+    };
+
+    this.casts.push(castEntry);
   }
 
-  get wastedBuffs() {
-    return this.buffsWasted;
-  }
-
-  get totalBuffs() {
-    return this.consumedBuffs + this.wastedBuffs;
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.STRAFING_RUN_BUFF,
+    };
   }
 
   statistic() {

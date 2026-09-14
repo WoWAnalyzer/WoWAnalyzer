@@ -31,6 +31,9 @@ import {
   isEBFrom,
 } from '../normalizers/EssenceBurstCastLinkNormalizer';
 import SPECS from 'game/SPECS';
+import { CastEvaluation } from 'interface/guide/components';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { AnalysisData } from 'analysis/retail/evoker/devastation/modules/components/ProcAnalysis';
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -66,6 +69,7 @@ class LeapingFlames extends Analyzer {
   leapingFlamesHealing = 0;
   leapingFlamesOverHealing = 0;
 
+  casts: CastEvaluation[] = [];
   leapingFlamesBuffs = 0;
   leapingFlamesConsumptions = 0;
 
@@ -108,11 +112,14 @@ class LeapingFlames extends Analyzer {
   onRemoveBuff(leapingBuff: RemoveBuffEvent) {
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
+      if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id))
+        this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Ok);
+      else this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Fail);
       return;
     }
     this.leapingFlamesConsumptions += 1;
-
     const leapingEvents = getLeapingEvents(lfCast);
+    this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Good, leapingEvents.length);
     if (!leapingEvents.length) {
       return;
     }
@@ -175,9 +182,7 @@ class LeapingFlames extends Analyzer {
 
     /** In Dragonrage all generators have 100% chance of generating EB, so leaping
      * will have provided everything beyond the first one. */
-    const inDragonRage =
-      this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
-    if (inDragonRage) {
+    if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
       const maxPossibleEBGen = this.maxEB - 1;
 
       /** Player isn't running attunement and as such leaping can't ever provide value.
@@ -245,6 +250,27 @@ class LeapingFlames extends Analyzer {
       this.essenceBurstWasted += wastedEBFromLeaping.guaranteedFromLeaping;
       this.maybeEssenceBurstWasted += wastedEBFromLeaping.maybeFromLeaping;
     }
+  }
+
+  private castAnalysis(timestamp: number, performance: QualitativePerformance, leapingLevel = 0) {
+    let info: string;
+
+    switch (performance) {
+      case QualitativePerformance.Fail:
+        info = `Buff expired`;
+        break;
+      default:
+        info = `Buff used: Hit ${leapingLevel} addtional targets`;
+        break;
+    }
+
+    const castEntry: CastEvaluation = {
+      performance: performance,
+      timestamp: timestamp,
+      reason: info,
+    };
+
+    this.casts.push(castEntry);
   }
 
   /** Get the estimated share of leaping flames gen/waste
@@ -352,6 +378,13 @@ class LeapingFlames extends Analyzer {
         </div>
       </Statistic>
     );
+  }
+
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.LEAPING_FLAMES_BUFF,
+    };
   }
 }
 

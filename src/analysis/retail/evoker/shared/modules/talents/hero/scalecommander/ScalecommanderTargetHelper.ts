@@ -1,4 +1,4 @@
-import { CastEvent } from 'parser/core/Events';
+import { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import {
   getDisintegrateTargetCount,
   isFromMassDisintegrate,
@@ -26,6 +26,6 @@ export function getMassEventTargetCount(event: CastEvent, maxTargets?: number): 
   );
 }
 
-export function isMassEvent(event: CastEvent): boolean {
+export function isMassEvent(event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return isFromMassDisintegrate(event) || isFromMassEruption(event);
 }

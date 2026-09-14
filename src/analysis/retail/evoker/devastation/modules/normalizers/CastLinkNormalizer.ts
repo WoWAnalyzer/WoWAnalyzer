@@ -32,7 +32,7 @@ import { CHAINED_CAST, CHAINED_FROM_CAST } from './DisintegrateChainCastLinks';
 import { ETERNITY_SURGE_FROM_CAST } from './EternitySurgeNormalizer';
 import { DEEP_BREATH_SPELL_IDS, TipTheScalesNormalizer } from 'analysis/retail/evoker/shared';
 
-const BURNOUT_CONSUME = 'BurnoutConsumption';
+export const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
 const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
 const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
@@ -67,6 +67,8 @@ const IRIDESCENCE_RED_BACKWARDS_BUFFER_MS = 500;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const DEEP_BREATH_FLIGHT_TIME_MS = 4_000; // 3s + some leeway
 const TWIN_FLAME_TRAVEL_TIME_MS = 1_000;
+
+const UNBOUND_FLAME_CONSUME = 'UnboundFlameConsume';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -373,6 +375,17 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(referencedEvent, CONSUME_FLAME_DAMAGE_LINK);
     },
   },
+  {
+    linkRelation: UNBOUND_FLAME_CONSUME,
+    linkingEventId: SPELLS.UNBOUND_FLAME_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: SPELLS.UNBOUND_FLAME.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -545,7 +558,7 @@ export function getDisintegrateDamageEvents(
   return [...disintegrateTicks, ...massDisintegrateTicks];
 }
 
-export function isFromMassDisintegrate(event: CastEvent) {
+export function isFromMassDisintegrate(event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent) {
   return HasRelatedEvent(event, MASS_DISINTEGRATE_CONSUME);
 }
 
@@ -666,6 +679,10 @@ export function getConsumeFlameTickEvent(event: RemoveDebuffEvent) {
 
 export function getConsumeFlameDamageLinkEvent(event: DamageEvent) {
   return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_DAMAGE_LINK);
+}
+
+export function hasUnboundFlameConsume(event: RemoveBuffEvent) {
+  return HasRelatedEvent(event, UNBOUND_FLAME_CONSUME);
 }
 
 export default CastLinkNormalizer;

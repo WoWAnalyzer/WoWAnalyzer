@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import {
   getDisintegrateDamageEvents,
   isMassDisintegrateTick,
@@ -25,6 +25,9 @@ import {
   getMassEruptionDamageEvents,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 import { getMassEventTargetCount, isMassEvent } from './ScalecommanderTargetHelper';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { CastEvaluation } from 'interface/guide/components';
+import { AnalysisData } from 'analysis/retail/evoker/devastation/modules/components/ProcAnalysis';
 
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
 
@@ -41,6 +44,9 @@ type DamageResult = {
  * Mass Disintegrate/Eruption strikes 1 additional target.
  */
 class MassDisintegrate extends Analyzer {
+  casts: CastEvaluation[] = [];
+  activeStacks = 0;
+
   buffCount = 0;
   castCount = 0;
   targetCount = 0;
@@ -76,13 +82,30 @@ class MassDisintegrate extends Analyzer {
     BUFF_EVENTS.forEach((event) =>
       this.addEventListener(
         event.by(SELECTED_PLAYER).spell([SPELLS.MASS_DISINTEGRATE_BUFF, SPELLS.MASS_ERUPTION_BUFF]),
-        this.onBuff,
+        this.onAddBuff,
       ),
     );
+
+    this.addEventListener(
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.MASS_DISINTEGRATE_BUFF, SPELLS.MASS_ERUPTION_BUFF]),
+      this.onRemoveBuff,
+    );
+
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  private onBuff() {
+  private onAddBuff() {
     this.buffCount += 1;
+    this.activeStacks += 1;
+  }
+
+  private onRemoveBuff(event: RemoveBuffEvent) {
+    if (!isMassEvent(event)) {
+      this.castAnalysis(event.timestamp, QualitativePerformance.Fail);
+      this.activeStacks = 0;
+    }
   }
 
   // Shared cast handler that delegates to the appropriate spell handler for the damage specifics.
@@ -102,6 +125,8 @@ class MassDisintegrate extends Analyzer {
         : this.onEruptionCast(event, missingTargetCount);
 
     this.attributeDamage(damageResult, targetCount);
+    this.activeStacks -= 1;
+    this.castAnalysis(event.timestamp, QualitativePerformance.Good);
   }
 
   private onEruptionCast(event: CastEvent, missingTargetCount: number) {
@@ -206,6 +231,36 @@ class MassDisintegrate extends Analyzer {
     return damageResult;
   }
 
+  private onFightEnd(event: FightEndEvent) {
+    if (this.activeStacks > 0) {
+      this.castAnalysis(event.timestamp, QualitativePerformance.Ok);
+    }
+  }
+
+  private castAnalysis(timestamp: number, performance: QualitativePerformance) {
+    let info: string;
+
+    switch (performance) {
+      case QualitativePerformance.Ok:
+        info = `Fight ended, leaving ${this.activeStacks} stack(s) unused`;
+        break;
+      case QualitativePerformance.Fail:
+        info = `Buff expired, wasting ${this.activeStacks} stack(s)`;
+        break;
+      default:
+        info = 'Buff used';
+        break;
+    }
+
+    const castEntry: CastEvaluation = {
+      performance: performance,
+      timestamp: timestamp,
+      reason: info,
+    };
+
+    this.casts.push(castEntry);
+  }
+
   get averageTargets() {
     return this.targetCount / this.castCount;
   }
@@ -220,6 +275,15 @@ class MassDisintegrate extends Analyzer {
 
   get totalBuffs() {
     return this.buffCount;
+  }
+
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
+        ? SPELLS.MASS_DISINTEGRATE_BUFF
+        : SPELLS.MASS_ERUPTION_BUFF,
+    };
   }
 
   statistic() {
