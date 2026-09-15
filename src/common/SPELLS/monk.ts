@@ -462,11 +462,6 @@ const spells = {
     name: 'Rising Mist',
     icon: 'ability_monk_effuse',
   },
-  UPLIFTED_SPIRITS_HEAL: {
-    id: 388555,
-    name: 'Uplifted Spirits',
-    icon: 'monk_stance_wiseserpent',
-  },
   WHIRLING_DRAGON_PUNCH_DAMAGE: {
     id: 158221,
     name: 'Whirling Dragon Punch',
