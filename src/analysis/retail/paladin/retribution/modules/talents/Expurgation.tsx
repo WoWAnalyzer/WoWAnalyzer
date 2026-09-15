@@ -70,7 +70,12 @@ class Expurgation extends Analyzer {
       </RoundedPanel>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_EXPLANATION_PERCENT);
+    return explanationAndDataSubsection(
+      explanation,
+      data,
+      GUIDE_EXPLANATION_PERCENT,
+      'Expurgation',
+    );
   }
 }
 
