@@ -29,17 +29,13 @@ import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
 import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
-import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
-import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
-import BladeRush from './modules/talents/BladeRush';
 import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
 import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
 import Guide from './Guide';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
-import AplCheck from './modules/apl/AplCheck';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import OpportunityRefreshNormalizer from './normalizers/OpportunityRefreshNormalizer';
 
@@ -90,12 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
     betweenTheEyes: BetweenTheEyes,
     rollTheBonesBuffs: RollTheBonesBuffs,
-    rollTheBonesCounter: RollTheBonesCounter,
-    rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
     sliceAndDiceUptime: SliceAndDiceUptime,
     //Talents
-    bladeRush: BladeRush,
     echoingReprimand: EchoingReprimand,
     adrenalineRush: AdrenalineRush,
     preparation: Preparation,
@@ -109,8 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
         extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
       },
     ] as const,
-
-    apl: AplCheck,
   };
 
   static guide = Guide;

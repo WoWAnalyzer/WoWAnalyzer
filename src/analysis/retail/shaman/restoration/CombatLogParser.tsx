@@ -7,7 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import EarthElemental from 'src/analysis/retail/shaman/shared/talents/EarthElemental';
 //Core
 import StatTracker from './modules/core/StatTracker';
-
+import SpellManaCost from 'src/analysis/retail/shaman/restoration/modules/core/SpellManaCost';
 import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
@@ -100,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     statTracker: StatTracker,
+    spellManaCost: SpellManaCost,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

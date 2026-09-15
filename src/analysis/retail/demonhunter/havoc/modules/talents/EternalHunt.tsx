@@ -113,7 +113,14 @@ export default class EternalHunt extends Analyzer {
 
     const consumption = getEternalHuntConsumption(event);
 
-    if (consumption && consumption.ability.guid === SPELLS.ABYSSAL_GAZE.id) {
+    const channelEnd = consumption?.channel?.timestamp;
+    const fullyChanneledDuringBuff = channelEnd && channelEnd <= event.timestamp;
+
+    if (
+      consumption &&
+      consumption.ability.guid === SPELLS.ABYSSAL_GAZE.id &&
+      fullyChanneledDuringBuff
+    ) {
       return {
         performance: QualitativePerformance.Perfect,
         summary,
@@ -126,7 +133,11 @@ export default class EternalHunt extends Analyzer {
         ),
       };
     }
-    if (consumption && consumption.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id) {
+    if (
+      consumption &&
+      consumption.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id &&
+      fullyChanneledDuringBuff
+    ) {
       const performance = this.hasAbyssalGaze
         ? QualitativePerformance.Good
         : QualitativePerformance.Perfect;
@@ -147,8 +158,9 @@ export default class EternalHunt extends Analyzer {
       summary,
       details: (
         <div>
-          You did not consume <SpellLink spell={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT} />
-          !
+          You did not consume <SpellLink spell={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT} />{' '}
+          or did not fully channel your <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />{' '}
+          during the buff!
         </div>
       ),
     };

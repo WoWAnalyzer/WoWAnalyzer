@@ -129,6 +129,11 @@ export const SPELL_DURATIONS = {
 } as const;
 
 // mana saves
+export const CURRENT_CONTROL_MANA_REDUCTION = 0.15;
+export const CURRENT_CONTROL_AFFECTED_SPELLS: number[] = [
+  SPELLS.HEALING_WAVE.id,
+  TALENTS.CHAIN_HEAL_TALENT.id,
+];
 export const MANA_REGENERATION_PER_SECOND = 2000;
 export const WATER_SHIELD_MANA_REGENERATION_PER_SECOND = 142.8;
 export const RESURGENCE_SPELLS = {

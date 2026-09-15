@@ -3059,7 +3059,7 @@ export const Xinito: Contributor = {
 
 export const Naltarunir: Contributor = {
   nickname: 'Naltarunir',
-  discord: 'ghosti#1783',
+  discord: 'ghosti1783',
   github: 'Naltarunir',
   about: 'Healer and Nobundo fanboy',
   avatar: avatar('naltarunir-avatar.png'),
@@ -3112,4 +3112,10 @@ export const Fyperia: Contributor = {
   nickname: 'Fyperia',
   github: 'fyperia',
   discord: 'Fyperia',
+};
+
+export const LittleBoyBlu: Contributor = {
+  nickname: 'LittleBoyBlu',
+  github: 'RyanMBlue',
+  discord: 'lbb',
 };

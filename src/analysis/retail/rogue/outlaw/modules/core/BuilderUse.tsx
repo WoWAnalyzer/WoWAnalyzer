@@ -57,19 +57,6 @@ export default class BuilderUse extends Analyzer {
     return <DonutChart items={items} />;
   }
 
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(5)}>
-        <div className="pad">
-          <label>
-            <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} /> builder usage
-          </label>
-          {this.chart}
-        </div>
-      </Statistic>
-    );
-  }
-
   private onCastBuilder(event: CastEvent) {
     this.totalBuilderCasts += 1;
 
