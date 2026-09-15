@@ -50,6 +50,7 @@ class CelestialConduit extends CommonCelestialConduit {
           label={<SpellLink spell={CONDUIT} />}
           timeline={{
             cooldowns: [TALENTS_MONK.UNITY_WITHIN_TALENT],
+            cooldownLegend: true,
           }}
           table={{
             type: EventType.Heal,

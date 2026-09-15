@@ -428,7 +428,12 @@ class BaseCelestialAnalyzer extends Analyzer {
         <Explanation>{explanation}</Explanation>
         <CooldownGrid
           label={<SpellLink spell={talent} />}
-          timeline={{ cooldowns, auras: [...sharedAuras, ...(auras ?? [])], minSecondWidth: 60 }}
+          timeline={{
+            cooldowns,
+            auras: [...sharedAuras, ...(auras ?? [])],
+            minSecondWidth: 60,
+            cooldownLegend: true,
+          }}
           table={{
             type: EventType.Heal,
             abilityFilter: [...getCurrentRSKTalentHeals(this.selectedCombatant), ...heals],
