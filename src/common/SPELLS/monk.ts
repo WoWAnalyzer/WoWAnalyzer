@@ -964,12 +964,12 @@ const spells = {
   RUSHING_WIND_KICK_BUFF: {
     id: 1250554,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WIND_KICK_CAST: {
     id: 467307,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WIND_KICK_DAMAGE: {
     id: 468179,
