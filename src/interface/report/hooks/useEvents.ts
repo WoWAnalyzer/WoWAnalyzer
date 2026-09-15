@@ -1,12 +1,68 @@
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import { captureException } from 'common/errorLogger';
-import fetchWcl from 'common/fetchWclApi';
-import { AnyEvent } from 'parser/core/Events';
-import { WCLFight } from 'parser/core/Fight';
+import fetchWcl, { fetchEvents } from 'common/fetchWclApi';
+import { AnyEvent, DeathEvent } from 'parser/core/Events';
+import { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
 import { isCommonError } from '../handleApiError';
+
+interface EventRange {
+  target: WCLFight | WCLDungeonPull;
+  start_time: number;
+  end_time: number;
+}
+
+async function* fetchPlayerEvents(
+  report: Report,
+  fight: WCLFight,
+  player: Pick<PlayerInfo, 'id'>,
+): AsyncGenerator<{ target: EventRange['target']; events: AnyEvent[] }> {
+  const timeRanges = fightTimeRanges(fight);
+
+  for (const { target, start_time, end_time } of timeRanges) {
+    let events: AnyEvent[] = [];
+    let nextStartTime: number | undefined = start_time;
+    do {
+      const page: WCLEventsResponse = await fetchWcl(`report/events/${report.code}`, {
+        start: nextStartTime,
+        end: end_time,
+        actorid: player.id,
+        translate: true,
+      });
+
+      events = events.concat(page.events);
+
+      nextStartTime = page.nextPageTimestamp;
+    } while (Number.isFinite(nextStartTime));
+
+    yield { target, events };
+  }
+}
+
+function fightTimeRanges(fight: WCLFight): EventRange[] {
+  if (!fight.dungeonPulls) {
+    return [{ ...fight, target: fight }];
+  }
+
+  // sometimes there is an extra junk "pull" at the end when combat drops on completion
+  const lastPull = fight.dungeonPulls.at(-1);
+  let pulls = fight.dungeonPulls;
+  if (lastPull && lastPull.end_time - lastPull.start_time < 100) {
+    pulls = fight.dungeonPulls.slice(0, -1);
+  }
+
+  return pulls.map((pull, index, pulls) => {
+    const previousEndTime = pulls[index - 1]?.end_time ?? fight.start_time;
+    return { target: pull, start_time: previousEndTime, end_time: pull.end_time };
+  });
+}
+
+export interface DungeonPullEvents {
+  target: EventRange['target'];
+  events: AnyEvent[];
+}
 
 const useEvents = ({
   report,
@@ -18,52 +74,61 @@ const useEvents = ({
   player: Pick<PlayerInfo, 'id'>;
 }) => {
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
+  const [pulls, setPulls] = useState<DungeonPullEvents[]>([]);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
-  const [error, setError] = useState<Error | null>(null);
-
-  const updateState = (error: Error | null, events: AnyEvent[] | null) => {
-    setError(error);
-    setEvents(events);
-  };
+  const [error, setError] = useState<Error | undefined>();
+  const [allDeaths, setAllDeaths] = useState<DeathEvent[] | undefined>();
 
   useEffect(() => {
     let cancelled = false;
-    // we are using the raw `fetchWcl` here for greater control
-    const loadPage = (startTime: number) =>
-      fetchWcl<WCLEventsResponse>(`report/events/${report.code}`, {
-        start: startTime,
-        end: fight.end_time,
-        actorid: player.id,
-        translate: true,
-      });
-
-    const load = async (startTime: number): Promise<AnyEvent[]> => {
-      if (cancelled) {
-        return [];
-      }
-
-      const { events, nextPageTimestamp } = await loadPage(startTime);
-
-      if (!nextPageTimestamp) {
-        setCurrentTime(fight.end_time);
-        return events;
-      } else {
-        setCurrentTime(nextPageTimestamp);
-
-        return events.concat(await load(nextPageTimestamp));
-      }
-    };
 
     (async () => {
       try {
-        const events = await load(fight.start_time);
-        updateState(null, events);
+        const events = await fetchEvents(
+          report.code,
+          fight.start_time,
+          fight.end_time,
+          undefined,
+          'type = "death" and (target.disposition = "enemy" or target.type != "Pet") and feign = false',
+        );
+        if (!cancelled) {
+          setAllDeaths(events as DeathEvent[]);
+        }
       } catch (err) {
         if (!isCommonError(err)) {
           captureException(err as Error);
         }
-        updateState(err as Error, null);
+        setError(err as Error);
       }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [report, fight]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      let events: AnyEvent[] = [];
+      try {
+        for await (const range of fetchPlayerEvents(report, fight, player)) {
+          if (cancelled) {
+            break;
+          }
+
+          setPulls((pulls) => [...pulls, range]);
+          setCurrentTime(range.target.end_time);
+          events = events.concat(range.events);
+        }
+      } catch (err) {
+        if (!isCommonError(err)) {
+          captureException(err as Error);
+        }
+        setError(err as Error);
+      }
+
+      setEvents(events);
     })();
 
     return () => {
@@ -71,7 +136,7 @@ const useEvents = ({
     };
   }, [report, fight, player]);
 
-  return { events, currentTime, error };
+  return { events, currentTime, error, pulls, allDeaths };
 };
 
 export default useEvents;

@@ -37,7 +37,13 @@ type RoleShorthand = (props: Pick<RoleProps, 'children'>) => JSX.Element | null;
 const Melee: RoleShorthand = ({ children }) => <Role roles={MELEE}>{children}</Role>;
 const Caster: RoleShorthand = ({ children }) => <Role roles={CASTER}>{children}</Role>;
 const Healer: RoleShorthand = ({ children }) => <Role role={ROLES.HEALER}>{children}</Role>;
+const Tank: RoleShorthand = ({ children }) => <Role role={ROLES.TANK}>{children}</Role>;
+const DPS: RoleShorthand = ({ children }) => (
+  <Role roles={[ROLES.DPS.MELEE, ROLES.DPS.RANGED]}>{children}</Role>
+);
 
 Role.Melee = Melee;
 Role.Caster = Caster;
 Role.Healer = Healer;
+Role.Tank = Tank;
+Role.DPS = DPS;
