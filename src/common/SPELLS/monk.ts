@@ -320,13 +320,13 @@ const spells = {
   },
   WOTC_HEAL: {
     id: 389325,
-    name: 'Awakened Jadefire',
-    icon: 'inv_leather_raidmonkt2_d_01_helm',
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
   },
   WOTC_CRIT_HEAL: {
     id: 389328,
-    name: 'Awakened Jadefire',
-    icon: 'inv_leather_raidmonkt2_d_01_helm',
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
   },
 
   // Mastery
