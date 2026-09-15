@@ -173,6 +173,15 @@ export function getCurrentRSKTalentDamage(player: Combatant): Spell {
     ? SPELLS.RUSHING_WIND_KICK_DAMAGE
     : SPELLS.RISING_SUN_KICK_DAMAGE;
 }
+export function getCurrentRSKTalentHeals(player: Combatant): Spell[] {
+  if (player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)) {
+    return [SPELLS.RUSHING_WIND_KICK_HEAL, SPELLS.AT_HEAL, SPELLS.AT_CRIT_HEAL];
+  }
+  if (player.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
+    return [SPELLS.AT_HEAL, SPELLS.AT_CRIT_HEAL];
+  }
+  return [];
+}
 
 export function getCurrentCelestialTalent(player: Combatant): Talent {
   return player.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT)
