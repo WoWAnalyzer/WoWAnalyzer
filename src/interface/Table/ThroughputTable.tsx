@@ -150,6 +150,12 @@ export interface ThroughputTableProps {
    * Filtered abilities are completely hidden from the source/target views when `omitOtherRow` is true. Otherwise, they are included. This causes the total values to add up to the same value.
    */
   abilityFilter?: (Spell | number)[];
+  /**
+   * Groups of abilities to show as one row. The first entry of each group is the row; the rest are counted
+   * under it, e.g. `[[BASE_SPELL, CRIT_VARIANT]]` folds a separate crit spell into its base spell.
+   * Applied before `abilityFilter`, so only the first entry needs listing there.
+   */
+  mergeAbilities?: (Spell | number)[][];
   omitOtherRow?: boolean;
   /**
    * A list of unit/actor ids to include as targets. All other units/actors are omitted from the table. By default, all actors are included for damage and all non-pet actors for healing. When explicitly set to `false`, no default filtering is applied.
@@ -212,6 +218,7 @@ function throughputByAbility(
   type: EventType.Damage | EventType.Heal,
   abilityFilter: Set<number> | undefined,
   targetFilter?: ThroughputTableProps['targetExclusions'],
+  mergeMap?: Map<number, number>,
 ): ThroughputSpellRow[] {
   const map = new Map<number, ThroughputSpellRow>();
   const isRelevant = isRelevantToInfo(info);
@@ -229,10 +236,8 @@ function throughputByAbility(
       continue; // unlike `abilityFilter`, `targetFilter` does not move to `other`
     }
 
-    const id =
-      !abilityFilter || abilityFilter?.has(event.ability.guid)
-        ? event.ability.guid
-        : OTHER_SPECIAL_ID;
+    const guid = mergeMap?.get(event.ability.guid) ?? event.ability.guid;
+    const id = !abilityFilter || abilityFilter?.has(guid) ? guid : OTHER_SPECIAL_ID;
     const school = id === OTHER_SPECIAL_ID ? 0 : event.ability.type;
     const amount =
       type === EventType.Damage
@@ -345,6 +350,7 @@ function ThroughputTableRaw({
   maxRows = 6,
   type,
   abilityFilter,
+  mergeAbilities,
   omitOtherRow,
   targetExclusions: rawUnitFilter,
 }: ThroughputTableProps): JSX.Element | null {
@@ -376,6 +382,16 @@ function ThroughputTableRaw({
     return map;
   }, [report]);
 
+  // alias id -> row id, from the merge groups
+  const mergeMap = useMemo(() => {
+    const toId = (spell: Spell | number) => (typeof spell === 'number' ? spell : spell.id);
+    const map = new Map<number, number>();
+    mergeAbilities?.forEach(([target, ...aliases]) =>
+      aliases.forEach((alias) => map.set(toId(alias), toId(target))),
+    );
+    return map;
+  }, [mergeAbilities]);
+
   const data = useMemo(() => {
     if (!info) {
       return [];
@@ -390,7 +406,7 @@ function ThroughputTableRaw({
 
     const rows =
       aggregateBy === 'ability'
-        ? throughputByAbility(events, info, type, filterSet, unitFilter)
+        ? throughputByAbility(events, info, type, filterSet, unitFilter, mergeMap)
         : throughputByActor(
             events,
             info,
@@ -433,7 +449,18 @@ function ThroughputTableRaw({
     }
 
     return result as ThroughputSpellRow[] | ThroughputActorRow[];
-  }, [events, aggregateBy, info, abilityFilter, omitOtherRow, actors, maxRows, type, unitFilter]);
+  }, [
+    events,
+    aggregateBy,
+    info,
+    abilityFilter,
+    mergeMap,
+    omitOtherRow,
+    actors,
+    maxRows,
+    type,
+    unitFilter,
+  ]);
 
   const ctx = useMemo(() => {
     const max = data.reduce((max, row) => Math.max(max, row.amount), 0);

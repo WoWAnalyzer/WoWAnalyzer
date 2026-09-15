@@ -30,18 +30,18 @@ import { CAST_BUFFER_MS } from 'analysis/retail/evoker/preservation/normalizers/
 import { getConduitEventGrouping } from '../normalizers/ConduitOfTheCelestialsEventLinks';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SpellLink from 'interface/SpellLink';
 import { PerformanceMark } from 'interface/guide';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { Talent } from 'common/TALENTS/types';
+import { SpellIcon } from 'interface';
 
 export interface CastInfo {
   cancelled: boolean;
   timestamp: number;
+  // timestamp the channel ended (or was cancelled)
+  channelEnd?: number;
   // map talent to remaining cd before cast (-1 if not on cd)
   cooldownMap: Map<number, number> | undefined;
   // hits per pulse
@@ -178,6 +178,9 @@ class CelestialConduit extends Analyzer {
   }
 
   private onChannelEnd(event: EndChannelEvent) {
+    if (this.castInfoList.length > 0) {
+      this.castInfoList.at(-1)!.channelEnd = event.timestamp;
+    }
     const actualChannelTime = event.timestamp - this.channelStart;
     const expectedChannelTime = CELESTIAL_CONDUIT_MAX_DURATION / (1 + this.currentHaste);
 
@@ -238,7 +241,7 @@ class CelestialConduit extends Analyzer {
       details: <>{castInfo.cancelled ? 'No' : 'Yes'}</>,
     };
     const cooldownPerfs: QualitativePerformance[] = [];
-    const cooldownItems: CooldownExpandableItem[] = [];
+    const cooldownIcons: React.ReactNode[] = [];
     castInfo.cooldownMap!.forEach((cooldown, spellId) => {
       const perf =
         cooldown === 0
@@ -247,21 +250,28 @@ class CelestialConduit extends Analyzer {
             : QualitativePerformance.Fail
           : QualitativePerformance.Good;
       cooldownPerfs.push(perf);
-      cooldownItems.push({
-        label: (
-          <>
-            <SpellLink spell={spellId} /> on cooldown when casting{' '}
-            <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
-          </>
-        ),
-        result: (
-          <>
-            <PerformanceMark perf={perf} />
-          </>
-        ),
-        details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
-      });
+      // dimmed icon = was not on cooldown, so its CDR from unity was wasted
+      cooldownIcons.push(
+        <SpellIcon
+          key={spellId}
+          spell={spellId}
+          style={{
+            height: '1.5em',
+            marginRight: '0.15em',
+            ...(cooldown === 0 ? { opacity: 0.35, filter: 'grayscale(1)' } : {}),
+          }}
+        />,
+      );
     });
+    const cooldownItem: CooldownExpandableItem = {
+      label: (
+        <span style={{ whiteSpace: 'nowrap' }}>
+          On CD for <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
+        </span>
+      ),
+      result: <PerformanceMark perf={getAveragePerf(cooldownPerfs)} />,
+      details: <span style={{ whiteSpace: 'nowrap' }}>{cooldownIcons}</span>,
+    };
     const avgTargetsHit =
       castInfo.targetsHit.length > 0
         ? castInfo.targetsHit.reduce((prev, cur) => {
@@ -281,7 +291,7 @@ class CelestialConduit extends Analyzer {
     };
     return {
       perf: getAveragePerf([cancelPerf, ...cooldownPerfs, targetHitPerf]),
-      items: [cancelledItem, ...cooldownItems, targetsHitItem],
+      items: [cancelledItem, cooldownItem, targetsHitItem],
     };
   }
 
@@ -297,58 +307,6 @@ class CelestialConduit extends Analyzer {
       this.damageIncreaseDataPoints.reduce((sum, cur) => (sum += cur), 0) /
       this.damageIncreaseDataPoints.length
     );
-  }
-
-  get guideCastBreakdown() {
-    const currentSpell = this.currentSpell;
-    if (!currentSpell) {
-      return null;
-    }
-
-    const explanationPercent = 47.5;
-    const explanation = (
-      <>
-        <p>
-          <strong>
-            <SpellLink spell={currentSpell} />
-          </strong>
-        </p>
-        <p>
-          Before casting <SpellLink spell={currentSpell} />, make sure that all spells reduced by{' '}
-          <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> are on cooldown so
-          that the extra CDR granted when casting{' '}
-          <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is not wasted. Additionally, make
-          sure to never cancel the spell and to hit at least 5 targets in order to get the maximum
-          healing/damage buff (up to 30%).
-        </p>
-      </>
-    );
-
-    const data = (
-      <div>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
-        {this.castInfoList.map((cast, ix) => {
-          const header = (
-            <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={currentSpell} />
-            </>
-          );
-          const analysis = this.getChecklistForCast(cast);
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={analysis.items}
-              perf={analysis.perf}
-              key={ix}
-            />
-          );
-        })}
-      </div>
-    );
-
-    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
   statistic() {

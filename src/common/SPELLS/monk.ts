@@ -214,23 +214,23 @@ const spells = {
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
     name: 'Secret Infusion',
-    icon: 'inv_12_profession_cooking_tea_green',
+    icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_blue',
   },
   SECRET_INFUSION_VERS_BUFF: {
     id: 388500,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_green',
   },
   RENEWING_MIST_CAST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 45000,
+    manaCost: 4500,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -251,7 +251,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 75000,
+    manaCost: 7500,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
@@ -320,13 +320,13 @@ const spells = {
   },
   WOTC_HEAL: {
     id: 389325,
-    name: 'Awakened Jadefire',
-    icon: 'inv_leather_raidmonkt2_d_01_helm',
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
   },
   WOTC_CRIT_HEAL: {
     id: 389328,
-    name: 'Awakened Jadefire',
-    icon: 'inv_leather_raidmonkt2_d_01_helm',
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
   },
 
   // Mastery
@@ -461,11 +461,6 @@ const spells = {
     id: 274912,
     name: 'Rising Mist',
     icon: 'ability_monk_effuse',
-  },
-  UPLIFTED_SPIRITS_HEAL: {
-    id: 388555,
-    name: 'Uplifted Spirits',
-    icon: 'monk_stance_wiseserpent',
   },
   WHIRLING_DRAGON_PUNCH_DAMAGE: {
     id: 158221,
@@ -969,12 +964,12 @@ const spells = {
   RUSHING_WIND_KICK_BUFF: {
     id: 1250554,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WIND_KICK_CAST: {
     id: 467307,
     name: 'Rushing Wind Kick',
-    icon: 'ability_monk_ridethewind',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   RUSHING_WIND_KICK_DAMAGE: {
     id: 468179,

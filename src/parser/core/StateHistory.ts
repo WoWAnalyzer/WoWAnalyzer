@@ -108,8 +108,9 @@ export default class StateHistory<State extends { timestamp: number }> {
     let left = 0;
     let right = this._data.length - 1;
 
-    // the last index seen that is <= the start of the range
-    let nearestLeftIndex: number = left;
+    // the first index with timestamp >= start. the search below only sets this when it finds one,
+    // so the default must mean "none" (end of array), not index 0.
+    let nearestLeftIndex: number = this._data.length;
     // the last index seen that is > the start of the range
     let nearestRightIndex: number = right + 1;
 
