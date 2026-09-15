@@ -214,17 +214,17 @@ const spells = {
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
     name: 'Secret Infusion',
-    icon: 'inv_12_profession_cooking_tea_green',
+    icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_blue',
   },
   SECRET_INFUSION_VERS_BUFF: {
     id: 388500,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_green',
   },
   RENEWING_MIST_CAST: {
     id: 115151,
