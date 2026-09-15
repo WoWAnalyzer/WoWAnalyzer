@@ -45,6 +45,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 15), "Fix buffs on the Overview tab's cooldown timelines showing as active for the whole window, or as stacked duplicate icons, when they weren't.", swirl),
   change(date(2026, 9, 5), "Adjusted margins for sections in the Overview tab.", swirl),
   change(date(2026, 9, 2), 'Add item and spell definitions for the Midnight Season 2 trinkets (Venomous Abyss raid, Mythic+ dungeon pool, and PvP badge).', Baloop),
   change(date(2026, 8, 31), "Fix a rare issue where negative stat ratings would result in negative stat percentages", Putro),
