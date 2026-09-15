@@ -230,7 +230,7 @@ const spells = {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 45000,
+    manaCost: 4500,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -251,7 +251,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 75000,
+    manaCost: 7500,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
