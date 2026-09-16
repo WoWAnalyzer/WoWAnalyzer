@@ -143,7 +143,9 @@ export default class FlowOfTheTides extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.FLOW_OF_THE_TIDES_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          <p>
+            {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          </p>
         </TalentSpellText>
       </Statistic>
     );
