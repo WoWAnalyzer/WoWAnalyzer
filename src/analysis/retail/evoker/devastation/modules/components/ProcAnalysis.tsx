@@ -18,12 +18,19 @@ export interface AnalysisData {
   additionalContent?: AdditionalContent;
 }
 
-export function PerformanceResolver(percentage: number, thresholds = [1, 0.95, 0.8]) {
-  return percentage >= thresholds[0]
+export function PerformanceResolver(
+  percentage: number,
+  thresholds = {
+    perfect: 1,
+    good: 0.95,
+    ok: 0.8,
+  },
+) {
+  return percentage >= thresholds.perfect
     ? QualitativePerformance.Perfect
-    : percentage >= thresholds[1]
+    : percentage >= thresholds.good
       ? QualitativePerformance.Good
-      : percentage >= thresholds[2]
+      : percentage >= thresholds.ok
         ? QualitativePerformance.Ok
         : QualitativePerformance.Fail;
 }

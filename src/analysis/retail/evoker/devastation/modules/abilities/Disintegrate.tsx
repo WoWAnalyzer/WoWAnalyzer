@@ -763,7 +763,7 @@ class Disintegrate extends Analyzer {
                     cast: c.spellId,
                     chainClipStatus: c.chainClipStatus,
                     performance: c.performance,
-                    preceedingCast: c.preceedingCast,
+                    precedingCast: c.preceedingCast,
                     followingCast: c.followingCast,
                     dragonRageActive: c.dragonRageActive,
                   }}

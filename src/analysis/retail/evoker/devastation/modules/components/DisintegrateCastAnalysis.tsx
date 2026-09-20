@@ -14,7 +14,7 @@ export enum ChainClipStatus {
 }
 
 export interface DisintegrateCast {
-  preceedingCast?: number;
+  precedingCast?: number;
   cast: number;
   followingCast?: number;
   dragonRageActive: boolean;
@@ -57,20 +57,20 @@ export function DisintegrateCastAnalysis({ cast }: DisintegrateCastProps) {
 
   return (
     <AnalysisContainer>
-      <SpellHeader>Preceeding Cast</SpellHeader>
+      <SpellHeader>Preceding Cast</SpellHeader>
       <SpellHeader></SpellHeader>
       <SpellHeader>Current Cast</SpellHeader>
       <SpellHeader></SpellHeader>
       <SpellHeader>Following Cast</SpellHeader>
-      {cast.preceedingCast ? (
+      {cast.precedingCast ? (
         <>
-          <SpellIcon spell={cast.preceedingCast} style={spellCSS} />
+          <SpellIcon spell={cast.precedingCast} style={spellCSS} />
           <LinkIcon style={basicIconCSS} />
         </>
       ) : (
         <>
           <EmptySpell />
-          <div></div>
+          <EmptySymbol />
         </>
       )}
       <div>
@@ -85,7 +85,7 @@ export function DisintegrateCastAnalysis({ cast }: DisintegrateCastProps) {
           ) : cast.chainClipStatus === ChainClipStatus.Clipped ? (
             <CutoffIcon style={performanceIconCSS} />
           ) : (
-            <div></div>
+            <EmptySymbol />
           )}
           <SpellIcon spell={cast.followingCast} style={spellCSS} />
         </>
@@ -94,7 +94,7 @@ export function DisintegrateCastAnalysis({ cast }: DisintegrateCastProps) {
           {cast.chainClipStatus === ChainClipStatus.Chained ? (
             <CancelIcon style={performanceIconCSS} />
           ) : (
-            <div></div>
+            <EmptySymbol />
           )}
           <EmptySpell />
         </>
@@ -106,6 +106,8 @@ export function DisintegrateCastAnalysis({ cast }: DisintegrateCastProps) {
 const AnalysisContainer = cssComponent('div', styles.AnalysisContainer, [] as const);
 
 const EmptySpell = cssComponent('div', styles.EmptySpell, [] as const);
+
+const EmptySymbol = cssComponent('div', styles.EmptySymbol, [] as const);
 
 const DragonrageBorder = cssComponent('div', styles.DragonrageBorder, [] as const);
 

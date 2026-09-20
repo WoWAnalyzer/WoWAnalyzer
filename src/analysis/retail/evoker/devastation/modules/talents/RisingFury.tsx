@@ -33,7 +33,7 @@ import { formatNumber } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvaluation } from 'interface/guide/components';
 import { AnalysisData } from '../components/ProcAnalysis';
-import { hasUnboundFlameConsume } from '../normalizers/CastLinkNormalizer';
+import { isFromUnboundFlameConsume } from '../normalizers/CastLinkNormalizer';
 
 /**
  * (1) While Dragonrage is active you gain Rising Fury every 6 sec, increasing your haste by 4%, stacking up to 5 times.
@@ -149,7 +149,7 @@ class RisingFury extends Analyzer {
   }
 
   private onRemoveUnboundFlame(event: RemoveBuffEvent) {
-    if (!hasUnboundFlameConsume(event))
+    if (!isFromUnboundFlameConsume(event))
       this.castAnalysis(event.timestamp, QualitativePerformance.Fail);
     this.unboundFlameStacks = 0;
   }

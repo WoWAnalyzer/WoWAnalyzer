@@ -114,7 +114,9 @@ class ImminentDestruction extends Analyzer {
     if (!this.handleReduction(event)) {
       this.wastedBuffStacks += this.currentBuffStacks * IMMINENT_DESTRUCTION_ESSENCE_REDUCTION;
       this.castAnalysis(event.timestamp, QualitativePerformance.Fail);
-    } else this.castAnalysis(event.timestamp, QualitativePerformance.Good);
+    } else {
+      this.castAnalysis(event.timestamp, QualitativePerformance.Good);
+    }
     this.currentBuffStacks = 0;
   }
 
@@ -124,9 +126,13 @@ class ImminentDestruction extends Analyzer {
       return false;
     }
 
-    if (this.isDeva)
-      if (consumeEvent.ability.guid === SPELLS.DISINTEGRATE.id) this.spenders.Disintegrate += 1;
-      else this.spenders.Pyre += 1;
+    if (this.isDeva) {
+      if (consumeEvent.ability.guid === SPELLS.DISINTEGRATE.id) {
+        this.spenders.Disintegrate += 1;
+      } else {
+        this.spenders.Pyre += 1;
+      }
+    }
 
     this.buffStacksConsumed += 1;
     this.totalEssenceReduction += IMMINENT_DESTRUCTION_ESSENCE_REDUCTION;

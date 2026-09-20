@@ -88,9 +88,11 @@ export function DisintegrateWindowAnalysis({
     </HelperTextRow>
   ) : undefined;
 
+  if (totalWindows === 0 || !currentWindow) return null;
+
   return (
     <GuideDataWrapper bare title={title} helperText={headerDescription}>
-      {currentWindow!.casts.length === 0 ? (
+      {currentWindow.casts.length === 0 ? (
         <NoResultsMessage>
           <NoResultsTitle>No casts found.</NoResultsTitle>
         </NoResultsMessage>
@@ -104,8 +106,8 @@ export function DisintegrateWindowAnalysis({
             </HeaderNavBtn>
             <WindowMeta>
               <WindowLabel>
-                {currentWindow!.name} {originalIndex + 1} / {totalWindows} · {currentWindow!.start}{' '}
-                - {currentWindow!.end}
+                {currentWindow.name} {originalIndex + 1} / {totalWindows} · {currentWindow.start} -{' '}
+                {currentWindow.end}
               </WindowLabel>
             </WindowMeta>
             <HeaderNavBtn onClick={handleNext} disabled={validIndex === totalWindows - 1}>
@@ -113,11 +115,11 @@ export function DisintegrateWindowAnalysis({
               <span className="nav-divider" />
               <span className="nav-chevron">&#8250;</span>
             </HeaderNavBtn>
-            <AccentBar color={qualitativePerformanceToColor(currentWindow!.performance)} />
+            <AccentBar color={qualitativePerformanceToColor(currentWindow.performance)} />
           </WindowHeader>
-          {currentWindow!.stats.length > 0 && (
+          {currentWindow.stats.length > 0 && (
             <StatsGrid style={{ marginBottom: '10px' }}>
-              {currentWindow!.stats.map((stat, statIdx) => {
+              {currentWindow.stats.map((stat, statIdx) => {
                 const statColor = stat.ungraded
                   ? NEUTRAL_STAT_COLOR
                   : stat.performance
@@ -135,9 +137,9 @@ export function DisintegrateWindowAnalysis({
               })}
             </StatsGrid>
           )}
-          {currentWindow!.additionalContent.length > 0 && (
+          {currentWindow.additionalContent.length > 0 && (
             <>
-              {currentWindow!.additionalContent.map((aC) => {
+              {currentWindow.additionalContent.map((aC) => {
                 return (
                   <AdditionalContentContainer>
                     {aC!.title && <AdditionalContentHeading>{aC.title}</AdditionalContentHeading>}
@@ -147,7 +149,7 @@ export function DisintegrateWindowAnalysis({
               })}
             </>
           )}
-          <CastDetail casts={currentWindow!.casts} title="Single Cast Analysis" />
+          <CastDetail casts={currentWindow.casts} title="Single Cast Analysis" />
         </WindowContainer>
       )}
     </GuideDataWrapper>

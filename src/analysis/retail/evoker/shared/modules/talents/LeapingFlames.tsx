@@ -4,7 +4,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { EventType, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import {
   getLeapingEvents,
   getLivingFlameCastHit,
@@ -103,18 +103,22 @@ class LeapingFlames extends Analyzer {
         this.onApplyBuff,
       ),
     );
+
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onApplyBuff() {
+  private onApplyBuff() {
     this.leapingFlamesBuffs += 1;
   }
 
-  onRemoveBuff(leapingBuff: RemoveBuffEvent) {
+  private onRemoveBuff(leapingBuff: RemoveBuffEvent) {
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
-      if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id))
+      if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
         this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Ok);
-      else this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Fail);
+      } else {
+        this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Fail);
+      }
       return;
     }
     this.leapingFlamesConsumptions += 1;
@@ -252,6 +256,12 @@ class LeapingFlames extends Analyzer {
     }
   }
 
+  private onFightEnd(event: FightEndEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LEAPING_FLAMES_BUFF)) {
+      this.castAnalysis(event.timestamp, QualitativePerformance.Ok);
+    }
+  }
+
   private castAnalysis(timestamp: number, performance: QualitativePerformance, leapingLevel = 0) {
     let info: string;
 
@@ -259,8 +269,11 @@ class LeapingFlames extends Analyzer {
       case QualitativePerformance.Fail:
         info = `Buff expired`;
         break;
+      case QualitativePerformance.Ok:
+        info = `Fight ended, leaving a buff unused`;
+        break;
       default:
-        info = `Buff used: Hit ${leapingLevel} addtional targets`;
+        info = `Buff used: Hit ${leapingLevel} additional targets`;
         break;
     }
 

@@ -56,7 +56,7 @@ class AzureSweep extends Analyzer {
     const buffEvent = getAzureSweepBuffEvent(event);
 
     if (!buffEvent) {
-      this.castAnalysis(event.timestamp, QualitativePerformance.Ok, this.amountOfStacksGenerated);
+      this.castAnalysis(event.timestamp, QualitativePerformance.Fail, this.amountOfStacksGenerated);
     } else if (buffEvent.type === EventType.ApplyBuff) {
       this.activeStacks = this.amountOfStacksGenerated;
     } else {
@@ -65,7 +65,8 @@ class AzureSweep extends Analyzer {
       const overcapped = this.amountOfStacksGenerated - effStacksGained;
 
       this.activeStacks = buffEvent.stack;
-      if (overcapped > 0) this.castAnalysis(event.timestamp, QualitativePerformance.Ok, overcapped);
+      if (overcapped > 0)
+        this.castAnalysis(event.timestamp, QualitativePerformance.Fail, overcapped);
     }
   }
 

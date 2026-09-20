@@ -21,6 +21,7 @@ class EssenceBurst extends Analyzer {
   casts: CastEvaluation[] = [];
   spenders = { Disintegrate: 0, Pyre: 0 };
   activeStacks = 0;
+  maxStacks = this.selectedCombatant.hasTalent(TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT) ? 2 : 1;
 
   constructor(options: Options) {
     super(options);
@@ -52,7 +53,11 @@ class EssenceBurst extends Analyzer {
   }
 
   private onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.activeStacks += 1;
+    if (event.type === 'applybuffstack' && event.stack) {
+      this.activeStacks = event.stack;
+    } else {
+      this.activeStacks = Math.min(this.activeStacks + 1, this.maxStacks);
+    }
   }
 
   private onEssenceSpend(event: CastEvent) {

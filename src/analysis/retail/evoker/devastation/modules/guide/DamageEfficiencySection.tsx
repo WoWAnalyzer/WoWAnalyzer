@@ -15,7 +15,7 @@ export function DamageEfficiency({ modules, info }: GuideProps<typeof CombatLogP
   return (
     <Section title="Damage Efficiency">
       <SubSection title="Explanation">
-        Devastation is a specialization thats heavily reliant on consistent performance. Every
+        Devastation is a specialization that's heavily reliant on consistent performance. Every
         single proc and buff charge matters for your performance and with that comes some detailed
         data on all of your relevant procs
         <TipBox type="note" title="End of Fights">
@@ -27,8 +27,7 @@ export function DamageEfficiency({ modules, info }: GuideProps<typeof CombatLogP
           explanation={
             <>
               <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> procs are essential because they help
-              you cast your primary damaging spells,
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
+              you cast your primary damaging spells, <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
               <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free.
             </>
           }

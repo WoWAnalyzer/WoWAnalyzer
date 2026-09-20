@@ -681,7 +681,7 @@ export function getConsumeFlameDamageLinkEvent(event: DamageEvent) {
   return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_DAMAGE_LINK);
 }
 
-export function hasUnboundFlameConsume(event: RemoveBuffEvent) {
+export function isFromUnboundFlameConsume(event: RemoveBuffEvent) {
   return HasRelatedEvent(event, UNBOUND_FLAME_CONSUME);
 }
 

@@ -3,6 +3,7 @@
 .AnalysisContainer {
   display: grid;
   justify-items: center;
+  align-items: center;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -10,6 +11,13 @@
   border: 2px solid rgba(255, 255, 255, 0.1);
   height: 4em;
   width: 4em;
+  border-radius: 6px;
+}
+
+.EmptySymbol {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  height: 1.5em;
+  width: 3em;
   border-radius: 6px;
 }
 

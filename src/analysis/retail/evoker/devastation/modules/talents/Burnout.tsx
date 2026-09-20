@@ -39,7 +39,11 @@ class Burnout extends Analyzer {
   }
 
   private onApplyBuff(event: ApplyBuffStackEvent | ApplyBuffEvent) {
-    this.activeStacks += 1;
+    if (event.type === 'applybuffstack' && event.stack) {
+      this.activeStacks = event.stack;
+    } else {
+      this.activeStacks = Math.min(this.activeStacks + 1, 2);
+    }
   }
 
   private onBuffRemove(event: RemoveBuffEvent) {
