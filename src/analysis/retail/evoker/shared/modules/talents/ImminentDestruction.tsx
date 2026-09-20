@@ -27,7 +27,7 @@ import SpellLink from 'interface/SpellLink';
 import {
   AnalysisData,
   PerformanceResolver,
-} from 'analysis/retail/evoker/devastation/modules/components/ProcAnalysis';
+} from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
 import { CastEvaluation, StackedBar, StackedBarSegment } from 'interface/guide/components';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatPercentage } from 'common/format';

@@ -2,9 +2,15 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatNumber } from 'common/format';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  EventType,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import {
   getLeapingEvents,
   getLivingFlameCastHit,
@@ -31,9 +37,14 @@ import {
   isEBFrom,
 } from '../normalizers/EssenceBurstCastLinkNormalizer';
 import SPECS from 'game/SPECS';
-import { CastEvaluation } from 'interface/guide/components';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { AnalysisData } from 'analysis/retail/evoker/devastation/modules/components/ProcAnalysis';
+import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
+import ProcBuffAnalyzer, { AnalyzerOptions } from '../core/ProcBuffAnalyzer';
+
+const ProcBuffOptions: AnalyzerOptions = {
+  trackedBuffs: SPELLS.LEAPING_FLAMES_BUFF,
+  inactiveListeners: {},
+};
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -64,12 +75,11 @@ import { AnalysisData } from 'analysis/retail/evoker/devastation/modules/compone
  *
  * The same process applies to the wasted amount.
  */
-class LeapingFlames extends Analyzer {
+class LeapingFlames extends ProcBuffAnalyzer {
   leapingFlamesDamage = 0;
   leapingFlamesHealing = 0;
   leapingFlamesOverHealing = 0;
 
-  casts: CastEvaluation[] = [];
   leapingFlamesBuffs = 0;
   leapingFlamesConsumptions = 0;
 
@@ -84,46 +94,47 @@ class LeapingFlames extends Analyzer {
   maxEB = this.hasAttunement ? 2 : 1;
   hasDragonrage = this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
 
-  /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
-   * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
-  applicationOrRefreshEvents = [Events.applybuff, Events.applybuffstack, Events.removebuffstack];
-
   constructor(options: Options) {
-    super(options);
+    super(options, ProcBuffOptions);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-      this.onRemoveBuff,
-    );
-
-    this.applicationOrRefreshEvents.forEach((e) =>
-      this.addEventListener(
-        e.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-        this.onApplyBuff,
-      ),
-    );
-
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.maxStacks = 5;
   }
 
-  private onApplyBuff() {
+  ApplyCheck(event: ApplyBuffEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  ApplyStackCheck(event: ApplyBuffStackEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  RemoveStackCheck(event: RemoveBuffStackEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  ApplyOrRefreshLeaping(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffStackEvent) {
     this.leapingFlamesBuffs += 1;
   }
 
-  private onRemoveBuff(leapingBuff: RemoveBuffEvent) {
+  RemoveCheck(leapingBuff: RemoveBuffEvent) {
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
       if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
-        this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Ok);
+        this.pushCastData(
+          leapingBuff,
+          `Buff decayed during Dragonrage.`,
+          QualitativePerformance.Ok,
+        );
       } else {
-        this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Fail);
+        this.pushCastData(leapingBuff, `Buff decayed.`, QualitativePerformance.Fail);
       }
       return;
     }
     this.leapingFlamesConsumptions += 1;
     const leapingEvents = getLeapingEvents(lfCast);
-    this.castAnalysis(leapingBuff.timestamp, QualitativePerformance.Good, leapingEvents.length);
+
+    this.pushCastData(
+      leapingBuff,
+      `Buff used: Hit ${leapingEvents.length} additional targets`,
+      QualitativePerformance.Good,
+    );
     if (!leapingEvents.length) {
       return;
     }
@@ -254,36 +265,6 @@ class LeapingFlames extends Analyzer {
       this.essenceBurstWasted += wastedEBFromLeaping.guaranteedFromLeaping;
       this.maybeEssenceBurstWasted += wastedEBFromLeaping.maybeFromLeaping;
     }
-  }
-
-  private onFightEnd(event: FightEndEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.LEAPING_FLAMES_BUFF)) {
-      this.castAnalysis(event.timestamp, QualitativePerformance.Ok);
-    }
-  }
-
-  private castAnalysis(timestamp: number, performance: QualitativePerformance, leapingLevel = 0) {
-    let info: string;
-
-    switch (performance) {
-      case QualitativePerformance.Fail:
-        info = `Buff expired`;
-        break;
-      case QualitativePerformance.Ok:
-        info = `Fight ended, leaving a buff unused`;
-        break;
-      default:
-        info = `Buff used: Hit ${leapingLevel} additional targets`;
-        break;
-    }
-
-    const castEntry: CastEvaluation = {
-      performance: performance,
-      timestamp: timestamp,
-      reason: info,
-    };
-
-    this.casts.push(castEntry);
   }
 
   /** Get the estimated share of leaping flames gen/waste

@@ -82,6 +82,7 @@ import RisingFury from './modules/talents/RisingFury';
 import DragonrageNormalizer from './modules/normalizers/DragonrageNormalizer';
 import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
 import Disintegrate from './modules/abilities/Disintegrate';
+import UnboundFlame from './modules/talents/UnboundFlame';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -152,6 +153,7 @@ class CombatLogParser extends MainCombatLogParser {
     shatteringStars: ShatteringStars,
     starSalvo: StarSalvo,
     risingFury: RisingFury,
+    unboundFlame: UnboundFlame,
 
     // hero talents
     expandedLungs: ExpandedLungs,

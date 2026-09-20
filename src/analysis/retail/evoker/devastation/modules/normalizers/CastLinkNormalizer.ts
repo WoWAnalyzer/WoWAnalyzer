@@ -399,7 +399,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 // region HELPERS
-export function isFromBurnout(event: CastEvent) {
+export function isFromBurnout(event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent) {
   return HasRelatedEvent(event, BURNOUT_CONSUME);
 }
 

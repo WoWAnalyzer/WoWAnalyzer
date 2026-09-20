@@ -15,7 +15,7 @@ import SpellLink from 'interface/SpellLink';
 import { getPrimaryDeepBreathEvent, isFromStrafingRunConsume } from '../normalizers/StrafingRun';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvaluation } from 'interface/guide/components';
-import { AnalysisData } from '../components/ProcAnalysis';
+import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 
 /** Deep Breath deals 20% increased damage and can be cast again within 18 sec of being used. */
 class StrafingRun extends Analyzer {

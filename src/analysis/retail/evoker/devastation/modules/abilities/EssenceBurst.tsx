@@ -12,7 +12,7 @@ import {
   getEssenceBurstConsumeAbility,
   isCastFromEB,
 } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
-import { AnalysisData } from '../components/ProcAnalysis';
+import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvaluation, StackedBar, StackedBarSegment } from 'interface/guide/components';
 import SpellLink from 'interface/SpellLink';

@@ -27,7 +27,7 @@ import {
 import { getMassEventTargetCount, isMassEvent } from './ScalecommanderTargetHelper';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvaluation } from 'interface/guide/components';
-import { AnalysisData } from 'analysis/retail/evoker/devastation/modules/components/ProcAnalysis';
+import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
 
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
 

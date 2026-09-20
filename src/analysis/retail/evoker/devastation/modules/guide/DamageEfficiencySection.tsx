@@ -8,7 +8,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA } from 'analysis/retail/evoker/shared';
 import { STRAFING_RUN_DURATION } from 'analysis/retail/evoker/devastation/constants';
 import { formatDurationMillisMinSec } from 'common/format';
-import { ProcAnalysisWrapper } from '../components/ProcAnalysis';
+import { ProcAnalysisWrapper } from '../../../shared/modules/components/ProcAnalysis';
 import { TipBox } from 'interface/guide/components';
 
 export function DamageEfficiency({ modules, info }: GuideProps<typeof CombatLogParser>) {
@@ -65,7 +65,7 @@ export function DamageEfficiency({ modules, info }: GuideProps<typeof CombatLogP
           }
         />
         <ProcAnalysisWrapper
-          analysisData={modules.risingFury.procUsageData}
+          analysisData={modules.unboundFlame.procUsageData}
           explanation={
             <>
               <strong>
