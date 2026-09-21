@@ -464,6 +464,10 @@ class BreathOfEonsRotational extends Analyzer {
   }
 
   private onDebuffApply(event: ApplyDebuffEvent) {
+    if (!this.currentBreathWindow) {
+      // Quick fix to prevent the entire module being disabled
+      return;
+    }
     if (this.currentBreathWindow.start === 0) {
       this.breathWindowActive = true;
 
