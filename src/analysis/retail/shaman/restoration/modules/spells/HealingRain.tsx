@@ -167,7 +167,7 @@ class HealingRain extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.HEALING_RAIN_HEAL}>
-          {`${this.averageHitsPerTick.toFixed(2)}`}
+          {this.averageHitsPerTick.toFixed(2)}
         </BoringSpellValueText>
       </Statistic>
     );

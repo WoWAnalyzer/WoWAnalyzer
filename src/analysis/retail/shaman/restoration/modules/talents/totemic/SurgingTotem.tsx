@@ -275,7 +275,7 @@ class SurgingTotem extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.SURGING_TOTEM}>
-          {`${this.averageHitsPerTick.toFixed(2)}`}
+          {this.averageHitsPerTick.toFixed(2)}
         </BoringSpellValueText>
       </Statistic>
     );
