@@ -560,6 +560,10 @@ export function isFromMassEruption(event: CastEvent | RemoveBuffEvent | RemoveBu
   return HasRelatedEvent(event, MASS_ERUPTION_CONSUME);
 }
 
+export function getMassEruptionCast(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, MASS_ERUPTION_CONSUME);
+}
+
 export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
   return GetRelatedEvents(
     event,

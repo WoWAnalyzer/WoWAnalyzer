@@ -8,6 +8,7 @@ import {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   EventType,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
@@ -39,9 +40,9 @@ import {
 import SPECS from 'game/SPECS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
-import ProcBuffAnalyzer, { AnalyzerOptions } from '../core/ProcBuffAnalyzer';
+import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../core/ProcBuffAnalyzer';
 
-const ProcBuffOptions: AnalyzerOptions = {
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
   trackedBuffs: SPELLS.LEAPING_FLAMES_BUFF,
   inactiveListeners: {},
 };
@@ -100,20 +101,23 @@ class LeapingFlames extends ProcBuffAnalyzer {
     this.maxStacks = 5;
   }
 
-  ApplyCheck(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.ApplyOrRefreshLeaping(event);
   }
-  ApplyStackCheck(event: ApplyBuffStackEvent) {
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
     this.ApplyOrRefreshLeaping(event);
   }
-  RemoveStackCheck(event: RemoveBuffStackEvent) {
+  onRefreshBuff(event: RefreshBuffEvent) {
+    return;
+  }
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
     this.ApplyOrRefreshLeaping(event);
   }
   ApplyOrRefreshLeaping(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffStackEvent) {
     this.leapingFlamesBuffs += 1;
   }
 
-  RemoveCheck(leapingBuff: RemoveBuffEvent) {
+  onRemoveBuff(leapingBuff: RemoveBuffEvent) {
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
       if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {

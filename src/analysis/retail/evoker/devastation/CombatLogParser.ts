@@ -79,7 +79,7 @@ import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
 import MID2Devastation2P from './modules/midnight/MID2Devastation2P';
 import MID2Devastation4P from './modules/midnight/MID2Devastation4P';
 import RisingFury from './modules/talents/RisingFury';
-import DragonrageNormalizer from './modules/normalizers/DragonrageNormalizer';
+import InvalidEventRemover from './modules/normalizers/InvalidEventRemover';
 import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
 import Disintegrate from './modules/abilities/Disintegrate';
 import UnboundFlame from './modules/talents/UnboundFlame';
@@ -125,7 +125,7 @@ class CombatLogParser extends MainCombatLogParser {
     eternitySurgeNormalizer: EternitySurgeNormalizer,
     disintegrateChainCastLinks: DisintegrateChainCastLinks,
     strafingRunNormalizer: StrafingRunNormalizer,
-    dragonrageNormalizer: DragonrageNormalizer,
+    invalidEventRemover: InvalidEventRemover,
 
     // features
     //apls: AplCheck,

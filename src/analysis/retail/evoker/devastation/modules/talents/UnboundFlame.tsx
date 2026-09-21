@@ -18,11 +18,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 import { isFromUnboundFlameConsume } from '../normalizers/CastLinkNormalizer';
 import ProcBuffAnalyzer, {
-  AnalyzerOptions,
+  ProcBuffAnalyzerOptions,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
 
-const ProcBuffOptions: AnalyzerOptions = {
-  trackedBuffs: [SPELLS.UNBOUND_FLAME_BUFF],
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
+  trackedBuffs: SPELLS.UNBOUND_FLAME_BUFF,
   inactiveListeners: {},
 };
 
@@ -77,21 +77,26 @@ class UnboundFlame extends ProcBuffAnalyzer {
     this.damageFromUnboundFlame += (event.amount || 0) + (event.absorbed || 0);
   }
 
-  ApplyCheck(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.statsUnboundFlame.totalStacks += 4;
   }
-
-  RemoveCheck(event: RemoveBuffEvent) {
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    return;
+  }
+  onRefreshBuff(event: RefreshBuffEvent) {
+    return;
+  }
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.onUnboundRemove(event);
   }
-  RemoveStackCheck(event: RemoveBuffStackEvent) {
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
     this.onUnboundRemove(event);
   }
   private onUnboundRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     if (event.type === EventType.RemoveBuff && !isFromUnboundFlameConsume(event)) {
       this.pushCastData(
         event,
-        `Buff decayed, wasting ${this.previousStacks} stack(s)`,
+        `Buff decayed, wasting ${-this.stackDifference} stack(s)`,
         QualitativePerformance.Fail,
       );
     } else {

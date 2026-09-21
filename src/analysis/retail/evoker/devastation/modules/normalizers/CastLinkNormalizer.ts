@@ -578,6 +578,10 @@ export function hasChainedCast(event: CastEvent) {
   return HasRelatedEvent(event, CHAINED_CAST);
 }
 
+export function getMassDisintegrateCast(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, MASS_DISINTEGRATE_CONSUME);
+}
+
 export function getChainedCast(event: CastEvent) {
   return GetRelatedEvent<CastEvent>(event, CHAINED_CAST);
 }

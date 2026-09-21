@@ -1,16 +1,22 @@
 import { Options } from 'parser/core/Analyzer';
-import { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { isFromBurnout } from '../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 import TALENTS from 'common/TALENTS/evoker';
 import ProcBuffAnalyzer, {
-  AnalyzerOptions,
+  ProcBuffAnalyzerOptions,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
 
-const ProcBuffOptions: AnalyzerOptions = {
-  trackedBuffs: [SPELLS.BURNOUT_BUFF],
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
+  trackedBuffs: SPELLS.BURNOUT_BUFF,
   inactiveListeners: {},
 };
 
@@ -20,10 +26,19 @@ class Burnout extends ProcBuffAnalyzer {
     this.maxStacks = 2;
   }
 
-  RemoveCheck(event: RemoveBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
+    return;
+  }
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    return;
+  }
+  onRefreshBuff(event: RefreshBuffEvent) {
+    return;
+  }
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.onBurnoutRemove(event);
   }
-  RemoveStackCheck(event: RemoveBuffStackEvent) {
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
     this.onBurnoutRemove(event);
   }
   onBurnoutRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
