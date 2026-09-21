@@ -1,8 +1,7 @@
 import type { JSX } from 'react';
-import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
-import { SpellIcon, SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -11,10 +10,12 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { HEALING_RAIN_TARGETS } from '../../constants';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -153,27 +154,22 @@ class HealingRain extends Analyzer {
     }
 
     return (
-      <StatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon spell={SPELLS.HEALING_RAIN_HEAL} />}
-        value={`${this.averageHitsPerTick.toFixed(2)}`}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        label={
-          <TooltipElement
-            content={
-              <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of{' '}
-                {HEALING_RAIN_TARGETS}
-                targets.
-              </Trans>
-            }
-          >
-            <Trans id="shaman.restoration.healingRain.averageTargets.label">
-              Average Healing Rain Targets
-            </Trans>
-          </TooltipElement>
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={
+          <>
+            <SpellLink spell={SPELLS.HEALING_RAIN_HEAL} iconStyle={{ height: '1.25em' }} /> The
+            average number of targets healed by Healing Rain out of the maximum amount of{' '}
+            {HEALING_RAIN_TARGETS} targets.
+          </>
         }
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.HEALING_RAIN_HEAL}>
+          {`${this.averageHitsPerTick.toFixed(2)}`}
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
