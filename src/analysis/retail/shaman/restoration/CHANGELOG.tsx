@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 16), <>Fixed an issue that caused the calculation from <SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT} /> to show wrong data. </>, Naltarunir),
   change(date(2026, 9, 11), <>Corrected the SpellManaCost from <SpellLink spell={TALENTS.CURRENT_CONTROL_TALENT} /> to show the correct mana cost in the Cooldown tab as well as the Mana Efficiency panel. </>, Naltarunir),
   change(date(2026, 9, 4), <>Corrected the heal increase modifier for <SpellLink spell={TALENTS.OVERSURGE_TALENT} />. </>, Naltarunir),
   change(date(2026, 8, 28), <>Updated the mastery effectiveness module <SpellLink spell={SPELLS.DEEP_HEALING} />. It now respects the baseline and talent increases in all combinations. The tooltip now calulates how much of the total mastery healing originates from stats gained from gear and consumeables. </>, Naltarunir),
