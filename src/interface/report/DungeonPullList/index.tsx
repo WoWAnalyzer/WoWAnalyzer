@@ -171,23 +171,31 @@ function PullDetails({
       {!showSpinner && details && (
         <>
           {details.bloodlustUsed ? (
-            <SpellIcon className={styles.BloodlustIcon} spell={SPELLS.BLOODLUST} />
+            <div className={styles.HiddenMobile}>
+              <SpellIcon className={styles.BloodlustIcon} spell={SPELLS.BLOODLUST} />
+            </div>
           ) : (
-            <div />
+            <div className={styles.HiddenMobile} />
           )}
           <ByRole>
             <Role.Tank>
-              <InsetContainer className={clsx(styles.PerSecondContainer, styles.DoubleWide)}>
+              <InsetContainer
+                className={clsx(styles.PerSecondContainer, styles.DoubleWide, styles.HiddenMobile)}
+              >
                 {dps} {hps}
               </InsetContainer>
             </Role.Tank>
             <Role.Healer>
-              <InsetContainer className={clsx(styles.PerSecondContainer, styles.DoubleWide)}>
+              <InsetContainer
+                className={clsx(styles.PerSecondContainer, styles.DoubleWide, styles.HiddenMobile)}
+              >
                 {hps} {dps}
               </InsetContainer>
             </Role.Healer>
             <Role.DPS>
-              <InsetContainer className={styles.PerSecondContainer}>{dps}</InsetContainer>
+              <InsetContainer className={clsx([styles.PerSecondContainer, styles.HiddenMobile])}>
+                {dps}
+              </InsetContainer>
             </Role.DPS>
           </ByRole>
           <AbilityList
@@ -377,7 +385,7 @@ function AbilityList({
   label: React.ReactNode;
 }) {
   return (
-    <InsetContainer className={styles.AbilityList}>
+    <InsetContainer className={clsx([styles.HiddenMobile, styles.AbilityList])}>
       <div>{label}</div>
       {abilities.map((id) => (
         <SpellIcon

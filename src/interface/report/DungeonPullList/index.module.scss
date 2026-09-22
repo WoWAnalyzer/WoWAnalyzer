@@ -1,5 +1,11 @@
 @use 'interface/design-system' as design;
 
+.HiddenMobile {
+  @media (max-width: 800px) {
+    display: none !important;
+  }
+}
+
 .Container {
   @include design.level(0);
   padding: design.$gaps_small design.$gaps_medium;
@@ -23,7 +29,12 @@
   display: grid;
   grid-template-columns: max-content repeat(6, min-content) 1fr;
   grid-auto-flow: row;
-  gap: design.$gaps_medium;
+
+  gap: design.$gaps_medium 0;
+
+  @media (min-width: 800px) {
+    gap: design.$gaps_medium;
+  }
 }
 
 .PullContainer {
@@ -89,7 +100,10 @@
   grid-area: name;
 
   font-weight: bold;
-  font-size: design.$fontSize_subHeading;
+  font-size: design.$fontSize_bodyText;
+  @media (min-width: 800px) {
+    font-size: design.$fontSize_subHeading;
+  }
   line-height: 1;
   justify-self: start;
 
