@@ -164,6 +164,10 @@
   flex-direction: row;
   gap: design.$gaps_small;
   justify-self: start;
+
+  & > svg {
+    align-self: center;
+  }
 }
 
 .ViewButton {
@@ -184,4 +188,8 @@
   margin-right: design.$gaps_large;
   grid-column: -1;
   justify-self: end;
+}
+
+.BossPullLabel {
+  color: design.$colors_wowaYellow;
 }

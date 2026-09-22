@@ -214,7 +214,7 @@ function PullDetails({
           />
           {details.deaths.length > 0 ? (
             <InsetContainer className={styles.DeathsContainer}>
-              Deaths: {/* FIXME: being the only one with a text label is weird */}
+              <SkullIcon />
               {details.deaths.map((death) => (
                 <Tooltip
                   key={`${death.timestamp}-${death.targetID}`}
@@ -280,7 +280,7 @@ function PullDetailsTitleBlock({
     <div className={styles.PullDetailsTitleContainer}>
       <img className={styles.PullDetailsTitleImage} src={iconUrl} />
       <div className={styles.PullDetailsTitleName}>
-        {pull.boss > 0 && <SkullIcon />}
+        {pull.boss > 0 && <span className={styles.BossPullLabel}>Boss:&nbsp;</span>}
         {pull.name} {npcCount > 1 && <small>(+{npcCount} more)</small>}
       </div>
       <div className={styles.PullDetailsTitleSubtext}>
