@@ -286,8 +286,17 @@ function PullDetailsTitleBlock({
         <Tooltip
           content={
             <>
-              {formatDurationMinSec((pull.start_time - fight.start_time) / 1000, false, 0)} &mdash;{' '}
-              {formatDurationMinSec((pull.end_time - fight.start_time) / 1000, false, 0)}
+              {formatDurationMinSec(
+                (pull.start_time - (fight.start_time - fight.offset_time)) / 1000,
+                false,
+                0,
+              )}{' '}
+              &mdash;{' '}
+              {formatDurationMinSec(
+                (pull.end_time - (fight.start_time - fight.offset_time)) / 1000,
+                false,
+                0,
+              )}
             </>
           }
         >
