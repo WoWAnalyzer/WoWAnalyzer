@@ -27,6 +27,7 @@
 }
 
 .PullContainer {
+  appearance: none;
   @include design.level(1);
   padding: design.$gaps_small;
   min-height: 5rem;
@@ -90,6 +91,7 @@
   font-weight: bold;
   font-size: design.$fontSize_subHeading;
   line-height: 1;
+  justify-self: start;
 
   & :global(.icon) {
     height: 0.8lh;

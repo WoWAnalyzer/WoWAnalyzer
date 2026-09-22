@@ -160,10 +160,11 @@ function PullDetails({
     </span>
   );
   return (
-    <div
+    <button
+      type="button"
       className={clsx(styles.PullContainer, !details && styles.PullContainerDisabled)}
-      onClick={details ? onClick : undefined}
-      aria-disabled={!details}
+      onClick={onClick}
+      disabled={!details}
     >
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
       {showSpinner && <LoadingSpinner className={styles.LoadingSpinner} />}
@@ -241,7 +242,7 @@ function PullDetails({
           </div>
         </>
       )}
-    </div>
+    </button>
   );
 }
 
