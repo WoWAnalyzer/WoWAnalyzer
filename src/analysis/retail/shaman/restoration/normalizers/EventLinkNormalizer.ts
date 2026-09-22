@@ -312,7 +312,9 @@ export function getDownPourEvents(event: CastEvent | HealEvent) {
 }
 
 export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean {
-  return HasRelatedEvent(event, EVENT_LINKS.flowOfTheTidesRemoveBuff);
+  return event.type === EventType.Cast
+    ? HasRelatedEvent(event, EVENT_LINKS.flowOfTheTidesChainHealCast)
+    : HasRelatedEvent(event, EVENT_LINKS.flowOfTheTidesRemoveBuff);
 }
 
 export function getChainHeals(event: CastEvent): HealEvent[] {

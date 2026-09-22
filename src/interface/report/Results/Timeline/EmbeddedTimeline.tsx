@@ -156,6 +156,10 @@ export interface EmbeddedTimelineProps {
    * Whether to display the cooldown legend. Defaults to true. In smaller embeds, it can be beneficial to disable it.
    */
   cooldownLegend?: boolean;
+  /**
+   * The minimum width (in px) of one second of the timeline, to account for closer-to-GCD-cap spacing. Defaults to 30.
+   */
+  minSecondWidth?: number;
 }
 
 function toSpellId(value: number | Spell): number {
@@ -173,6 +177,7 @@ function EmbeddedTimelineRaw({
   cooldownOrder,
   overlapOffGcds,
   cooldownLegend = true,
+  minSecondWidth = 30,
 }: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
@@ -215,7 +220,7 @@ function EmbeddedTimelineRaw({
   }
 
   return (
-    <AutoSizerTimelineContainer secondsShown={secondsShown} minSecondWidth={30}>
+    <AutoSizerTimelineContainer secondsShown={secondsShown} minSecondWidth={minSecondWidth}>
       <SpellTimeline>
         {auras && (
           <AuraTimeline

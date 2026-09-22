@@ -49,7 +49,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        {info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) &&
+        {info.combatant.hasTalent(modules.revival.activeTalent) &&
           modules.revival.guideCastBreakdown}
         {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT) &&
           modules.celestialConduit.guideCastBreakdown}

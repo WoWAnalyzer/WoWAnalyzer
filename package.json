@@ -20,7 +20,7 @@
     "react-dom": "19.2.6",
     "react-masonry-component": "^6.3.0",
     "react-redux": "9.2.0",
-    "react-router-dom": "^6.30.3",
+    "react-router-dom": "^6.30.6",
     "react-textfit": "^1.1.1",
     "react-transition-group": "^4.4.5",
     "react-vega": "^7.4.4",
@@ -82,7 +82,7 @@
     "vite": "8.0.10",
     "vite-plugin-checker": "0.12.0",
     "vite-plugin-svgr": "4.5.0",
-    "vitest": "4.1.5",
+    "vitest": "4.1.11",
     "wow-dbc": "github:RPGLogs/wow-dbc#main"
   },
   "resolutions": {},

@@ -12,6 +12,7 @@ export { default as ChevronIcon } from './Chevron';
 export { default as CooldownIcon } from './Cooldown';
 export { default as CriticalStrikeIcon } from './CriticalStrike';
 export { default as CrossIcon } from './Cross';
+export { default as CutoffIcon } from './Cutoff';
 export { default as DamageIcon } from './Damage';
 export { default as DiscordIcon } from './Discord';
 export { default as DiscordTinyIcon } from './DiscordTiny';

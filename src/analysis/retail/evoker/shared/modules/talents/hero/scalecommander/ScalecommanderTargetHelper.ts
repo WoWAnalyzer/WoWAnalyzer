@@ -1,9 +1,11 @@
-import { CastEvent } from 'parser/core/Events';
+import { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import {
   getDisintegrateTargetCount,
+  getMassDisintegrateCast,
   isFromMassDisintegrate,
 } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import {
+  getMassEruptionCast,
   getMassEruptionTargetCount,
   isFromMassEruption,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
@@ -26,6 +28,10 @@ export function getMassEventTargetCount(event: CastEvent, maxTargets?: number): 
   );
 }
 
-export function isMassEvent(event: CastEvent): boolean {
+export function isMassEvent(event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return isFromMassDisintegrate(event) || isFromMassEruption(event);
+}
+
+export function getMassCast(event: RemoveBuffEvent | RemoveBuffStackEvent): CastEvent | undefined {
+  return getMassDisintegrateCast(event) || getMassEruptionCast(event);
 }

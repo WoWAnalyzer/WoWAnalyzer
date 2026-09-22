@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 9, 21), <>Resolved a rare bug in the <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module.</>, KYZ),
   change(date(2026, 8, 29), <>Updated <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT} /> and <SpellLink spell={TALENTS.DOUBLE_TIME_TALENT} /> modules.</>, KYZ),
   change(date(2026, 8, 11), <>Updated for 12.1.</>, KYZ),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),

@@ -1093,10 +1093,25 @@ const spells = {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
   },
+  CALL_OF_THE_ANCESTORS_CHAIN_LIGHTNING: {
+    id: 447425,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
   CALL_OF_THE_ANCESTORS_CHAIN_HEAL: {
     id: 447433,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  CALL_OF_THE_ANCESTORS_HEALING_SURGE: {
+    id: 447415,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+  },
+  CALL_OF_THE_ANCESTORS_HEALING_WAVE: {
+    id: 1223391,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
   },
   HYDROBUBBLE_BUFF: {
     id: 444490,

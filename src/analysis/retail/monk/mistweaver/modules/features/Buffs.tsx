@@ -52,6 +52,26 @@ class Buffs extends CoreAuras {
         enabled: combatant.has4PieceByTier(TIERS.MID2),
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.SPIRITFONT_ACTIVE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT),
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT),
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.UNITY_WITHIN_TALENT),
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.HEART_OF_THE_JADE_SERPENT_AVATAR.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.YULONS_AVATAR_TALENT),
+        timelineHighlight: false,
+      },
 
       // Throughput Cooldown
       {

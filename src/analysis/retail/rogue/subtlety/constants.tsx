@@ -18,9 +18,33 @@ export const PANDEMIC_WINDOW = 3000;
 
 const ANIMACHARGED_FINISHER_CP = 7;
 
-const getMaxComboPoints = (c: Combatant) => {
+export const getMaxComboPoints = (c: Combatant) => {
   return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
 };
+
+/**
+ * Which hero tree the player is running. Both trees are gated behind a talent that is
+ * mandatory within that tree, so the presence of that talent identifies the tree.
+ */
+export enum HeroTree {
+  Deathstalker = 'deathstalker',
+  Trickster = 'trickster',
+  Unknown = 'unknown',
+}
+
+export const getHeroTree = (c: Combatant): HeroTree => {
+  if (c.hasTalent(TALENTS.DARKEST_NIGHT_TALENT)) {
+    return HeroTree.Deathstalker;
+  }
+  if (c.hasTalent(TALENTS.COUP_DE_GRACE_TALENT)) {
+    return HeroTree.Trickster;
+  }
+  return HeroTree.Unknown;
+};
+
+/** Only rank 3 grants the Ancient Arts buff, so the lower ranks are not worth checking. */
+export const hasAncientArts3 = (c: Combatant) =>
+  c.hasTalent(TALENTS.ANCIENT_ARTS_3_SUBTLETY_TALENT);
 
 export const getRuptureDuration = (c: Combatant, cast: CastEvent): number => {
   if (isAnimachargedFinisherCast(c, cast)) {

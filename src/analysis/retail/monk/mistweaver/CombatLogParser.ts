@@ -78,7 +78,7 @@ import HeartOfTheJadeSerpent from './modules/spells/HeartOfTheJadeSerpent';
 import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
-import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
+import CelestialConduit from './modules/spells/CelestialConduit';
 import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import HarmonicGambit from '../shared/hero/MasterOfHarmony/talents/HarmonicGambit';

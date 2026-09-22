@@ -3,10 +3,8 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, Tooltip } from 'interface';
 import { PerformanceMark } from 'interface/guide';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { CooldownGridItem } from 'interface/CooldownGrid/CooldownGrid';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -29,10 +27,8 @@ import InformationIcon from 'interface/icons/Information';
 const debug = false;
 
 /**
- * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
- * cost of Enveloping Mist by 33% per stack, up to 3 stacks.
- * These abilities also heal 2 nearby allies for a Gust of Mist heal.
- * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
+ * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick, on cast, also heal allies with special Chi-Ji-specific Gust of Mists.
+ * While active, Enveloping Mists become instant cast.
  */
 
 interface ChijiCastTracker extends BaseCelestialTracker {
@@ -62,9 +58,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT);
-    if (!this.active) {
-      return;
-    }
+
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
       this.handleGust,
@@ -175,9 +169,8 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     );
   }
 
-  get guideCastBreakdown() {
-    const explanationPercent = 55;
-    const explanation = (
+  private get explanation() {
+    return (
       <>
         <p>
           <strong>
@@ -206,82 +199,91 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         </p>
       </>
     );
+  }
 
-    const data = (
-      <div>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
-        {this.castTrackers.map((cast, ix) => {
-          const header = (
-            <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
-            </>
-          );
-          const totmRefreshPerf =
-            cast.overcappedTotmStacks > 0
-              ? QualitativePerformance.Fail
-              : QualitativePerformance.Good;
-          const superList = super.getCooldownExpandableItems(cast);
-          const checklistItems: CooldownExpandableItem[] = superList[1];
-          const allPerfs = [totmRefreshPerf].concat(superList[0]);
-          if (!this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_HARMONY_TALENT)) {
-            let totmPerf = QualitativePerformance.Good;
-            if (cast.totmStacks < 2) {
-              totmPerf = QualitativePerformance.Fail;
-            } else if (cast.totmStacks < 3) {
-              totmPerf = QualitativePerformance.Ok;
-            }
-            checklistItems.push({
-              label: (
+  private getTotmStacksPerfAndItem(
+    cast: ChijiCastTracker,
+  ): [QualitativePerformance, CooldownExpandableItem] {
+    let perf = QualitativePerformance.Good;
+    if (cast.totmStacks < 2) {
+      perf = QualitativePerformance.Fail;
+    } else if (cast.totmStacks < 3) {
+      perf = QualitativePerformance.Ok;
+    }
+    return [
+      perf,
+      {
+        label: (
+          <>
+            <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
+            <Tooltip
+              hoverable
+              content={
                 <>
-                  <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on
-                  cast{' '}
-                  <Tooltip
-                    hoverable
-                    content={
-                      <>
-                        Get 4 stacks of{' '}
-                        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that
-                        you can instantly cast <SpellLink spell={SPELLS.BLACKOUT_KICK} /> for 30
-                        total <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
-                      </>
-                    }
-                  >
-                    <span>
-                      <InformationIcon />
-                    </span>
-                  </Tooltip>
+                  Get 4 stacks of{' '}
+                  <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that you
+                  can instantly cast <SpellLink spell={SPELLS.BLACKOUT_KICK} /> for 30 total{' '}
+                  <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
                 </>
-              ),
-              result: <PerformanceMark perf={totmPerf} />,
-              details: <>{cast.totmStacks}</>,
-            });
-            allPerfs.push(totmPerf);
-          }
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks wasted
-              </>
-            ),
-            result: <PerformanceMark perf={totmRefreshPerf} />,
-            details: <>{cast.overcappedTotmStacks}</>,
-          });
-          const avgPerf = getAveragePerf(allPerfs);
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={avgPerf}
-              key={ix}
-            />
-          );
-        })}
-      </div>
-    );
+              }
+            >
+              <span>
+                <InformationIcon />
+              </span>
+            </Tooltip>
+          </>
+        ),
+        result: <PerformanceMark perf={perf} />,
+        details: <>{cast.totmStacks}</>,
+      },
+    ];
+  }
 
-    return explanationAndDataSubsection(explanation, data, explanationPercent);
+  private getCastItem(cast: ChijiCastTracker): CooldownGridItem {
+    const [allPerfs, checklistItems] = this.getCooldownExpandableItems(cast);
+
+    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_HARMONY_TALENT)) {
+      const [totmPerf, totmItem] = this.getTotmStacksPerfAndItem(cast);
+      allPerfs.push(totmPerf);
+      checklistItems.push(totmItem);
+    }
+
+    const totmRefreshPerf =
+      cast.overcappedTotmStacks > 0 ? QualitativePerformance.Fail : QualitativePerformance.Good;
+    allPerfs.push(totmRefreshPerf);
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks wasted
+        </>
+      ),
+      result: <PerformanceMark perf={totmRefreshPerf} />,
+      details: <>{cast.overcappedTotmStacks}</>,
+    });
+
+    return { perf: getAveragePerf(allPerfs), checklistItems, range: this.getCastRange(cast) };
+  }
+
+  get guideCastBreakdown() {
+    return this.renderCelestialGuide({
+      talent: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+      explanation: this.explanation,
+      items: this.castTrackers.map((cast) => this.getCastItem(cast)),
+      cooldowns: [
+        SPELLS.BLACKOUT_KICK,
+        getCurrentRSKTalent(this.selectedCombatant),
+        SPELLS.RENEWING_MIST_CAST,
+        TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT,
+      ],
+      mergeHeals: [[SPELLS.WOTC_HEAL, SPELLS.WOTC_CRIT_HEAL]],
+      heals: [
+        TALENTS_MONK.ENVELOPING_MIST_TALENT,
+        SPELLS.GUST_OF_MISTS_CHIJI,
+        SPELLS.GUSTS_OF_MISTS,
+        SPELLS.WOTC_HEAL,
+        SPELLS.RENEWING_MIST_HEAL,
+      ],
+    });
   }
 
   statistic() {

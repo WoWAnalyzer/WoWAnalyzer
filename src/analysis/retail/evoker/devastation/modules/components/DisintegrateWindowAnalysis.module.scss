@@ -1,0 +1,126 @@
+@use 'interface/design-system' as design;
+
+.WindowContainer {
+  align-items: center;
+  gap: 4px;
+  padding: 12px 14px 14px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+}
+
+.WindowHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+}
+
+.AccentBar {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    color(from var(--color) srgb r g b / 0.56) 0%,
+    color(from var(--color) srgb r g b / 0.125) 100%
+  );
+}
+
+.WindowMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.WindowLabel {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.HeaderNavBtn {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid rgba(250, 183, 0, 0.25);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  :global(.nav-chevron) {
+    padding: 0 8px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fab700;
+    line-height: 0;
+    transform: translateY(-2px);
+  }
+
+  :global(.nav-divider) {
+    width: 1px;
+    height: 16px;
+    background: rgba(250, 183, 0, 0.3);
+    flex-shrink: 0;
+  }
+
+  :global(.nav-label) {
+    padding: 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.1);
+    border-color: rgba(250, 183, 0, 0.5);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(250, 183, 0, 0.16);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
+}
+
+.NoResultsMessage {
+  padding: 16px 12px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.NoResultsTitle {
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.AdditionalContentContainer {
+  margin-bottom: 10px;
+}
+
+.AdditionalContentHeading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

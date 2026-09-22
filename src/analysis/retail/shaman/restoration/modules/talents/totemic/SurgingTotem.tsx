@@ -1,9 +1,7 @@
 import type { JSX } from 'react';
-import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,7 +10,10 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { didMoteExpire } from '../../../normalizers/EventLinkNormalizer';
@@ -23,7 +24,6 @@ import {
   HEALING_RAIN_TARGETS,
   WHIRLING_ELEMENTS_MOTES,
 } from '../../../constants';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 interface HealingRainTickInfo {
   timestamp: number;
@@ -262,27 +262,22 @@ class SurgingTotem extends Analyzer {
     }
 
     return (
-      <StatisticBox
-        category={STATISTIC_CATEGORY.HERO_TALENTS}
-        icon={<SpellLink spell={SPELLS.SURGING_TOTEM} />}
-        value={`${this.averageHitsPerTick.toFixed(2)}`}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        label={
-          <TooltipElement
-            content={
-              <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label.tooltip">
-                The average number of targets healed by Surging Totem out of the maximum amount of{' '}
-                {HEALING_RAIN_TARGETS}
-                targets.
-              </Trans>
-            }
-          >
-            <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label">
-              Average Healing Rain Targets
-            </Trans>
-          </TooltipElement>
+        category={STATISTIC_CATEGORY.HERO_TALENTS}
+        size="flexible"
+        tooltip={
+          <>
+            <SpellLink spell={SPELLS.SURGING_TOTEM} iconStyle={{ height: '1.25em' }} /> The average
+            number of targets healed by Surging Totem out of the maximum amount of{' '}
+            {HEALING_RAIN_TARGETS} targets.
+          </>
         }
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SURGING_TOTEM}>
+          {this.averageHitsPerTick.toFixed(2)}
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
   //<PerformanceBoxRow values={this.castEntries} />
