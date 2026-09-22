@@ -190,7 +190,9 @@ function filterEvents(events: AnyEvent[], start: number, end: number) {
       timestamp: end,
     }));
 
-  return [...preFilterEvents, ...phaseEvents, ...postFilterEvents];
+  const combatantInfoEvents = events.filter((event) => event.type === EventType.CombatantInfo);
+
+  return [...combatantInfoEvents, ...preFilterEvents, ...phaseEvents, ...postFilterEvents];
 }
 
 export interface Filter {
