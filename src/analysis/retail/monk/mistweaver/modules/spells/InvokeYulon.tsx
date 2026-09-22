@@ -2,10 +2,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { CooldownGridItem } from 'interface/CooldownGrid/CooldownGrid';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -132,15 +130,9 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     );
   }
 
-  get guideCastBreakdown() {
-    const explanationPercent = 47.5;
-    const explanation = (
+  private get explanation() {
+    return (
       <>
-        <p>
-          <strong>
-            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-          </strong>
-        </p>
         <p>
           Before casting <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
           make sure that <SpellLink spell={this.currentRskTalent} /> is on cooldown, and make to
@@ -200,61 +192,62 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         </p>
       </>
     );
+  }
 
-    const data = (
-      <div>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
-        {this.castTrackers.map((cast, ix) => {
-          const header = (
-            <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-            </>
-          );
-          const superList = super.getCooldownExpandableItems(cast);
-          const allPerfs = superList[0];
-          const checklistItems: CooldownExpandableItem[] = superList[1];
+  // skipping soom is ok, but add this for info only (no perf remark)
+  private getSoomItem(cast: YulonCastTracker): CooldownExpandableItem {
+    let perf = QualitativePerformance.Fail;
+    if (cast.envmOutsideSoom === 0 && cast.totalEnvM > 0) {
+      perf = QualitativePerformance.Good;
+    } else if (cast.envmOutsideSoom < cast.totalEnvM) {
+      perf = QualitativePerformance.Ok;
+    }
+    return {
+      label: (
+        <span style={{ paddingLeft: '1.5em' }}>
+          <Arrow /> Cast during <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />
+        </span>
+      ),
+      result: <PerformanceMark perf={perf} />,
+      details: <>{cast.totalEnvM - cast.envmOutsideSoom}</>,
+    };
+  }
 
-          // env inside of soom channel
-          let soomPerf = QualitativePerformance.Fail;
-          if (cast.envmOutsideSoom === 0 && cast.totalEnvM > 0) {
-            soomPerf = QualitativePerformance.Good;
-          } else if (cast.envmOutsideSoom < cast.totalEnvM) {
-            soomPerf = QualitativePerformance.Ok;
-          }
-          allPerfs.splice(1, 0, soomPerf);
-          checklistItems.splice(1, 0, {
-            label: (
-              <span style={{ paddingLeft: '1.5em' }}>
-                <Arrow /> Cast during <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />
-              </span>
-            ),
-            result: <PerformanceMark perf={soomPerf} />,
-            details: <>{cast.totalEnvM - cast.envmOutsideSoom}</>,
-          });
+  private getCastItem(cast: YulonCastTracker): CooldownGridItem {
+    const [allPerfs, checklistItems] = this.getCooldownExpandableItems(cast);
 
-          // rising mist check
-          if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-            const rval = this.getRskCastPerfAndItem(cast);
-            allPerfs.push(rval[0]);
-            checklistItems.push(rval[1]);
-          }
+    // sits directly under the enveloping mist count
+    checklistItems.splice(1, 0, this.getSoomItem(cast));
 
-          const avgPerf = getAveragePerf(allPerfs);
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={avgPerf}
-              key={ix}
-            />
-          );
-        })}
-      </div>
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
+      const [rskPerf, rskItem] = this.getRskCastPerfAndItem(cast);
+      allPerfs.push(rskPerf);
+      checklistItems.push(rskItem);
+    }
 
-    return explanationAndDataSubsection(explanation, data, explanationPercent);
+    return { perf: getAveragePerf(allPerfs), checklistItems, range: this.getCastRange(cast) };
+  }
+
+  get guideCastBreakdown() {
+    return this.renderCelestialGuide({
+      talent: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
+      explanation: this.explanation,
+      items: this.castTrackers.map((cast) => this.getCastItem(cast)),
+      cooldowns: [
+        this.currentRskTalent,
+        SPELLS.RENEWING_MIST_CAST,
+        TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT,
+      ],
+      heals: [
+        TALENTS_MONK.ENVELOPING_MIST_TALENT,
+        SPELLS.RENEWING_MIST_HEAL,
+        SPELLS.CHI_COCOON_BUFF_YULON,
+        SPELLS.SOOTHING_BREATH,
+        SPELLS.VIVIFY,
+        SPELLS.INVIGORATING_MISTS_HEAL,
+        SPELLS.GUSTS_OF_MISTS,
+      ],
+    });
   }
 
   statistic() {

@@ -1,5 +1,6 @@
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, Tooltip } from 'interface';
+import STAT, { getName } from 'parser/shared/modules/features/STAT';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -16,8 +17,13 @@ import {
   HEART_OF_THE_JADE_SERPENT_DURATION,
   SECRET_INFUSION_BUFFS,
   getCurrentRSKTalent,
+  getCurrentRSKTalentHeals,
 } from '../../constants';
-import { PerformanceMark } from 'interface/guide';
+import { PerformanceMark, SubSection } from 'interface/guide';
+import Explanation from 'interface/guide/components/Explanation';
+import CooldownGrid, { CooldownGridItem } from 'interface/CooldownGrid/CooldownGrid';
+import Spell from 'common/SPELLS/Spell';
+import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
@@ -386,18 +392,72 @@ class BaseCelestialAnalyzer extends Analyzer {
     return [allPerfs, checklistItems];
   }
 
-  private getSiBuffType(cast: BaseCelestialTracker): string {
+  protected getCastRange(cast: BaseCelestialTracker) {
+    return { start: cast.timestamp, end: cast.deathTimestamp || this.owner.fight.end_time };
+  }
+
+  protected renderCelestialGuide({
+    talent,
+    explanation,
+    items,
+    cooldowns,
+    auras,
+    heals,
+    mergeHeals,
+  }: {
+    talent: Talent;
+    explanation: ReactNode;
+    items: CooldownGridItem[];
+    cooldowns: (Spell | Talent)[];
+    auras?: Spell[];
+    heals: (Spell | Talent)[];
+    mergeHeals?: Spell[][];
+  }) {
+    const combatant = this.selectedCombatant;
+    const sharedAuras = [
+      combatant.hasTalent(TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT) &&
+        SPELLS.SPIRITFONT_ACTIVE_BUFF,
+      combatant.hasTalent(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT) &&
+        SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF,
+      combatant.hasTalent(TALENTS_MONK.UNITY_WITHIN_TALENT) &&
+        SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY,
+    ].filter((aura): aura is Spell => Boolean(aura));
+
+    return (
+      <SubSection title={<SpellLink spell={talent} />}>
+        <Explanation>{explanation}</Explanation>
+        <CooldownGrid
+          label={<SpellLink spell={talent} />}
+          timeline={{
+            cooldowns,
+            auras: [...sharedAuras, ...(auras ?? [])],
+            minSecondWidth: 60,
+            cooldownLegend: true,
+          }}
+          table={{
+            type: EventType.Heal,
+            abilityFilter: [...getCurrentRSKTalentHeals(this.selectedCombatant), ...heals],
+            mergeAbilities: [[SPELLS.AT_HEAL, SPELLS.AT_CRIT_HEAL], ...(mergeHeals ?? [])],
+            omitOtherRow: true,
+          }}
+          items={items}
+          maximumColumns={2}
+        />
+      </SubSection>
+    );
+  }
+
+  private getSiBuffType(cast: BaseCelestialTracker): ReactNode {
     siDebug && console.log(cast);
-    if (cast.siBuffId === SPELLS.SECRET_INFUSION_CRIT_BUFF.id) {
-      return 'Crit';
+    const stat = {
+      [SPELLS.SECRET_INFUSION_CRIT_BUFF.id]: STAT.CRITICAL_STRIKE,
+      [SPELLS.SECRET_INFUSION_VERS_BUFF.id]: STAT.VERSATILITY,
+      [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: STAT.HASTE,
+    }[cast.siBuffId ?? -1];
+    if (!stat) {
+      return 'None';
     }
-    if (cast.siBuffId === SPELLS.SECRET_INFUSION_VERS_BUFF.id) {
-      return 'Vers';
-    }
-    if (cast.siBuffId === SPELLS.SECRET_INFUSION_HASTE_BUFF.id) {
-      return 'Haste';
-    }
-    return 'None';
+    return <SpellLink spell={cast.siBuffId!}>{getName(stat)}</SpellLink>;
   }
 
   get currentSIBuffId(): number | undefined {

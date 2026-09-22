@@ -1,36 +1,25 @@
-import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { Ability, CastEvent, DispelEvent, EventType, HealEvent } from 'parser/core/Events';
 
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import CooldownGrid from 'interface/CooldownGrid/CooldownGrid';
+import Explanation from 'interface/guide/components/Explanation';
+import { SubSection } from 'interface/guide';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 
 interface RevivalCastTracker {
   timeStamp: number; // time of cast
-  celestialOnCd: boolean;
+  dispelled: Ability[]; // debuffs removed by this cast
 }
 
 class Revival extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
   castTracker: RevivalCastTracker[] = [];
 
   activeTalent!: Talent;
-  revivalDirectHealing = 0;
-  revivalDirectOverHealing = 0;
-  upliftedSpiritsActive = false;
-  usHealing = 0;
-  usOverhealing = 0;
+  revivalHealing = 0;
+  revivalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -38,35 +27,19 @@ class Revival extends Analyzer {
       this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT);
 
-    if (!this.active) {
-      return;
-    }
-    this.upliftedSpiritsActive = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.UPLIFTED_SPIRITS_TALENT,
-    );
     this.activeTalent = this.getRevivalTalent();
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_MONK.REVIVAL_TALENT, TALENTS_MONK.RESTORAL_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent),
       this.handleCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.REVIVAL_TALENT),
+      Events.heal.by(SELECTED_PLAYER).spell(this.activeTalent),
       this.handleRevivalDirect,
     );
-
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.RESTORAL_TALENT),
-      this.handleRevivalDirect,
+      Events.dispel.by(SELECTED_PLAYER).spell(this.activeTalent),
+      this.handleDispel,
     );
-
-    if (this.upliftedSpiritsActive) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UPLIFTED_SPIRITS_HEAL),
-        this.handleUsHeal,
-      );
-    }
   }
 
   getRevivalTalent() {
@@ -75,76 +48,89 @@ class Revival extends Analyzer {
       : TALENTS_MONK.REVIVAL_TALENT;
   }
 
-  getCelestialTalent(): Talent {
-    return this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
-      ? TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT
-      : TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
+  handleCast(event: CastEvent) {
+    this.castTracker.push({ timeStamp: event.timestamp, dispelled: [] });
   }
 
-  handleCast(event: CastEvent) {
-    this.castTracker.push({
-      timeStamp: event.timestamp,
-      celestialOnCd: this.spellUsable.isOnCooldown(this.getCelestialTalent().id),
-    });
+  handleDispel(event: DispelEvent) {
+    const cast = this.castTracker.at(-1);
+    if (!cast || event.timestamp - cast.timeStamp > 1000) {
+      return;
+    }
+    cast.dispelled.push(event.extraAbility);
   }
 
   handleRevivalDirect(event: HealEvent) {
-    this.revivalDirectHealing += event.amount + (event.absorbed || 0);
-    this.revivalDirectOverHealing += event.overheal || 0;
-  }
-
-  handleUsHeal(event: HealEvent) {
-    this.usHealing += event.amount + (event.absorbed || 0);
-    this.usOverhealing += event.overheal || 0;
+    this.revivalHealing += event.amount + (event.absorbed || 0);
+    this.revivalOverhealing += event.overheal || 0;
   }
 
   get avgHealingPerCast() {
-    return this.revivalDirectHealing / this.castTracker.length;
+    return this.revivalHealing / this.castTracker.length;
   }
 
   get avgRawPerCast() {
-    return (
-      (this.revivalDirectHealing + this.revivalDirectOverHealing + this.usOverhealing) /
-      this.castTracker.length
-    );
+    return (this.revivalHealing + this.revivalOverhealing) / this.castTracker.length;
   }
 
   get guideCastBreakdown() {
-    const explanationPercent = 55;
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={this.getRevivalTalent()} />
+          <SpellLink spell={this.activeTalent} />
         </strong>{' '}
-        is a fairly straightforward cooldown that should be used to heal burst damage events.
+        is a fairly straightforward cooldown that should be used to heal burst damage events and/or
+        dispel debuffs from your group.
       </p>
     );
-    const data = (
-      <div>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
-        {this.castTracker.map((cast, idx) => {
-          const header = (
-            <>
-              @ {this.owner.formatTimestamp(cast.timeStamp)} &mdash;{' '}
-              <SpellLink spell={this.getRevivalTalent()} />
-            </>
-          );
-          const checklistItems: CooldownExpandableItem[] = [];
-          const allPerfs: QualitativePerformance[] = [];
-          const averagePerf = getLowestPerf(allPerfs);
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={averagePerf}
-              key={idx}
-            />
-          );
-        })}
-      </div>
+
+    const items = this.castTracker.map((cast) => {
+      const counts = new Map<number, { ability: Ability; count: number }>();
+      cast.dispelled.forEach((ability) => {
+        const entry = counts.get(ability.guid) ?? { ability, count: 0 };
+        entry.count += 1;
+        counts.set(ability.guid, entry);
+      });
+      // informational only
+      const dispelItem: CooldownExpandableItem = {
+        label: <>Dispelled</>,
+        details: (
+          <>
+            {[...counts.values()].map(({ ability, count }, ix) => (
+              <span key={ability.guid}>
+                {ix > 0 && ', '}
+                <SpellLink spell={ability.guid} />
+                {count > 1 && <> &times;{count}</>}
+              </span>
+            ))}
+          </>
+        ),
+      };
+
+      return {
+        checklistItems: counts.size > 0 ? [dispelItem] : [],
+        // 1000ms added just to generate the end window as revival is fully realized instantly
+        range: {
+          start: cast.timeStamp,
+          end: Math.min(cast.timeStamp + 1000, this.owner.fight.end_time),
+        },
+      };
+    });
+
+    return (
+      <SubSection title={<SpellLink spell={this.activeTalent} />}>
+        <Explanation>{explanation}</Explanation>
+        <CooldownGrid
+          label={<SpellLink spell={this.activeTalent} />}
+          table={{
+            type: EventType.Heal,
+            abilityFilter: [this.activeTalent.id],
+            omitOtherRow: true,
+          }}
+          items={items}
+        />
+      </SubSection>
     );
-    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 }
 
