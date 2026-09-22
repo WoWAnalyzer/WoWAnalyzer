@@ -1,56 +1,104 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
-import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import { Options } from 'parser/core/Analyzer';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
+import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { StackedBar, StackedBarSegment } from 'interface/guide/components';
+import SpellLink from 'interface/SpellLink';
+import ProcBuffAnalyzer, {
+  ProcBuffAnalyzerOptions,
+} from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
 
-class EssenceBurst extends Analyzer {
-  procs = 0;
-  consumedProcs = 0;
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
+  trackedBuffs: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF],
+  inactiveListeners: {},
+};
+
+class EssenceBurst extends ProcBuffAnalyzer {
+  spenders = { Disintegrate: 0, Pyre: 0 };
+  maxStacks = this.selectedCombatant.hasTalent(TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT) ? 2 : 1;
 
   constructor(options: Options) {
-    super(options);
-
-    this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF]),
-      this.onApplyBuff,
-    );
-    this.addEventListener(
-      Events.applybuffstack
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF]),
-      this.onApplyBuff,
-    );
-
-    this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.DISINTEGRATE, SPELLS.PYRE, SPELLS.PYRE_DENSE_TALENT]),
-      this.onEssenceSpend,
-    );
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    super(options, ProcBuffOptions);
   }
 
-  onFightEnd() {
-    this.procs -=
-      this.selectedCombatant.getBuffStacks(TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id) +
-      this.selectedCombatant.getBuffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF.id);
+  onApplyBuff(event: ApplyBuffEvent) {
+    return;
   }
-
-  onEssenceSpend(event: CastEvent) {
-    if (isCastFromEB(event)) {
-      this.consumedProcs += 1;
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    return;
+  }
+  onRefreshBuff(event: RefreshBuffEvent): void {
+    return;
+  }
+  onRemoveBuff(event: RemoveBuffEvent) {
+    this.onEssenceBurstConsume(event);
+  }
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this.onEssenceBurstConsume(event);
+  }
+  onEssenceBurstConsume(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    const castEvent = getEssenceBurstConsumeAbility(event);
+    if (castEvent !== null) {
+      if (castEvent.ability.guid === SPELLS.DISINTEGRATE.id) {
+        this.spenders.Disintegrate += 1;
+      } else {
+        this.spenders.Pyre += 1;
+      }
+      this.pushCastData(event, 'Buff used', QualitativePerformance.Good);
+    } else {
+      this.pushCastData(
+        event,
+        `Buff expired wasting ${this.stackDifference} stack(s)`,
+        QualitativePerformance.Fail,
+      );
     }
   }
 
-  onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.procs += 1;
+  private buildSpenderBar(): StackedBarSegment[] {
+    return [
+      {
+        label: 'Disintegrate',
+        value: this.spenders.Disintegrate,
+        color: 'hsl(190, 70%, 55%)',
+        tooltip: (
+          <>
+            {this.spenders.Disintegrate} <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> spent on{' '}
+            <SpellLink spell={SPELLS.DISINTEGRATE} />
+          </>
+        ),
+      },
+      {
+        label: 'Pyre',
+        value: this.spenders.Pyre,
+        color: 'hsl(20, 70%, 55%)',
+        tooltip: (
+          <>
+            {this.spenders.Pyre} <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> spent on{' '}
+            <SpellLink spell={SPELLS.PYRE} />
+          </>
+        ),
+      },
+    ];
   }
 
-  get wastedProcs() {
-    return this.procs - this.consumedProcs;
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.ESSENCE_BURST_DEV_BUFF,
+      additionalContent: {
+        title: 'Spender Breakdown',
+        content: <StackedBar segments={this.buildSpenderBar()} />,
+      },
+    };
   }
 }
 

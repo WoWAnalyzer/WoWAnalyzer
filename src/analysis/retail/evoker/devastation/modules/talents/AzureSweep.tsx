@@ -1,151 +1,79 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
-import Events, {
-  EmpowerEndEvent,
-  EventType,
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import {
-  getAzureSweepBuffEvent,
-  getAzureSweepConsumeEvent,
-} from '../normalizers/CastLinkNormalizer';
+import { getAzureSweepConsumeEvent } from '../normalizers/CastLinkNormalizer';
 import { AZURE_SWEEP_BASE_STACKS, MID1_4P_AZURE_SWEEP_EXTRA_STACKS } from '../../constants';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellLink from 'interface/SpellLink';
 import { TIERS } from 'game/TIERS';
-import DonutChart from 'parser/ui/DonutChart';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
+import ProcBuffAnalyzer, {
+  ProcBuffAnalyzerOptions,
+} from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
+
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
+  trackedBuffs: SPELLS.AZURE_SWEEP_BUFF,
+  inactiveListeners: {},
+  stackOptions: {
+    amountOfStacksGenerated: 1,
+    maxStacks: 2,
+    settings: {
+      overcapBuffIsFail: true,
+      refreshingBuffIsFail: true,
+    },
+  },
+};
 
 /** Eternity Surge upgrades your next Azure Strike to Azure Sweep,
  * damaging all nearby enemies and dealing 75% additional damage. */
-class AzureSweep extends Analyzer {
-  buffsUsed = 0;
-  buffsWasted = 0;
-  buffsOvercapped = 0;
-
-  currentStacks = 0;
-
-  amountOfStacksGenerated =
-    AZURE_SWEEP_BASE_STACKS +
-    (this.selectedCombatant.has4PieceByTier(TIERS.MID1) ? MID1_4P_AZURE_SWEEP_EXTRA_STACKS : 0);
-
+class AzureSweep extends ProcBuffAnalyzer {
   constructor(options: Options) {
-    super(options);
+    super(options, ProcBuffOptions);
     this.active = this.selectedCombatant.hasTalent(TALENTS.AZURE_SWEEP_TALENT);
-
-    this.addEventListener(
-      Events.empowerEnd
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ETERNITY_SURGE, SPELLS.ETERNITY_SURGE_FONT]),
-      this.onEmpowerEnd,
-    );
-
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.AZURE_SWEEP_BUFF),
-      this.onRemoveBuffStack,
-    );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AZURE_SWEEP_BUFF),
-      this.onRemoveBuff,
-    );
+    this.amountOfStacksGenerated =
+      AZURE_SWEEP_BASE_STACKS +
+      (this.selectedCombatant.has4PieceByTier(TIERS.MID1) ? MID1_4P_AZURE_SWEEP_EXTRA_STACKS : 0);
   }
-
-  private onEmpowerEnd(event: EmpowerEndEvent) {
-    const buffEvent = getAzureSweepBuffEvent(event);
-
-    if (!buffEvent) {
-      this.buffsOvercapped += this.amountOfStacksGenerated;
-    } else if (buffEvent.type === EventType.ApplyBuff) {
-      this.currentStacks = this.amountOfStacksGenerated;
-    } else {
-      const effStacksGained = buffEvent.stack - this.currentStacks;
-
-      const overcapped = this.amountOfStacksGenerated - effStacksGained;
-      this.buffsOvercapped += overcapped;
-
-      this.currentStacks = buffEvent.stack;
-    }
+  onApplyBuff(event: ApplyBuffEvent) {
+    return;
   }
-
-  private onRemoveBuff(event: RemoveBuffEvent) {
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    return;
+  }
+  onRefreshBuff(event: RefreshBuffEvent) {
+    return;
+  }
+  onRemoveBuff(event: RemoveBuffEvent) {
+    this.onSweepUse(event);
+  }
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this.onSweepUse(event);
+  }
+  onSweepUse(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     const consumeEvent = getAzureSweepConsumeEvent(event);
 
     if (!consumeEvent) {
-      this.buffsWasted += this.currentStacks;
+      this.pushCastData(
+        event,
+        `Buff expired, wasting ${-this.stackDifference} stack(s)`,
+        QualitativePerformance.Fail,
+      );
     } else {
-      this.buffsUsed += 1;
+      this.pushCastData(event, 'Buff used', QualitativePerformance.Good);
     }
-
-    this.currentStacks = 0;
   }
 
-  private onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    this.buffsUsed += 1;
-
-    this.currentStacks = event.stack;
-  }
-
-  get consumedBuffs() {
-    return this.buffsUsed;
-  }
-
-  get wastedBuffs() {
-    return this.buffsWasted + this.buffsOvercapped;
-  }
-
-  get totalBuffs() {
-    return this.wastedBuffs + this.consumedBuffs;
-  }
-
-  get buffRatio() {
-    const wastedBuffs = this.wastedBuffs;
-    if (wastedBuffs === 0) {
-      return 1;
-    }
-
-    return 1 - wastedBuffs / this.totalBuffs;
-  }
-
-  statistic() {
-    const items = [
-      {
-        color: 'rgb(123,188,93)',
-        label: 'Used',
-        valueTooltip: this.buffsUsed + ' used',
-        value: this.buffsUsed,
-      },
-      {
-        color: 'rgb(216,59,59)',
-        label: 'Overcapped',
-        valueTooltip: this.buffsOvercapped + ' stacks overcapped',
-        value: this.buffsOvercapped,
-      },
-      {
-        color: 'rgb(153, 102, 255)',
-        label: 'Wasted',
-        valueTooltip: this.buffsWasted + ' stacks wasted to buff running out',
-        value: this.buffsWasted,
-      },
-    ];
-
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
-        <div className="pad">
-          <label>
-            <SpellLink spell={TALENTS.AZURE_SWEEP_TALENT} /> buff usage
-          </label>
-          <DonutChart items={items} />
-        </div>
-      </Statistic>
-    );
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.AZURE_SWEEP_BUFF,
+    };
   }
 }
 
