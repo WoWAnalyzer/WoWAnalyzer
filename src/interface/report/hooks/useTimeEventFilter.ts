@@ -91,7 +91,8 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
   const castEvents: CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
 
   const seenAuras = new BuffSet();
-  const seenCasts = new Set();
+  // casts seen by source
+  const seenCasts: Map<number, Set<number>> = new Map();
 
   // events are processed in reverse order
   for (const event of events) {
@@ -123,10 +124,16 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
         stackEvents.push(event);
         break;
       case EventType.Cast:
-        if (!COMBAT_POTIONS.includes(event.ability.guid) && seenCasts.has(event.ability.guid)) {
+        if (
+          !COMBAT_POTIONS.includes(event.ability.guid) &&
+          seenCasts.get(event.sourceID)?.has(event.ability.guid)
+        ) {
           continue;
         }
-        seenCasts.add(event.ability.guid);
+        if (!seenCasts.has(event.sourceID)) {
+          seenCasts.set(event.sourceID, new Set());
+        }
+        seenCasts.get(event.sourceID)!.add(event.ability.guid);
         castEvents.push({
           ...event,
           type: EventType.FilterCooldownInfo,
