@@ -15,6 +15,10 @@
 .PerformanceUsageRow {
   padding-bottom: 0.5em;
 
+  &:last-child {
+    padding-bottom: 0;
+  }
+
   & > :first-child {
     margin-right: 0.5em;
   }

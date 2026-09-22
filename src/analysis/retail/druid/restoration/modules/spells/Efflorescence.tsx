@@ -125,48 +125,33 @@ class Efflorescence extends Analyzer {
     return this.uptime / this.owner.fightDuration;
   }
 
-  /** Guide subsection describing the proper usage of Efflorescence */
-  get guideSubsection(): JSX.Element {
+  /** Guide subsection describing the proper usage of Efflorescence (non-Lifetreading only) */
+  get guideSubsection(): JSX.Element | null {
+    // With Lifetreading, Efflorescence is covered in the Lifebloom guide subsection
+    if (this.hasLifeTreading) {
+      return null;
+    }
+
     const explanation = (
       <p>
         <b>
           <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
         </b>{' '}
-        is extremely mana efficient if you place it where raiders are standing. Under the boss is
-        usually a safe bet. While it's acceptable to let it drop during heavy movement, you should
-        otherwise keep it active at all times.
-      </p>
-    );
-
-    const lifeTreadingExplanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
-        </b>{' '}
-        is free and provides strong healing, especially when Lifebloom is maintained on a target
-        stacked with the raid. Keep Lifebloom on a squishier melee player for consistent value. With
-        <b>
-          <SpellLink spell={TALENTS_DRUID.LIFETREADING_TALENT} />
-        </b>
-        {', '} Efflorescence follows the Lifebloom target, so aim to maintain near 100% uptime on
-        Lifebloom.
+        is very mana efficient when placed under the raid. Under the boss is usually a safe bet.
+        Heavy movement is a fine time to let it drop, but otherwise try to keep it active.
       </p>
     );
 
     const data = (
       <div>
         <RoundedPanel>
-          <strong>Effloresence uptimes</strong>
+          <strong>Efflorescence uptimes</strong>
           {this.subStatistic()}
         </RoundedPanel>
       </div>
     );
 
-    return explanationAndDataSubsection(
-      this.hasLifeTreading ? lifeTreadingExplanation : explanation,
-      data,
-      GUIDE_CORE_EXPLANATION_PERCENT,
-    );
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   // Custom statistic shows efflo targets hit with bar thickness
@@ -185,7 +170,7 @@ class Efflorescence extends Analyzer {
             </span>
             <br />
             <TooltipElement
-              content={`The 'active' percentage considers the times your Effloresence is up,
+              content={`The 'active' percentage considers the times your Efflorescence is up,
               while the 'effective' percentage takes into account the number of players it is actually healing`}
             >
               <span style={{ color: EFFLO_COLOR }}>

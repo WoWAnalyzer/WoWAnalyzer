@@ -68,6 +68,18 @@ describe('StateHistory', () => {
       expect(history.slice(500, Infinity, true).data).toEqual(data.slice(-3));
       expect(history.slice(200, 300, true).data).toEqual(data.slice(2, 7));
     });
+
+    it('should not include any events if the range has no overlap with the data', () => {
+      const history = new StateHistory(data);
+      expect(history.slice(600, 700).data).toHaveLength(0);
+      expect(history.slice(-100, -5).data).toHaveLength(0);
+    });
+
+    it('should contain the preceding/following event for a non-overlapping range with expand=true', () => {
+      const history = new StateHistory(data);
+      expect(history.slice(600, 700, true).data).toEqual([data.at(-1)]);
+      expect(history.slice(-100, -5, true).data).toEqual([data[0]]);
+    });
   });
 
   describe('getBefore', () => {

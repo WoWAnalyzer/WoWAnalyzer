@@ -2,7 +2,6 @@ import {
   Judgment,
   HolyPowerTracker,
   HolyPowerDetails,
-  DivineToll,
   HolyPowerPerMinute,
   DuskAndDawn,
 } from 'analysis/retail/paladin/shared';
@@ -22,14 +21,12 @@ import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
-import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import WordOfGlory from './modules/spells/WordOfGlory';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
-import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
@@ -56,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
-    lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
     judgment: Judgment,
@@ -81,11 +77,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     righteousProtector: RighteousProtector,
     giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
-    sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
     firstAvenger: FirstAvenger,
-    divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
     lightBearer: Lightbearer,

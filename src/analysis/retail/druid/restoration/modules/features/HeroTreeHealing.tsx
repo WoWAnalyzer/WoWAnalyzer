@@ -24,7 +24,10 @@ import WildstalkersPower from 'analysis/retail/druid/restoration/modules/spells/
 import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HarmoniousConstitution';
 import HuntBeneathTheOpenSkies from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HuntBeneathTheOpenSkies';
 import StrategicInfusion from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/StrategicInfusion';
+import Implant from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/Implant';
+import TwinSprouts from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/TwinSprouts';
 import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
+import ThrivingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ThrivingGrowth';
 import BurstingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BurstingGrowth';
 import FlowerWalk from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/FlowerWalk';
 import LethalPreservation from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/LethalPreservation';
@@ -44,8 +47,10 @@ interface Contribution {
  * - Dream Surge / Power of the Dream: Dream Bloom split 3/4 vs 1/4 when PotD is taken
  * - Cenarius' Might / Grove's Inspiration / Harmony / Power of Nature: tree rows use
  *   combined-amp shares; solo cards keep full marginal value
+ * - Thriving Growth: SymBloom not claimed by Implant/Twin + oldest-stack mastery
+ * - Implant / Twin Sprouts: direct SymBloom + mastery only (nested VC is in Vigorous Creepers)
  * - Patient Custodian / Root Network / Hunt / Vigorous Creepers: tree totals skip amp on
- *   Symbiotic Bloom ticks (those ticks are already in the healing breakdown)
+ *   SymBloom ticks (already under Thriving Growth / Implant / Twin)
  * - Bond with Nature: full talent value (same as the solo card)
  * - Resilient Flourishing omitted from tree (already in SymBloom rows)
  * - CDR / DR talents omitted (Dryad's Dance, Early Spring, Protective Growth)
@@ -60,6 +65,7 @@ export default class HeroTreeHealing extends Analyzer {
     bounteousBloom: BounteousBloom,
     powerOfTheDream: PowerOfTheDream,
     potentEnchantments: PotentEnchantments,
+    thrivingGrowth: ThrivingGrowth,
     burstingGrowth: BurstingGrowth,
     flowerWalk: FlowerWalk,
     lethalPreservation: LethalPreservation,
@@ -70,6 +76,8 @@ export default class HeroTreeHealing extends Analyzer {
     harmoniousConstitution: HarmoniousConstitution,
     huntBeneathTheOpenSkies: HuntBeneathTheOpenSkies,
     strategicInfusion: StrategicInfusion,
+    implant: Implant,
+    twinSprouts: TwinSprouts,
     bondWithNature: BondWithNature,
   };
 
@@ -81,6 +89,7 @@ export default class HeroTreeHealing extends Analyzer {
   protected bounteousBloom!: BounteousBloom;
   protected powerOfTheDream!: PowerOfTheDream;
   protected potentEnchantments!: PotentEnchantments;
+  protected thrivingGrowth!: ThrivingGrowth;
   protected burstingGrowth!: BurstingGrowth;
   protected flowerWalk!: FlowerWalk;
   protected lethalPreservation!: LethalPreservation;
@@ -91,6 +100,8 @@ export default class HeroTreeHealing extends Analyzer {
   protected harmoniousConstitution!: HarmoniousConstitution;
   protected huntBeneathTheOpenSkies!: HuntBeneathTheOpenSkies;
   protected strategicInfusion!: StrategicInfusion;
+  protected implant!: Implant;
+  protected twinSprouts!: TwinSprouts;
   protected bondWithNature!: BondWithNature;
 
   private readonly isKotg: boolean;
@@ -161,6 +172,11 @@ export default class HeroTreeHealing extends Analyzer {
   private get wsContributions(): Contribution[] {
     return [
       {
+        spell: TALENTS_DRUID.THRIVING_GROWTH_TALENT,
+        healing: this.thrivingGrowth.treeTotalHealing,
+        note: 'Symbiotic Bloom healing not claimed by Implant/Twin Sprouts, plus sole-presence mastery',
+      },
+      {
         spell: TALENTS_DRUID.BURSTING_GROWTH_TALENT,
         healing: this.burstingGrowth.totalHealing,
         note: 'Visible in healing breakdown; no solo card',
@@ -178,17 +194,17 @@ export default class HeroTreeHealing extends Analyzer {
       {
         spell: TALENTS_DRUID.PATIENT_CUSTODIAN_TALENT,
         healing: this.patientCustodian.treeHealing,
-        note: 'Excludes amp on Symbiotic Bloom ticks',
+        note: 'Excludes amp on Symbiotic Bloom ticks (counted under Thriving Growth / Implant / Twin)',
       },
       {
         spell: TALENTS_DRUID.ROOT_NETWORK_TALENT,
         healing: this.rootNetwork.treeHealing,
-        note: 'Excludes amp on Symbiotic Bloom ticks',
+        note: 'Excludes amp on Symbiotic Bloom ticks (counted under Thriving Growth / Implant / Twin)',
       },
       {
         spell: TALENTS_DRUID.VIGOROUS_CREEPERS_TALENT,
         healing: this.vigorousCreepers.treeHealing,
-        note: 'Excludes amp on Symbiotic Bloom ticks',
+        note: 'Excludes amp on Symbiotic Bloom ticks (counted under Thriving Growth / Implant / Twin)',
       },
       {
         spell: TALENTS_DRUID.WILDSTALKERS_POWER_TALENT,
@@ -201,11 +217,21 @@ export default class HeroTreeHealing extends Analyzer {
       {
         spell: TALENTS_DRUID.HUNT_BENEATH_THE_OPEN_SKIES_TALENT,
         healing: this.huntBeneathTheOpenSkies.treeHealing,
-        note: 'Excludes amp on Symbiotic Bloom ticks',
+        note: 'Excludes amp on Symbiotic Bloom ticks (counted under Thriving Growth / Implant / Twin)',
       },
       {
         spell: TALENTS_DRUID.STRATEGIC_INFUSION_TALENT,
         healing: this.strategicInfusion.healing,
+      },
+      {
+        spell: TALENTS_DRUID.IMPLANT_TALENT,
+        healing: this.implant.treeTotalHealing,
+        note: 'Direct Symbiotic Bloom + mastery only (Vigorous Creepers counted separately)',
+      },
+      {
+        spell: TALENTS_DRUID.TWIN_SPROUTS_TALENT,
+        healing: this.twinSprouts.treeTotalHealing,
+        note: 'Direct Symbiotic Bloom + mastery only (Vigorous Creepers counted separately). Timing-based proc detection may overcount unrelated blooms that grow as another expires',
       },
       {
         spell: TALENTS_DRUID.BOND_WITH_NATURE_TALENT,
@@ -269,9 +295,9 @@ export default class HeroTreeHealing extends Analyzer {
             <br />
             Sums each talent's contribution. Stacked KotG percentage buffs on the same heal are
             split so they do not overcount in this total (solo cards still show full marginal
-            value). Amp modules skip Symbiotic Bloom ticks so those ticks are not double-counted.
-            Dream Bloom is split between Dream Surge and Power of the Dream. CDR and
-            damage-reduction talents are omitted.
+            value). Symbiotic Bloom direct healing is split across Thriving Growth, Implant, and
+            Twin Sprouts (amp modules do not also count those ticks). Dream Bloom is split between
+            Dream Surge and Power of the Dream. CDR and damage-reduction talents are omitted.
           </>
         }
         position={STATISTIC_ORDER.CORE(-1)}

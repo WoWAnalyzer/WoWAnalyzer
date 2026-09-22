@@ -3,7 +3,6 @@ import {
   DivinePurpose,
   HolyPowerTracker,
   HolyPowerDetails,
-  DivineToll,
   HolyPowerPerMinute,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -125,7 +124,6 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
-    divineToll: DivineToll,
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     handOfDivinity: HandOfDivinity,

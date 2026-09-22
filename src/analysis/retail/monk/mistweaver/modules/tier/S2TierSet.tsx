@@ -35,12 +35,12 @@ import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 // tier specific constants
 const TWO_PIECE_RSK_DAMAGE_INCREASE = 0.3;
 const TWO_PIECE_RWK_HEAL_INCREASE = 1.0;
-// actually 20% ingame but it cannot proc off of its self, rendering 15%
-const FOUR_PIECE_PROC_CHANCE = 0.15;
+const FOUR_PIECE_PROC_CHANCE = 0.25;
 
 interface FourPieceSource {
   spell: Spell | Talent;
@@ -235,6 +235,12 @@ class S2TierSet extends TierSetAnalyzer.withDependencies({
       return;
     }
 
+    addEnhancedCastReason(
+      consumingCast,
+      <>
+        This cast was made free by the <SpellLink spell={SPELLS.MW_S2_4PC_BUFF} /> 4-piece.
+      </>,
+    );
     this.attributeFreeCast(consumingCast);
   }
 

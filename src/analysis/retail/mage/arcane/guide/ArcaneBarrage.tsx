@@ -11,7 +11,7 @@ import CastDetail, {
 import Analyzer from 'parser/core/Analyzer';
 import ArcaneBarrage, { ArcaneBarrageData } from '../analyzers/ArcaneBarrage';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { CastEvaluation } from 'interface/guide/components';
+import { CastEvaluation, PerformanceTipBox } from 'interface/guide/components';
 
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {
@@ -239,6 +239,11 @@ class ArcaneBarrageGuide extends Analyzer {
             <li>You are out of mana.</li>
           </ul>
         )}
+        <PerformanceTipBox performance={QualitativePerformance.Perfect} title="Perfection">
+          {arcaneBarrage} has multiple different conditions which involve tracking multiple buffs
+          and abilities. Combining all of the above conditions will increase your rating to Perfect
+          and net you a moderate DPS increase if you are consistently being rated "Good".
+        </PerformanceTipBox>
       </>
     );
 

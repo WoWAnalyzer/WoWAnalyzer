@@ -198,12 +198,13 @@ const EVENT_LINKS = createEventLinks(
           return !refresh || referencedEvent.timestamp < refresh.timestamp;
         },
       }),
-      link(EventType.BeginCast, { maxLinks: 1, backwardBuffer: 2500 }),
+      link(EventType.BeginCast, { maxLinks: 1, forwardBuffer: 60_000 }),
       link(EventType.Cast, {
         id: SPELLS.PRISMATIC_BOLT.id,
         maxLinks: 1,
         anyTarget: true,
         forwardBuffer: 60_000,
+        reverseRelation: EventType.ApplyBuff,
         condition: (linkingEvent, referencedEvent) => {
           const buffEnd = GetRelatedEvent(linkingEvent, EventType.RemoveBuff);
           const buffRefresh = GetRelatedEvent(linkingEvent, EventType.RefreshBuff);
@@ -211,7 +212,7 @@ const EVENT_LINKS = createEventLinks(
             buffEnd && buffRefresh
               ? Math.min(buffEnd.timestamp, buffRefresh.timestamp)
               : buffEnd?.timestamp || buffRefresh?.timestamp;
-          return end && referencedEvent.timestamp < end + 10 ? true : false;
+          return end && referencedEvent.timestamp <= end ? true : false;
         },
       }),
       link(EventType.Damage, {
@@ -225,7 +226,11 @@ const EVENT_LINKS = createEventLinks(
             buffEnd && buffRefresh
               ? Math.min(buffEnd.timestamp, buffRefresh.timestamp)
               : buffEnd?.timestamp || buffRefresh?.timestamp;
-          return end && referencedEvent.timestamp < end + 2000 ? true : false;
+          return end &&
+            referencedEvent.timestamp < end + 2000 &&
+            referencedEvent.timestamp > linkingEvent.timestamp + 1000
+            ? true
+            : false;
         },
       }),
     ],

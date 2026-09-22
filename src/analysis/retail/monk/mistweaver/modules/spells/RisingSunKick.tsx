@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { Fragment, type JSX, type ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -14,6 +14,17 @@ import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 
 const CAST_BUFFER_MS = 250;
+
+/** Renders a list of talents as SpellLinks joined by commas, with 'and' before the last one. */
+function spellLinkList(talents: Talent[]): ReactNode {
+  return talents.map((talent, index) => (
+    <Fragment key={talent.id}>
+      {index > 0 &&
+        (index === talents.length - 1 ? (talents.length > 2 ? ', and ' : ' and ') : ', ')}
+      <SpellLink spell={talent} />
+    </Fragment>
+  ));
+}
 
 class RisingSunKick extends Analyzer {
   static dependencies = {
@@ -74,21 +85,24 @@ class RisingSunKick extends Analyzer {
 
   /** Guide subsection describing the proper usage of RSK */
   get guideSubsection(): JSX.Element {
+    const synergyTalents = [
+      TALENTS_MONK.RISING_MIST_TALENT,
+      TALENTS_MONK.POOL_OF_MISTS_TALENT,
+      TALENTS_MONK.RAPID_DIFFUSION_TALENT,
+    ].filter((talent) => this.selectedCombatant.hasTalent(talent));
+
     const explanation = (
       <p>
         <b>
           <SpellLink spell={this.currentRskTalent} />
         </b>{' '}
         is one of your primary damaging spells but is also your highest priority healing spell
-        (alongside <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />) due to its synergy with{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.POOL_OF_MISTS_TALENT) && (
-          <>
-            , <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT} />
-          </>
+        (alongside <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
+        ), both through its own healing
+        {synergyTalents.length > 0 && (
+          <> and its synergy with talents such as {spellLinkList(synergyTalents)}</>
         )}
-        , and <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as
-        possible is essential for maintaining high counts of{' '}
+        . Using it as much as possible is essential for maintaining high counts of{' '}
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />.
       </p>
     );

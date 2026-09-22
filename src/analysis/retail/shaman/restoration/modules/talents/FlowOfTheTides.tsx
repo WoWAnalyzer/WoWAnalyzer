@@ -9,8 +9,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import { formatNumber, formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import TALENTS from 'common/TALENTS/shaman';
 import { CHAIN_HEAL_TARGETS, healingIncreases, FLOW_OF_THE_TIDES_TARGET } from '../../constants';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
@@ -114,17 +112,6 @@ export default class FlowOfTheTides extends Analyzer {
     }
   }
 
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
-        )} %`}
-      />
-    );
-  }
-
   statistic() {
     return (
       <Statistic
@@ -156,9 +143,9 @@ export default class FlowOfTheTides extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.FLOW_OF_THE_TIDES_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-          {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          <p>
+            {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          </p>
         </TalentSpellText>
       </Statistic>
     );

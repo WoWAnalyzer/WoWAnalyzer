@@ -92,10 +92,6 @@ class ElementalTempo extends Analyzer.withDependencies({
       TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
       event.timestamp,
     );
-    if (hasThorims && (isInDoomWinds || isAscendanceActive)) {
-      return;
-    }
-
     const stormstrikeSpellId = isAscendanceActive
       ? SPELLS.WINDSTRIKE_CAST.id
       : SPELLS.STORMSTRIKE.id;
@@ -111,6 +107,12 @@ class ElementalTempo extends Analyzer.withDependencies({
 
     const stormstrike = this.calculateCdrWasteForSpell(stormstrikeSpellId, cooldownReduction);
     const lavaLash = this.calculateCdrWasteForSpell(TALENTS.LAVA_LASH_TALENT.id, cooldownReduction);
+
+    // The cooldown reduction still applies, but waste during these windows is unavoidable so it
+    // is left out of the performance breakdown shown to the player.
+    if (hasThorims && (isInDoomWinds || isAscendanceActive)) {
+      return;
+    }
 
     this.casts.push({
       timestamp: event.timestamp,

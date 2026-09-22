@@ -16,9 +16,9 @@ import { GENESIS_BUFFED_HOTS } from 'analysis/retail/druid/restoration/constants
 import { isGenesisFromTierCooldown } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 const GENESIS_HEALING_INCREASE = 0.15;
-/** With the 4pc, each Genesis application lasts 12s (8s base + 4s from the 4pc). */
-const GENESIS_DURATION_MS = 12_000;
-/** The base (2pc) portion of a Genesis application. Healing during the final 4s of a
+/** With the 4pc, each Genesis application lasts 16s (8s base + 8s from the 4pc). */
+const GENESIS_DURATION_MS = 16_000;
+/** The base (2pc) portion of a Genesis application. Healing during the final 8s of a
  *  Rejuvenation-granted stack is attributed to the 4pc duration extension. */
 const GENESIS_TWO_PIECE_DURATION_MS = 8_000;
 
@@ -37,12 +37,12 @@ interface GenesisStack {
  * 2pc: Rejuvenation has a 15% chance to grant Genesis, causing all your heal over time effects to
  *      heal for 15% more for 8 sec. Multiple applications may overlap.
  * 4pc: Nature's Swiftness, Tranquility, and Incarnation: Tree of Life / Convoke the Spirits have a
- *      100% chance to grant Genesis, and Genesis duration is increased by 4 sec.
+ *      100% chance to grant Genesis, and Genesis duration is increased by 8 sec.
  *
  * The bonus healing is measured directly from active Genesis stacks. When the 4pc is equipped the
  * total is split into a 2pc and 4pc share:
  *  - 4pc = all healing from stacks granted by the empowering casts (full duration), plus the healing
- *    that occurs during the final 4s of each Rejuvenation-granted stack (the duration extension).
+ *    that occurs during the final 8s of each Rejuvenation-granted stack (the duration extension).
  *  - 2pc = the remaining healing (Rejuvenation-granted stacks during their first 8s, and any pre-pull
  *    stacks which always count fully towards the 2pc).
  */
@@ -209,8 +209,8 @@ class S2TierSet extends Analyzer {
                 <SpellLink spell={SPELLS.RESTO_DRUID_TIER_36_GENESIS_BUFF} /> stacks from{' '}
                 <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />,{' '}
                 <SpellLink spell={SPELLS.TRANQUILITY_CAST} />, and Incarnation / Convoke, and
-                extends Genesis duration by 4 sec. The 4pc value is all healing from those granted
-                stacks plus the healing during the final 4 sec of each Rejuvenation-granted stack.
+                extends Genesis duration by 8 sec. The 4pc value is all healing from those granted
+                stacks plus the healing during the final 8 sec of each Rejuvenation-granted stack.
                 Pre-pull stacks always count fully towards the 2pc.
               </>
             )}

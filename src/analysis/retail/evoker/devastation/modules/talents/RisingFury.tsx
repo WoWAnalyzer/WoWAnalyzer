@@ -6,28 +6,19 @@ import {
   RISING_FURY_MAX_STACKS,
   RISING_FURY_SPELLS,
 } from 'analysis/retail/evoker/devastation/constants';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  DamageEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { formatNumber } from 'common/format';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import {
-  EBSource,
-  isEBFrom,
-} from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import Soup from 'interface/icons/Soup';
-import { InformationIcon } from 'interface/icons';
+import { WarningIcon } from 'interface/icons';
 import { SpellLink } from 'interface';
+import { formatNumber } from 'common/format';
+import UnboundFlame from './UnboundFlame';
 
 /**
  * (1) While Dragonrage is active you gain Rising Fury every 6 sec, increasing your haste by 4%, stacking up to 5 times.
@@ -36,26 +27,21 @@ import { SpellLink } from 'interface';
  *
  * (3) At 5 stacks of Rising Fury, all damage dealt is increased by 15%.
  *
- * (4) When Dragonrage ends, gain Risen Fury for 4 sec for each stack of Rising Fury.
- * Risen Fury grants the damage and haste bonuses accumulated from Rising Fury and generates Essence Burst every 4 sec.
+ * (4) When Dragonrage ends, Rising Fury persists for 4 sec per stack, and Dragonrage becomes Unbound Flame. Unbound Flame may be cast 4 times before Dragonrage
+ * finishes its cooldown.
+ * Unbound Flame
+ * Exhale destructive flame, critically striking for [(800% of Spell Power) * 2] Fire damage to your target and nearby enemies, reduced beyond 5 targets.
+ * Causes 1 Essence Burst
  */
-class RisingFury extends Analyzer {
+class RisingFury extends Analyzer.withDependencies({ unboundFlame: UnboundFlame }) {
   maxStackAmp =
     RISING_FURY_DAMAGE_AMPS[
       this.selectedCombatant.getTalentRank(TALENTS.RISING_FURY_2_DEVASTATION_TALENT)
     ];
 
   risingFuryStacks = 0;
-  risenFuryIsActive = false;
-  risenFuryStacks = 0;
-
   damageFromRisingFury = 0;
-  damageFromRisenFury = 0;
-
-  essenceBurstGenerated = 0;
-  essenceBurstWasted = 0;
-
-  hasRisenFury = this.selectedCombatant.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT);
+  hasUnboundFlame = this.selectedCombatant.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -70,36 +56,16 @@ class RisingFury extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.RISING_FURY_BUFF),
       this.onApplyRisingFury,
     );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.RISEN_FURY_BUFF, SPELLS.RISING_FURY_BUFF]),
-      this.onRemoveBuff,
-    );
 
-    if (this.hasRisenFury) {
-      this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RISEN_FURY_BUFF),
-        this.onApplyRisenFury,
-      );
-      [Events.applybuff, Events.applybuffstack].forEach((event) =>
-        this.addEventListener(
-          event.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEV_BUFF),
-          this.onApplyEssenceBurst,
-        ),
-      );
-      this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEV_BUFF),
-        this.onRefreshEssenceBurst,
-      );
-    }
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RISING_FURY_BUFF),
+      this.onRemoveRisingFury,
+    );
   }
 
   private onDamage(event: DamageEvent) {
     if (this.risingFuryStacks === RISING_FURY_MAX_STACKS) {
       this.damageFromRisingFury += calculateEffectiveDamage(event, this.maxStackAmp);
-    } else if (this.risenFuryIsActive) {
-      this.damageFromRisenFury += calculateEffectiveDamage(event, this.maxStackAmp);
     }
   }
 
@@ -107,35 +73,8 @@ class RisingFury extends Analyzer {
     this.risingFuryStacks = event.stack;
   }
 
-  private onApplyRisenFury(_event: ApplyBuffEvent) {
-    if (
-      this.risingFuryStacks === RISING_FURY_MAX_STACKS ||
-      this.risenFuryStacks === RISING_FURY_MAX_STACKS
-    ) {
-      // damage amp comes on max stacks, so if we don't reach max stacks, we gain no damage essentially
-      this.risenFuryIsActive = true;
-    }
-  }
-
-  private onRemoveBuff(event: RemoveBuffEvent) {
-    if (event.ability.guid === SPELLS.RISEN_FURY_BUFF.id) {
-      this.risenFuryStacks = this.risingFuryStacks;
-      this.risingFuryStacks = 0;
-    } else {
-      this.risenFuryIsActive = false;
-      this.risenFuryStacks = 0;
-    }
-  }
-
-  private onApplyEssenceBurst(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    if (isEBFrom(event, EBSource.RisenFury)) {
-      this.essenceBurstGenerated += 1;
-    }
-  }
-  private onRefreshEssenceBurst(event: RefreshBuffEvent) {
-    if (isEBFrom(event, EBSource.RisenFury)) {
-      this.essenceBurstWasted += 1;
-    }
+  private onRemoveRisingFury(event: RemoveBuffEvent) {
+    this.risingFuryStacks = 0;
   }
 
   statistic() {
@@ -147,8 +86,8 @@ class RisingFury extends Analyzer {
         tooltip={
           <>
             <li>Damage from Rising Fury: {formatNumber(this.damageFromRisingFury)}</li>
-            {this.hasRisenFury && (
-              <li>Damage from Risen Fury: {formatNumber(this.damageFromRisenFury)}</li>
+            {this.hasUnboundFlame && (
+              <li>Damage from Unbound Flame: {formatNumber(this.deps.unboundFlame.damage)}</li>
             )}
           </>
         }
@@ -156,18 +95,18 @@ class RisingFury extends Analyzer {
         <TalentSpellText talent={TALENTS.RISING_FURY_2_DEVASTATION_TALENT}>
           <ItemDamageDone amount={this.damageFromRisingFury} />
         </TalentSpellText>
-        {this.hasRisenFury && (
-          <BoringSpellValueText spell={SPELLS.RISEN_FURY_BUFF}>
-            <ItemDamageDone amount={this.damageFromRisenFury} />
+        {this.hasUnboundFlame && (
+          <BoringSpellValueText spell={SPELLS.UNBOUND_FLAME}>
+            <ItemDamageDone amount={this.deps.unboundFlame.damage} />
             <div>
-              <Soup /> {this.essenceBurstGenerated}{' '}
+              <Soup /> {this.deps.unboundFlame.essenceBurstGenerated}{' '}
               <small>
                 <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
               </small>
             </div>
-            {this.essenceBurstWasted > 0 && (
+            {this.deps.unboundFlame.essenceBurstWasted > 0 && (
               <div>
-                <InformationIcon /> {this.essenceBurstWasted}{' '}
+                <WarningIcon /> {this.deps.unboundFlame.essenceBurstWasted}{' '}
                 <small>
                   <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> wasted
                 </small>

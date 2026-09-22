@@ -75,7 +75,12 @@ class Abilities extends ClassAbilities {
       },
       {
         spell: TALENTS.DOOM_WINDS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT) &&
+          !(
+            combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+            combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)
+          ),
         cooldown: 60,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,

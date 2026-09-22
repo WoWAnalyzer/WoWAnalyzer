@@ -16,7 +16,7 @@ class Preparation extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.PREPARATION_TALENT);
 
-    this.addEventListener(Events.cast.spell(SPELLS.PREPARATION), (event) => {
+    this.addEventListener(Events.cast.spell(TALENTS.PREPARATION_TALENT), (event) => {
       this.spellUsable.endCooldown(SPELLS.BLADE_FLURRY.id, event.timestamp);
       this.spellUsable.endCooldown(SPELLS.BETWEEN_THE_EYES.id, event.timestamp);
       this.spellUsable.endCooldown(TALENTS.BLADE_RUSH_TALENT.id, event.timestamp);

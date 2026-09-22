@@ -272,13 +272,13 @@ const spells = {
     icon: 'spell_nature_resistnature',
   },
   LIFEBLOOM_HOT_HEAL: {
-    // cast ID, periodic heal ticks, and Everbloom stack buff events
+    // Cast ID, periodic ticks, and a stacking Lifebloom aura (Everbloom goes to 3).
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
   },
   LIFEBLOOM_BUFF: {
-    // the Lifebloom HoT aura (apply/refresh/remove); distinct from stack events on 33763
+    // Second Lifebloom aura (apply/refresh/remove lines up with casts). Also stacks to 3.
     id: 1227806,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
@@ -1158,11 +1158,62 @@ const spells = {
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
+  // stacking damage buff from Hunger for Battle talent (triggers on Rip-target death)
+  HUNGER_FOR_BATTLE_BUFF: {
+    id: 1244553,
+    name: 'Hunger for Battle',
+    icon: 'ability_druid_predatoryinstincts',
+  },
+  // energize event from Hunger for Battle talent (10 energy on Rip-target death)
+  HUNGER_FOR_BATTLE_ENERGIZE: {
+    id: 1244550,
+    name: 'Hunger for Battle',
+    icon: 'ability_druid_predatoryinstincts',
+  },
   // Buff procced by Apex Predator's Craving talent
   APEX_PREDATORS_CRAVING_BUFF: {
     id: 391882,
     name: "Apex Predator's Craving",
     icon: 'ability_druid_primaltenacity',
+  },
+  // proc from Unseen Predator apex talent (node 1) — single-target
+  UNSEEN_SLASH_CAST: {
+    id: 1263884,
+    name: 'Unseen Slash',
+    icon: 'ability_druid_ravage',
+  },
+  UNSEEN_SLASH_DAMAGE: {
+    id: 1263890,
+    name: 'Unseen Slash',
+    icon: 'ability_druid_ravage',
+  },
+  UNSEEN_SLASH_BLEED: {
+    id: 1271863,
+    name: 'Unseen Slash',
+    icon: 'ability_druid_ravage',
+  },
+  // proc from Unseen Predator apex talent (node 1) — AoE
+  UNSEEN_SWIPE_CAST: {
+    id: 1263906,
+    name: 'Unseen Swipe',
+    icon: 'spell_druid_thrash',
+  },
+  UNSEEN_SWIPE_DAMAGE: {
+    id: 1263908,
+    name: 'Unseen Swipe',
+    icon: 'spell_druid_thrash',
+  },
+  // all-damage buff from Unseen Predator apex talent (node 2)
+  UNSEEN_PREDATORS_CRAVING_BUFF: {
+    id: 1263939,
+    name: "Unseen Predator's Craving",
+    icon: 'inv_1115_druid_jaguar',
+  },
+  // Tiger's Fury follow-up buff from Unseen Predator apex talent (node 3)
+  STALKING_PREDATOR_BUFF: {
+    id: 1263962,
+    name: 'Stalking Predator',
+    icon: 'inv12_ability_ghoulfrenzy_empowered',
   },
   // buff from Frantic Momentum talent
   FRANTIC_MOMENTUM: {
@@ -1286,6 +1337,12 @@ const spells = {
     id: 1217245,
     name: 'Big Winner!!!',
     icon: 'ability_rogue_keepitrolling',
+  },
+  // 2pc proc from Feral Druid Midnight S1 tier set (Sprouts of the Luminous Bloom)
+  FERAL_DRUID_FLASH_OF_CLARITY: {
+    id: 1272262,
+    name: 'Flash of Clarity',
+    icon: 'spell_shadow_manaburn',
   },
 
   /////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@ import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
 
-import { Condition, tenseAlt } from '../index';
+import { Condition, pluralAlt, tenseAlt } from '../index';
 import { Range, formatRange } from './index';
 
 export default function buffStacks(spell: Spell, range: Range): Condition<number> {
@@ -39,7 +39,8 @@ export default function buffStacks(spell: Spell, range: Range): Condition<number
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} {formatRange(range)}{' '}
-        <SpellLink spell={spell.id} icon /> stacks
+        <SpellLink spell={spell.id} icon />{' '}
+        {pluralAlt(range.atMost ?? range.atLeast ?? 0, 'stack', 'stacks')}
       </>
     ),
   };

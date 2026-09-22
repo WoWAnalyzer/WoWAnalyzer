@@ -368,6 +368,11 @@ const spells = {
     name: 'Coalescing Water',
     icon: 'inv_helm_mail_raidshamanmythic_s_01',
   },
+  PURGING_FLAMES_BUFF: {
+    id: 1259491,
+    name: 'Purging Flames',
+    icon: 'inv12_ability_shaman_purgingflames',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,
@@ -510,8 +515,8 @@ const spells = {
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
-  VOLTAIC_BLAZE_BUFF: {
-    id: 470058,
+  VOLTAIC_BLAZE_DAMAGE: {
+    id: 1259101,
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
@@ -1088,10 +1093,25 @@ const spells = {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
   },
+  CALL_OF_THE_ANCESTORS_CHAIN_LIGHTNING: {
+    id: 447425,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
   CALL_OF_THE_ANCESTORS_CHAIN_HEAL: {
     id: 447433,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  CALL_OF_THE_ANCESTORS_HEALING_SURGE: {
+    id: 447415,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+  },
+  CALL_OF_THE_ANCESTORS_HEALING_WAVE: {
+    id: 1223391,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
   },
   HYDROBUBBLE_BUFF: {
     id: 444490,

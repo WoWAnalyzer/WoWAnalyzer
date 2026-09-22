@@ -5,14 +5,14 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { AnyEvent, ApplyBuffEvent, CastEvent, FreeCastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Atonement from './Atonement';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 interface RadianceInfo {
-  cast: CastEvent;
+  cast: AnyEvent;
   goodCast: boolean;
   onAtoned: boolean;
 }
@@ -42,12 +42,27 @@ class PowerWordRadiance extends Analyzer {
     );
 
     this.addEventListener(
+      Events.freecast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT),
+      this.onFreeRadiance,
+    );
+
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF),
       this.onRadianceAtone,
     );
   }
 
   onRadiance(event: CastEvent) {
+    const target = this.combatants.getEntity(event);
+    const castInfo = { cast: event, goodCast: false, onAtoned: false };
+
+    if (target?.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
+      castInfo.onAtoned = true;
+    }
+    this.radianceCasts.push(castInfo);
+  }
+
+  onFreeRadiance(event: FreeCastEvent) {
     const target = this.combatants.getEntity(event);
     const castInfo = { cast: event, goodCast: false, onAtoned: false };
 

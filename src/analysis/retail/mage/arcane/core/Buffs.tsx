@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import { TIERS } from 'game/TIERS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
@@ -29,6 +30,16 @@ class Buffs extends CoreAuras {
         spellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         triggeredBySpellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.PRISMATIC_BOLT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BOLT_1_ARCANE_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.CUMULATIVE_POWER_BUFF.id,
+        enabled: combatant.has4PieceByTier(TIERS.MID2),
         timelineHighlight: true,
       },
       // {

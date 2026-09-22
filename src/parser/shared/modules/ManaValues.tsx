@@ -1,3 +1,4 @@
+import { formatManaSaved as formatManaSavedText } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -11,6 +12,7 @@ class ManaValues extends Analyzer {
   };
 
   lowestMana = Infinity;
+  /** Combat-log mana pool size, including talents, enchants, and similar bonuses. */
   maxMana = 0;
   endingMana = 0;
 
@@ -52,7 +54,7 @@ class ManaValues extends Analyzer {
             max: max,
             used: manaCost,
           });
-          // The variable 'max' is constant but can differentiate by racial/items.
+          // Combat log `max` already includes racials, talents, enchants, and items.
           this.maxMana = max;
         });
     }
@@ -61,6 +63,12 @@ class ManaValues extends Analyzer {
   get manaLeftPercentage() {
     return this.endingMana / this.maxMana;
   }
+
+  /** Mana saved as a flat amount and as a percentage of this player's total mana. */
+  formatManaSaved(manaSaved: number, precision = 1): string {
+    return formatManaSavedText(manaSaved, this.maxMana, precision);
+  }
+
   suggest = true;
   get suggestionThresholds() {
     return {

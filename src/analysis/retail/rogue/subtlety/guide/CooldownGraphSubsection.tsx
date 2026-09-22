@@ -14,6 +14,7 @@ export interface Cooldown {
 
 const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.SHADOW_BLADES_TALENT },
+  { spell: TALENTS.GOREMAWS_BITE_TALENT },
   { spell: SPELLS.SECRET_TECHNIQUE },
   { spell: SPELLS.VANISH },
 ];

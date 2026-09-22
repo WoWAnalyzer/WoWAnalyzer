@@ -1,4 +1,5 @@
-import { formatNth, formatPercentage } from 'common/format';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
+import { formatNth, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -88,6 +89,13 @@ class PowerOfTheArchdruid extends Analyzer {
     return this.rejuvProcHealing + this.regrowthProcHealing;
   }
 
+  get totalOverhealing() {
+    return (
+      this.hotAttributor.powerOfTheArchdruidRejuvAttrib.overheal +
+      this.hotAttributor.powerOfTheArchdruidRegrowthAttrib.overheal
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -110,11 +118,15 @@ class PowerOfTheArchdruid extends Analyzer {
                 <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
               </li>
             </ul>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
+            <br />
             {this.incompleteHardcastProcs > 0 && (
               <>
                 <strong>{this.incompleteHardcastProcs}</strong> of{' '}
-                <strong>{this.totalHardcastProcs}</strong> procs created fewer than 2 extra HoTs —
-                make sure allies are within 20 yards of the target. (This does not include any procs
+                <strong>{this.totalHardcastProcs}</strong> procs created fewer than 2 extra HoTs.
+                Make sure allies are within 20 yards of the target. (This does not include any procs
                 consumed during Convoke)
               </>
             )}

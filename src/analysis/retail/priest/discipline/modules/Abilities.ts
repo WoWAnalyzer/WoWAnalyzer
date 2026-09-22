@@ -40,8 +40,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: this.selectedCombatant.hasTalent(TALENTS_PRIEST.BRIGHT_PUPIL_TALENT) ? 15 : 20,
-        charges: 2,
+        cooldown: this.selectedCombatant.hasTalent(TALENTS_PRIEST.BRIGHT_PUPIL_TALENT) ? 15 : 18,
+        charges: this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHTS_PROMISE_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },

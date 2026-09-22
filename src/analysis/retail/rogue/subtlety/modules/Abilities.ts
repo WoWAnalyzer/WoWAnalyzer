@@ -116,6 +116,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.GOREMAWS_BITE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(TALENTS.GOREMAWS_BITE_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: 'Use Goremaw’s Bite on cooldown, right before your other cooldowns.',
+        },
+      },
+      {
         spell: SPELLS.SECRET_TECHNIQUE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: (haste) => hastedCooldown(25, haste),

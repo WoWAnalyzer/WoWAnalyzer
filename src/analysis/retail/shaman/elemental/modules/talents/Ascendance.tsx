@@ -11,10 +11,12 @@ import Events, {
   CastEvent,
   EventType,
   FightEndEvent,
+  GetRelatedEvents,
   GlobalCooldownEvent,
   ResourceChangeEvent,
   RefreshBuffEvent,
   SpendResourceEvent,
+  DamageEvent,
 } from 'parser/core/Events';
 import {
   evaluateQualitativePerformanceByThreshold,
@@ -34,9 +36,10 @@ import MaelstromTracker from '../resources/MaelstromTracker';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
-import { OVERLOAD_SPELLS } from '../../constants';
+import { EVENT_LINKS, OVERLOAD_SPELLS } from '../../constants';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { plural } from '@lingui/core/macro';
 
 interface AscendanceCooldownCast {
   event: CastEvent | ApplyBuffEvent | RefreshBuffEvent;
@@ -51,6 +54,8 @@ interface AscendanceCooldownCast {
 
 const overloadCapableSpellIds = new Set(OVERLOAD_SPELLS.map(({ spell }) => spell.id));
 
+const PURGING_FLAMES_TARGET_THRESHOLD = 2;
+
 class Ascendance extends Analyzer.withDependencies({
   maelstromTracker: MaelstromTracker,
   spenderInfo: MaelstromSpenderInfo,
@@ -61,6 +66,7 @@ class Ascendance extends Analyzer.withDependencies({
   protected currentCooldown: AscendanceCooldownCast | null = null;
   protected globalCooldownEnds = 0;
   protected ascendanceWasCast = false;
+  protected hasPurgingFlames = false;
 
   constructor(options: Options) {
     super(options);
@@ -71,6 +77,8 @@ class Ascendance extends Analyzer.withDependencies({
     if (!this.active) {
       return;
     }
+
+    this.hasPurgingFlames = this.selectedCombatant.hasTalent(TALENTS.PURGING_FLAMES_TALENT);
 
     this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onResourceChange);
@@ -313,10 +321,31 @@ class Ascendance extends Analyzer.withDependencies({
     };
   }
 
+  private isVoltaicBlazeCast(event: CastEvent) {
+    return this.hasPurgingFlames && event.ability.guid === SPELLS.VOLTAIC_BLAZE_CAST.id;
+  }
+
+  private getVoltaicBlazeTargetsHit(event: CastEvent) {
+    return GetRelatedEvents<DamageEvent>(
+      event,
+      EVENT_LINKS.VoltaicBlazeDamage,
+      (e) => e.type === EventType.Damage,
+    ).length;
+  }
+
+  private isMultiTargetVoltaicBlaze(event: CastEvent) {
+    return (
+      this.isVoltaicBlazeCast(event) &&
+      this.getVoltaicBlazeTargetsHit(event) >= PURGING_FLAMES_TARGET_THRESHOLD
+    );
+  }
+
   private getNonOverloadCapableCastEvents(castEvents: CastEvent[]) {
     return castEvents.filter(
       (event) =>
-        getGlobalCooldown(event) !== undefined && !overloadCapableSpellIds.has(event.ability.guid),
+        getGlobalCooldown(event) !== undefined &&
+        !overloadCapableSpellIds.has(event.ability.guid) &&
+        !this.isMultiTargetVoltaicBlaze(event),
     );
   }
 
@@ -377,19 +406,32 @@ class Ascendance extends Analyzer.withDependencies({
     cast: AscendanceCooldownCast,
     castEvents: CastEvent[],
   ): CastInSequence[] {
-    const completedEntries: CastInSequence[] = castEvents.map((event) => ({
-      timestamp: event.timestamp,
-      spellId: event.ability.guid,
-      spellName: event.ability.name,
-      icon: event.ability.abilityIcon.replace('.jpg', ''),
-      performance: undefined,
-      tooltip: (
-        <>
-          <strong>Cast</strong> <SpellLink spell={event.ability.guid} />
-          <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
-        </>
-      ),
-    }));
+    const completedEntries: CastInSequence[] = castEvents.map((event) => {
+      const isVoltaicBlaze = this.isVoltaicBlazeCast(event);
+      const targetsHit = isVoltaicBlaze ? this.getVoltaicBlazeTargetsHit(event) : 0;
+      const wasteful = isVoltaicBlaze && targetsHit < PURGING_FLAMES_TARGET_THRESHOLD;
+
+      return {
+        timestamp: event.timestamp,
+        spellId: event.ability.guid,
+        spellName: event.ability.name,
+        icon: event.ability.abilityIcon.replace('.jpg', ''),
+        performance: wasteful ? QualitativePerformance.Fail : undefined,
+        tooltip: (
+          <>
+            <strong>Cast</strong> <SpellLink spell={event.ability.guid} />
+            <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
+            {wasteful ? (
+              <div>
+                <SpellLink spell={TALENTS.VOLTAIC_BLAZE_TALENT} /> only hit{' '}
+                {plural(targetsHit, { one: 'target', other: 'targets' })} and should only be cast in
+                multi-target situations.
+              </div>
+            ) : null}
+          </>
+        ),
+      };
+    });
 
     const cancelledEntries: CastInSequence[] = this.getCancelledBeginEvents(cast).map((event) => ({
       timestamp: event.timestamp,

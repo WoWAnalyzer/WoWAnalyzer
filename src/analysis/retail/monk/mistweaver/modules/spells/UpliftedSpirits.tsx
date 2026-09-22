@@ -1,6 +1,5 @@
 import { formatDuration, formatNumber } from 'common/format';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,29 +16,25 @@ const BASE_COOLDOWN = 180000; // 3 minutes in ms
 /**
  * Revival Cooldown is reduced by 30s and revival's healing is increased by 15%
  **/
-class UpliftedSpirits extends Analyzer {
-  static dependencies = {
-    revival: Revival,
-  };
+class UpliftedSpirits extends Analyzer.withDependencies({ revival: Revival }) {
   cooldownReductionUsed = 0;
   cooldownReductionWasted = 0;
   lastCastTimestamp = 0;
   usHealing = 0;
-  activeTalent!: Talent;
   totalCasts = 0;
-  protected revival!: Revival;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT);
-    if (!this.active) {
-      return;
-    }
-    this.activeTalent = this.selectedCombatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT)
-      ? TALENTS_MONK.REVIVAL_TALENT
-      : TALENTS_MONK.RESTORAL_TALENT;
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeTalent), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(this.deps.revival.activeTalent),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.deps.revival.activeTalent),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -65,7 +60,7 @@ class UpliftedSpirits extends Analyzer {
     if (increase <= 1) {
       return 0;
     }
-    return this.revival.revivalDirectHealing / increase;
+    return this.deps.revival.revivalHealing / increase;
   }
 
   get averageCdr() {
@@ -85,8 +80,8 @@ class UpliftedSpirits extends Analyzer {
         tooltip={
           <>
             <div>
-              Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
-              {formatNumber(this.effectiveHealingIncrease)}
+              Effective Healing From Additional <SpellLink spell={this.deps.revival.activeTalent} />{' '}
+              Casts: {formatNumber(this.effectiveHealingIncrease)}
             </div>
             <div>
               Healing from <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Increase:{' '}
@@ -107,7 +102,7 @@ class UpliftedSpirits extends Analyzer {
           <div>
             {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}
             <small>
-              average <SpellLink spell={this.activeTalent} /> cooldown
+              average <SpellLink spell={this.deps.revival.activeTalent} /> cooldown
             </small>
           </div>
         </BoringSpellValueText>

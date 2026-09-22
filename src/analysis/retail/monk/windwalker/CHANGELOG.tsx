@@ -1,10 +1,18 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/monk';
-import { Durpn, swirl } from 'CONTRIBUTORS';
+import { Durpn, swirl, TastyArsenic } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(
+    date(2026, 9, 3),
+    <>
+      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> is no longer suggested in the Shado-Pan APL
+      unless <SpellLink spell={TALENTS.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> is talented.
+    </>,
+    TastyArsenic,
+  ),
   change(
     date(2026, 7, 22),
     <>

@@ -2,9 +2,16 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatNumber } from 'common/format';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { EventType, RemoveBuffEvent } from 'parser/core/Events';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  EventType,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import {
   getLeapingEvents,
   getLivingFlameCastHit,
@@ -31,6 +38,14 @@ import {
   isEBFrom,
 } from '../normalizers/EssenceBurstCastLinkNormalizer';
 import SPECS from 'game/SPECS';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
+import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../core/ProcBuffAnalyzer';
+
+const ProcBuffOptions: ProcBuffAnalyzerOptions = {
+  trackedBuffs: SPELLS.LEAPING_FLAMES_BUFF,
+  inactiveListeners: {},
+};
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -61,7 +76,7 @@ import SPECS from 'game/SPECS';
  *
  * The same process applies to the wasted amount.
  */
-class LeapingFlames extends Analyzer {
+class LeapingFlames extends ProcBuffAnalyzer {
   leapingFlamesDamage = 0;
   leapingFlamesHealing = 0;
   leapingFlamesOverHealing = 0;
@@ -80,39 +95,50 @@ class LeapingFlames extends Analyzer {
   maxEB = this.hasAttunement ? 2 : 1;
   hasDragonrage = this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
 
-  /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
-   * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
-  applicationOrRefreshEvents = [Events.applybuff, Events.applybuffstack, Events.removebuffstack];
-
   constructor(options: Options) {
-    super(options);
+    super(options, ProcBuffOptions);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-      this.onRemoveBuff,
-    );
-
-    this.applicationOrRefreshEvents.forEach((e) =>
-      this.addEventListener(
-        e.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-        this.onApplyBuff,
-      ),
-    );
+    this.maxStacks = 5;
   }
 
-  onApplyBuff() {
+  onApplyBuff(event: ApplyBuffEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  onRefreshBuff(event: RefreshBuffEvent) {
+    return;
+  }
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this.ApplyOrRefreshLeaping(event);
+  }
+  ApplyOrRefreshLeaping(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffStackEvent) {
     this.leapingFlamesBuffs += 1;
   }
 
   onRemoveBuff(leapingBuff: RemoveBuffEvent) {
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
+      if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
+        this.pushCastData(
+          leapingBuff,
+          `Buff decayed during Dragonrage.`,
+          QualitativePerformance.Ok,
+        );
+      } else {
+        this.pushCastData(leapingBuff, `Buff decayed.`, QualitativePerformance.Fail);
+      }
       return;
     }
     this.leapingFlamesConsumptions += 1;
-
     const leapingEvents = getLeapingEvents(lfCast);
+
+    this.pushCastData(
+      leapingBuff,
+      `Buff used: Hit ${leapingEvents.length} additional targets`,
+      QualitativePerformance.Good,
+    );
     if (!leapingEvents.length) {
       return;
     }
@@ -175,9 +201,7 @@ class LeapingFlames extends Analyzer {
 
     /** In Dragonrage all generators have 100% chance of generating EB, so leaping
      * will have provided everything beyond the first one. */
-    const inDragonRage =
-      this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
-    if (inDragonRage) {
+    if (this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
       const maxPossibleEBGen = this.maxEB - 1;
 
       /** Player isn't running attunement and as such leaping can't ever provide value.
@@ -352,6 +376,13 @@ class LeapingFlames extends Analyzer {
         </div>
       </Statistic>
     );
+  }
+
+  get procUsageData(): AnalysisData {
+    return {
+      casts: this.casts,
+      spell: SPELLS.LEAPING_FLAMES_BUFF,
+    };
   }
 }
 

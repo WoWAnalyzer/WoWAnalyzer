@@ -7,7 +7,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const WILD_SYNTHESIS_HEALING_INCREASE = 0.3; // 30% increase
 
@@ -20,6 +21,8 @@ const WILD_SYNTHESIS_HEALING_INCREASE = 0.3; // 30% increase
 export default class WildSynthesis extends Analyzer {
   /** Total healing from all totems/pets (efllo + GGs + KotG summons) */
   totalHealing = 0;
+  /** Total overhealing from all totems/pets (efllo + GGs + KotG summons) */
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -46,6 +49,7 @@ export default class WildSynthesis extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalHealing += calculateEffectiveHealing(event, WILD_SYNTHESIS_HEALING_INCREASE);
+    this.totalOverhealing += calculateOverhealing(event, WILD_SYNTHESIS_HEALING_INCREASE);
   }
 
   statistic() {
@@ -54,6 +58,11 @@ export default class WildSynthesis extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <strong>
+            Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+          </strong>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.WILD_SYNTHESIS_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

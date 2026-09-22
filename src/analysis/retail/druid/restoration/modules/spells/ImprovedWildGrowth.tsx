@@ -1,5 +1,6 @@
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
@@ -64,6 +65,10 @@ export default class ImprovedWildGrowth extends Analyzer {
             Instead of guessing which two extra <strong>Wild Growth</strong> buffs came from this
             talent, we partially count a share of every <strong>Wild Growth</strong> buff toward
             this talent.
+            <br />
+            <strong>
+              Overhealing: {formatOverhealing(this.attribution.overheal, this.attribution.healing)}
+            </strong>
           </>
         }
       >

@@ -392,13 +392,6 @@ const spells = {
     name: 'Internal Bleeding',
     icon: 'ability_rogue_bloodsplattter',
   },
-
-  //Cooldowns
-  PREPARATION: {
-    id: 1277933,
-    name: 'Preparation',
-    icon: 'ability_rogue_preparation',
-  },
   //Procs/Poisons
   DEADLY_POISON_PROC: {
     id: 113780,
@@ -546,6 +539,11 @@ const spells = {
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
   },
+  BLADE_FLURRY_COMBO_POINT: {
+    id: 426586,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
   GRAPPLING_HOOK: {
     id: 195457,
     name: 'Grappling Hook',
@@ -628,6 +626,22 @@ const spells = {
     id: 394879,
     name: 'Vicious Follow-up',
     icon: 'spell_shadow_ritualofsacrifice',
+  },
+
+  DARKEST_NIGHT_BUFF: {
+    id: 457280,
+    name: 'Darkest Night',
+    icon: 'spell_shadow_twilight',
+  },
+  DEATHSTALKERS_MARK_DEBUFF: {
+    id: 457129,
+    name: "Deathstalker's Mark",
+    icon: 'inv_ability_deathstalkerrogue_deathstalkersmark',
+  },
+  ANCIENT_ARTS_BUFF: {
+    id: 1269163,
+    name: 'Ancient Arts',
+    icon: 'inv12_apextalent_rogue_ancientarts',
   },
 
   // Trickster Hero Talents

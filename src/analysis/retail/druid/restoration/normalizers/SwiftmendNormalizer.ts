@@ -20,14 +20,13 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.SWIFTMEND.id,
     linkingEventType: EventType.Cast,
     referencedEventId: [
-      SPELLS.REJUVENATION.id,
-      SPELLS.REJUVENATION_GERMINATION.id,
       SPELLS.REGROWTH.id,
       SPELLS.WILD_GROWTH.id,
-      SPELLS.RENEWING_BLOOM.id,
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
     ],
     referencedEventType: EventType.RemoveBuff,
-    anyTarget: true,
+    // Same target only — anyTarget would claim a nearby HoT expiry as this consume
     forwardBufferMs: REMOVE_BUFFER_MS,
     backwardBufferMs: REMOVE_BUFFER_MS,
     maximumLinks: 1,

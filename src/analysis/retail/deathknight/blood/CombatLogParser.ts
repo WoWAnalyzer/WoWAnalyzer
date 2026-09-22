@@ -41,6 +41,7 @@ import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer'
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
+import VisceralStrength from './modules/talents/VisceralStrength';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     relishInBlood: RelishInBlood,
     VampiricStrike,
     EssenceOfTheBloodQueen,
+    visceralStrength: VisceralStrength,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,

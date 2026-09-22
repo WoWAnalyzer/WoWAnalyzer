@@ -273,6 +273,13 @@ function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): Condi
 export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
   return tense === Tense.Present ? a : b;
 }
+
+/**
+ * Returns `singular` if `count` is exactly 1, otherwise `plural`.
+ **/
+export function pluralAlt<T>(count: number, singular: T, plural: T): T {
+  return count === 1 ? singular : plural;
+}
 export const spells = (rule: InternalRule): Spell[] =>
   rule.spell.type === TargetType.SpellList ? rule.spell.target : [rule.spell.target];
 

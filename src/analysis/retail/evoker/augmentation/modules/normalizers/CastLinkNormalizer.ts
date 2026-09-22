@@ -12,6 +12,8 @@ import {
   HasRelatedEvent,
   HasTarget,
   RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -554,8 +556,12 @@ function upheavalHitIsUnique(castEvent: EmpowerEndEvent, damageEvent: DamageEven
   );
 }
 
-export function isFromMassEruption(event: CastEvent) {
+export function isFromMassEruption(event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent) {
   return HasRelatedEvent(event, MASS_ERUPTION_CONSUME);
+}
+
+export function getMassEruptionCast(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, MASS_ERUPTION_CONSUME);
 }
 
 export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {

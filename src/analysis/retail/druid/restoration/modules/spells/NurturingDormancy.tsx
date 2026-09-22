@@ -11,6 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SpellLink } from 'interface';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const EXTENSION_AMOUNT = 2_000;
 const REJUV_MAX = 30_000;
@@ -113,6 +114,10 @@ class NurturingDormancy extends Analyzer {
             This is the healing due to <SpellLink spell={TALENTS_DRUID.NURTURING_DORMANCY_TALENT} />{' '}
             rejuv extensions. Over the course of the encounter, rejuvs were extended a total of{' '}
             <strong>{(this.attribution.totalExtension / 1000).toFixed(1)}s</strong>.
+            <br />
+            <strong>
+              Overhealing: {formatOverhealing(this.attribution.overheal, this.attribution.healing)}
+            </strong>
           </>
         }
       >

@@ -8,11 +8,16 @@ import DefensiveAndUtility from '../shared/guide/DefensiveAndUtility';
 import { Seriousnes } from 'CONTRIBUTORS';
 import Contributor from 'interface/ContributorButton';
 import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
+import { TIERS } from 'game/TIERS';
+import ItemSetLink from 'interface/ItemSetLink';
+import { SHAMAN_MID2_ID } from 'common/ITEMS';
 
 export default function Guide(props: GuideProps<typeof CombatLogParser>) {
   const combatant = props.info.combatant;
   const isTotemic = combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
   const isStormbringer = combatant.hasTalent(TALENTS.TEMPEST_TALENT);
+  const hasMid2TierSet =
+    combatant.has2PieceByTier(TIERS.MID2) || combatant.has4PieceByTier(TIERS.MID2);
 
   return (
     <>
@@ -44,6 +49,19 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
         {isTotemic && props.modules.surgingTotem.guideSubsection}
         {isStormbringer && props.modules.tempest.guideSubsection}
       </Section>
+      {hasMid2TierSet && (
+        <Section
+          title={
+            <>
+              <ItemSetLink id={SHAMAN_MID2_ID}>
+                Midnight Season 2 Tier Set (Ophidian Oracle's Prophecy)
+              </ItemSetLink>
+            </>
+          }
+        >
+          {props.modules.s2TierSet.guideSubsection}
+        </Section>
+      )}
       <Cooldowns {...props} />
       <Section title="Always Be Casting">
         <FoundationDowntimeSectionV2 />

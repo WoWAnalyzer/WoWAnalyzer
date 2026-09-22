@@ -253,7 +253,11 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     );
   }
 
-  guideSubsection(): JSX.Element {
+  get guideSubsection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+
     return (
       <CooldownUsage
         analyzer={this}

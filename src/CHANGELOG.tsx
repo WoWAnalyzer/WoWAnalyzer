@@ -37,13 +37,19 @@ import {
   Ateis,
   Xinito,
   Darkfrog,
-  Texleretour
+  Texleretour,
+  Baloop
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 15), "Fix buffs on the Overview tab's cooldown timelines showing as active for the whole window, or as stacked duplicate icons, when they weren't.", swirl),
+  change(date(2026, 9, 5), "Adjusted margins for sections in the Overview tab.", swirl),
+  change(date(2026, 9, 2), 'Add item and spell definitions for the Midnight Season 2 trinkets (Venomous Abyss raid, Mythic+ dungeon pool, and PvP badge).', Baloop),
+  change(date(2026, 8, 31), "Fix a rare issue where negative stat ratings would result in negative stat percentages", Putro),
+  change(date(2026, 8, 28), "Fix tooltips & donut chart rendering non-numerical values.", swirl),
   change(date(2026, 8, 24), "Update strong weapon enchant list for Season 2.", Seriousnes),
   change(date(2026, 8, 19), 'Honor combatant-info stack counts when applying buffs already active at pull.', squided),
   change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),

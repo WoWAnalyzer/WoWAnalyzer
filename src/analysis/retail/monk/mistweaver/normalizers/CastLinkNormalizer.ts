@@ -41,15 +41,18 @@ import {
   CRANE_STYLE_SCK,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
+  ZEN_PULSE_OVERCAP,
   ZEN_PULSE_CAST,
   STRENGTH_OF_THE_BLACK_OX,
   SPIRITFONT_CONSUMED,
   SPIRITFONT_FALSE_REFRESH,
+  SPIRITFONT_OVERCAP,
   JADE_BOND_ENVM,
   INSURANCE_FROM_REM,
   INSURANCE,
   RUSHING_WIND_KICK,
   SHEILUNS_GIFT_MAIN_TARGET,
+  DANCE_OF_CHI_JI_CONSUME,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -281,8 +284,14 @@ export function getZenPulseHitsPerCast(event: HealEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_CAST);
 }
 
-export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-  return GetRelatedEvent(event, ZEN_PULSE_CONSUME);
+export function getZenPulseConsumingCast(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, ZEN_PULSE_CONSUME);
+}
+
+export function getZenPulseOvercapCast(event: RefreshBuffEvent): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, ZEN_PULSE_OVERCAP);
 }
 
 export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
@@ -305,8 +314,14 @@ export function HasStackChange(event: RefreshBuffEvent): boolean {
 }
 
 // apex talent (spiritfont)
-export function isSpiritfontConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
-  return HasRelatedEvent(event, SPIRITFONT_CONSUMED);
+export function getSpiritfontConsumingCast(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, SPIRITFONT_CONSUMED);
+}
+
+export function getSpiritfontOvercapCast(event: RefreshBuffEvent): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, SPIRITFONT_OVERCAP);
 }
 
 export function isSpiritfontFalseRefresh(event: RefreshBuffEvent): boolean {
@@ -314,8 +329,10 @@ export function isSpiritfontFalseRefresh(event: RefreshBuffEvent): boolean {
 }
 
 // hero talents
-export function isStrengthOfTheBlackOxConsumed(event: RemoveBuffEvent): boolean {
-  return HasRelatedEvent(event, STRENGTH_OF_THE_BLACK_OX);
+export function getStrengthOfTheBlackOxConsumingCast(
+  event: RemoveBuffEvent,
+): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, STRENGTH_OF_THE_BLACK_OX);
 }
 
 // tier
@@ -329,6 +346,15 @@ export function isInsuranceFromHardcast(event: HealEvent) {
     return false;
   }
   return isFromHardcast(remApply) || isFromRapidDiffusion(remApply);
+}
+
+// damage -> heal
+export function isDanceOfChiJi(event: CastEvent): boolean {
+  return HasRelatedEvent(event, DANCE_OF_CHI_JI_CONSUME);
+}
+
+export function getDanceOfChiJiConsumingCast(event: RemoveBuffEvent): CastEvent | undefined {
+  return GetRelatedEvent<CastEvent>(event, DANCE_OF_CHI_JI_CONSUME);
 }
 
 export default CastLinkNormalizer;

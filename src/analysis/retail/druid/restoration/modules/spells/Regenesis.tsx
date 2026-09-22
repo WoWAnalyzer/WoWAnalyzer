@@ -7,7 +7,9 @@ import Events, { HealEvent } from 'parser/core/Events';
 import {
   calculateEffectiveHealing,
   calculateHealTargetHealthPercent,
+  calculateOverhealing,
 } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -30,7 +32,9 @@ const TRANQ_MAX_BOOST_PER_RANK = 0.3;
 class Regenesis extends Analyzer {
   ranks: number;
   rejuvBoostHealing = 0;
+  rejuvBoostOverhealing = 0;
   tranqBoostHealing = 0;
+  tranqBoostOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -49,17 +53,28 @@ class Regenesis extends Analyzer {
   }
 
   onRejuvHeal(event: HealEvent) {
-    this.rejuvBoostHealing += this._getBoostHealing(event, REJUV_MAX_BOOST_PER_RANK * this.ranks);
+    const { healing, overheal } = this._getBoostHealing(
+      event,
+      REJUV_MAX_BOOST_PER_RANK * this.ranks,
+    );
+    this.rejuvBoostHealing += healing;
+    this.rejuvBoostOverhealing += overheal;
   }
 
   onTranqHeal(event: HealEvent) {
-    this.tranqBoostHealing += this._getBoostHealing(event, TRANQ_MAX_BOOST_PER_RANK * this.ranks);
+    const { healing, overheal } = this._getBoostHealing(
+      event,
+      TRANQ_MAX_BOOST_PER_RANK * this.ranks,
+    );
+    this.tranqBoostHealing += healing;
+    this.tranqBoostOverhealing += overheal;
   }
 
-  _getBoostHealing(event: HealEvent, boostAmount: number): number {
+  _getBoostHealing(event: HealEvent, boostAmount: number): { healing: number; overheal: number } {
     // Scaling on the boost is linear, with max boost when target is at 0% and no boost when target is full
     const healthPercentMissingBeforeHeal = 1 - calculateHealTargetHealthPercent(event);
-    const att = calculateEffectiveHealing(event, boostAmount * healthPercentMissingBeforeHeal);
+    const boost = boostAmount * healthPercentMissingBeforeHeal;
+    const att = calculateEffectiveHealing(event, boost);
     if (DEBUG && event.amount > 0) {
       console.log(
         `${event.ability.name} heal for ${
@@ -70,11 +85,15 @@ class Regenesis extends Analyzer {
         event,
       );
     }
-    return att;
+    return { healing: att, overheal: calculateOverhealing(event, boost) };
   }
 
   get totalHealing() {
     return this.rejuvBoostHealing + this.tranqBoostHealing;
+  }
+
+  get totalOverhealing() {
+    return this.rejuvBoostOverhealing + this.tranqBoostOverhealing;
   }
 
   statistic() {
@@ -96,6 +115,9 @@ class Regenesis extends Analyzer {
                 <strong>{this.owner.formatItemHealingDone(this.tranqBoostHealing)}</strong>
               </li>
             </ul>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
           </>
         }
       >

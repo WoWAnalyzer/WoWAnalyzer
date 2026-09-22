@@ -11,6 +11,12 @@ class Buffs extends ClassBuffs {
       ...super.auras(),
       {
         spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
+        triggeredBySpellId: combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)
+          ? TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id
+          : SPELLS.STORMSTRIKE.id,
+        enabled:
+          combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
         timelineHighlight: true,
       },
       {

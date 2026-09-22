@@ -7,6 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { Options } from 'parser/core/Module';
 import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 /**
  * **Potent Enchantments**
@@ -37,6 +38,17 @@ export default class PotentEnchantments extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(
+                this.treeOfLife.getPotentEnchantmentsOverhealing(),
+                this.treeOfLife.getPotentEnchantmentsHealing(),
+              )}
+            </strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT}>
           <ItemPercentHealingDone amount={this.treeOfLife.getPotentEnchantmentsHealing()} />
