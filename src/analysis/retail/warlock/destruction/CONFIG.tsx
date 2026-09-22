@@ -16,7 +16,17 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      If you have any questions about Warlocks, feel free to pay a visit to{' '}
+      Hello! Thanks for checking out the Destruction Analyzer. If you have any feedback or
+      suggestions, feel free to reach out to me via Discord (you can reach me @Katorri on either the{' '}
+      <a href="https://discord.com/invite/AxphPxU" target="_blank" rel="noopener noreferrer">
+        WoWAnalyzer
+      </a>{' '}
+      or the{' '}
+      <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
+        Warlock
+      </a>{' '}
+      discords) or drop an issue in the GitHub repo. If you have any questions about Warlocks, feel
+      free to pay a visit to{' '}
       <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
         Council of the Black Harvest Discord
       </a>
@@ -41,7 +51,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/CQgrp23KT4kBFDAq/11-Heroic+Vaelgor+&+Ezzorak+-+Kill+(6:40)/73-Speakntongue/standard',
+    '/report/yCzXLNfpcQTBJD6V/27-Heroic+Entombed+Sentinels+-+Kill+(5:15)/1-Katorrí/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
