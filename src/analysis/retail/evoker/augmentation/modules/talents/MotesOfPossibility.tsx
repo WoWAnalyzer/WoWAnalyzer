@@ -16,15 +16,25 @@ import Events, { ApplyBuffEvent, HasRelatedEvent, RefreshBuffEvent } from 'parse
 import { VersatilityIcon } from 'interface/icons';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
+import Combatants from 'parser/shared/modules/Combatants';
+import classColor from 'game/classColor';
+import Combatant from 'parser/core/Combatant';
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
 /**
  * Eruption has a 25% chance to create a Mote of Possibility. Motes of Possibility can be consumed to grant a player Shifting Sands, Inferno's Blessing, or Symbiotic Bloom at random.
  * Clairvoyant: Chance increased to 35%, and can instead grant Prescience.
  */
 class MotesOfPossibility extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
   sandsMotes = 0;
   infernoMotes = 0;
   blossomMotes = 0;
   prescienceMotes = 0;
+  moteCount = new Map<number, number>();
 
   constructor(options: Options) {
     super(options);
@@ -102,40 +112,96 @@ class MotesOfPossibility extends Analyzer {
     }
   }
 
+  OnMotesApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (event.targetID === undefined) {
+      console.warn(
+        'MotesOfPossibility module received an event with no targetID',
+        event.ability.name +
+          `(${event.ability.guid}) @` +
+          this.owner.formatTimestamp(event.timestamp),
+      );
+      return;
+    }
+    this.moteCount.set(event.targetID, (this.moteCount.get(event.targetID) || 0) + 1);
+  }
+
   OnSandsApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!HasRelatedEvent(event, EMPOWER_SANDS_APPLY)) {
       this.sandsMotes += 1;
+      this.OnMotesApply(event);
     }
   }
 
   OnInfernosApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.infernoMotes += 1;
+    this.OnMotesApply(event);
   }
 
   OnInfernosApplyWithTalent(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!HasRelatedEvent(event, FIRE_BREATH_INFERNOS_APPLY)) {
       this.infernoMotes += 1;
+      this.OnMotesApply(event);
     }
   }
 
   OnSymbioticApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.blossomMotes += 1;
+    this.OnMotesApply(event);
   }
 
   OnSymbioticApplyWithTalent(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!HasRelatedEvent(event, EMERALD_BLOSSOM_SYMBIOTIC_APPLY)) {
       this.blossomMotes += 1;
+      this.OnMotesApply(event);
     }
   }
 
   OnPrescienceApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.prescienceMotes += 1;
+    this.OnMotesApply(event);
   }
 
   OnPrescienceApplyWithTalent(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!HasRelatedEvent(event, PRESCIENCE_BUFF_CAST_LINK)) {
       this.prescienceMotes += 1;
+      this.OnMotesApply(event);
     }
+  }
+
+  getClassColorForTarget(target: Combatant): string {
+    let classStr = '#000000';
+    let className = '';
+    if (classColor(target)) {
+      className = classColor(target);
+    }
+    if (className === 'DeathKnight') {
+      classStr = '#C41E3A';
+    } else if (className === 'DemonHunter') {
+      classStr = '#A330C9';
+    } else if (className === 'Druid') {
+      classStr = '#FF7C0A';
+    } else if (className === 'Evoker') {
+      classStr = '#33937F';
+    } else if (className === 'Hunter') {
+      classStr = '#AAD372';
+    } else if (className === 'Mage') {
+      classStr = '#3FC7EB';
+    } else if (className === 'Monk') {
+      classStr = '#00FF98';
+    } else if (className === 'Paladin') {
+      classStr = '#F48CBA';
+    } else if (className === 'Priest') {
+      classStr = '#FFFFFF';
+    } else if (className === 'Rogue') {
+      classStr = '#FFF468';
+    } else if (className === 'Shaman') {
+      classStr = '#0070DD';
+    } else if (className === 'Warlock') {
+      classStr = '#8788EE';
+    } else if (className === 'Warrior') {
+      classStr = '#C69B6D';
+    }
+    return classStr;
   }
 
   statistic() {
@@ -196,11 +262,47 @@ class MotesOfPossibility extends Analyzer {
         },
       ];
     }
+
+    const targetChart = [];
+    const sortedMoteMap = new Map([...this.moteCount.entries()].sort((a, b) => b[1] - a[1]));
+    for (const [targetID, count] of sortedMoteMap.entries()) {
+      const target = this.combatants.players[targetID];
+      console.log(classColor(target));
+      if (target) {
+        let targetLabel = target.name;
+        if (target.spec?.role === ROLES.TANK) {
+          targetLabel += ' (Tank)';
+        } else if (target.spec?.role === ROLES.HEALER) {
+          targetLabel += ' (Healer)';
+        } else if (target.spec === SPECS.AUGMENTATION_EVOKER) {
+          targetLabel += ' (Aug)';
+        }
+        targetChart.push({
+          color: this.getClassColorForTarget(target),
+          label: targetLabel,
+          spellId: 0,
+          valueTooltip: count,
+          value: count,
+        });
+      }
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(12)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        dropdown={
+          <>
+            <div className="pad">
+              <label>Buff breakdown</label>
+              <DonutChart items={moteChart} />
+            </div>
+            <div className="pad">
+              <label>Target targets</label>
+              <DonutChart items={targetChart} />
+            </div>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT}>
           <div>
@@ -212,10 +314,6 @@ class MotesOfPossibility extends Analyzer {
             </small>
           </div>
         </TalentSpellText>
-        <div className="pad">
-          <label>Motes of Possibility breakdown</label>
-          <DonutChart items={moteChart} />
-        </div>
       </Statistic>
     );
   }
