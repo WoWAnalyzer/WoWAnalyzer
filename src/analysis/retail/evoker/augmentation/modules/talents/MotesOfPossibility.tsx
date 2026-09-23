@@ -298,7 +298,7 @@ class MotesOfPossibility extends Analyzer {
               <DonutChart items={moteChart} />
             </div>
             <div className="pad">
-              <label>Target targets</label>
+              <label>Buff targets</label>
               <DonutChart items={targetChart} />
             </div>
           </>
