@@ -27,6 +27,7 @@ import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import Enemies from 'parser/shared/modules/Enemies';
 import Combatants from 'parser/shared/modules/Combatants';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 export class RetailDungeonPullListCombatParser extends CombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -245,7 +246,7 @@ export default function useDungeonPullList({
 
   const parserClass = useMemo(
     () =>
-      baseParser
+      baseParser && isMythicPlus(fight)
         ? class extends RetailDungeonPullListCombatParser {
             static internalModules: DependenciesDefinition = {
               ...baseParser!.internalModules,
@@ -257,7 +258,7 @@ export default function useDungeonPullList({
             };
           }
         : undefined,
-    [baseParser],
+    [baseParser, fight],
   );
 
   const parser = useMemo(() => {
