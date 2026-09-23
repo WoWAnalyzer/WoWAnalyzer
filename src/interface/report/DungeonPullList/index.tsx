@@ -402,7 +402,7 @@ function AbilityList({
 }
 
 export function shouldShowDungeonPullList(
-  fight: Fight,
+  fight: WCLFight,
   selectedPull?: SelectedDungeonPull,
 ): boolean {
   return isMythicPlus(fight) && !selectedPull;

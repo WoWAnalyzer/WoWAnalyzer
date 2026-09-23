@@ -7,6 +7,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
 import { isCommonError } from '../handleApiError';
+import { shouldShowDungeonPullList } from '../DungeonPullList';
 
 interface EventRange {
   target: WCLFight | WCLDungeonPull;
@@ -73,6 +74,8 @@ const useEvents = ({
   fight: WCLFight;
   player: Pick<PlayerInfo, 'id'>;
 }) => {
+  // this should probably not live in the react lifecycle like this. the state management is very messy.
+  // these values are all expected to be reset by the calling component doing a full re-render when report/fight/player changes.
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
   const [pulls, setPulls] = useState<DungeonPullEvents[]>([]);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
@@ -80,6 +83,12 @@ const useEvents = ({
   const [allDeaths, setAllDeaths] = useState<DeathEvent[] | undefined>();
 
   useEffect(() => {
+    // this is only run for M+ because the info isn't shown anywhere in raids.
+    // if we want to show it for raids, we can turn it on for raids.
+    if (!shouldShowDungeonPullList(fight)) {
+      return;
+    }
+
     let cancelled = false;
 
     (async () => {
@@ -98,7 +107,9 @@ const useEvents = ({
         if (!isCommonError(err)) {
           captureException(err as Error);
         }
-        setError(err as Error);
+        if (!cancelled) {
+          setError(err as Error);
+        }
       }
     })();
 
@@ -121,14 +132,18 @@ const useEvents = ({
           setCurrentTime(range.target.end_time);
           events = events.concat(range.events);
         }
+
+        if (!cancelled) {
+          setEvents(events);
+        }
       } catch (err) {
         if (!isCommonError(err)) {
           captureException(err as Error);
         }
-        setError(err as Error);
+        if (!cancelled) {
+          setError(err as Error);
+        }
       }
-
-      setEvents(events);
     })();
 
     return () => {
