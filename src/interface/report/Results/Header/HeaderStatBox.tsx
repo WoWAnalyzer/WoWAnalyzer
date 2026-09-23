@@ -8,6 +8,8 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { JSX } from 'react';
+import { useSelectedPull } from 'interface/report/DungeonPullList';
+import { useFight } from 'interface/report/context/FightContext';
 
 /** @internal */
 export const StatBoxContainer = cssComponent('div', styles.StatBoxContainer, [] as const);
@@ -73,13 +75,18 @@ function BossDamageStat() {
   }
 
   const duration = combatLogParser.fightDuration / 1000;
+  const bossDamage = combatLogParser.getModule(DamageDone).totalBoss.effective;
+  if (bossDamage === 0) {
+    // indirectly handle M+ pull selections with no bosses in them
+    return null;
+  }
 
   return (
     <StatBoxStat>
       <dt>
         <DamageIcon /> Boss DPS
       </dt>
-      <dd>{formatNumber(combatLogParser.getModule(DamageDone).totalBoss.effective / duration)}</dd>
+      <dd>{formatNumber(bossDamage / duration)}</dd>
     </StatBoxStat>
   );
 }
