@@ -83,6 +83,7 @@ class Overlord extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(12)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={<>DPS number does not include damage from generated Motes of Possibility.</>}
       >
         <TalentSpellText talent={TALENTS.OVERLORD_TALENT}>
           <div>
