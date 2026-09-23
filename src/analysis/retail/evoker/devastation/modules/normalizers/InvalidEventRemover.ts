@@ -71,14 +71,13 @@ const flaggedEvents = [
 ];
 
 function hasFlaggedEvent(event: AnyEvent) {
-  let flagged = false;
-  flaggedEvents.forEach((fe) => {
+  for (const fe of flaggedEvents) {
     if (fe.eventType === event.type && HasRelatedEvent(event, fe.link)) {
-      flagged = true;
-      return;
+      return true;
     }
-  });
-  return flagged;
+  }
+
+  return false;
 }
 
 export default InvalidEventRemover;
