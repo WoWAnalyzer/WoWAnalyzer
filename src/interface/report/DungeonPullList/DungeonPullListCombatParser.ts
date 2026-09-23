@@ -8,7 +8,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Report from 'parser/core/Report';
 import Events, {
   AbilityEvent,
-  ApplyBuffEvent,
+  ApplyDebuffEvent,
   CombatantInfoEvent,
   DeathEvent,
   EventType,
@@ -26,7 +26,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import Enemies from 'parser/shared/modules/Enemies';
 import Combatants from 'parser/shared/modules/Combatants';
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import { BLOODLUST_SATED_DEBUFFS } from 'game/BLOODLUST_BUFFS';
 import { isMythicPlus } from 'common/isMythicPlus';
 
 export class RetailDungeonPullListCombatParser extends CombatLogParser {
@@ -51,7 +51,7 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
   defensives: Ability[] = [];
 
   // we can't see the actual cast. so if it was used and you were dead, no way to practically tell.
-  #bloodlustUses: ApplyBuffEvent[] = [];
+  #bloodlustUses: ApplyDebuffEvent[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -76,16 +76,14 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
     });
 
     this.addEventListener(
-      Events.applybuff.spell(
-        Object.keys(BLOODLUST_BUFFS)
-          .map((id) => Number(id))
-          .map((id) => ({ id })),
+      Events.applydebuff.spell(
+        BLOODLUST_SATED_DEBUFFS.map((id) => Number(id)).map((id) => ({ id })),
       ),
       this.recordBloodlustUse,
     );
   }
 
-  private recordBloodlustUse(event: ApplyBuffEvent) {
+  private recordBloodlustUse(event: ApplyDebuffEvent) {
     this.#bloodlustUses.push(event);
   }
 
@@ -261,6 +259,8 @@ export default function useDungeonPullList({
     [baseParser, fight],
   );
 
+  // note: this parser is not always reinitialized after a hot reload, which can lead to visual bugs (like seeing millions of extra dps)
+  // this is a dev-only problem, since hot reload is the cause. you can fix with a full reload.
   const parser = useMemo(() => {
     nextPullIndex.current = 0;
 

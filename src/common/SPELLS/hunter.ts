@@ -673,6 +673,11 @@ const spells = {
     name: "Harrier's Cry",
     icon: 'inv_111_hunter_ability_harrierscall',
   },
+  FATIGUED: {
+    id: 264689,
+    name: 'Fatigued',
+    icon: 'spell_nature_focusedmind',
+  },
   MASTERS_CALL: {
     id: 272682,
     name: "Master's Call",
