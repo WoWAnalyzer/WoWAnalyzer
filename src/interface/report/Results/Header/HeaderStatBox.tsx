@@ -8,8 +8,6 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { JSX } from 'react';
-import { useSelectedPull } from 'interface/report/DungeonPullList';
-import { useFight } from 'interface/report/context/FightContext';
 
 /** @internal */
 export const StatBoxContainer = cssComponent('div', styles.StatBoxContainer, [] as const);
