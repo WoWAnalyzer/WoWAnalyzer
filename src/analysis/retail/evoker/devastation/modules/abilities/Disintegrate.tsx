@@ -415,7 +415,6 @@ class Disintegrate extends Analyzer {
       this.pullData[this.pullIndex].casts = this.casts;
       this.pullData[this.pullIndex].windowEndedOrPushed = true;
       this.windows.push(this.pullData[this.pullIndex]);
-      console.log(this.casts);
     }
   }
 

@@ -71,11 +71,12 @@ const flaggedEvents = [
 ];
 
 function hasFlaggedEvent(event: AnyEvent) {
-  flaggedEvents.forEach((fe) => {
+  for (const fe of flaggedEvents) {
     if (fe.eventType === event.type && HasRelatedEvent(event, fe.link)) {
       return true;
     }
-  });
+  }
+
   return false;
 }
 
