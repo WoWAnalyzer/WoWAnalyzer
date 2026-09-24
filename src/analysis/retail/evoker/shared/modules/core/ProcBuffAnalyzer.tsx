@@ -12,6 +12,7 @@ import { AnalysisData } from '../components/ProcAnalysis';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvaluation } from 'interface/guide/components';
 import { SpellFilter } from 'parser/core/EventFilter';
+import SPELLS from 'common/SPELLS';
 
 export interface PerformanceSettings {
   refreshingBuffIsFail: boolean;
@@ -109,9 +110,11 @@ abstract class ProcBuffAnalyzer extends Analyzer {
   }
   private onApplyBuffStackBase(event: ApplyBuffStackEvent) {
     this.changeStacks(event.stack);
+    event.ability.guid === SPELLS.MASS_DISINTEGRATE_BUFF.id &&
+      console.log(this._activeStacks, this._previousStacks);
     if (
       this._overcapBuffisFail &&
-      this._activeStacks + this.amountOfStacksGenerated > this.maxStacks
+      this._previousStacks + this.amountOfStacksGenerated > this.maxStacks
     ) {
       this.pushOvercapFailure(event);
     }
