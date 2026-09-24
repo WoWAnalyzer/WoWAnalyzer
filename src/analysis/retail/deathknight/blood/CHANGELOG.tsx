@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import { Arlie, Badkad, emallson, Gazh } from 'CONTRIBUTORS';
+import { Arlie, Badkad, emallson, Gazh, Mahmud17 } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 23), <>Added a <SpellLink spell={SPELLS.BONE_SHIELD} /> stack graph and an <SpellLink spell={SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF} /> 7-stack uptime tracker to the guide.</>, Mahmud17),
   change(date(2026, 9, 3), <>Fixed <SpellLink spell={talents.RAISE_DEAD_TALENT} /> cooldown</>, Badkad),
 
   change(date(2026, 8, 29), <>Added <SpellLink spell={talents.VISCERAL_STRENGTH_TALENT} /> tracking</>, Gazh),

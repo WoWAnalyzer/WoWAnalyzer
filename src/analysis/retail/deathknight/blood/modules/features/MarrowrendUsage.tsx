@@ -24,6 +24,15 @@ const REFRESH_AT_SECONDS = 6;
 const BS_DURATION = 30;
 const MR_GAIN = 3;
 
+/** What a single Marrowrend cast did to Bone Shield, used for the guide graph. */
+export interface MarrowrendCastRecord {
+  timestamp: number;
+  /** Bone Shield stacks right before the cast */
+  stacksBefore: number;
+  /** Stacks that could not be gained because Bone Shield was at its cap */
+  wasted: number;
+}
+
 class MarrowrendUsage extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -40,6 +49,9 @@ class MarrowrendUsage extends Analyzer {
   lastMarrowrendCast = 0;
 
   bsStacksWasted = 0;
+
+  /** Every Marrowrend cast in order, with how many Bone Shield stacks it wasted */
+  castRecords: MarrowrendCastRecord[] = [];
 
   refreshMRCasts = 0;
   totalMRCasts = 0;
@@ -93,6 +105,12 @@ class MarrowrendUsage extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    this.castRecords.push({
+      timestamp: event.timestamp,
+      stacksBefore: this.currentBoneShieldStacks - this.currentBoneShieldBuffer,
+      wasted: Math.max(0, MR_GAIN - this.currentBoneShieldBuffer),
+    });
+
     // don't count exterminate casts. you're not really casting MR, you're casting exterminate
     const exterminateCast =
       this.selectedCombatant.hasBuff(SPELLS.EXTERMINATE_BUFF) ||
