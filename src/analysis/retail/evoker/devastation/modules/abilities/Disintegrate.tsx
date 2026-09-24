@@ -572,8 +572,7 @@ class Disintegrate extends Analyzer {
           c.reason = (
             <>
               Ok Clip: Clipped {c.tickCount} tick(s) with <SpellLink spell={c.followingCast} />.
-              {this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) &&
-                ' If target count was either 3 or 4 then it was GOOD else it was BAD.'}
+              {this.isSC && ' If target count was either 3 or 4 then it was GOOD else it was BAD.'}
             </>
           );
         } else {
