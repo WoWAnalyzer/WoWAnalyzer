@@ -22,7 +22,8 @@ const REFRESH_AT_STACKS = 7;
 
 const REFRESH_AT_SECONDS = 6;
 const BS_DURATION = 30;
-const MR_GAIN = 3;
+/** Bone Shield stacks gained per Marrowrend cast. */
+export const MR_GAIN = 3;
 
 /** What a single Marrowrend cast did to Bone Shield, used for the guide graph. */
 export interface MarrowrendCastRecord {

@@ -3,7 +3,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import BoneShieldStackTracker from './BoneShieldStackTracker';
-import MarrowrendUsage from './MarrowrendUsage';
+import MarrowrendUsage, { MR_GAIN } from './MarrowrendUsage';
 
 /** Ossuary is active at this many Bone Shield stacks or more. */
 export const OSSUARY_STACKS = 5;
@@ -39,7 +39,7 @@ class BoneShieldGraph extends BuffStackGraph {
       timestamp: record.timestamp,
       stacksBefore: record.stacksBefore,
       // draw the cast at the stack count it produced, capped at the maximum
-      stacksAfter: Math.min(MAX_STACKS, record.stacksBefore + (3 - record.wasted)),
+      stacksAfter: Math.min(MAX_STACKS, record.stacksBefore + (MR_GAIN - record.wasted)),
       wasted: record.wasted,
       overcap: record.wasted > 0,
     }));
