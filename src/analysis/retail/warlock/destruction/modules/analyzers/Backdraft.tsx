@@ -4,17 +4,14 @@ import { TooltipElement } from 'interface/Tooltip';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   ApplyBuffStackEvent,
 } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
-import { SpellUse } from 'parser/core/SpellUsage/core';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class Backdraft extends Analyzer {
   get suggestionThresholds(): NumberThreshold {
@@ -40,8 +37,6 @@ class Backdraft extends Analyzer {
 
   wastedOvercapStacks = 0;
   wastedExpiredStacks = 0;
-
-  uses: SpellUse[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -81,18 +76,11 @@ class Backdraft extends Analyzer {
     this._currentStacks = event.stack;
   }
 
-  onBackdraftRefresh(event: RefreshBuffEvent) {
+  onBackdraftRefresh() {
     // WoW fires refreshbuff instead of applybuffstack when Conflagrate is cast at max stacks —
     // the new stacks are silently lost. Only record waste if we're actually tracking max stacks.
     if (this._currentStacks === this._maxStacks) {
       this.wastedOvercapStacks += this._maxStacks;
-
-      this.uses.push({
-        event: event as unknown as CastEvent,
-        performance: QualitativePerformance.Fail,
-        checklistItems: [],
-        performanceExplanation: `Overcapped Backdraft by ${this._maxStacks} stack${this._maxStacks > 1 ? 's' : ''}`,
-      });
     }
   }
 
@@ -109,13 +97,6 @@ class Backdraft extends Analyzer {
 
     if (!likelyConsumed && this._currentStacks > 0) {
       this.wastedExpiredStacks += this._currentStacks;
-
-      this.uses.push({
-        event: event as unknown as CastEvent,
-        performance: QualitativePerformance.Fail,
-        checklistItems: [],
-        performanceExplanation: `Backdraft expired with ${this._currentStacks} stack${this._currentStacks > 1 ? 's' : ''} remaining`,
-      });
     }
     this._currentStacks = 0;
   }
@@ -124,13 +105,6 @@ class Backdraft extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
       this._lastBackdraftConsumptionTimestamp = event.timestamp;
     }
-
-    this._lastBackdraftConsumptionTimestamp = event.timestamp;
-  }
-
-  // fightStart/fightEnd unused — misses are tracked directly via onBackdraftRemove/onBackdraftApplyStack
-  getSpellUsesWithPotentialMisses(_fightStart: number, _fightEnd: number): SpellUse[] {
-    return this.uses;
   }
 
   get buffHistory() {
