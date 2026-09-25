@@ -13,6 +13,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 // Essence of the Blood Queen is 1% haste per stack outside of Gift of the San'layn, and 3% haste per stack during it.
 const ESSENCE_HASTE_NORMAL = 0.01;
 const ESSENCE_HASTE_GIFT = 0.03;
+// Essence of the Blood Queen caps at 7 stacks.
+const MAX_STACKS = 7;
 
 export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ haste: Haste }) {
   constructor(options: Options) {
@@ -65,6 +67,11 @@ export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ 
     );
   }
 
+  /** Uptime of Essence of the Blood Queen at its maximum of 7 stacks, where it grants the most haste. */
+  get maxStackUptime() {
+    return (this.stackUptimes[MAX_STACKS] ?? 0) / this.owner.fightDuration;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -103,6 +110,10 @@ export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ 
         <BoringSpellValueText spell={SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF}>
           <div>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </div>
+          <div>
+            <UptimeIcon /> {formatPercentage(this.maxStackUptime)}%{' '}
+            <small>uptime at {MAX_STACKS} stacks</small>
           </div>
           <div>
             {this.averageStacks.toFixed(1)} <small>average stacks</small>

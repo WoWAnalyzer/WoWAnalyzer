@@ -9,6 +9,8 @@ import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
 import BoneShield from './modules/features/BoneShield';
+import BoneShieldGraph from './modules/features/BoneShieldGraph';
+import BoneShieldStackTracker from './modules/features/BoneShieldStackTracker';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CrimsonScourge from './modules/features/CrimsonScourge';
@@ -41,6 +43,8 @@ import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer'
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
+import EssenceOfTheBloodQueenGraph from './modules/talents/EssenceOfTheBloodQueenGraph';
+import EssenceOfTheBloodQueenStackTracker from './modules/talents/EssenceOfTheBloodQueenStackTracker';
 import VisceralStrength from './modules/talents/VisceralStrength';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -63,6 +67,8 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
+    boneShieldStackTracker: BoneShieldStackTracker,
+    boneShieldGraph: BoneShieldGraph,
     deathsCaress: DeathsCaress,
 
     // DOT
@@ -88,6 +94,8 @@ class CombatLogParser extends CoreCombatLogParser {
     relishInBlood: RelishInBlood,
     VampiricStrike,
     EssenceOfTheBloodQueen,
+    essenceOfTheBloodQueenStackTracker: EssenceOfTheBloodQueenStackTracker,
+    essenceOfTheBloodQueenGraph: EssenceOfTheBloodQueenGraph,
     visceralStrength: VisceralStrength,
 
     // Runes
