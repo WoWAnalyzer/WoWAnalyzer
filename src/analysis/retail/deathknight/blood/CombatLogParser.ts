@@ -43,6 +43,7 @@ import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
 import VisceralStrength from './modules/talents/VisceralStrength';
+import WastedExterminate from './modules/talents/WastedExterminate';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     VampiricStrike,
     EssenceOfTheBloodQueen,
     visceralStrength: VisceralStrength,
+    wastedExterminate: WastedExterminate,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,
