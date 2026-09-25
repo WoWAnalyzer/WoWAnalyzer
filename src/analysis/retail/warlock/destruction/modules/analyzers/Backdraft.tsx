@@ -102,6 +102,7 @@ class Backdraft extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    // Marks a cast that spent a stack, so onBackdraftRemove can tell consumption from expiry.
     if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
       this._lastBackdraftConsumptionTimestamp = event.timestamp;
     }
