@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import SpellLink from 'interface/SpellLink';
 import { BuffUptimeBar } from 'interface/guide/components';
+import { TipBox } from 'interface/guide/components';
 
 interface BackdraftGuideProps {
   analyzer: Backdraft;
@@ -42,6 +43,10 @@ export function BackdraftGuide({ analyzer, fightStart, fightEnd }: BackdraftGuid
         endTime={fightEnd}
         maxStacks={2}
       />
+      <TipBox type="note">
+        Uptime isn't a goal for <SpellLink spell={SPELLS.BACKDRAFT} />. What matters is not wasting
+        stacks, so a low uptime percentage is normal.
+      </TipBox>
     </div>
   );
 
