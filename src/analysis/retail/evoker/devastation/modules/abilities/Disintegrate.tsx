@@ -49,25 +49,10 @@ interface ChainClipLogic {
   allowGoodClipping: boolean;
   thresholdEarlyChainTicks: number;
   thresholdClipTicks: number;
+  regularPerformance: PercentageThresholds;
+  dragonragePerformance: PercentageThresholds;
+  massDisintegratePerformance?: PercentageThresholds;
 }
-
-const SCALECOMMANDER_LOGIC: ChainClipLogic = {
-  allowGoodClippingDragonrage: false,
-  thresholdEarlyChainTicksDragonrage: 1,
-  thresholdClipTicksDragonrage: 1,
-  allowGoodClipping: false,
-  thresholdEarlyChainTicks: 1,
-  thresholdClipTicks: 1,
-};
-const FLAMESHAPER_LOGIC: ChainClipLogic = {
-  allowGoodClippingDragonrage: true,
-  thresholdEarlyChainTicksDragonrage: 1,
-  thresholdClipTicksDragonrage: 1,
-  allowGoodClipping: true,
-  thresholdEarlyChainTicks: 1,
-  thresholdClipTicks: 1,
-};
-
 interface ThresholdInfo {
   threshold?: number;
   message: string;
@@ -79,72 +64,10 @@ interface PercentageThresholds {
   ok: ThresholdInfo;
   fail: ThresholdInfo;
 }
-
-const PERFORMANCE_REGULAR: PercentageThresholds = {
-  perfect: {
-    threshold: 1,
-    message: 'You casted all Disintegrates correctly.',
-    performance: QualitativePerformance.Perfect,
-  },
-  good: {
-    threshold: 0.95,
-    message: 'You casted most Disintegrates correctly.',
-    performance: QualitativePerformance.Good,
-  },
-  ok: {
-    threshold: 0.85,
-    message: "You lost a few ticks when you shouldn't have.",
-    performance: QualitativePerformance.Ok,
-  },
-  fail: {
-    threshold: 0.0,
-    message: "You lost a lot ticks when you shouldn't have.",
-    performance: QualitativePerformance.Fail,
-  },
-};
-
-const PERFORMANCE_DRAGONRAGE: PercentageThresholds = {
-  perfect: {
-    threshold: 1,
-    message: 'You casted all Disintegrates correctly.',
-    performance: QualitativePerformance.Perfect,
-  },
-  good: {
-    threshold: 0.95,
-    message: 'You casted most Disintegrates correctly.',
-    performance: QualitativePerformance.Good,
-  },
-  ok: {
-    threshold: 0.85,
-    message: "You lost a few ticks when you shouldn't have.",
-    performance: QualitativePerformance.Ok,
-  },
-  fail: {
-    threshold: 0.0,
-    message: "You lost a lot ticks when you shouldn't have.",
-    performance: QualitativePerformance.Fail,
-  },
-};
-
-const PERFORMANCE_MASSDISINTEGRATE: PercentageThresholds = {
-  perfect: {
-    message: 'You casted all Mass Disintegrates correctly.',
-    performance: QualitativePerformance.Perfect,
-  },
-  ok: {
-    message: 'You lost some ticks, which is likely caused by mobs dying early.',
-    performance: QualitativePerformance.Ok,
-  },
-  fail: {
-    message: "You lost some ticks when you shouldn't have",
-    performance: QualitativePerformance.Fail,
-  },
-};
-
 interface TrackedCast {
   //Mass Disintegrate
-  massDisTargets?: number;
-  massDisTicks?: number;
+  massDisintegrateTargets?: number;
+  massDisintegrateTicks?: number;
   //Basic Stats
   dragonRageActive: boolean;
   maxTickCount: number;
@@ -162,7 +85,6 @@ interface TrackedCast {
   timestamp: number;
   end: number;
 }
-
 interface WindowData {
   name: string;
   start: number;
@@ -170,6 +92,125 @@ interface WindowData {
   windowEndedOrPushed: boolean;
   casts?: TrackedCast[];
 }
+
+const SCALECOMMANDER_LOGIC: ChainClipLogic = {
+  allowGoodClippingDragonrage: false,
+  thresholdEarlyChainTicksDragonrage: 1,
+  thresholdClipTicksDragonrage: 1,
+  allowGoodClipping: false,
+  thresholdEarlyChainTicks: 1,
+  thresholdClipTicks: 1,
+  regularPerformance: {
+    perfect: {
+      threshold: 1,
+      message: 'You cast all Disintegrates correctly.',
+      performance: QualitativePerformance.Perfect,
+    },
+    good: {
+      threshold: 0.95,
+      message: 'You cast most Disintegrates correctly.',
+      performance: QualitativePerformance.Good,
+    },
+    ok: {
+      threshold: 0.85,
+      message: "You lost a few ticks when you shouldn't have.",
+      performance: QualitativePerformance.Ok,
+    },
+    fail: {
+      threshold: 0.0,
+      message: "You lost a lot ticks when you shouldn't have.",
+      performance: QualitativePerformance.Fail,
+    },
+  },
+  dragonragePerformance: {
+    perfect: {
+      threshold: 1,
+      message: 'You cast all Disintegrates correctly.',
+      performance: QualitativePerformance.Perfect,
+    },
+    good: {
+      threshold: 0.95,
+      message: 'You cast most Disintegrates correctly.',
+      performance: QualitativePerformance.Good,
+    },
+    ok: {
+      threshold: 0.85,
+      message: "You lost a few ticks when you shouldn't have.",
+      performance: QualitativePerformance.Ok,
+    },
+    fail: {
+      threshold: 0.0,
+      message: "You lost a lot ticks when you shouldn't have.",
+      performance: QualitativePerformance.Fail,
+    },
+  },
+  massDisintegratePerformance: {
+    perfect: {
+      message: 'You cast all Mass Disintegrates correctly.',
+      performance: QualitativePerformance.Perfect,
+    },
+    ok: {
+      message: 'You lost some ticks, which is likely caused by mobs dying early.',
+      performance: QualitativePerformance.Ok,
+    },
+    fail: {
+      message: "You lost some ticks when you shouldn't have",
+      performance: QualitativePerformance.Fail,
+    },
+  },
+};
+const FLAMESHAPER_LOGIC: ChainClipLogic = {
+  allowGoodClippingDragonrage: true,
+  thresholdEarlyChainTicksDragonrage: 1,
+  thresholdClipTicksDragonrage: 1,
+  allowGoodClipping: true,
+  thresholdEarlyChainTicks: 1,
+  thresholdClipTicks: 1,
+  regularPerformance: {
+    perfect: {
+      threshold: 0.95,
+      message: 'You cast all Disintegrates correctly.',
+      performance: QualitativePerformance.Perfect,
+    },
+    good: {
+      threshold: 0.9,
+      message: 'You cast most Disintegrates correctly.',
+      performance: QualitativePerformance.Good,
+    },
+    ok: {
+      threshold: 0.8,
+      message: "You lost a few ticks when you shouldn't have.",
+      performance: QualitativePerformance.Ok,
+    },
+    fail: {
+      threshold: 0.0,
+      message: "You lost a lot ticks when you shouldn't have.",
+      performance: QualitativePerformance.Fail,
+    },
+  },
+  dragonragePerformance: {
+    perfect: {
+      threshold: 0.95,
+      message: 'You cast all Disintegrates correctly.',
+      performance: QualitativePerformance.Perfect,
+    },
+    good: {
+      threshold: 0.9,
+      message: 'You cast most Disintegrates correctly.',
+      performance: QualitativePerformance.Good,
+    },
+    ok: {
+      threshold: 0.8,
+      message: "You lost a few ticks when you shouldn't have.",
+      performance: QualitativePerformance.Ok,
+    },
+    fail: {
+      threshold: 0.0,
+      message: "You lost a lot ticks when you shouldn't have.",
+      performance: QualitativePerformance.Fail,
+    },
+  },
+};
 
 /**
  * Disintegrate is Devastation's ST spender, it is one of the primary focus points of your rotation.
@@ -225,8 +266,8 @@ class Disintegrate extends Analyzer {
   ticksPerDisintegrate = 0;
   ticksPerChainedDisintegrate = 0;
 
-  isSC = this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT);
-  activeChainClipLogic = this.isSC ? SCALECOMMANDER_LOGIC : FLAMESHAPER_LOGIC;
+  isScalecommander = this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT);
+  activeChainClipLogic = this.isScalecommander ? SCALECOMMANDER_LOGIC : FLAMESHAPER_LOGIC;
 
   isMythicPlus = isMythicPlus(this.owner.fight);
 
@@ -240,7 +281,7 @@ class Disintegrate extends Analyzer {
     tickCount: 0,
     active: false,
     performance: QualitativePerformance.Fail,
-    chainClipStatus: ChainClipStatus.Casted,
+    chainClipStatus: ChainClipStatus.Cast,
     reason: '',
     timestamp: 0,
     end: 0,
@@ -367,7 +408,8 @@ class Disintegrate extends Analyzer {
 
   private onDisintegrateTick(event: DamageEvent) {
     if (isMassDisintegrateTick(event)) {
-      if (this.activeCast.massDisTicks !== undefined) this.activeCast.massDisTicks += 1;
+      if (this.activeCast.massDisintegrateTicks !== undefined)
+        this.activeCast.massDisintegrateTicks += 1;
       return;
     }
 
@@ -393,9 +435,9 @@ class Disintegrate extends Analyzer {
       ? SPELLS.MASS_DISINTEGRATE_BUFF.id
       : SPELLS.DISINTEGRATE.id;
 
-    if (this.isActiveCastMassDis()) {
-      this.activeCast.massDisTargets = getDisintegrateTargetCount(event);
-      this.activeCast.massDisTicks = 0;
+    if (this.isActiveCastMassDisintegrate()) {
+      this.activeCast.massDisintegrateTargets = getDisintegrateTargetCount(event);
+      this.activeCast.massDisintegrateTicks = 0;
     }
   }
 
@@ -414,7 +456,7 @@ class Disintegrate extends Analyzer {
     this.activeCast.maxTickCount = this.ticksPerDisintegrate;
     this.activeCast.tickCount = this.activeCast.maxTickCount;
 
-    if (this.isActiveCastMassDis()) this.massDisintSanityCheck(event);
+    if (this.isActiveCastMassDisintegrate()) this.massDisintegrateSanityCheck(event);
   }
 
   private onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
@@ -429,7 +471,7 @@ class Disintegrate extends Analyzer {
     this.activeCast.tickCount = this.activeCast.maxTickCount;
     this.activeCast.preceedingCast = this.previousCast.spellId;
 
-    if (this.isActiveCastMassDis()) this.massDisintSanityCheck(event);
+    if (this.isActiveCastMassDisintegrate()) this.massDisintegrateSanityCheck(event);
   }
 
   private onRemoveDebuff(event: RemoveDebuffEvent) {
@@ -514,89 +556,91 @@ class Disintegrate extends Analyzer {
     );
   }
 
-  private isActiveCastMassDis(): boolean {
+  private isActiveCastMassDisintegrate(): boolean {
     return this.activeCast.spellId === SPELLS.MASS_DISINTEGRATE_BUFF.id;
   }
 
   private RateCasts(casts: TrackedCast[]): TrackedCast[] {
-    casts.forEach((c, idx) => {
+    casts.forEach((cast, idx) => {
       if (
-        c.followingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id ||
-        c.followingCast === SPELLS.DISINTEGRATE.id
+        cast.followingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id ||
+        cast.followingCast === SPELLS.DISINTEGRATE.id
       ) {
         // Cast has been chained
-        if (c.followingCast != c.spellId) {
-          c.reason = 'Bad Chain: Chained Mass Disintegrate into Disintegrate';
-        } else if (idx + 1 < casts.length && c.mainTarget != casts[idx + 1].mainTarget) {
-          c.reason = 'Bad Chain: Swapped Targets';
+        if (cast.followingCast != cast.spellId) {
+          cast.reason = 'Bad Chain: Chained Mass Disintegrate into Disintegrate';
+        } else if (idx + 1 < casts.length && cast.mainTarget != casts[idx + 1].mainTarget) {
+          cast.reason = 'Bad Chain: Swapped Targets';
         } else if (
-          (c.tickCount > this.activeChainClipLogic.thresholdEarlyChainTicks &&
-            c.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id) ||
-          (c.dragonRageActive &&
-            c.tickCount > this.activeChainClipLogic.thresholdEarlyChainTicksDragonrage &&
-            c.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id) ||
-          (c.tickCount > 1 && c.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id)
+          (cast.tickCount > this.activeChainClipLogic.thresholdEarlyChainTicks &&
+            cast.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id) ||
+          (cast.dragonRageActive &&
+            cast.tickCount > this.activeChainClipLogic.thresholdEarlyChainTicksDragonrage &&
+            cast.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id) ||
+          (cast.tickCount > 1 && cast.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id)
         ) {
-          c.reason = `Bad Chain: Chained too early, clipping ${c.tickCount - 1} tick(s).`;
+          cast.reason = `Bad Chain: Chained too early, clipping ${cast.tickCount - 1} tick(s).`;
         } else {
-          c.performance = QualitativePerformance.Good;
-          c.reason = 'Good Chain';
+          cast.performance = QualitativePerformance.Good;
+          cast.reason = 'Good Chain';
         }
-        c.chainClipStatus = ChainClipStatus.Chained;
-      } else if (c.followingCast && c.tickCount >= 1) {
+        cast.chainClipStatus = ChainClipStatus.Chained;
+      } else if (cast.followingCast && cast.tickCount >= 1) {
         // Cast has been clipped
         if (
           ((this.activeChainClipLogic.allowGoodClipping &&
-            c.tickCount <= this.activeChainClipLogic.thresholdClipTicksDragonrage) ||
+            cast.tickCount <= this.activeChainClipLogic.thresholdClipTicksDragonrage) ||
             (this.activeChainClipLogic.allowGoodClippingDragonrage &&
-              c.tickCount <= this.activeChainClipLogic.thresholdClipTicksDragonrage &&
-              c.dragonRageActive)) &&
-          this.goodClipSpellIds.includes(c.followingCast) &&
-          c.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id
+              cast.tickCount <= this.activeChainClipLogic.thresholdClipTicksDragonrage &&
+              cast.dragonRageActive)) &&
+          this.goodClipSpellIds.includes(cast.followingCast) &&
+          cast.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id
         ) {
-          c.performance = QualitativePerformance.Perfect;
-          c.reason = (
+          cast.performance = QualitativePerformance.Perfect;
+          cast.reason = (
             <>
-              Perfect Clip: Clipped with <SpellLink spell={c.followingCast} />
+              Perfect Clip: Clipped with <SpellLink spell={cast.followingCast} />
             </>
           );
         } else if (
-          this.isSC &&
-          c.tickCount === 1 &&
-          this.goodClipSpellIds.includes(c.followingCast) &&
-          c.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id
+          this.isScalecommander &&
+          cast.tickCount === 1 &&
+          this.goodClipSpellIds.includes(cast.followingCast) &&
+          cast.spellId != SPELLS.MASS_DISINTEGRATE_BUFF.id
         ) {
           // Checking target counts is a massive pain so we just add a general disclaimer and let people analyze it themselves.
           // Eventually I will try to add a more "sophisticated" solution.
-          c.performance = QualitativePerformance.Ok;
-          c.reason = (
+          cast.performance = QualitativePerformance.Ok;
+          cast.reason = (
             <>
-              Ok Clip: Clipped {c.tickCount} tick(s) with <SpellLink spell={c.followingCast} />.
-              {this.isSC && ' If target count was either 3 or 4 then it was GOOD else it was BAD.'}
+              Ok Clip: Clipped {cast.tickCount} tick(s) with{' '}
+              <SpellLink spell={cast.followingCast} />.
+              {this.isScalecommander &&
+                ' If target count was either 3 or 4 then it was GOOD else it was BAD.'}
             </>
           );
         } else {
-          c.reason = (
+          cast.reason = (
             <>
-              Bad Clip: Clipped {c.tickCount} tick(s) with <SpellLink spell={c.followingCast} />
+              Bad Clip: Clipped {cast.tickCount} tick(s) with{' '}
+              <SpellLink spell={cast.followingCast} />
             </>
           );
         }
-        c.chainClipStatus = ChainClipStatus.Clipped;
-      } else if (c.tickCount >= 1) {
-        c.performance = QualitativePerformance.Fail;
-        c.reason = "Cancel: Don't cancel Disintegrate early.";
-        c.chainClipStatus = ChainClipStatus.Cancelled;
+        cast.chainClipStatus = ChainClipStatus.Clipped;
+      } else if (cast.tickCount >= 1) {
+        cast.performance = QualitativePerformance.Fail;
+        cast.reason = "Cancel: Don't cancel Disintegrate early.";
+        cast.chainClipStatus = ChainClipStatus.Cancelled;
       } else {
-        c.performance = QualitativePerformance.Good;
-        c.reason = 'Good Cast';
+        cast.performance = QualitativePerformance.Good;
+        cast.reason = 'Good Cast';
       }
     });
-    console.log(casts);
     return casts;
   }
 
-  private massDisintSanityCheck(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+  private massDisintegrateSanityCheck(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const castEvent = getDisintegrateCast(event);
     if (castEvent === undefined)
       this.addDebugAnnotation(event, {
@@ -607,11 +651,11 @@ class Disintegrate extends Analyzer {
   }
 
   private generateCastDistribution(casts: TrackedCast[]): AdditionalContent {
-    let disintCasts = 0,
-      massDisintCasts = 0;
+    let disintegrateCasts = 0,
+      massDisintegrateCasts = 0;
     casts.forEach((c) => {
-      if (c.massDisTicks === undefined) disintCasts++;
-      else massDisintCasts++;
+      if (c.massDisintegrateTicks === undefined) disintegrateCasts++;
+      else massDisintegrateCasts++;
     });
 
     return {
@@ -621,21 +665,21 @@ class Disintegrate extends Analyzer {
           segments={[
             {
               label: 'Disintegrate',
-              value: disintCasts,
+              value: disintegrateCasts,
               color: 'hsl(180, 70%, 55%)',
               tooltip: (
                 <>
-                  {disintCasts} <SpellLink spell={SPELLS.DISINTEGRATE} /> casted.
+                  {disintegrateCasts} <SpellLink spell={SPELLS.DISINTEGRATE} /> cast.
                 </>
               ),
             },
             {
               label: 'Mass Disintegrate',
-              value: massDisintCasts,
+              value: massDisintegrateCasts,
               color: 'hsl(220, 70%, 55%)',
               tooltip: (
                 <>
-                  {massDisintCasts} <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> casted.
+                  {massDisintegrateCasts} <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> cast.
                 </>
               ),
             },
@@ -644,14 +688,14 @@ class Disintegrate extends Analyzer {
       ),
     };
   }
-  private generateChainDistribution(casts: TrackedCast[]): AdditionalContent {
-    let chained = 0,
-      clipped = 0,
-      casted = 0;
-    casts.forEach((c) => {
-      if (c.chainClipStatus === ChainClipStatus.Chained) chained++;
-      else if (c.chainClipStatus === ChainClipStatus.Clipped) clipped++;
-      else casted++;
+  private generateChainDistribution(trackedCasts: TrackedCast[]): AdditionalContent {
+    let chains = 0,
+      clips = 0,
+      casts = 0;
+    trackedCasts.forEach((cast) => {
+      if (cast.chainClipStatus === ChainClipStatus.Chained) chains++;
+      else if (cast.chainClipStatus === ChainClipStatus.Clipped) clips++;
+      else casts++;
     });
 
     return {
@@ -660,84 +704,100 @@ class Disintegrate extends Analyzer {
         <StackedBar
           segments={[
             {
-              label: 'Chained',
-              value: chained,
+              label: 'Chains',
+              value: chains,
               color: 'hsl(180, 70%, 55%)',
-              tooltip: <>{chained} casts chained.</>,
+              tooltip: <>{chains} casts chained.</>,
             },
             {
-              label: 'Clipped',
-              value: clipped,
+              label: 'Clips',
+              value: clips,
               color: 'hsl(200, 70%, 55%)',
-              tooltip: <>{clipped} casts clipped early.</>,
+              tooltip: <>{clips} casts clipped early.</>,
             },
             {
-              label: 'Casted',
-              value: casted,
+              label: 'Casts',
+              value: casts,
               color: 'hsl(220, 70%, 55%)',
-              tooltip: <>{casted} casts casted fully.</>,
+              tooltip: <>{casts} casts cast fully.</>,
             },
           ]}
         />
       ),
     };
   }
-  private generateWindowStats(casts: TrackedCast[]): PerWindowStat[] {
-    const stats = [];
+  private generateDisintegrateCastStats(casts: TrackedCast[]) {
+    const regularTicks = { actual: 0, total: 0 },
+      dragonRageTicks = { actual: 0, total: 0 },
+      massDisintegrateTicks = { actual: 0, total: 0 },
+      massDisintegrateTargets = { targets: 0, casts: 0 };
 
-    const actualTicks = [0, 0, 0],
-      totalTicks = [0, 0, 0];
-    const avgMDTargets = [0, 0];
-
-    casts.forEach((c) => {
-      if (c.massDisTargets) {
-        actualTicks[0] += c.massDisTicks! + c.maxTickCount - c.tickCount;
-        totalTicks[0] += c.massDisTargets * this.ticksPerDisintegrate;
-        avgMDTargets[0] += c.massDisTargets;
-        avgMDTargets[1]++;
-      } else if (c.dragonRageActive) {
-        actualTicks[1] += c.maxTickCount - c.tickCount;
-        totalTicks[1] += this.ticksPerDisintegrate;
-        if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-          actualTicks[1]--;
+    casts.forEach((cast) => {
+      if (cast.massDisintegrateTargets) {
+        regularTicks.actual += cast.massDisintegrateTicks! + cast.maxTickCount - cast.tickCount;
+        regularTicks.total += cast.massDisintegrateTargets * this.ticksPerDisintegrate;
+        massDisintegrateTargets.targets += cast.massDisintegrateTargets;
+        massDisintegrateTargets.casts++;
+      } else if (cast.dragonRageActive) {
+        dragonRageTicks.actual += cast.maxTickCount - cast.tickCount;
+        dragonRageTicks.total += this.ticksPerDisintegrate;
+        if (cast.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
+          dragonRageTicks.actual--;
         }
       } else {
-        actualTicks[2] += c.maxTickCount - c.tickCount;
-        totalTicks[2] += this.ticksPerDisintegrate;
-        if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-          actualTicks[2]--;
+        massDisintegrateTicks.actual += cast.maxTickCount - cast.tickCount;
+        massDisintegrateTicks.total += this.ticksPerDisintegrate;
+        if (cast.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
+          massDisintegrateTicks.actual--;
         }
       }
     });
 
-    if (totalTicks[2] > 0) {
-      const rating = this.resolveNormalTickPerformance(actualTicks[2], totalTicks[2]);
+    return {
+      regularTicks,
+      dragonRageTicks,
+      massDisintegrateTicks,
+      massDisintegrateTargets,
+    };
+  }
+  private generateWindowStats(casts: TrackedCast[]): PerWindowStat[] {
+    const stats = [];
+    const castStats = this.generateDisintegrateCastStats(casts);
+
+    if (castStats.regularTicks.total > 0) {
+      const rating = this.resolveRegularTickPerformance(
+        castStats.regularTicks.actual,
+        castStats.regularTicks.total,
+      );
       stats.push({
         label: 'Disintegrate Ticks',
-        value: `${actualTicks[2]}/${totalTicks[2]}`,
+        value: `${castStats.regularTicks.actual}/${castStats.regularTicks.total}`,
         performance: rating.performance,
         tooltip: rating.message,
       });
     }
-    if (totalTicks[1] > 0) {
-      const rating = this.resolveDRTickPerformance(actualTicks[1], totalTicks[1]);
+    if (castStats.dragonRageTicks.total > 0) {
+      const rating = this.resolveDragonRageTickPerformance(
+        castStats.dragonRageTicks.actual,
+        castStats.dragonRageTicks.total,
+      );
       stats.push({
         label: 'Dragonrage Disintegrate Ticks',
-        value: `${actualTicks[1]}/${totalTicks[1]}`,
+        value: `${castStats.dragonRageTicks.actual}/${castStats.dragonRageTicks.total}`,
         performance: rating.performance,
         tooltip: rating.message,
       });
     }
-    if (totalTicks[0] > 0) {
-      const rating = this.resolveMDTickPerformance(
-        actualTicks[0],
-        totalTicks[0],
-        avgMDTargets[0],
-        avgMDTargets[1],
+    if (castStats.massDisintegrateTicks.total > 0) {
+      const rating = this.resolveMassDisintegrateTickPerformance(
+        castStats.massDisintegrateTicks.actual,
+        castStats.massDisintegrateTicks.total,
+        castStats.massDisintegrateTargets.targets,
+        castStats.massDisintegrateTargets.casts,
       );
       stats.push({
         label: 'Mass Disintegrate Ticks',
-        value: `${actualTicks[0]}/${totalTicks[0]}`,
+        value: `${castStats.massDisintegrateTicks.actual}/${castStats.massDisintegrateTicks.total}`,
         performance: rating.performance,
         tooltip: rating.message,
       });
@@ -745,53 +805,57 @@ class Disintegrate extends Analyzer {
 
     return stats;
   }
-  private resolveNormalTickPerformance(actualTicks: number, totalTicks: number) {
-    let performanceShift =
-      this.activeChainClipLogic.thresholdEarlyChainTicks > 1
-        ? (this.activeChainClipLogic.thresholdEarlyChainTicks - 1) * 0.2
-        : 0;
-    if (this.activeChainClipLogic.allowGoodClipping) performanceShift += 0.2;
-    const percentage = actualTicks / totalTicks;
-    const values: ThresholdInfo[] = Object.values(PERFORMANCE_REGULAR);
-    for (const pt of values) {
-      if (pt.threshold && percentage >= pt.threshold - performanceShift) {
-        return pt;
-      }
-    }
-    return PERFORMANCE_REGULAR.fail;
+  private resolveRegularTickPerformance(actualTicks: number, totalTicks: number): ThresholdInfo {
+    return this.resolvePerformanceBase(
+      actualTicks,
+      totalTicks,
+      this.activeChainClipLogic.regularPerformance,
+    );
   }
-  private resolveDRTickPerformance(actualTicks: number, totalTicks: number) {
-    let performanceShift =
-      this.activeChainClipLogic.thresholdEarlyChainTicksDragonrage > 1
-        ? (this.activeChainClipLogic.thresholdEarlyChainTicksDragonrage - 1) * 0.2
-        : 0;
-    if (this.activeChainClipLogic.allowGoodClippingDragonrage) performanceShift += 0.2;
-    const percentage = actualTicks / totalTicks;
-    const values: ThresholdInfo[] = Object.values(PERFORMANCE_DRAGONRAGE);
-    for (const pt of values) {
-      if (pt.threshold && percentage >= pt.threshold - performanceShift) {
-        return pt;
-      }
-    }
-    return PERFORMANCE_DRAGONRAGE.fail;
+  private resolveDragonRageTickPerformance(actualTicks: number, totalTicks: number): ThresholdInfo {
+    return this.resolvePerformanceBase(
+      actualTicks,
+      totalTicks,
+      this.activeChainClipLogic.dragonragePerformance,
+    );
   }
-  private resolveMDTickPerformance(
+  private resolvePerformanceBase(
     actualTicks: number,
     totalTicks: number,
-    avgMDTargets: number,
-    mdCasts: number,
-  ) {
+    thresholds: PercentageThresholds,
+  ): ThresholdInfo {
+    const percentage = actualTicks / totalTicks;
+    const performanceThresholds: ThresholdInfo[] = Object.values(thresholds);
+    for (const pt of performanceThresholds) {
+      if (pt.threshold && percentage >= pt.threshold) {
+        return pt;
+      }
+    }
+    return thresholds.fail;
+  }
+  private resolveMassDisintegrateTickPerformance(
+    actualTicks: number,
+    totalTicks: number,
+    targets: number,
+    casts: number,
+  ): ThresholdInfo {
+    if (!this.activeChainClipLogic.massDisintegratePerformance)
+      return {
+        message:
+          'You somehow managed to cast a Mass Disintegrate as Flameshaper. Congratulations ?',
+        performance: QualitativePerformance.Perfect,
+      };
     return actualTicks === totalTicks
-      ? PERFORMANCE_MASSDISINTEGRATE.perfect
-      : avgMDTargets / mdCasts > 1
-        ? PERFORMANCE_MASSDISINTEGRATE.ok
-        : PERFORMANCE_MASSDISINTEGRATE.fail;
+      ? this.activeChainClipLogic.massDisintegratePerformance.perfect
+      : targets / casts > 1
+        ? this.activeChainClipLogic.massDisintegratePerformance.ok
+        : this.activeChainClipLogic.massDisintegratePerformance.fail;
   }
 
   private generateTotalPerformance(stats: PerWindowStat[]): QualitativePerformance {
     let totalPerformanceRatio = 0;
-    stats.forEach((s) => {
-      switch (s.performance) {
+    stats.forEach((stat) => {
+      switch (stat.performance) {
         case QualitativePerformance.Perfect:
           totalPerformanceRatio += 3;
           break;
@@ -803,7 +867,7 @@ class Disintegrate extends Analyzer {
           break;
       }
     });
-    totalPerformanceRatio = Math.round(totalPerformanceRatio);
+    totalPerformanceRatio = Math.floor(totalPerformanceRatio / stats.length);
 
     switch (totalPerformanceRatio) {
       case 3:
@@ -818,59 +882,33 @@ class Disintegrate extends Analyzer {
   }
   /** Returns tick data for the entire fight */
   get tickData() {
-    let regularTicks = 0,
-      totalPossibleRegularTicks = 0,
-      dragonRageTicks = 0,
-      totalPossibleDragonRageTicks = 0,
-      massDisintegrateTicks = 0,
-      totalPossibleMassDisintegrateTicks = 0;
-    const avgMDTargets = [0, 0];
-
-    this.windows.forEach((w) => {
-      if (w.casts) {
-        w.casts.forEach((c) => {
-          if (c.massDisTargets) {
-            massDisintegrateTicks += c.massDisTicks! + c.maxTickCount - c.tickCount;
-            totalPossibleMassDisintegrateTicks += c.massDisTargets * this.ticksPerDisintegrate;
-            avgMDTargets[0] += c.massDisTargets;
-            avgMDTargets[1]++;
-          } else if (c.dragonRageActive) {
-            dragonRageTicks += c.maxTickCount - c.tickCount;
-            totalPossibleDragonRageTicks += this.ticksPerDisintegrate;
-            if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-              dragonRageTicks--;
-            }
-          } else {
-            regularTicks += c.maxTickCount - c.tickCount;
-            totalPossibleRegularTicks += this.ticksPerDisintegrate;
-            if (c.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-              regularTicks--;
-            }
-          }
-        });
+    let casts: TrackedCast[] = [];
+    this.windows.forEach((window) => {
+      if (window.casts) {
+        casts = casts.concat(window.casts);
       }
     });
-
+    const castStats = this.generateDisintegrateCastStats(casts);
     return {
-      regularTicks,
-      totalPossibleRegularTicks,
-      regularTickPerformance: this.resolveNormalTickPerformance(
-        regularTicks,
-        totalPossibleRegularTicks,
+      regularTicks: castStats.regularTicks.actual,
+      totalPossibleRegularTicks: castStats.regularTicks.total,
+      regularTickPerformance: this.resolveRegularTickPerformance(
+        castStats.regularTicks.actual,
+        castStats.regularTicks.total,
       ).performance,
-      dragonRageTicks,
-      totalPossibleDragonRageTicks,
-      dragonRageTickPerformance: this.resolveDRTickPerformance(
-        dragonRageTicks,
-        totalPossibleDragonRageTicks,
+      dragonRageTicks: castStats.dragonRageTicks.actual,
+      totalPossibleDragonRageTicks: castStats.dragonRageTicks.total,
+      dragonRageTickPerformance: this.resolveDragonRageTickPerformance(
+        castStats.dragonRageTicks.actual,
+        castStats.dragonRageTicks.total,
       ).performance,
-      massDisintegrateTicks,
-      totalPossibleMassDisintegrateTicks,
-      massDisintegrateTickPerformance: this.resolveMDTickPerformance(
-        massDisintegrateTicks,
-        totalPossibleMassDisintegrateTicks,
-        avgMDTargets[0],
-        avgMDTargets[1],
+      massDisintegrateTicks: castStats.massDisintegrateTicks.actual,
+      totalPossibleMassDisintegrateTicks: castStats.massDisintegrateTicks.total,
+      massDisintegrateTickPerformance: this.resolveMassDisintegrateTickPerformance(
+        castStats.massDisintegrateTicks.actual,
+        castStats.massDisintegrateTicks.total,
+        castStats.massDisintegrateTargets.targets,
+        castStats.massDisintegrateTargets.casts,
       ).performance,
     };
   }
@@ -911,7 +949,7 @@ class Disintegrate extends Analyzer {
 
         const additionalContent = [];
 
-        if (w.casts.find((c) => c.massDisTicks !== undefined))
+        if (w.casts.find((c) => c.massDisintegrateTicks !== undefined))
           additionalContent.push(this.generateCastDistribution(w.casts));
         additionalContent.push(this.generateChainDistribution(w.casts));
 
