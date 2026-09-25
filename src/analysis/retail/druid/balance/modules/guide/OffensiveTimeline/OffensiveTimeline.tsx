@@ -47,7 +47,11 @@ export default function OffensiveTimeline(): JSX.Element | null {
       return [];
     }
 
-    return getEclipseAndMainSpellBuffWindows(info.combatant, info.fightStart, info.fightEnd);
+    return getEclipseAndMainSpellBuffWindows(
+      info.combatant,
+      info.originalFightStart,
+      info.fightEnd,
+    );
   }, [info]);
 
   if (!info) {
@@ -126,11 +130,15 @@ export default function OffensiveTimeline(): JSX.Element | null {
                   buffs={buffWindows}
                   fightDuration={info.fightDuration}
                   hoverStartTime={hoverStartTime}
+                  displayTimeOffset={info.fightStart - info.originalFightStart}
                 />
               </BarsContainer>
             </GuideDataWrapper>
-            <div style={{ height: '10px' }} />
-            <GuideDataWrapper bare title={`Cooldowns`}>
+            <GuideDataWrapper
+              bare
+              title={`Cooldowns`}
+              className={styles.CooldownAvailabilityWrapper}
+            >
               <RowsContainer offset={CHART_DATA_PLOT_LEFT_OFFSET}>
                 {cooldownSpells
                   .map((spell) => ({ spell, durationMs: cooldownSpellsDuration.get(spell.id) }))

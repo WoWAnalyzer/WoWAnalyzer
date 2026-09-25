@@ -21,6 +21,7 @@ interface Props {
   buffs: BuffWindow[];
   fightDuration: number;
   hoverStartTime: number | null;
+  displayTimeOffset: number;
 }
 
 const BUFF_ROW_ORDER = [SPELLS.ECLIPSE_SOLAR.id, SPELLS.ECLIPSE_LUNAR.id];
@@ -29,7 +30,7 @@ const buffRowOrder = (spellId: number) => {
   return idx === -1 ? BUFF_ROW_ORDER.length : idx;
 };
 
-const BuffDisplay = ({ buffs, fightDuration, hoverStartTime }: Props) => {
+const BuffDisplay = ({ buffs, fightDuration, hoverStartTime, displayTimeOffset }: Props) => {
   const groups: { spellId: number; windows: BuffWindow[] }[] = [];
   const indexBySpellId = new Map<number, number>();
   for (const buff of buffs) {
@@ -62,8 +63,8 @@ const BuffDisplay = ({ buffs, fightDuration, hoverStartTime }: Props) => {
                 isOpen={externalHover || undefined}
               >
                 <BuffBar
-                  start={buff.startTime}
-                  end={buff.endTime}
+                  start={buff.startTime - displayTimeOffset}
+                  end={buff.endTime - displayTimeOffset}
                   fightDuration={fightDuration}
                   color={buff.color}
                 />

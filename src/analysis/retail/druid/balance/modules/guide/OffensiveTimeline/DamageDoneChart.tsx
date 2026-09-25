@@ -126,7 +126,10 @@ export const DamageDoneChart = memo(
               keyvals: { start: 0, stop: info.fightDuration, step: 1000 },
               value: 0,
             },
-            { calculate: `datum.timestamp + ${BUFF_WINDOW_SHIFT}`, as: 'timestamp' },
+            {
+              calculate: `datum.timestamp + ${BUFF_WINDOW_SHIFT} + ${info.fightStart - info.originalFightStart}`,
+              as: 'timestamp',
+            },
           ],
           encoding: {
             x: {
@@ -134,7 +137,7 @@ export const DamageDoneChart = memo(
               type: 'quantitative',
               axis: { labelExpr: formatTime('datum.value'), grid: false },
               title: null,
-              scale: { zero: true, nice: false },
+              scale: { zero: false, nice: false },
             },
             y: {
               field: 'amount',
@@ -151,7 +154,7 @@ export const DamageDoneChart = memo(
     const chartWidth = width - CHART_DATA_PLOT_LEFT_OFFSET;
 
     return (
-      <div style={{ width }}>
+      <div style={{ width, overflowX: 'clip' }}>
         {phaseData.length > 0 && (
           <div
             style={{ position: 'relative', height: 28, marginLeft: CHART_DATA_PLOT_LEFT_OFFSET }}
