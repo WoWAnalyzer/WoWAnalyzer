@@ -8,6 +8,7 @@ import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
   change(date(2026, 9, 24), <>Adjusted the performance ratings for <SpellLink spell={SPELLS.DISINTEGRATE} /> to be a lot more granular. </>, Baumritter),
+  change(date(2026, 9, 24), <>Fixed <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> false flagging as wasted.</>, Baumritter),
   change(date(2026, 9, 23), <>Fixed various mistakes, that weren't caught in the last update. </>, Baumritter),
   change(date(2026, 9, 13), <>Updated <SpellLink spell={SPELLS.DISINTEGRATE} /> module and all of the proc analysis module visuals </>, Baumritter),
   change(date(2026, 8, 30), <>Added Midnight Season 2 Tierset modules.</>, Baumritter),
