@@ -70,29 +70,23 @@ class Zenith extends Analyzer.withDependencies({
       this.onBlackoutKick,
     );
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([
-          TALENTS_MONK.ZENITH_STOMP_TALENT,
-          SPELLS.ZENITH_STOMP_CAST,
-          SPELLS.ZENITH_STOMP_DAMAGE,
-        ]),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CAST),
       this.onZenithStomp,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CAST),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CASTS_AVAILABLE),
       this.onZenithStompBuffApplied,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CAST),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CASTS_AVAILABLE),
       this.onZenithStompBuffStackChanged,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CAST),
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CASTS_AVAILABLE),
       this.onZenithStompBuffStackChanged,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CAST),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ZENITH_STOMP_CASTS_AVAILABLE),
       this.onZenithStompBuffRemoved,
     );
     this.addEventListener(
@@ -179,11 +173,15 @@ class Zenith extends Analyzer.withDependencies({
     this.currentZenithStompStacks = event.stack;
   }
 
-  private onZenithStompBuffRemoved(_event: RemoveBuffEvent) {
+  private onZenithStompBuffRemoved(event: RemoveBuffEvent) {
     if (this.additionalZenithStompCharges <= 0) {
       return;
     }
-    this.unusedZenithStomps += this.currentZenithStompStacks;
+    const consumedFinalCharge =
+      event.timestamp - this.lastZenithStompTimestamp <= ZENITH_STOMP_DEDUP_WINDOW_MS;
+    if (!consumedFinalCharge) {
+      this.unusedZenithStomps += this.currentZenithStompStacks;
+    }
     this.currentZenithStompStacks = 0;
   }
 
@@ -233,8 +231,16 @@ class Zenith extends Analyzer.withDependencies({
         resets <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and for 15 seconds reduces
         Chi costs by 1 while making <SpellLink spell={SPELLS.BLACKOUT_KICK} /> reduce the cooldown
         of affected abilities by an additional 1 second. Casting{' '}
-        <SpellLink spell={TALENTS_MONK.ZENITH_TALENT} /> grants 2 charges of{' '}
-        <SpellLink spell={TALENTS_MONK.ZENITH_STOMP_TALENT} />, and each cast generates 2 Chi.
+        <SpellLink spell={TALENTS_MONK.ZENITH_TALENT} /> automatically triggers{' '}
+        <SpellLink spell={TALENTS_MONK.ZENITH_STOMP_TALENT} />, generating 2 Chi
+        {this.additionalZenithStompCharges > 0 && (
+          <>
+            , and <SpellLink spell={TALENTS_MONK.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> grants two
+            casts of <SpellLink spell={TALENTS_MONK.ZENITH_STOMP_TALENT} />. Each granted cast also
+            generates 2 Chi; use both before Zenith ends
+          </>
+        )}
+        .
       </p>
     );
 
@@ -261,6 +267,15 @@ class Zenith extends Analyzer.withDependencies({
             </strong>{' '}
             <small>{chiLabel}</small>
           </div>
+          {this.additionalZenithStompCharges > 0 && (
+            <div style={styleObj}>
+              <small style={styleObjInner}>
+                <SpellLink spell={TALENTS_MONK.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> -{' '}
+              </small>
+              <strong>{formatNumber(this.unusedZenithStomps)}</strong>{' '}
+              <small>granted Zenith Stomp casts left unused</small>
+            </div>
+          )}
         </RoundedPanel>
       </div>
     );
@@ -328,6 +343,19 @@ class Zenith extends Analyzer.withDependencies({
                 : 'Chi that would have been generated during Zenith (requires Obsidian Spiral)'}
             </small>
           </div>
+          {this.additionalZenithStompCharges > 0 && (
+            <div>
+              <SpellIcon
+                spell={TALENTS_MONK.TIGEREYE_BREW_3_WINDWALKER_TALENT}
+                style={{
+                  height: '1.3em',
+                  marginTop: '-1.em',
+                }}
+              />{' '}
+              {formatNumber(this.unusedZenithStomps)}{' '}
+              <small>granted Zenith Stomp casts left unused</small>
+            </div>
+          )}
         </BoringSpellValueText>
       </Statistic>
     );
