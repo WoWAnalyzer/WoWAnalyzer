@@ -8,7 +8,8 @@ import MarrowrendUsage, { MR_GAIN } from './MarrowrendUsage';
 /** Ossuary is active at this many Bone Shield stacks or more. */
 export const OSSUARY_STACKS = 5;
 
-const MAX_STACKS = 10;
+/** Maximum Bone Shield stacks. */
+export const BONE_SHIELD_MAX_STACKS = 12;
 
 class BoneShieldGraph extends BuffStackGraph {
   static dependencies = {
@@ -39,7 +40,10 @@ class BoneShieldGraph extends BuffStackGraph {
       timestamp: record.timestamp,
       stacksBefore: record.stacksBefore,
       // draw the cast at the stack count it produced, capped at the maximum
-      stacksAfter: Math.min(MAX_STACKS, record.stacksBefore + (MR_GAIN - record.wasted)),
+      stacksAfter: Math.min(
+        BONE_SHIELD_MAX_STACKS,
+        record.stacksBefore + (MR_GAIN - record.wasted),
+      ),
       wasted: record.wasted,
       overcap: record.wasted > 0,
     }));
@@ -71,7 +75,7 @@ class BoneShieldGraph extends BuffStackGraph {
             y: {
               field: 'amount',
               type: 'quantitative' as const,
-              scale: { domain: [0, MAX_STACKS] },
+              scale: { domain: [0, BONE_SHIELD_MAX_STACKS] },
               title: null,
             },
           },
