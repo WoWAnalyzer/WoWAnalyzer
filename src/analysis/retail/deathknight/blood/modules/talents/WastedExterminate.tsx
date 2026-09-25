@@ -124,7 +124,7 @@ export default class WastedExterminate extends Analyzer {
   private onApply(event: ApplyBuffEvent) {
     this.activeBuffs.add(event.ability.guid);
     if (event.__fromCombatantinfo || event.prepull || event.__fabricated) {
-      // already up when the fight started, so the stack count isn't known. assume 1.
+      // already up when the fight started, so the stack count isn't known. assuming 1 to be conservative.
       this.hadPrepullBuff = true;
       this.gained += 1;
       this.stacks = 1;
