@@ -229,10 +229,6 @@ const ResultsLoader = () => {
     [fight.end_time, fight.start_time],
   );
 
-  // Original code only rendered TimeEventFilter if
-  // > !this.state.isLoadingEvents &&
-  // > this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING
-  // We have to always run the hook, but the hook must ensure the above is true
   const {
     isLoading: isFilteringEvents,
     events: filteredEvents,

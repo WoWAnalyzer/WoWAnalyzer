@@ -216,7 +216,7 @@ const useTimeEventFilter = ({
   bossPhaseEvents,
   events,
 }: Config) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [appliedFilter, setAppliedFilter] = useState<Filter | undefined>(undefined);
   const [stateEvents, setStateEvents] = useState<AnyEvent[] | undefined>(undefined);
   const [stateFight, setStateFight] = useState<Fight | undefined>(undefined);
 
@@ -250,6 +250,7 @@ const useTimeEventFilter = ({
         bench('time filter');
         const eventFilter = makeEvents();
         benchEnd('time filter');
+        setAppliedFilter(filter);
         setStateEvents(eventFilter.events);
         setStateFight({
           ...fight,
@@ -259,21 +260,17 @@ const useTimeEventFilter = ({
           original_end_time: fight.end_time,
           filtered: eventFilter.start !== fight.start_time || eventFilter.end !== fight.end_time,
         });
-        setIsLoading(false);
       } catch (err) {
         captureException(err as Error);
         throw new EventsParseError(err as Error);
       }
     };
 
-    // flip back to loading when these values change. eslint is unhappy about this.
-
-    setIsLoading(true);
     parse();
   }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, filter, events]);
 
   return {
-    isLoading,
+    isLoading: appliedFilter !== filter,
     events: stateEvents,
     fight: stateFight,
   };
