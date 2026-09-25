@@ -7,9 +7,11 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 9, 24), <>Fixed <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> false flagging as wasted.</>, Baumritter),
+  change(date(2026, 9, 23), <>Fixed various mistakes, that weren't caught in the last update. </>, Baumritter),
   change(date(2026, 9, 13), <>Updated <SpellLink spell={SPELLS.DISINTEGRATE} /> module and all of the proc analysis module visuals </>, Baumritter),
   change(date(2026, 8, 30), <>Added Midnight Season 2 Tierset modules.</>, Baumritter),
-  change(date(2026, 8, 30), <>Updated <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT} /> for inclusion of <SpellLink spell={SPELLS.UNBOUND_FLAME}/>.</>, Baumritter),
+  change(date(2026, 8, 30), <>Updated <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT} /> for inclusion of <SpellLink spell={SPELLS.UNBOUND_FLAME} />.</>, Baumritter),
   change(date(2026, 8, 29), <>Updated <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT} /> module.</>, KYZ),
   change(date(2026, 6, 12), <>Fixed display error of <SpellLink spell={SPELLS.DISINTEGRATE} /> module</>, Baumritter),
   change(date(2026, 6, 12), <>Added statistic for tracking empower rank usage.</>, Baumritter),
@@ -19,15 +21,15 @@ export default [
   change(date(2026, 5, 24), <>Corrected logging issues for <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /></>, Baumritter),
   change(date(2026, 5, 10), <>Added breakdown chart for <SpellLink spell={TALENTS.CONSUME_FLAME_TALENT} /> triggers</>, KYZ),
   change(date(2026, 4, 20), <>Fixed <SpellLink spell={SPELLS.HOVER} /> not counting as castable while casting</>, Baumritter),
-  change(date(2026, 3, 30),  <>Update <SpellLink spell={TALENTS.WINGLEADER_TALENT} /> CDR modifier.</>, Vollmer),
+  change(date(2026, 3, 30), <>Update <SpellLink spell={TALENTS.WINGLEADER_TALENT} /> CDR modifier.</>, Vollmer),
   change(date(2026, 3, 23), "Update guide section for midnight and introduce new No Wasted Buffs section.", Vollmer),
-  change(date(2026, 3, 17), <>Add statistics for <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT}/> and <ItemSetLink id={EVOKER_MID1_ID}>MID Season 1 Tier Set</ItemSetLink>.</>, Vollmer),
+  change(date(2026, 3, 17), <>Add statistics for <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT} /> and <ItemSetLink id={EVOKER_MID1_ID}>MID Season 1 Tier Set</ItemSetLink>.</>, Vollmer),
   change(date(2026, 2, 7), <>Add statistics for <SpellLink spell={TALENTS.CONCENTRATED_POWER_TALENT} />.</>, Vollmer),
   change(date(2026, 2, 1), <>Improve statistics for <SpellLink spell={TALENTS.IRIDESCENCE_TALENT} />.</>, Vollmer),
   change(date(2026, 1, 27), "Improve Empower handling to handle bugged casts", Vollmer),
-  change(date(2026, 1, 27), <>Add statistics for <SpellLink spell={TALENTS.ESSENCE_WELL_TALENT}/>, <SpellLink spell={TALENTS.TWIN_FLAME_TALENT}/> and <SpellLink spell={TALENTS.FIRE_TORRENT_TALENT}/>.</>, Vollmer),
-  change(date(2026, 1, 25), <>Add statistics for <SpellLink spell={TALENTS.STRAFING_RUN_TALENT}/>, <SpellLink spell={TALENTS.AZURE_SWEEP_TALENT}/>, <SpellLink spell={TALENTS.SHATTERING_STARS_TALENT}/> and <SpellLink spell={TALENTS.STAR_SALVO_TALENT}/>.</>, Vollmer),
-  change(date(2026, 1, 17), <>Update <SpellLink spell={TALENTS.IMMINENT_DESTRUCTION_DEVASTATION_TALENT}/> module for Midnight.</>, Vollmer),
+  change(date(2026, 1, 27), <>Add statistics for <SpellLink spell={TALENTS.ESSENCE_WELL_TALENT} />, <SpellLink spell={TALENTS.TWIN_FLAME_TALENT} /> and <SpellLink spell={TALENTS.FIRE_TORRENT_TALENT} />.</>, Vollmer),
+  change(date(2026, 1, 25), <>Add statistics for <SpellLink spell={TALENTS.STRAFING_RUN_TALENT} />, <SpellLink spell={TALENTS.AZURE_SWEEP_TALENT} />, <SpellLink spell={TALENTS.SHATTERING_STARS_TALENT} /> and <SpellLink spell={TALENTS.STAR_SALVO_TALENT} />.</>, Vollmer),
+  change(date(2026, 1, 17), <>Update <SpellLink spell={TALENTS.IMMINENT_DESTRUCTION_DEVASTATION_TALENT} /> module for Midnight.</>, Vollmer),
   change(date(2026, 1, 12), "Update core talent modules and improve Disintegrate analysis accuracy", Vollmer),
   change(date(2026, 1, 9), "Initial Midnight support", Vollmer),
 ];

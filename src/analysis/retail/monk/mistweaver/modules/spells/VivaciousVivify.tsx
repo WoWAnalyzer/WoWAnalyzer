@@ -1,18 +1,36 @@
 import type { JSX } from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { SpellLink, Tooltip } from 'interface';
+import { InsetContainer } from 'interface/guide/components/BuffUptimeBar';
+import GuideDataWrapper, {
+  HelperText,
+  StatCard,
+  StatCardDivider,
+  StatCardLabel,
+  StatCardValue,
+  StatsRow,
+} from 'interface/guide/components/GuideDataWrapper';
+import GuideSection from 'interface/guide/components/GuideSection';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { Uptime } from 'parser/ui/UptimeBar';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
-import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
+import { StackedBar } from 'interface/guide/components';
+import { isVivaciousVivification } from '../../normalizers/CastLinkNormalizer';
+
+/** matches the uncolored stat card default in CastOverview */
+const NEUTRAL_STAT_COLOR = '#dadada';
 
 class VivaciousVivification extends Analyzer {
   static dependencies = {
@@ -27,6 +45,8 @@ class VivaciousVivification extends Analyzer {
   totalCasts = 0;
   totalHealed = 0;
   wastedApplications = 0;
+  instantVivifies = 0;
+  hardCastVivifies = 0;
   unusableUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count and we aren't in celestial window
 
   constructor(options: Options) {
@@ -51,6 +71,7 @@ class VivaciousVivification extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onBuffRemove,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivifyHeal);
     this.unusableUptimes.push({
       start: this.owner.fight.start_time,
       end: -1,
@@ -63,6 +84,15 @@ class VivaciousVivification extends Analyzer {
       this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id) &&
       !this.celestialHooks.celestialActive
     );
+  }
+
+  // the utilization getters are only accurate once the trailing period is closed off at fight end
+  get usedTime() {
+    return this.unusableUptimes.reduce((total, up) => total + up.end - up.start, 0);
+  }
+
+  get utilizationPercentage() {
+    return this.usedTime / (this.owner.fight.end_time - this.owner.fight.start_time);
   }
 
   get inUsablePeriod() {
@@ -108,6 +138,15 @@ class VivaciousVivification extends Analyzer {
     }
   }
 
+  // each Vivify cast produces a single main target heal, so we can classify casts from them
+  onVivifyHeal(event: HealEvent) {
+    if (isVivaciousVivification(event)) {
+      this.instantVivifies += 1;
+    } else {
+      this.hardCastVivifies += 1;
+    }
+  }
+
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
@@ -121,44 +160,85 @@ class VivaciousVivification extends Analyzer {
       </p>
     );
     this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
-    const data = (
-      <div>
-        <RoundedPanel>
-          <strong>
-            <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> utilization
-          </strong>
-          <small>
+    return (
+      <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
+        <GuideDataWrapper
+          bare
+          title={
+            <>
+              <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> Overview
+            </>
+          }
+          subtitle="Buff Utilization"
+          stats={
+            <StatsRow>
+              <Tooltip content="Portion of the fight where the buff was not sitting unconsumed.">
+                <StatCard color={NEUTRAL_STAT_COLOR}>
+                  <StatCardValue color={NEUTRAL_STAT_COLOR}>
+                    {formatPercentage(this.utilizationPercentage, 0)}%
+                  </StatCardValue>
+                  <StatCardDivider color={NEUTRAL_STAT_COLOR} />
+                  <StatCardLabel>Utilization</StatCardLabel>
+                </StatCard>
+              </Tooltip>
+              <Tooltip content="Times the buff refreshed while you could have consumed it effectively, wasting the application.">
+                <StatCard color={NEUTRAL_STAT_COLOR}>
+                  <StatCardValue color={NEUTRAL_STAT_COLOR}>
+                    {this.wastedApplications}
+                  </StatCardValue>
+                  <StatCardDivider color={NEUTRAL_STAT_COLOR} />
+                  <StatCardLabel>Wasted Applications</StatCardLabel>
+                </StatCard>
+              </Tooltip>
+            </StatsRow>
+          }
+        >
+          <InsetContainer style={{ height: 32 }}>
+            <UptimeBar
+              timeTooltip
+              uptimeHistory={this.unusableUptimes}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              barColor={SPELL_COLORS.VIVIFY}
+            />
+          </InsetContainer>
+          <HelperText style={{ marginTop: 6 }}>
             Grey periods indicate times that you could have used your{' '}
             <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> buff effectively, but
             did not.
-          </small>
-
-          {uptimeBarSubStatistic(
-            this.owner.fight,
-            {
-              spells: [SPELLS.VIVIFICATION_BUFF],
-              uptimes: this.unusableUptimes,
-              color: SPELL_COLORS.VIVIFY,
-            },
-            undefined,
-            undefined,
-            undefined,
-            'utilization',
-          )}
-          <div style={styleObj}>
-            <b>{this.wastedApplications}</b>{' '}
-            <small style={styleObjInner}>wasted applications</small>
-          </div>
-        </RoundedPanel>
-      </div>
+          </HelperText>
+        </GuideDataWrapper>
+        <div style={{ marginTop: 18 }}>
+          <GuideDataWrapper bare title="Cast Distribution">
+            <StackedBar
+              segments={[
+                {
+                  label: 'Instant',
+                  value: this.instantVivifies,
+                  color: SPELL_COLORS.VIVIFY,
+                  tooltip: (
+                    <>
+                      {this.instantVivifies} <SpellLink spell={SPELLS.VIVIFY} /> casts made instant
+                      by <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />
+                    </>
+                  ),
+                },
+                {
+                  label: 'Hard Cast',
+                  value: this.hardCastVivifies,
+                  color: SPELL_COLORS.ALTERNATE_GUST_OF_MIST,
+                  tooltip: (
+                    <>
+                      {this.hardCastVivifies} hard cast <SpellLink spell={SPELLS.VIVIFY} />s
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </GuideDataWrapper>
+        </div>
+      </GuideSection>
     );
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 
