@@ -12,3 +12,11 @@ const BLOODLUST_BUFFS: Record<number, number> = {
   90355: 0.3, // Ancient Hysteria - MoP hunter pet (Core Hound) lust equivalent
 };
 export default BLOODLUST_BUFFS;
+
+export const BLOODLUST_SATED_DEBUFFS = [
+  SPELLS.EXHAUSTION.id,
+  SPELLS.EXHAUSTION_EVOKER.id,
+  SPELLS.SATED.id,
+  SPELLS.TEMPORAL_DISPLACEMENT.id,
+  SPELLS.FATIGUED.id,
+];

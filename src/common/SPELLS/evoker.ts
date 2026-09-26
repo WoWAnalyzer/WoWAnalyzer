@@ -315,6 +315,11 @@ const spells = {
     name: 'Fury of the Aspects',
     icon: 'ability_evoker_furyoftheaspects',
   },
+  EXHAUSTION_EVOKER: {
+    id: 390435,
+    name: 'Exhaustion',
+    icon: 'spell_nature_sleep',
+  },
   RENEWING_BLAZE_HEAL: {
     id: 374349,
     name: 'Renewing Blaze',

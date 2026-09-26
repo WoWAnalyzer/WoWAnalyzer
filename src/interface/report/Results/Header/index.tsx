@@ -31,6 +31,8 @@ import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
 import { specIconPath } from 'interface/SpecIcon';
+import { shouldShowDungeonPullList, useSelectedPull } from 'interface/report/DungeonPullList';
+import clsx from 'clsx';
 
 const Section = cssComponent('section', styles.Section, [] as const);
 
@@ -151,6 +153,7 @@ export default function Header({
     [tabs],
   );
   const navigate = useNavigate();
+  const [selectedPull] = useSelectedPull(fight);
 
   const expansion = currentExpansion(config.branch);
   const raid = boss ? findZoneByBossId(boss.id) : undefined;
@@ -159,44 +162,52 @@ export default function Header({
     <>
       <HeaderBackground boss={boss} raid={raid} expansion={expansion} />
       <div>
-        <Section style={{ paddingBottom: 0 }}>
+        <Section
+          className={clsx(shouldShowDungeonPullList(fight, selectedPull) && styles.MiniHeader)}
+        >
           <HeaderContainer>
             <BossMiniBox boss={boss} fight={fight} />
-            <FilterButton
-              fight={fight}
-              handlePhaseSelection={handlePhaseSelection}
-              handleTimeSelection={handleTimeSelection}
-              selectedPhaseIndex={selectedPhaseIndex}
-              timeFilter={timeFilter}
-            />
+            {!shouldShowDungeonPullList(fight, selectedPull) && (
+              <FilterButton
+                fight={fight}
+                handlePhaseSelection={handlePhaseSelection}
+                handleTimeSelection={handleTimeSelection}
+                selectedPhaseIndex={selectedPhaseIndex}
+                timeFilter={timeFilter}
+              />
+            )}
             <CharacterMiniBox player={player} characterProfile={characterProfile} config={config} />
-            <TabStrip>
-              {tabList
-                .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
-                .map(({ icon: Icon, ...tab }) => (
-                  <TabButton
-                    key={tab.url}
-                    to={makeTabUrl(tab.url)}
-                    className={selectedTab === tab.url ? styles.active : ''}
-                  >
-                    <Icon />
-                    {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
-                  </TabButton>
-                ))}
-            </TabStrip>
-            <TabSelect
-              onChange={(event) => navigate(makeTabUrl(event.target.value))}
-              value={selectedTab}
-            >
-              {tabList
-                .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
-                .map((tab) => (
-                  <option key={tab.url} value={tab.url}>
-                    {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
-                  </option>
-                ))}
-            </TabSelect>
-            {!isLoading && <HeaderStatBox className={styles.StatBoxContainer} />}
+            {!shouldShowDungeonPullList(fight, selectedPull) ? (
+              <>
+                <TabStrip>
+                  {tabList
+                    .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
+                    .map(({ icon: Icon, ...tab }) => (
+                      <TabButton
+                        key={tab.url}
+                        to={makeTabUrl(tab.url)}
+                        className={selectedTab === tab.url ? styles.active : ''}
+                      >
+                        <Icon />
+                        {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
+                      </TabButton>
+                    ))}
+                </TabStrip>
+                <TabSelect
+                  onChange={(event) => navigate(makeTabUrl(event.target.value))}
+                  value={selectedTab}
+                >
+                  {tabList
+                    .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
+                    .map((tab) => (
+                      <option key={tab.url} value={tab.url}>
+                        {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
+                      </option>
+                    ))}
+                </TabSelect>
+                {!isLoading && <HeaderStatBox className={styles.StatBoxContainer} />}
+              </>
+            ) : null}
           </HeaderContainer>
         </Section>
       </div>
@@ -222,7 +233,10 @@ function CharacterMiniBox({
   // intentionally smaller than the layout switch
   const showClassName = useMediaQueryMatch('(min-width: 600px)');
   return (
-    <MiniBoxContainer className={styles.flipped} style={{ gridArea: 'character' }}>
+    <MiniBoxContainer
+      className={styles.flipped}
+      style={{ gridArea: 'character', justifySelf: 'end' }}
+    >
       <MiniBoxImage
         src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
         alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}

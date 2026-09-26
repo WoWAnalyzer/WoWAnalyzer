@@ -6,6 +6,7 @@ import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { PureComponent, ErrorInfo, ReactNode } from 'react';
 
 import { EventsParseError } from './report/hooks/useEventParser';
+import { UnknownApiError } from 'common/fetchWclApi';
 
 interface HandledError {
   message: string;
@@ -18,6 +19,9 @@ interface HandledError {
 // our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the
 // app, that triggers a different error so those third party issues are still handled.
 const isTriggeredByExternalScript = (error: HandledError) => {
+  if (error instanceof UnknownApiError) {
+    return false;
+  }
   if (!error || error.message === 'Script error.') {
     return true;
   }

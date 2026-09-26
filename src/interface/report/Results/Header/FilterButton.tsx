@@ -13,6 +13,7 @@ import { useFight } from 'interface/report/context/FightContext';
 import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
 import Button from 'interface/controls/Button';
+import { useSelectedPull } from 'interface/report/DungeonPullList';
 
 const FilterContainer = cssComponent('div', styles.FilterContainer, [] as const);
 
@@ -33,10 +34,19 @@ export default function FilterButton(props: Props): JSX.Element | null {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const [showMenu, setShowMenu] = useState(false);
   const [position, setPosition] = useState<FilterMenuProps['position']>({});
+  const [, setSelectedPull] = useSelectedPull(props.fight);
+
   const closeMenu = useCallback(() => {
     setShowMenu(false);
   }, []);
+  const { hasDungeonPulls, canGoPrev, canGoNext, goToPrevPull, goToNextPull } =
+    usePullNavigation(props);
   const toggleMenu = useCallback(() => {
+    if (hasDungeonPulls) {
+      setSelectedPull(undefined);
+      return;
+    }
+
     setShowMenu((v) => !v);
     setPosition(
       ref.current
@@ -46,7 +56,7 @@ export default function FilterButton(props: Props): JSX.Element | null {
           }
         : {},
     );
-  }, []);
+  }, [hasDungeonPulls, setSelectedPull]);
 
   useClickOutsideHandler([ref, dialogRef], closeMenu);
   const phases = usePhases();
@@ -64,9 +74,6 @@ export default function FilterButton(props: Props): JSX.Element | null {
 
     return 'Filter';
   }, [props.selectedPhaseIndex, props.timeFilter, phases, props.fight]);
-
-  const { hasDungeonPulls, canGoPrev, canGoNext, goToPrevPull, goToNextPull } =
-    usePullNavigation(props);
 
   return (
     <>
@@ -241,7 +248,8 @@ function NextPullButton({ disabled, onClick }: PullNavBtnProps): JSX.Element {
   );
 }
 
-function usePullNavigation({ fight, selectedPhaseIndex, handlePhaseSelection }: Props) {
+function usePullNavigation({ fight, selectedPhaseIndex }: Props) {
+  const [, setSelectedPull] = useSelectedPull(fight);
   const pullCount = fight.dungeonPulls?.length ?? 0;
   const hasDungeonPulls = pullCount > 0;
 
@@ -252,17 +260,20 @@ function usePullNavigation({ fight, selectedPhaseIndex, handlePhaseSelection }: 
 
   const goToPrevPull = useCallback(() => {
     if (canGoPrev) {
-      handlePhaseSelection(selectedPhaseIndex - 1);
+      const targetPullId = selectedPhaseIndex;
+      setSelectedPull(fight.dungeonPulls!.find((pull) => pull.id === targetPullId));
     }
-  }, [canGoPrev, handlePhaseSelection, selectedPhaseIndex]);
+  }, [canGoPrev, setSelectedPull, selectedPhaseIndex, fight]);
 
   const goToNextPull = useCallback(() => {
     if (canGoNext) {
       const isAllPhases = selectedPhaseIndex === SELECTION_ALL_PHASES;
       const isCustomPhase = selectedPhaseIndex === SELECTION_CUSTOM_PHASE;
-      handlePhaseSelection(isAllPhases || isCustomPhase ? 0 : selectedPhaseIndex + 1);
+      // +2 because of the shift from 0-index to 1-index
+      const targetPullId = isAllPhases || isCustomPhase ? 1 : selectedPhaseIndex + 2;
+      setSelectedPull(fight.dungeonPulls!.find((pull) => pull.id === targetPullId));
     }
-  }, [canGoNext, handlePhaseSelection, selectedPhaseIndex]);
+  }, [canGoNext, setSelectedPull, selectedPhaseIndex, fight]);
 
   return { hasDungeonPulls, canGoPrev, canGoNext, goToPrevPull, goToNextPull };
 }

@@ -577,6 +577,16 @@ const spells = {
     icon: 'ability_shaman_heroism',
     manaCost: 1000,
   },
+  SATED: {
+    id: 57724,
+    name: 'Sated',
+    icon: 'spell_nature_sleep',
+  },
+  EXHAUSTION: {
+    id: 57723,
+    name: 'Exhaustion',
+    icon: 'spell_nature_sleep',
+  },
   REINCARNATION: {
     id: 21169,
     name: 'Reincarnation',

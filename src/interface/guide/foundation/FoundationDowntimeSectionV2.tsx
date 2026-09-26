@@ -515,9 +515,11 @@ function estimateGlobalMeleeUptime(
   endTime: number,
   meleeEvents: CastEvent[],
 ): Uptime[] {
+  const observedMeleePlayers = new Set();
   const gaps: Uptime[] = [];
   let lastMeleeTimestamp = startTime;
   for (const event of meleeEvents) {
+    observedMeleePlayers.add(event.sourceID);
     if (event.timestamp - lastMeleeTimestamp >= MIN_GLOBAL_GAP) {
       gaps.push({
         start: lastMeleeTimestamp,
@@ -533,6 +535,12 @@ function estimateGlobalMeleeUptime(
       end: endTime,
     });
   }
+
+  // if there aren't enough melee players this isn't going to work well, just turn it off
+  if (observedMeleePlayers.size < 2) {
+    return [];
+  }
+
   return gaps;
 }
 
