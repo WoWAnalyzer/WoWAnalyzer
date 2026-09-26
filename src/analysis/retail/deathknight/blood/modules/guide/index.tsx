@@ -10,6 +10,7 @@ import CooldownGraphSubsection, {
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
 import { OSSUARY_STACKS } from '../features/BoneShieldGraph';
+import { ESSENCE_MAX_STACKS } from '../talents/EssenceOfTheBloodQueen';
 import DeathStrikeSection from '../spells/DeathStrike/DeathStrikeSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
@@ -55,16 +56,16 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
           <SubSection title="Essence of the Blood Queen">
             <p>
               <SpellLink spell={SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF} /> grants haste per stack,
-              stacking up to a maximum of 7. You should aim to keep this buff at 7 stacks as much as
-              possible by regularly using{' '}
+              stacking up to a maximum of {ESSENCE_MAX_STACKS}. You should aim to keep this buff at{' '}
+              {ESSENCE_MAX_STACKS} stacks as much as possible by regularly using{' '}
               <SpellLink spell={TALENTS_DEATH_KNIGHT.VAMPIRIC_STRIKE_TALENT} />.
             </p>
             <p>
               You spent{' '}
               <strong>{formatPercentage(modules.EssenceOfTheBloodQueen.maxStackUptime)}%</strong> of
-              the encounter at the maximum of 7 stacks, and{' '}
+              the encounter at the maximum of {ESSENCE_MAX_STACKS} stacks, and{' '}
               <strong>{formatPercentage(modules.EssenceOfTheBloodQueen.uptime)}%</strong> of the
-              encounter with the buff active at all.
+              encounter with the buff active.
             </p>
             {modules.essenceOfTheBloodQueenGraph.plot}
           </SubSection>

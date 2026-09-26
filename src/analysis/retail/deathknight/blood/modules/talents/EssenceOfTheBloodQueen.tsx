@@ -14,7 +14,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const ESSENCE_HASTE_NORMAL = 0.01;
 const ESSENCE_HASTE_GIFT = 0.03;
 // Essence of the Blood Queen caps at 7 stacks.
-const MAX_STACKS = 7;
+export const ESSENCE_MAX_STACKS = 7;
 
 export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ haste: Haste }) {
   constructor(options: Options) {
@@ -69,7 +69,7 @@ export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ 
 
   /** Uptime of Essence of the Blood Queen at its maximum of 7 stacks, where it grants the most haste. */
   get maxStackUptime() {
-    return (this.stackUptimes[MAX_STACKS] ?? 0) / this.owner.fightDuration;
+    return (this.stackUptimes[ESSENCE_MAX_STACKS] ?? 0) / this.owner.fightDuration;
   }
 
   statistic() {
@@ -113,7 +113,7 @@ export default class EssenceOfTheBloodQueen extends Analyzer.withDependencies({ 
           </div>
           <div>
             <UptimeIcon /> {formatPercentage(this.maxStackUptime)}%{' '}
-            <small>uptime at {MAX_STACKS} stacks</small>
+            <small>uptime at {ESSENCE_MAX_STACKS} stacks</small>
           </div>
           <div>
             {this.averageStacks.toFixed(1)} <small>average stacks</small>
