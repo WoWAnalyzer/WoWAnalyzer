@@ -101,7 +101,13 @@ class MightyInferno extends Analyzer {
     if (index === -1) {
       return;
     }
-    if (event.timestamp - this.infernoApps[index].baseEndTimestamp) {
+    console.log(
+      'Timestamp ' +
+        event.timestamp +
+        ' BaseEndTimestamp ' +
+        this.infernoApps[index].baseEndTimestamp,
+    );
+    if (event.timestamp - this.infernoApps[index].baseEndTimestamp > 0) {
       this.extensionDamage += event.amount - ampDamage;
     }
   }
