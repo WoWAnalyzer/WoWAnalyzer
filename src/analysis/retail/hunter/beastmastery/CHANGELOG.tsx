@@ -7,6 +7,15 @@ export default [
   change(
     date(2026, 9, 12),
     <>
+      Fixed <SpellLink spell={TALENTS_HUNTER.DIRE_BEAST_TALENT} /> and{' '}
+      <SpellLink spell={TALENTS_HUNTER.DIRE_COMMAND_TALENT} /> showing 0 damage, caused by Dire
+      Beast summons using spell IDs that weren't recognized
+    </>,
+    LittleBoyBlu,
+  ),
+  change(
+    date(2026, 9, 12),
+    <>
       Removed <SpellLink spell={SPELLS.FORTITUDE_OF_THE_BEAR} /> from the Abilities list, since it
       was reworked to a passive in patch 12.0.0
     </>,
