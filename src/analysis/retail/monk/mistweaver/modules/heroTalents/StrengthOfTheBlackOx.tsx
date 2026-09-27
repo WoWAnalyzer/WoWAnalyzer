@@ -34,11 +34,11 @@ import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import { CAST_BUFFER_MS } from '../../normalizers/EventLinks/EventLinkConstants';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BATCH_TOLERANCE_MS = 100;
 // a stampede boosted shield is 5x a normal one, this leaves room for external absorb increases on a single target
@@ -422,7 +422,7 @@ class StrengthOfTheBlackOx extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

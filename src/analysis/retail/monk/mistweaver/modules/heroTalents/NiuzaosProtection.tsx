@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class NiuzaosProtection extends Analyzer {
   talent = TALENTS_MONK.NIUZAOS_PROTECTION_TALENT;
@@ -47,7 +47,7 @@ class NiuzaosProtection extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

@@ -4,11 +4,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPECS from 'game/SPECS';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // coalescence heals for mistweaver and damages for brewmaster
 class Coalesence extends Analyzer {
@@ -44,7 +44,7 @@ class Coalesence extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >

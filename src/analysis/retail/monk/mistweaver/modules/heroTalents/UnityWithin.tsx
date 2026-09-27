@@ -14,11 +14,11 @@ import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import SpellIcon from 'interface/SpellIcon';
 import { TooltipElement } from 'interface/Tooltip';
 import StrengthOfTheBlackOx, { HealingSource } from './StrengthOfTheBlackOx';
 import HeartOfTheJadeSerpent from '../spells/HeartOfTheJadeSerpent';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // the tiger has travel time and hits more than once, landing 2-3s after the unity within trigger
 const UNITY_COURAGE_WINDOW_MS = 3000;
@@ -156,7 +156,7 @@ class UnityWithin extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

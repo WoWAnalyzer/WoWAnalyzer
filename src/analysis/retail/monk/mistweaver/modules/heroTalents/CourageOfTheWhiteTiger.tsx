@@ -9,12 +9,12 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import { CAST_BUFFER_MS } from '../../normalizers/EventLinks/EventLinkConstants';
 import UnityWithin from './UnityWithin';
 import { getCurrentCelestialTalent } from '../../constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-// the tiger has travel time so its hits land a few seconds after the cast that procced it
+// cotwt has a weird travel time
 const PROC_WINDOW_MS = 3000;
 
 const PROC_SPELLS: Spell[] = [SPELLS.TIGER_PALM, SPELLS.VIVIFY, TALENTS_MONK.SHEILUNS_GIFT_TALENT];
@@ -82,7 +82,6 @@ class CourageOfTheWhiteTiger extends Analyzer.withDependencies({
     this.guaranteedProcs += 1;
   }
 
-  // the buff is consumed by the next proc spell cast, so a removal with no cast right before it expired
   onGuaranteedProcEnd(event: RemoveBuffEvent) {
     const consumed =
       this.lastCast !== undefined && event.timestamp - this.lastCast.timestamp <= CAST_BUFFER_MS;
@@ -98,7 +97,7 @@ class CourageOfTheWhiteTiger extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

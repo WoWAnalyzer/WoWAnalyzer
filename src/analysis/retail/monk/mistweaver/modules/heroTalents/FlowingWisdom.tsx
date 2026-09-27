@@ -5,10 +5,10 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import HeartOfTheJadeSerpent from '../spells/HeartOfTheJadeSerpent';
 import { FLOWING_WISDOM_HASTE } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/constants';
 import HasteIcon from 'interface/icons/Haste';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class FlowingWisdom extends Analyzer.withDependencies({
   heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
@@ -35,7 +35,7 @@ class FlowingWisdom extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

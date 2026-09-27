@@ -20,7 +20,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import {
   AT_BLACKOUT_KICK,
   AT_TIGER_PALM,
@@ -33,6 +32,7 @@ import {
   XUENS_GUIDANCE_REFUND_CHANCE,
   XUENS_GUIDANCE_TP_INCREASE,
 } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // refunded stacks land ~100ms after the consuming blackout kick
 const REFUND_WINDOW_MS = 250;
@@ -174,7 +174,7 @@ class XuensGuidance extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={

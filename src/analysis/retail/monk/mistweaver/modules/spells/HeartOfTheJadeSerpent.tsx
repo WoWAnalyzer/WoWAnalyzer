@@ -21,8 +21,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import { ID_TO_SPELL_COLOR } from '../../constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class HeartOfTheJadeSerpent extends BaseHotJS {
   static override dependencies = {
@@ -260,7 +260,7 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
           </ul>
         }
         category={STATISTIC_CATEGORY.HERO_TALENTS}
-        position={getHeroTalentStatisticPosition(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT)}
+        position={STATISTIC_ORDER.CORE(1)}
         wide
       >
         <TalentAggregateBars bars={this.buildBars()} wide />

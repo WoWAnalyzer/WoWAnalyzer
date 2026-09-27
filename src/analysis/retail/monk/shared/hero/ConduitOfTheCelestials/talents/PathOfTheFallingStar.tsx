@@ -9,11 +9,11 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { getHeroTalentStatisticPosition } from 'analysis/retail/monk/shared/hero/constants';
 import {
   PATH_OF_THE_FALLING_STAR_INCREASE,
   PATH_OF_THE_FALLING_STAR_REDUCTION_PER_TARGET,
 } from '../constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // a single tick can be logged a millisecond apart, so its events are gathered before counting
 const TICK_TOLERANCE_MS = 100;
@@ -143,7 +143,7 @@ class PathOfTheFallingStar extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={getHeroTalentStatisticPosition(this.talent)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
