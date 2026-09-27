@@ -111,7 +111,7 @@ abstract class ProcBuffAnalyzer extends Analyzer {
     this.changeStacks(event.stack);
     if (
       this._overcapBuffisFail &&
-      this._activeStacks + this.amountOfStacksGenerated > this.maxStacks
+      this._previousStacks + this.amountOfStacksGenerated > this.maxStacks
     ) {
       this.pushOvercapFailure(event);
     }

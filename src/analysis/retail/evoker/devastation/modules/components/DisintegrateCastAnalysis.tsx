@@ -10,7 +10,7 @@ export enum ChainClipStatus {
   Chained,
   Clipped,
   Cancelled,
-  Casted,
+  Cast,
 }
 
 export interface DisintegrateCast {

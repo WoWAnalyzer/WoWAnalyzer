@@ -1,11 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import { Arlie, Badkad, emallson, Gazh } from 'CONTRIBUTORS';
+import { Arlie, Badkad, emallson, Gazh, jcthenerd } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 24), <>Added <SpellLink spell={SPELLS.DEATH_AND_DECAY_BUFF} /> uptime tracking.</>, jcthenerd),
+
   change(date(2026, 9, 3), <>Fixed <SpellLink spell={talents.RAISE_DEAD_TALENT} /> cooldown</>, Badkad),
 
   change(date(2026, 8, 29), <>Added <SpellLink spell={talents.VISCERAL_STRENGTH_TALENT} /> tracking</>, Gazh),

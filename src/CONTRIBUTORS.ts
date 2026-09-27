@@ -3119,3 +3119,8 @@ export const LittleBoyBlu: Contributor = {
   github: 'RyanMBlue',
   discord: 'lbb',
 };
+
+export const jcthenerd: Contributor = {
+  nickname: 'jcthenerd',
+  github: 'jcthenerd',
+};

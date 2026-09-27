@@ -5,13 +5,13 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { ApplyBuffStackEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { REACTIVE_HIDE_MULTIPLIER, REGENERATIVE_CHITIN_MULTIPLIER } from '../../constants';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { InformationIcon } from 'interface/icons';
 
 /**
  * Blistering Scales is essentially Augmentations external
@@ -81,17 +81,26 @@ class BlisteringScales extends Analyzer {
   }
 
   onHit(event: DamageEvent) {
-    this.reactiveHideDamage += calculateEffectiveDamage(
-      event,
-      this.reactiveHideStacks * REACTIVE_HIDE_MULTIPLIER,
-    );
+    // Damage is manually calculated as calculateEffectiveDamage requires an event passed,
+    // but we want to split the damage three ways into Blistering/Chitin/Reactive.
+    let damageAmountRemaining = event.amount + (event.absorbed ?? 0);
+    // Subtract Reactive first
+    // Chitin has to be pathed through to get to Reactive, so it makes no sense
+    // to have its damage number "increased" by then taking Reactive.
+    const reactiveDamage =
+      damageAmountRemaining -
+      damageAmountRemaining / (1 + this.reactiveHideStacks * REACTIVE_HIDE_MULTIPLIER);
+    this.reactiveHideDamage += reactiveDamage;
+    damageAmountRemaining -= reactiveDamage;
+    // Subtract Chitin
     if (this.hasRegenerativeChitin) {
-      this.regenerativeChitinDamage += calculateEffectiveDamage(
-        event,
-        REGENERATIVE_CHITIN_MULTIPLIER,
-      );
+      const chitinDamage =
+        damageAmountRemaining - damageAmountRemaining / (1 + REGENERATIVE_CHITIN_MULTIPLIER);
+      this.regenerativeChitinDamage += chitinDamage;
+      damageAmountRemaining -= chitinDamage;
     }
-    this.blisteringScalesDamage += event.amount + (event.absorbed ?? 0);
+    // Remaining damage is base Blistering Scales
+    this.blisteringScalesDamage += damageAmountRemaining;
     this.onHitCount += 1;
     this.totalStacks += this.reactiveHideStacks;
   }
@@ -105,13 +114,29 @@ class BlisteringScales extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <li>Damage: {formatNumber(this.reactiveHideDamage + this.blisteringScalesDamage)}</li>
-            {this.hasReactiveHide && <li>Average Stacks: {averageStacks.toFixed(2)}</li>}
+            <li>
+              Total damage:{' '}
+              {formatNumber(
+                this.reactiveHideDamage +
+                  this.blisteringScalesDamage +
+                  this.regenerativeChitinDamage,
+              )}
+            </li>
+            <li>
+              Overall{' '}
+              <ItemDamageDone
+                amount={
+                  this.reactiveHideDamage +
+                  this.blisteringScalesDamage +
+                  this.regenerativeChitinDamage
+                }
+              />
+            </li>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.BLISTERING_SCALES_TALENT}>
-          <ItemDamageDone amount={this.blisteringScalesDamage - this.reactiveHideDamage} />
+          <ItemDamageDone amount={this.blisteringScalesDamage} />
         </TalentSpellText>
 
         {this.hasRegenerativeChitin && (
@@ -123,6 +148,10 @@ class BlisteringScales extends Analyzer {
         {this.hasReactiveHide && (
           <TalentSpellText talent={TALENTS.REACTIVE_HIDE_TALENT}>
             <ItemDamageDone amount={this.reactiveHideDamage} />
+            <div>
+              <InformationIcon /> {averageStacks.toFixed(2)}
+              <small> average stacks</small>
+            </div>
           </TalentSpellText>
         )}
       </Statistic>

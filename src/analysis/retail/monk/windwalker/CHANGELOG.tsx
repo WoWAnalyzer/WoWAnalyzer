@@ -6,10 +6,15 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
-    date(2026, 9, 3),
+    date(2026, 9, 25),
     <>
-      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> is no longer suggested in the Shado-Pan APL
-      unless <SpellLink spell={TALENTS.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> is talented.
+      Updated the Shado-Pan single-target priority, including{' '}
+      <SpellLink spell={TALENTS.WHIRLING_DRAGON_PUNCH_TALENT} /> grace handling,{' '}
+      <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> precedence, and{' '}
+      <SpellLink spell={SPELLS.UNBROKEN_RHYTHM_BUFF} /> stack handling.{' '}
+      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> is now suggested only while a cast granted
+      by <SpellLink spell={TALENTS.TIGEREYE_BREW_3_WINDWALKER_TALENT} /> remains available, and
+      fully consumed sets are no longer reported as unused.
     </>,
     TastyArsenic,
   ),

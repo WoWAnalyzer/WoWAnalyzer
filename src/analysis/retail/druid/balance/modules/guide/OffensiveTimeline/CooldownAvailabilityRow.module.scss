@@ -1,0 +1,45 @@
+.RowContainer {
+  position: relative;
+  height: 18px;
+  width: 100%;
+}
+
+.Segment {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: var(--color);
+  width: calc((var(--end) - var(--start)) / var(--fightDuration) * 100%);
+  left: calc(var(--start) / var(--fightDuration) * 100%);
+}
+
+.CastBox {
+  position: absolute;
+  top: -3px;
+  height: 24px;
+  width: calc(
+    min(var(--activeTime), var(--fightDuration) - var(--at)) / var(--fightDuration) * 100%
+  );
+  border-radius: 3px;
+  pointer-events: all;
+  background: rgb(255 255 255 / 0.56);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 4px rgba(255, 255, 255, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+  left: calc(var(--at) / var(--fightDuration) * 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  :global(img.icon.game) {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin: 0;
+    display: block;
+    border: 1px solid #75736d;
+    border-radius: 2px;
+    box-shadow: 0 0 3px #000;
+  }
+}
