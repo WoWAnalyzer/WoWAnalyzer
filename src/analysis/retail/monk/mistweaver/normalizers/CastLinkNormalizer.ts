@@ -335,6 +335,26 @@ export function getStrengthOfTheBlackOxConsumingCast(
   return GetRelatedEvent<CastEvent>(event, STRENGTH_OF_THE_BLACK_OX);
 }
 
+export function isFromStrengthOfTheBlackOx(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  const cast = GetRelatedEvent<CastEvent>(event, FROM_HARDCAST);
+  return cast !== undefined && HasRelatedEvent(cast, STRENGTH_OF_THE_BLACK_OX);
+}
+
+export function isFromStrengthOfTheBlackOxRapidDiffusion(
+  event: ApplyBuffEvent | RefreshBuffEvent,
+): boolean {
+  const cast = GetRelatedEvent<CastEvent>(event, FROM_RAPID_DIFFUSION);
+  return (
+    cast !== undefined &&
+    cast.type === EventType.Cast &&
+    HasRelatedEvent(cast, STRENGTH_OF_THE_BLACK_OX)
+  );
+}
+
+export function getMistyPeaksSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvent<HealEvent>(event, FROM_MISTY_PEAKS);
+}
+
 // tier
 export function isInsuranceFromHardcast(event: HealEvent) {
   const source = GetRelatedEvent(event, INSURANCE);

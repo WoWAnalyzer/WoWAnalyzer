@@ -67,7 +67,7 @@ export const WAY_OF_THE_SERPENT_VIV_SG_INCREASE = 0.15;
 export const WAY_OF_THE_SERPENT_REM_INCREASE = 0.3;
 export const WAY_OF_THE_CRANE_BOK_CLEAVE = 0.2;
 export const WAY_OF_THE_CRANE_TP_STRIKES = 2;
-export const JADEFIRE_TEACHINGS_TRANSFER_COEFFICIENT = 2.7;
+export const JADEFIRE_TEACHINGS_TRANSFER_COEFFICIENT = 3.2;
 export const MEDITATIVE_FOCUS_TRANSFER_COEFFICIENT = 0.5;
 export const PEACEFUL_MENDING_INCREASE = 0.4;
 export const SPIRITFONT_MAX_STACKS = 2;
@@ -88,6 +88,8 @@ export const ATTRIBUTION_STRINGS = {
   HARDCAST_ENVELOPING_MIST: 'Enveloping Mist Hardcast',
   MISTY_PEAKS_ENVELOPING_MIST: 'Enveloping Mist Misty Peaks Proc',
   DURING_CELESTIAL_ENVELOPING_MIST: 'During Celestial Enveloping Mist',
+  STRENGTH_OF_THE_BLACK_OX_ENVELOPING_MIST: 'Enveloping Mist Strength of the Black Ox',
+  STRENGTH_OF_THE_BLACK_OX_RENEWING_MIST: 'Renewing Mist Strength of the Black Ox',
   HARDCAST_RENEWING_MIST: 'Renewing Mist Hardcast',
   RAPID_DIFFUSION_RENEWING_MIST: 'Renewing Mist Rapid Diffusion',
   DANCING_MIST_RENEWING_MIST: 'Renewing Mist Dancing Mist',

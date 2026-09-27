@@ -170,6 +170,18 @@ class HotTrackerMW extends HotTracker {
     return hot.attributions.some((a) => a.name === ATTRIBUTION_STRINGS.S2_FOUR_PIECE);
   }
 
+  fromStrengthOfTheBlackOxRem(hot: Tracker): boolean {
+    return hot.attributions.some(
+      (a) => a.name === ATTRIBUTION_STRINGS.STRENGTH_OF_THE_BLACK_OX_RENEWING_MIST,
+    );
+  }
+
+  fromStrengthOfTheBlackOx(hot: Tracker): boolean {
+    return hot.attributions.some(
+      (a) => a.name === ATTRIBUTION_STRINGS.STRENGTH_OF_THE_BLACK_OX_ENVELOPING_MIST,
+    );
+  }
+
   duringCelestial(hot: Tracker): boolean {
     return hot.attributions.some(
       (a) => a.name === ATTRIBUTION_STRINGS.DURING_CELESTIAL_ENVELOPING_MIST,

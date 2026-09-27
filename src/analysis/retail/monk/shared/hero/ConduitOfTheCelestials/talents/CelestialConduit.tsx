@@ -16,7 +16,6 @@ import Haste from 'parser/shared/modules/Haste';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import {
@@ -36,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 import { PerformanceMark } from 'interface/guide';
 import { Talent } from 'common/TALENTS/types';
 import { SpellIcon } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export interface CastInfo {
   cancelled: boolean;
@@ -72,6 +72,10 @@ class CelestialConduit extends Analyzer {
   castInfoList: CastInfo[] = [];
 
   protected readonly currentSpell: Talent | undefined;
+
+  get talent(): Talent {
+    return this.currentSpell!;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -314,7 +318,7 @@ class CelestialConduit extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
-        position={STATISTIC_ORDER.CORE(0)}
+        position={STATISTIC_ORDER.CORE(1)}
         tooltip={
           <ul>
             <li>Casts cancelled early: {this.cancelledCasts}</li>

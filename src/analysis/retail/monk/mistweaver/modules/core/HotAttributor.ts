@@ -20,6 +20,9 @@ import {
   isFromRapidDiffusionEnvelopingMist,
   isFromRapidDiffusionRisingSunKick,
   isFromJadeBond,
+  isFromStrengthOfTheBlackOx,
+  isFromStrengthOfTheBlackOxRapidDiffusion,
+  getMistyPeaksSourceRem,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { isFromTFT, isFromS2FourPiece } from '../../normalizers/EventLinks/TierEventLinks';
@@ -51,6 +54,12 @@ class HotAttributor extends Analyzer {
   );
   envMistDuringCelestialAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.DURING_CELESTIAL_ENVELOPING_MIST,
+  );
+  envMistStrengthOfTheBlackOxAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.STRENGTH_OF_THE_BLACK_OX_ENVELOPING_MIST,
+  );
+  remStrengthOfTheBlackOxAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.STRENGTH_OF_THE_BLACK_OX_RENEWING_MIST,
   );
   rapidDiffusionAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.RAPID_DIFFUSION_RENEWING_MIST,
@@ -185,8 +194,23 @@ class HotAttributor extends Analyzer {
             'on ' + this.combatants.getEntity(event)?.name,
           );
       }
+      if (isFromStrengthOfTheBlackOx(event)) {
+        this.hotTracker.addAttributionFromApply(this.envMistStrengthOfTheBlackOxAttrib, event);
+        debug &&
+          console.log(
+            'Attributed Enveloping Mist hardcast from Strength of the Black Ox at ' +
+              this.owner.formatTimestamp(event.timestamp, 3),
+            'on ' + this.combatants.getEntity(event)?.name,
+          );
+      }
     } else if (isFromMistyPeaks(event)) {
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
+      const sourceRem = getMistyPeaksSourceRem(event);
+      const sourceRemHot =
+        sourceRem && this.hotTracker.hots[sourceRem.targetID]?.[SPELLS.RENEWING_MIST_HEAL.id];
+      if (sourceRemHot && this.hotTracker.fromStrengthOfTheBlackOxRem(sourceRemHot)) {
+        this.hotTracker.addAttributionFromApply(this.envMistStrengthOfTheBlackOxAttrib, event);
+      }
       hot.maxDuration = this.hotTracker._getMistyPeaksMaxDuration(this.selectedCombatant);
       hot.end = hot.originalEnd =
         event.timestamp + Number(this.hotTracker._getMistyPeaksDuration(this.selectedCombatant));
@@ -311,6 +335,9 @@ class HotAttributor extends Analyzer {
         } else if (this.hotTracker.fromMistsOfLife(sourceHot)) {
           this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
         }
+        if (this.hotTracker.fromStrengthOfTheBlackOxRem(sourceHot)) {
+          this.hotTracker.addAttributionFromApply(this.remStrengthOfTheBlackOxAttrib, event);
+        }
 
         dmHot.healingAfterOriginalEnd = 0;
         dmHot.maxDuration = sourceHot.maxDuration;
@@ -329,6 +356,9 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.rdSourceRSKAttrib, event);
     } else if (isFromRapidDiffusionEnvelopingMist(event)) {
       this.hotTracker.addAttributionFromApply(this.rdSourceENVAttrib, event);
+      if (isFromStrengthOfTheBlackOxRapidDiffusion(event)) {
+        this.hotTracker.addAttributionFromApply(this.remStrengthOfTheBlackOxAttrib, event);
+      }
     }
     //midnight s2 tier - rem procced by the free rsk/rwk
     if (isFromS2FourPiece(event)) {
