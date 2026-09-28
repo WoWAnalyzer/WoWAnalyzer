@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/warlock';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 25), <><SpellLink spell={SPELLS.BACKDRAFT} /> analyzer reworked to track wasted stacks (overcapped and expired) instead of grading which spell consumes it. Guide now shows a stack timeline.</>, Katorri),
   change(date(2026, 9, 10), <><SpellLink spell={SPELLS.HAVOC} /> Guide Update: now accounts for <SpellLink spell={TALENTS.SHADOWBURN_TALENT} /> usage in execute range and free <SpellLink spell={TALENTS.FIENDISH_CRUELTY_TALENT} /> usage, rates windows
 by shard-weighted spend instead of flat cast count, tracks Soul Shards banked at cast time, and recovers windows cast before the pull. Update example report and about description.</>, Katorri),
   change(date(2026, 8, 26), "Fix typo in Dot Uptimes", Katorri),
