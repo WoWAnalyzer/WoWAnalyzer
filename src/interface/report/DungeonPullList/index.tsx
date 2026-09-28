@@ -26,6 +26,15 @@ const MIN_PULL_DURATION_MS = 2500;
 
 export type SelectedDungeonPull = 'all' | WCLDungeonPull | undefined;
 
+/**
+ * Get the selected pull ID, if present.
+ */
+export function useSelectedPullId(): 'all' | number | undefined {
+  const [search] = useSearchParams();
+
+  return search.get('pull') as 'all' | number | undefined;
+}
+
 export function useSelectedPull(
   fight: WCLFight,
 ): [SelectedDungeonPull, (pull: SelectedDungeonPull) => void] {

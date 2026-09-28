@@ -12,6 +12,8 @@ import StatisticBar from 'parser/ui/StatisticBar';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import DamageValue from '../DamageValue';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { useSelectedPullId } from 'interface/report/DungeonPullList';
 
 const IGNORED_ABILITIES = [SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id];
 
@@ -158,60 +160,64 @@ class DamageTaken extends Analyzer {
       return null;
     }
 
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({
-      time: sec,
-      val: val.effective,
-    }));
-
-    const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
-    const wclUrl = makeWclUrl(this.owner.report.code, {
-      fight: this.owner.fightId,
-      source: this.owner.playerId,
-      type: 'damage-taken',
-    });
-
-    return (
-      <StatisticBar
-        position={STATISTIC_ORDER.CORE(3)}
-        ultrawide
-        wide={false}
-        large={false}
-        style={{ marginBottom: 0, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
-      >
-        <div className="flex">
-          <div className="flex-sub icon">
-            <img src="/img/shield.png" alt="Damage taken" />
-          </div>
-          <Tooltip content={this.tooltip}>
-            <div className="flex-sub value" style={{ width: 190 }}>
-              {formatThousands(perSecond)} DTPS
-            </div>
-          </Tooltip>
-          <div
-            className={`flex-sub ${rankingColor(0)}`}
-            style={{ width: 110, textAlign: 'center' }}
-          >
-            -
-          </div>
-          <div className="flex-main chart">
-            <a href={wclUrl}>
-              {perSecond > 0 && (
-                <AutoSizer disableWidth>
-                  {({ height }) => (
-                    <FlushLineChart
-                      data={data}
-                      duration={this.owner.fightDuration / 1000}
-                      height={height}
-                    />
-                  )}
-                </AutoSizer>
-              )}
-            </a>
-          </div>
-        </div>
-      </StatisticBar>
-    );
+    return <DamageTakenBar analyzer={this} parser={this.owner} />;
   }
 }
 
 export default DamageTaken;
+
+function DamageTakenBar({ analyzer, parser }: { analyzer: DamageTaken; parser: CombatLogParser }) {
+  const selectedPullId = useSelectedPullId();
+
+  const data = Object.entries(analyzer.bySecond).map(([sec, val]) => ({
+    time: sec,
+    val: val.effective,
+  }));
+
+  const perSecond = (analyzer.total.effective / parser.fightDuration) * 1000;
+  const wclUrl = makeWclUrl(parser.report.code, {
+    fight: parser.fightId,
+    source: parser.playerId,
+    type: 'damage-taken',
+    pull: selectedPullId && selectedPullId !== 'all' ? selectedPullId : undefined,
+  });
+
+  return (
+    <StatisticBar
+      position={STATISTIC_ORDER.CORE(3)}
+      ultrawide
+      wide={false}
+      large={false}
+      style={{ marginBottom: 0, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
+    >
+      <div className="flex">
+        <div className="flex-sub icon">
+          <img src="/img/shield.png" alt="Damage taken" />
+        </div>
+        <Tooltip content={analyzer.tooltip}>
+          <div className="flex-sub value" style={{ width: 190 }}>
+            {formatThousands(perSecond)} DTPS
+          </div>
+        </Tooltip>
+        <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
+          -
+        </div>
+        <div className="flex-main chart">
+          <a href={wclUrl}>
+            {perSecond > 0 && (
+              <AutoSizer disableWidth>
+                {({ height }) => (
+                  <FlushLineChart
+                    data={data}
+                    duration={parser.fightDuration / 1000}
+                    height={height}
+                  />
+                )}
+              </AutoSizer>
+            )}
+          </a>
+        </div>
+      </div>
+    </StatisticBar>
+  );
+}
