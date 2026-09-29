@@ -18,7 +18,7 @@ export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({ id }) => id
 
 export const SPELLS_WHICH_REMOVE_BOC = [SPELLS.TIGER_PALM, talents.KEG_SMASH_TALENT];
 // Legendaries
-export const STORMSTOUTS_LK_MODIFIER = 0.2;
+export const STORMSTOUTS_LK_MODIFIER = 0.5;
 
 // all of the whitelisted spell ids for damage modifiers.
 // sourced from the WoO/PTA buffs
