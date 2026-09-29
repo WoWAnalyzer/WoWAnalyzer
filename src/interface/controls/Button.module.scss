@@ -7,7 +7,17 @@
   border-radius: 0.5rem;
   padding: 0 1rem;
 
+  cursor: pointer;
+
   &:hover {
     filter: brightness(115%);
+  }
+
+  &:disabled {
+    filter: brightness(70%);
+    cursor: not-allowed;
+    &:hover {
+      filter: brightness(70%);
+    }
   }
 }

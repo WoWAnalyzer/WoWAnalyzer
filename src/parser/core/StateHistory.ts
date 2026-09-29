@@ -105,6 +105,7 @@ export default class StateHistory<State extends { timestamp: number }> {
    */
   slice(start: number, end: number, expand = false): StateHistory<State> {
     this.ensureSort();
+
     let left = 0;
     let right = this._data.length - 1;
 

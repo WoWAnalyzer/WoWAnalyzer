@@ -1,4 +1,4 @@
-import { CastEvent } from 'parser/core/Events';
+import { CastEvent, EventType, FilterCooldownInfoEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import EmpowerNormalizer, {
   empowerFinishedCasting,
@@ -16,10 +16,17 @@ class SpellUsable extends CoreSpellUsable {
     empowerNormalizer: EmpowerNormalizer,
   };
 
-  beginCooldown(cooldownTriggerEvent: CastEvent, _spellId: number) {
+  beginCooldown(cooldownTriggerEvent: CastEvent | FilterCooldownInfoEvent, _spellId: number) {
     const spellId = cooldownTriggerEvent.ability.guid;
-    // Empower never finished casting so we don't set it on cooldown
-    if (EMPOWERS.includes(spellId) && !empowerFinishedCasting(cooldownTriggerEvent)) {
+
+    // Empower never finished casting so we don't set it on cooldown.
+    // Note: we blindly trust FilterCooldownInfoEvents. this is not strictly correct, but will at
+    // most cause a single cooldown error at the start of a filtered result.
+    if (
+      cooldownTriggerEvent.type === EventType.Cast &&
+      EMPOWERS.includes(spellId) &&
+      !empowerFinishedCasting(cooldownTriggerEvent)
+    ) {
       return;
     }
 
