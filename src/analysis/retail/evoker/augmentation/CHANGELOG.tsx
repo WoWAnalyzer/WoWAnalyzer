@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 9, 24), <>Resolved a bug in the <SpellLink spell={TALENTS.MIGHTY_INFERNO_TALENT} /> module.</>, KYZ),
   change(date(2026, 9, 24), <>Resolved a few bugs in the <SpellLink spell={TALENTS.BLISTERING_SCALES_TALENT} /> modules.</>, KYZ),
   change(date(2026, 9, 23), <>Added a target breakdown to the <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> module.</>, KYZ),
   change(date(2026, 9, 21), <>Resolved a rare bug in the <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module.</>, KYZ),

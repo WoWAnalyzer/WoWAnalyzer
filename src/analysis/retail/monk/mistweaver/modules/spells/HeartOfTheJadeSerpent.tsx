@@ -2,6 +2,7 @@ import BaseHotJS, {
   HEART_BUFFS,
 } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
 import { MISTWEAVER_HEART_SPELLS } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/constants';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { formatDuration, formatPercentage } from 'common/format';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
@@ -20,8 +21,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ID_TO_SPELL_COLOR } from '../../constants';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class HeartOfTheJadeSerpent extends BaseHotJS {
   static override dependencies = {
@@ -32,9 +33,14 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
   declare protected abilities: Abilities;
   declare protected spellUsable: SpellUsable;
 
+  talent = TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT;
   private inWindow = false;
   private windowStart = 0;
   private windowExtraRate = 0;
+  private windowIsUnity = false;
+  private activeWindowBuffs = new Set<number>();
+  private unityExtraCdrMs = new Map<number, number>();
+  private windowExtraCdrMs = new Map<number, number>();
   private activeSegments = new Map<number, number>();
   private totalExtraCdrMs = new Map<number, number>();
   private totalWastedCdrMs = new Map<number, number>();
@@ -66,15 +72,8 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
       this.flushSegments(event.timestamp);
     }
 
-    this.windowExtraRate = this.rateChange(event.ability.guid);
-    this.windowStart = event.timestamp;
-    this.inWindow = true;
-
-    for (const spellId of this.heartSpellIds) {
-      if (this.spellUsable.isOnCooldown(spellId)) {
-        this.activeSegments.set(spellId, event.timestamp);
-      }
-    }
+    this.activeWindowBuffs.add(event.ability.guid);
+    this.startWindow(event.timestamp);
   }
 
   private onFightEnd(event: FightEndEvent) {
@@ -88,11 +87,38 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
     if (!this.inWindow) return;
 
     this.flushSegments(event.timestamp);
-    this.inWindow = false;
+    this.activeWindowBuffs.delete(event.ability.guid);
+
+    if (this.activeWindowBuffs.size === 0) {
+      this.inWindow = false;
+      return;
+    }
+
+    this.startWindow(event.timestamp);
+  }
+
+  private startWindow(timestamp: number) {
+    // unity's faster rate wins while it overlaps one of the others
+    this.windowIsUnity = this.activeWindowBuffs.has(SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id);
+    this.windowExtraRate = this.rateChange(
+      this.windowIsUnity
+        ? SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id
+        : SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF.id,
+    );
+    this.windowStart = timestamp;
+    this.inWindow = true;
+
+    for (const spellId of this.heartSpellIds) {
+      if (this.spellUsable.isOnCooldown(spellId)) {
+        this.activeSegments.set(spellId, timestamp);
+      }
+    }
   }
 
   private onCast(event: CastEvent) {
     if (!this.inWindow || !this.heartSpellIds.includes(event.ability.guid)) return;
+
+    if (this.activeSegments.has(event.ability.guid)) return;
 
     this.activeSegments.set(event.ability.guid, event.timestamp);
   }
@@ -115,34 +141,46 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
 
     for (const spellId of this.heartSpellIds) {
       const segStart = this.activeSegments.get(spellId);
-      const activeCdr = segStart !== undefined ? (now - segStart) * this.windowExtraRate : 0;
-
-      this.totalWastedCdrMs.set(
-        spellId,
-        (this.totalWastedCdrMs.get(spellId) ?? 0) + possibleCdr - activeCdr,
-      );
       if (segStart !== undefined) {
         this.accumulate(spellId, now - segStart);
       }
+
+      const windowCdr = this.windowExtraCdrMs.get(spellId) ?? 0;
+      this.totalWastedCdrMs.set(
+        spellId,
+        (this.totalWastedCdrMs.get(spellId) ?? 0) + Math.max(0, possibleCdr - windowCdr),
+      );
     }
     this.activeSegments.clear();
+    this.windowExtraCdrMs.clear();
   }
 
   private accumulate(spellId: number, durationMs: number) {
     const extra = durationMs * this.windowExtraRate;
     this.totalExtraCdrMs.set(spellId, (this.totalExtraCdrMs.get(spellId) ?? 0) + extra);
+    this.windowExtraCdrMs.set(spellId, (this.windowExtraCdrMs.get(spellId) ?? 0) + extra);
+    if (this.windowIsUnity) {
+      this.unityExtraCdrMs.set(spellId, (this.unityExtraCdrMs.get(spellId) ?? 0) + extra);
+    }
   }
 
-  private extraCasts(spellId: number): number {
-    const cdr = this.totalExtraCdrMs.get(spellId) ?? 0;
-    const ability = this.abilities.getAbility(spellId);
-    const abilityCd = ability?.cooldown;
-    // hasted cooldowns (like rsk, having a cooldown = fn()) use spellUsable
-    const baseCd =
-      typeof abilityCd === 'number'
-        ? abilityCd * 1000
-        : this.spellUsable.fullCooldownDuration(spellId);
+  get uptime() {
+    return this.totalWindowUptimeMs;
+  }
+
+  // extra casts gained during unity within's window
+  get unityExtraCasts(): number {
+    return this.heartSpellIds.reduce(
+      (sum, id) => sum + this.extraCasts(id, this.unityExtraCdrMs),
+      0,
+    );
+  }
+
+  private extraCasts(spellId: number, cdrMap = this.totalExtraCdrMs): number {
+    const cdr = cdrMap.get(spellId) ?? 0;
+    const baseCd = this.abilities.getExpectedCooldownDuration(spellId);
     if (!baseCd) {
+      const ability = this.abilities.getAbility(spellId);
       throw new Error(`${ability?.name} ${spellId} has no cooldown, cannot calculate extra casts`);
     }
     return cdr / baseCd;
@@ -152,35 +190,45 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
     return this.heartSpellIds.reduce((sum, id) => sum + this.extraCasts(id), 0);
   }
 
-  private buildBars(): TalentAggregateBarSpec[] {
+  private get cdrTotals() {
     return this.heartSpellIds.flatMap((spellId) => {
       const spell = maybeGetTalentOrSpell(spellId);
-      if (!spell) return [];
-
-      const extraCasts = this.extraCasts(spellId);
-      const cdrMs = this.totalExtraCdrMs.get(spellId) ?? 0;
-      const wastedMs = this.totalWastedCdrMs.get(spellId) ?? 0;
+      if (!spell) {
+        return [];
+      }
       return [
         {
+          spellId,
           spell,
-          amount: extraCasts,
-          color: ID_TO_SPELL_COLOR[spellId],
-          tooltip: (
-            <>
-              <div>
-                <strong>{formatDuration(cdrMs)}</strong> of cooldown reduction on{' '}
-                <SpellLink spell={spell} /> ≈ <strong>{extraCasts.toFixed(1)}</strong> extra casts
-              </div>
-              <div>
-                <small>
-                  <SpellLink spell={spell} /> was available during{' '}
-                  <strong>{formatDuration(wastedMs)}</strong> of cooldown reduction
-                </small>
-              </div>
-            </>
-          ),
-        } satisfies TalentAggregateBarSpec,
+          extraCasts: this.extraCasts(spellId),
+          cdrMs: this.totalExtraCdrMs.get(spellId) ?? 0,
+          wastedMs: this.totalWastedCdrMs.get(spellId) ?? 0,
+        },
       ];
+    });
+  }
+
+  private buildBars(): TalentAggregateBarSpec[] {
+    return this.cdrTotals.map(({ spellId, spell, extraCasts, cdrMs, wastedMs }) => {
+      return {
+        spell,
+        amount: extraCasts,
+        color: ID_TO_SPELL_COLOR[spellId],
+        tooltip: (
+          <>
+            <div>
+              <strong>{formatDuration(cdrMs)}</strong> of cooldown reduction on{' '}
+              <SpellLink spell={spell} /> ≈ <strong>{extraCasts.toFixed(1)}</strong> extra casts
+            </div>
+            <div>
+              <small>
+                <SpellLink spell={spell} /> was available during{' '}
+                <strong>{formatDuration(wastedMs)}</strong> of cooldown reduction
+              </small>
+            </div>
+          </>
+        ),
+      } satisfies TalentAggregateBarSpec;
     });
   }
 
@@ -198,13 +246,21 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
         footer={<>Estimated via cumulative cooldown reduction gained during the buff</>}
         smallFooter
         tooltip={
-          <>
-            <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> uptime:{' '}
-            <strong>{uptimeSec}s</strong> ({uptimePct}%)
-          </>
+          <ul>
+            <li>
+              <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> uptime:{' '}
+              {uptimeSec}s ({uptimePct}%)
+            </li>
+            {this.cdrTotals.map(({ spellId, spell, extraCasts, cdrMs, wastedMs }) => (
+              <li key={spellId}>
+                <SpellLink spell={spell} />: {formatDuration(cdrMs)} of cooldown reduction,{' '}
+                {formatDuration(wastedMs)} wasted, {extraCasts.toFixed(1)} extra casts
+              </li>
+            ))}
+          </ul>
         }
         category={STATISTIC_CATEGORY.HERO_TALENTS}
-        position={STATISTIC_ORDER.CORE(10)}
+        position={STATISTIC_ORDER.CORE(1)}
         wide
       >
         <TalentAggregateBars bars={this.buildBars()} wide />

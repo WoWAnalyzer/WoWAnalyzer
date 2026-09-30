@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 
 import DamageValue from '../DamageValue';
 import Enemies from '../Enemies';
+import { useSelectedPullId } from 'interface/report/DungeonPullList';
 
 interface DamageDoneStatisticProps {
   chartData: Array<{ time: number; val: number }>;
@@ -42,6 +43,7 @@ const DamageDoneStatistic = ({
   reportCode,
 }: DamageDoneStatisticProps) => {
   const [wclDamageDone, setWclDamageDone] = useState<WclDamageDoneStats | null>(null);
+  const selectedPullId = useSelectedPullId();
 
   useEffect(() => {
     let cancelled = false;
@@ -102,7 +104,12 @@ const DamageDoneStatistic = ({
         </div>
         <div className="flex-main chart">
           <a
-            href={makeWclUrl(reportCode, { fight: fightId, source: playerId, type: 'damage-done' })}
+            href={makeWclUrl(reportCode, {
+              fight: fightId,
+              source: playerId,
+              type: 'damage-done',
+              pull: selectedPullId && selectedPullId !== 'all' ? selectedPullId : undefined,
+            })}
           >
             {displayedDps > 0 && (
               <AutoSizer disableWidth>

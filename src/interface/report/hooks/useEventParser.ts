@@ -8,7 +8,7 @@ import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import { useCallback, use, useEffect, useMemo, useRef, useState } from 'react';
+import { use, useEffect, useMemo, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
@@ -56,19 +56,10 @@ const useEventParser = ({
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const eventIndexRef = useRef(0);
 
-  const parser = useMemo(() => {
-    // Original code only rendered EventParser if
-    // > !this.state.isLoadingParser &&
-    // > !this.state.isLoadingCharacterProfile &&
-    // > !this.state.isFilteringEvents
-    // We have to always run the hook, but the hook should make sure the above is true
-    // isLoadingParser => parserClass == null
-    // isLoadingCharacterProfile => characterProfile == null
-    // isFilteringEvents => events == null
-    if (dependenciesLoading || !playerCombatantInfo) {
-      return null;
+  const [parser, processEventBatch] = useMemo(() => {
+    if (dependenciesLoading || !playerCombatantInfo || !events) {
+      return [];
     }
     //set current build to undefined if default build or non-existing build selected
     const parser = new parserClass!(
@@ -81,8 +72,56 @@ const useEventParser = ({
       allPlayers,
     );
     parser.applyTimeFilter = applyTimeFilter;
+    bench('normalizing events');
+    // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
+    const result = parser
+      .normalize(events)
+      //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
+      .sort((a, b) => a.timestamp - b.timestamp);
+    benchEnd('normalizing events');
+    parser.normalizedEvents = result;
+    setProgress(0);
+    setIsLoading(true);
 
-    return parser;
+    let currentIndex = 0;
+
+    // IMPORTANT: the function is produced as part of this memo call to make sure that `processEventBatch` always references the correct `parser` instance.
+    const processEventBatch = () => {
+      let done = false;
+      if (parser === null || currentIndex >= parser.normalizedEvents.length) {
+        return done;
+      }
+
+      try {
+        bench('event loop');
+        const eventEmitter = parser.getModule(EventEmitter);
+
+        const start = Date.now();
+        while (currentIndex < parser.normalizedEvents.length) {
+          eventEmitter.triggerEvent(parser.normalizedEvents[currentIndex]);
+          currentIndex += 1;
+
+          if (!BENCHMARK && Date.now() - start > MAX_BATCH_DURATION) {
+            break;
+          }
+        }
+      } catch (err) {
+        captureException(err as Error);
+        throw new EventsParseError(err as Error);
+      } finally {
+        setProgress(Math.min(1, currentIndex / parser.normalizedEvents.length));
+        if (currentIndex === parser.normalizedEvents.length) {
+          done = true;
+          parser.finish();
+          setIsLoading(false);
+        }
+        benchEnd('event loop');
+      }
+
+      return done;
+    };
+
+    return [parser, processEventBatch];
   }, [
     fight,
     dependenciesLoading,
@@ -94,71 +133,14 @@ const useEventParser = ({
     config,
     playerCombatantInfo,
     allPlayers,
+    events,
   ]);
 
-  const normalizedEvents = useMemo(() => {
-    bench('normalizing events');
-    if (events === undefined || parser === null) {
-      benchEnd('normalizing events');
-      return null;
-    }
-    // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    const result = parser
-      .normalize(events)
-      //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
-      .sort((a, b) => a.timestamp - b.timestamp);
-    benchEnd('normalizing events');
-    eventIndexRef.current = 0;
-    setProgress(0);
-    setIsLoading(true);
-    return result;
-  }, [events, parser, eventIndexRef]);
-
-  const eventEmitter = useMemo(() => parser?.getModule(EventEmitter), [parser]);
-
-  const processEventBatch = useCallback(() => {
-    let done = false;
-    if (
-      parser === null ||
-      normalizedEvents === null ||
-      eventIndexRef.current >= normalizedEvents?.length
-    ) {
-      return done;
-    }
-
-    let currentIndex = eventIndexRef.current;
-
-    try {
-      bench('event loop');
-      parser.normalizedEvents = normalizedEvents;
-
-      const start = Date.now();
-      while (currentIndex < normalizedEvents.length) {
-        eventEmitter?.triggerEvent(normalizedEvents[currentIndex]);
-        currentIndex += 1;
-
-        if (!BENCHMARK && Date.now() - start > MAX_BATCH_DURATION) {
-          break;
-        }
-      }
-    } catch (err) {
-      captureException(err as Error);
-      throw new EventsParseError(err as Error);
-    } finally {
-      eventIndexRef.current = currentIndex;
-      setProgress(Math.min(1, currentIndex / normalizedEvents.length));
-      if (currentIndex === normalizedEvents.length) {
-        done = true;
-        parser.finish();
-        setIsLoading(false);
-      }
-      benchEnd('event loop');
-    }
-
-    return done;
-  }, [parser, normalizedEvents, eventEmitter]);
-
   useEffect(() => {
+    if (!processEventBatch) {
+      return;
+    }
+
     // this setup handles event processing with relatively minimal blocking of the UI thread
     //
     // `requestIdleCallback` adds our callback to the queue to run the next time the browser is idle, aka not busy with animation or user input.

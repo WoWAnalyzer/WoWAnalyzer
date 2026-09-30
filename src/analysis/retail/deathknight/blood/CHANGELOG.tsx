@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 9, 25), <>Added tracking of wasted <SpellLink spell={talents.EXTERMINATE_TALENT} /> stacks.</>, jcthenerd),
   change(date(2026, 9, 24), <>Added <SpellLink spell={SPELLS.DEATH_AND_DECAY_BUFF} /> uptime tracking.</>, jcthenerd),
 
   change(date(2026, 9, 3), <>Fixed <SpellLink spell={talents.RAISE_DEAD_TALENT} /> cooldown</>, Badkad),

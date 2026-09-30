@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import { JSX, ReactNode } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import { CastOverview, TipBox } from 'interface/guide/components';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 function Explanation({ title, children }: { title: string; children: ReactNode }) {
@@ -81,10 +80,7 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
           )}
         </>
       ),
-      performance:
-        tickData.regularTicks >= tickData.totalPossibleRegularTicks * 0.95
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Fail,
+      performance: tickData.regularTickPerformance,
     });
   }
   if (tickData.totalPossibleDragonRageTicks > 0) {
@@ -118,10 +114,7 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
           )}
         </>
       ),
-      performance:
-        tickData.dragonRageTicks >= tickData.totalPossibleDragonRageTicks * 0.95
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Fail,
+      performance: tickData.dragonRageTickPerformance,
     });
   }
   if (tickData.totalPossibleMassDisintegrateTicks > 0) {
@@ -140,10 +133,7 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
           </>
         </>
       ),
-      performance:
-        tickData.massDisintegrateTicks === tickData.totalPossibleMassDisintegrateTicks
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Fail,
+      performance: tickData.massDisintegrateTickPerformance,
     });
   }
 
@@ -180,14 +170,16 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
               early by using another spell.
             </Explanation>
           </div>
-          <TipBox type="warning" title="">
+          <TipBox type="warning" title="Should you clip ?">
             Clipping is usually a very minor DPS gain, if any at all. The modules below will
             elaborate whether clipping is relevant. Additionally it is preferred to chain correctly
-            if clipping incorrectly is likely
+            if clipping incorrectly is likely.
           </TipBox>
-          <TipBox type="note">
-            For further information, including which spells you should clip{' '}
-            <SpellLink spell={SPELLS.DISINTEGRATE} /> for, see{' '}
+          <TipBox type="note" title="When to Clip and Chain ?">
+            Hovering over the overall ratings will give you a guide for how clipping and chaining
+            should be handled. Additionally the individual spell ratings contain more specific
+            information on the topic. For further information, including which spells you should
+            clip <SpellLink spell={SPELLS.DISINTEGRATE} /> for, see{' '}
             <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#advanced-disintegrate-chaining-and-clipping">
               Disintegrate Chaining and Clipping
             </a>

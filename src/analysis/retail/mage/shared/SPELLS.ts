@@ -49,6 +49,11 @@ const spells = {
     name: 'Time Warp',
     icon: 'ability_mage_timewarp',
   },
+  TEMPORAL_DISPLACEMENT: {
+    id: 80354,
+    name: 'Temporal Displacement',
+    icon: 'ability_mage_timewarp',
+  },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
     name: 'Mirror Image',
