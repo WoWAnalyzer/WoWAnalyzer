@@ -25,9 +25,12 @@ const EXTERMINATE_DURATION_MS = 30_000;
 // the consuming cast is emitted before the buff removal, but allow a little slack for log jitter.
 const CONSUME_WINDOW_MS = 100;
 
-const EXTERMINATE_CONSUMER_IDS: number[] = [
-  talents.MARROWREND_TALENT.id,
-  talents.OBLITERATE_TALENT.id,
+// the casts this analyzer needs to react to, consolidated into a single cast listener
+const CAST_SPELLS_OF_INTEREST = [
+  talents.DANCING_RUNE_WEAPON_TALENT,
+  talents.MARROWREND_TALENT,
+  talents.OBLITERATE_TALENT,
+  SPELLS.EXTERMINATE_FIRST_HIT,
 ];
 
 type WasteReason = 'overcap' | 'expired';
@@ -67,26 +70,45 @@ export default class WastedExterminate extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.EXTERMINATE_TALENT);
 
-    for (const buff of [SPELLS.EXTERMINATE_BUFF, SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF]) {
-      this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(buff), this.onApply);
-      this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(buff), this.onGain);
-      this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(buff), this.onRefresh);
-      this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(buff), this.onRemove);
-    }
+    const exterminateBuffs = [SPELLS.EXTERMINATE_BUFF, SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF];
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(exterminateBuffs),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(exterminateBuffs),
+      this.onGain,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(exterminateBuffs),
+      this.onRefresh,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(exterminateBuffs),
+      this.onRemove,
+    );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.DANCING_RUNE_WEAPON_TALENT),
-      (event: CastEvent) => {
-        this.lastDancingRuneWeaponCast = event.timestamp;
-      },
+      Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS_OF_INTEREST),
+      this.onCast,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.fightend, this.onFightEnd);
-    // each empowered cast triggers a first and a second hit. count the first.
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXTERMINATE_FIRST_HIT),
-      this.onExterminateHit,
-    );
+  }
+
+  private onCast(event: CastEvent) {
+    switch (event.ability.guid) {
+      case talents.DANCING_RUNE_WEAPON_TALENT.id:
+        this.lastDancingRuneWeaponCast = event.timestamp;
+        break;
+      case talents.MARROWREND_TALENT.id:
+      case talents.OBLITERATE_TALENT.id:
+        this.lastConsumeTimestamp = event.timestamp;
+        break;
+      case SPELLS.EXTERMINATE_FIRST_HIT.id:
+        // each empowered cast triggers a first and a second hit. count the first.
+        this.stacks = Math.max(0, this.stacks - 1);
+        break;
+    }
   }
 
   private onFightEnd(event: FightEndEvent) {
@@ -101,16 +123,6 @@ export default class WastedExterminate extends Analyzer {
     if (this.stacks > 0 && this.expiresAt !== undefined && now >= this.expiresAt) {
       this.records.push({ timestamp: this.expiresAt, reason: 'expired', stacks: this.stacks });
       this.stacks = 0;
-    }
-  }
-
-  private onExterminateHit() {
-    this.stacks = Math.max(0, this.stacks - 1);
-  }
-
-  private onCast(event: CastEvent) {
-    if (EXTERMINATE_CONSUMER_IDS.includes(event.ability.guid)) {
-      this.lastConsumeTimestamp = event.timestamp;
     }
   }
 
