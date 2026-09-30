@@ -51,9 +51,6 @@ export const CRUSADERS_MIGHT_REDUCTION = 1500;
 export const IMBUED_INFUSIONS_REDUCTION = 1000;
 export const TIRIONS_DEVOTION_REDUCTION = 1500; // per holy power
 export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
-export const BEACON_OF_VIRTUE_DURATION = 9000;
-// holy light spell queued into beacon of virtue still transfers
-export const BEACON_OF_VIRTUE_PRECAST_BUFFER_MS = 400;
 export const JUDGMENT_OF_LIGHT_HEALS = 5;
 
 // Beacon Constants & Functions

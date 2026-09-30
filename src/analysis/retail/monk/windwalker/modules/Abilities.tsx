@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_WINDWALKER_TALENT),
       },
       {
-        spell: SPELLS.ZENITH_STOMP_CAST.id,
+        spell: TALENTS_MONK.ZENITH_STOMP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,

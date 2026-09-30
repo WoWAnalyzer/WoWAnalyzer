@@ -44,8 +44,6 @@ import Ad, { Location } from 'interface/Ad';
 
 import usePremium from 'interface/usePremium';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
-import { DungeonPullDetails } from '../DungeonPullList/DungeonPullListCombatParser';
-import DungeonPullList, { shouldShowDungeonPullList, useSelectedPull } from '../DungeonPullList';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -62,7 +60,6 @@ interface PassedProps {
   loadingStatus: LoadingStatus;
   premium?: boolean;
   config: Config;
-  dungeonPullDetails?: DungeonPullDetails[];
 }
 
 const Results = (props: PassedProps) => {
@@ -71,7 +68,6 @@ const Results = (props: PassedProps) => {
   const dispatch = useDispatch();
   const [adjustForDowntime, setAdjustForDowntime] = useState(false);
   const [results, setResults] = useState<ParseResults | null>(null);
-  const [selectedPull] = useSelectedPull(props.fight);
 
   const generateResults = useCallback(() => {
     if (props.parser == null) {
@@ -255,11 +251,7 @@ const Results = (props: PassedProps) => {
                 </AlertWarning>
               </div>
             )}
-            {shouldShowDungeonPullList(props.fight, selectedPull) ? (
-              <DungeonPullList details={props.dungeonPullDetails} fight={props.fight} />
-            ) : (
-              <Outlet />
-            )}
+            <Outlet />
 
             <div style={{ marginTop: 40 }}>
               <div className="row">

@@ -9,7 +9,7 @@ import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import FoundationSupportBadge from 'interface/guide/foundation/FoundationSupportBadge';
 import Config, { SupportLevel } from 'parser/Config';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Props {
   config: Config;
@@ -17,8 +17,6 @@ interface Props {
 
 const About = ({ config }: Props) => {
   const { spec, contributors, patchCompatibility, supportLevel } = config;
-  // dirty workaround to not having full URL construction access here. `makeReportUrl` would require a lot more hooking
-  const location = useLocation();
   const { i18n } = useLingui();
   const isPartial = supportLevel === SupportLevel.MaintainedPartial;
   const contributorinfo =
@@ -40,12 +38,12 @@ const About = ({ config }: Props) => {
       actions={
         <>
           <div>
-            <Link to={{ pathname: '../events', search: location.search }}>
+            <Link to="../events">
               <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
             </Link>
           </div>
           <div>
-            <Link to={{ pathname: '../debug', search: location.search }}>
+            <Link to="../debug">
               <Trans id="interface.report.results.about.viewDebug">View debug info</Trans>
             </Link>
           </div>

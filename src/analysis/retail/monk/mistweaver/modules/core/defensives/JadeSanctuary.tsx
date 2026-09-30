@@ -13,10 +13,8 @@ import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import { JADE_SANCTUARY_DR, JADE_SANCTUARY_HEAL } from '../../../constants';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class JadeSanctuary extends MajorDefensiveBuff {
-  talent = talents.JADE_SANCTUARY_TALENT;
   healCount = 0;
   effectiveHealing = 0;
   overhealing = 0;
@@ -24,7 +22,7 @@ class JadeSanctuary extends MajorDefensiveBuff {
   constructor(options: Options) {
     super(talents.CELESTIAL_CONDUIT_MISTWEAVER_TALENT, buff(SPELLS.JADE_SANCTUARY_BUFF), options);
 
-    this.active = this.selectedCombatant.hasTalent(this.talent);
+    this.active = this.selectedCombatant.hasTalent(talents.JADE_SANCTUARY_TALENT);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
     this.addEventListener(
@@ -48,10 +46,6 @@ class JadeSanctuary extends MajorDefensiveBuff {
       event,
       mitigatedAmount: absoluteMitigation(event, JADE_SANCTUARY_DR),
     });
-  }
-
-  get healing() {
-    return this.effectiveHealing;
   }
 
   description(): ReactNode {
@@ -78,13 +72,7 @@ class JadeSanctuary extends MajorDefensiveBuff {
   }
 
   statistic(): ReactNode {
-    return (
-      <MajorDefensiveStatistic
-        analyzer={this}
-        category={STATISTIC_CATEGORY.HERO_TALENTS}
-        position={STATISTIC_ORDER.CORE(1)}
-      />
-    );
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />;
   }
 }
 

@@ -1,6 +1,7 @@
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -10,7 +11,6 @@ import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core
 import { RESTORE_BALANCE_BOOST } from '../constants';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import CelestialHooks from '../../../CelestialHooks';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class RestoreBalance extends Analyzer {
   static dependencies = {
@@ -18,7 +18,6 @@ class RestoreBalance extends Analyzer {
   };
   protected celestialHooks!: CelestialHooks;
   casts = 0;
-  talent = TALENTS_MONK.RESTORE_BALANCE_TALENT;
   healing = 0;
   overheal = 0;
 
@@ -26,7 +25,7 @@ class RestoreBalance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(this.talent);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORE_BALANCE_TALENT);
     if (this.selectedCombatant.specId === SPECS.WINDWALKER_MONK.id) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     }
@@ -50,7 +49,7 @@ class RestoreBalance extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(0)}
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
       >

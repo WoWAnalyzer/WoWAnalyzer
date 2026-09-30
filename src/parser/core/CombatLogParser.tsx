@@ -357,29 +357,7 @@ class CombatLogParser {
     console.log('server metrics', this.serverMetrics);
   }
 
-  static getModuleClass(
-    parser: typeof CombatLogParser,
-    baseModule: typeof Module,
-  ): DependencyDefinition | undefined {
-    const modules = {
-      ...parser.internalModules,
-      ...parser.defaultModules,
-      ...parser.specModules,
-    };
-
-    for (const mod of Object.values(modules)) {
-      const [modClass] = CombatLogParser._getModuleClass(mod);
-      if (modClass.prototype instanceof baseModule) {
-        return mod;
-      }
-    }
-
-    return undefined;
-  }
-
-  protected static _getModuleClass(
-    config: DependencyDefinition,
-  ): [typeof Module, Record<string, unknown>] {
+  _getModuleClass(config: DependencyDefinition): [typeof Module, Record<string, unknown>] {
     let moduleClass;
     let options;
     if (config instanceof Array) {
@@ -437,7 +415,7 @@ class CombatLogParser {
       if (!moduleConfig) {
         return;
       }
-      const [moduleClass, options] = CombatLogParser._getModuleClass(moduleConfig);
+      const [moduleClass, options] = this._getModuleClass(moduleConfig);
       const [availableDependencies, missingDependencies] = this._resolveDependencies(
         moduleClass.dependencies,
       );

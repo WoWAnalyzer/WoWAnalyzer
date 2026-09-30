@@ -24,6 +24,13 @@ import { EventsParseError } from './useEventParser';
 const bench = (id: string) => console.time(id);
 const benchEnd = (id: string) => console.timeEnd(id);
 
+//returns whether e2 follows e and the events are associated
+const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
+  e2.timestamp > e.timestamp &&
+  (e2.ability && e.ability ? e2.ability.guid === e.ability.guid : !e2.ability && !e.ability) && //if both have an ability, its ID needs to match, otherwise neither can have an ability
+  e2.sourceID === e.sourceID &&
+  e2.targetID === e.targetID;
+
 function findRelevantPostFilterEvents(events: AnyEvent[]) {
   return events
     .filter(
@@ -39,109 +46,94 @@ function findRelevantPostFilterEvents(events: AnyEvent[]) {
     );
 }
 
-/**
- * Simple helper to track buffs that have been seen in the event list.
- *
- * Note that we do not distinguish between buffs and debuffs. Each ability is only ever a buff or a debuff, so we don't need to care about both.
- */
-class BuffSet {
-  private buffs: Map<string, Set<number>> = new Map();
-
-  private static eventKey(event: BuffEvent): string {
-    return `${event.sourceID}-${event.sourceInstance ?? 0}-${event.targetID}-${event.targetInstance ?? 0}`;
-  }
-
-  private abilitySet(event: BuffEvent): Set<number> {
-    const key = BuffSet.eventKey(event);
-    if (!this.buffs.has(key)) {
-      this.buffs.set(key, new Set());
-    }
-
-    return this.buffs.get(key)!;
-  }
-
-  public add(event: BuffEvent) {
-    this.abilitySet(event).add(event.ability.guid);
-  }
-
-  public has(event: BuffEvent): boolean {
-    return this.abilitySet(event).has(event.ability.guid);
-  }
-}
-
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
 type StackEvent =
   | ApplyBuffStackEvent
   | ApplyDebuffStackEvent
   | RemoveBuffStackEvent
   | RemoveDebuffStackEvent;
-type BuffEvent =
-  | ApplyBuffEvent
-  | ApplyDebuffEvent
-  | RemoveBuffEvent
-  | RemoveDebuffEvent
-  | ApplyBuffStackEvent
-  | RemoveBuffStackEvent
-  | ApplyDebuffStackEvent
-  | RemoveDebuffStackEvent;
+type BuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 type CastRelevantEvent = CastEvent | FilterCooldownInfoEvent;
 function findRelevantPreFilterEvents(events: AnyEvent[]) {
   const buffEvents: BuffEvent[] = []; //(de)buff apply events for (de)buffs that stay active going into the time period
   const stackEvents: StackEvent[] = []; //stack events related to the above buff events that happen after the buff is applied
   const castEvents: CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
 
-  const seenAuras = new BuffSet();
-  // casts seen by source
-  const seenCasts: Map<number, Set<number>> = new Map();
+  const buffIsMarkedActive = (e: BuffEvent) =>
+    buffEvents.find(
+      (e2) =>
+        e.ability.guid === e2.ability.guid &&
+        e.targetID === e2.targetID &&
+        e.sourceID === e2.targetID,
+    ) !== undefined;
+  const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: AnyEvent[]) =>
+    buffRelevantEvents.find(
+      (e2) => e2.type === e.type.replace('apply', 'remove') && eventFollows(e, e2 as BuffEvent),
+    ) !== undefined;
+  const castHappenedLater = (e: CastEvent) =>
+    castEvents.find((e2) => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) !==
+    undefined;
 
-  // events are processed in reverse order
-  for (const event of events) {
-    switch (event.type) {
-      case EventType.RemoveBuff:
-      case EventType.RemoveDebuff:
-        if (COMBAT_POTIONS.includes(event.ability.guid)) {
-          buffEvents.push(event);
-        }
-        seenAuras.add(event);
-        break;
+  events.forEach((e, index) => {
+    switch (e.type) {
       case EventType.ApplyBuff:
       case EventType.ApplyDebuff:
-        // note: intentionally omitting refreshes. they often immediately follow a stack change and add no info that is relevant for pre-pull events.
-        if (seenAuras.has(event)) {
-          continue;
+        //if buff isn't already confirmed as "staying active"
+        if (!buffIsMarkedActive(e as BuffEvent)) {
+          //look only at buffs that happen after the apply event (since we traverse in reverse order)
+          const buffRelevantEvents = events.slice(0, index);
+          //if no remove is found following the apply event, mark the buff as "staying active"
+          if (!buffIsRemoved(e as BuffEvent, buffRelevantEvents)) {
+            buffEvents.push(e as BuffEvent);
+            //find relevant stack information for active buff / debuff
+            stackEvents.push(
+              ...buffRelevantEvents.reverse().reduce((arr: StackEvent[], e2: AnyEvent) => {
+                //traverse through all following stack events in chronological order
+                if (eventFollows(e as BuffEvent, e2 as StackEvent)) {
+                  //if stack is added, add the event to the end of the array
+                  if (
+                    e2.type === EventType.ApplyBuffStack ||
+                    e2.type === EventType.ApplyDebuffStack
+                  ) {
+                    return [...arr, e2 as StackEvent];
+                    //if stack is removed, remove first event from array
+                  } else if (
+                    e2.type === EventType.RemoveBuffStack ||
+                    e2.type === EventType.RemoveDebuffStack
+                  ) {
+                    return arr.slice(0, 1);
+                  }
+                }
+                return arr;
+              }, []),
+            );
+          }
         }
-        seenAuras.add(event);
-        buffEvents.push(event);
         break;
-      case EventType.ApplyBuffStack:
-      case EventType.RemoveBuffStack:
-      case EventType.ApplyDebuffStack:
-      case EventType.RemoveDebuffStack:
-        if (seenAuras.has(event)) {
-          continue;
+      case EventType.RemoveBuff:
+      case EventType.RemoveDebuff:
+        if (COMBAT_POTIONS.includes((e as BuffEvent).ability.guid)) {
+          buffEvents.push(e as BuffEvent);
         }
-        // note: stack events don't add to seenAuras
-        stackEvents.push(event);
         break;
       case EventType.Cast:
+        //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
+        //whitelist certain casts (like potions) to keep suggestions working
         if (
-          !COMBAT_POTIONS.includes(event.ability.guid) &&
-          seenCasts.get(event.sourceID)?.has(event.ability.guid)
+          COMBAT_POTIONS.includes((e as CastEvent).ability.guid) ||
+          !castHappenedLater(e as CastEvent)
         ) {
-          continue;
+          castEvents.push({
+            ...(e as CastEvent),
+            type: EventType.FilterCooldownInfo,
+            trigger: e.type,
+          });
         }
-        if (!seenCasts.has(event.sourceID)) {
-          seenCasts.set(event.sourceID, new Set());
-        }
-        seenCasts.get(event.sourceID)!.add(event.ability.guid);
-        castEvents.push({
-          ...event,
-          type: EventType.FilterCooldownInfo,
-          trigger: event.type,
-        });
+        break;
+      default:
         break;
     }
-  }
+  });
 
   return [...castEvents, ...buffEvents, ...stackEvents];
 }
@@ -190,9 +182,7 @@ function filterEvents(events: AnyEvent[], start: number, end: number) {
       timestamp: end,
     }));
 
-  const combatantInfoEvents = events.filter((event) => event.type === EventType.CombatantInfo);
-
-  return [...combatantInfoEvents, ...preFilterEvents, ...phaseEvents, ...postFilterEvents];
+  return [...preFilterEvents, ...phaseEvents, ...postFilterEvents];
 }
 
 export interface Filter {
@@ -216,7 +206,7 @@ const useTimeEventFilter = ({
   bossPhaseEvents,
   events,
 }: Config) => {
-  const [appliedFilter, setAppliedFilter] = useState<Filter | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
   const [stateEvents, setStateEvents] = useState<AnyEvent[] | undefined>(undefined);
   const [stateFight, setStateFight] = useState<Fight | undefined>(undefined);
 
@@ -250,7 +240,6 @@ const useTimeEventFilter = ({
         bench('time filter');
         const eventFilter = makeEvents();
         benchEnd('time filter');
-        setAppliedFilter(filter);
         setStateEvents(eventFilter.events);
         setStateFight({
           ...fight,
@@ -260,17 +249,21 @@ const useTimeEventFilter = ({
           original_end_time: fight.end_time,
           filtered: eventFilter.start !== fight.start_time || eventFilter.end !== fight.end_time,
         });
+        setIsLoading(false);
       } catch (err) {
         captureException(err as Error);
         throw new EventsParseError(err as Error);
       }
     };
 
+    // flip back to loading when these values change. eslint is unhappy about this.
+
+    setIsLoading(true);
     parse();
   }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, filter, events]);
 
   return {
-    isLoading: appliedFilter !== filter,
+    isLoading,
     events: stateEvents,
     fight: stateFight,
   };

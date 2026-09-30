@@ -18,8 +18,6 @@ export type SvgIconProps = Omit<
   'xmlns' | 'version' | 'viewBox' | 'className'
 >;
 
-const ICON_FOLDER_NAMES = ['NPC'];
-
 export function iconUrl(icon: string): string {
   let [folder, name] = icon.split('/');
   if (name === undefined) {
@@ -27,10 +25,6 @@ export function iconUrl(icon: string): string {
   }
 
   icon = name.replace('.jpg', '').replace(/^custom-icon-/, '');
-
-  if (ICON_FOLDER_NAMES.includes(icon)) {
-    folder = 'icons';
-  }
 
   if (ICON_RENAME[icon]) {
     icon = ICON_RENAME[icon];

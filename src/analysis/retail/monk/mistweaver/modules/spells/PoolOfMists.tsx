@@ -3,7 +3,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Abilities from 'parser/core/modules/Abilities';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { getCurrentRSKTalent, POOL_OF_MISTS_CDR } from '../../constants';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -22,12 +21,10 @@ class PoolOfMists extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     hotTracker: HotTrackerMW,
-    abilities: Abilities,
   };
 
   protected spellUsable!: SpellUsable;
   protected hotTracker!: HotTrackerMW;
-  protected abilities!: Abilities;
 
   lastTimestamp = 0;
   cdrEatenByICD = 0;
@@ -42,17 +39,11 @@ class PoolOfMists extends Analyzer {
   currentRskTalent: Talent;
 
   get extraRSKCasts() {
-    return (
-      this.rskEffective /
-      (this.abilities.getExpectedCooldownDuration(this.currentRskTalent.id) || 1)
-    );
+    return this.rskEffective / this.spellUsable.fullCooldownDuration(this.currentRskTalent.id);
   }
 
   get extraReMCasts() {
-    return (
-      this.remEffective /
-      (this.abilities.getExpectedCooldownDuration(SPELLS.RENEWING_MIST_CAST.id) || 1)
-    );
+    return this.remEffective / this.spellUsable.fullCooldownDuration(SPELLS.RENEWING_MIST_CAST.id);
   }
 
   constructor(options: Options) {

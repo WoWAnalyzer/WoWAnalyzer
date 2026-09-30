@@ -185,33 +185,8 @@ const spells = {
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
   },
-  INNER_COMPASS_CRANE_STANCE: {
-    id: 443572,
-    name: 'Crane Stance',
-    icon: 'monk_stance_redcrane',
-  },
-  INNER_COMPASS_OX_STANCE: {
-    id: 443574,
-    name: 'Ox Stance',
-    icon: 'monk_stance_drunkenox',
-  },
-  INNER_COMPASS_TIGER_STANCE: {
-    id: 443575,
-    name: 'Tiger Stance',
-    icon: 'monk_stance_whitetiger',
-  },
-  INNER_COMPASS_SERPENT_STANCE: {
-    id: 443576,
-    name: 'Serpent Stance',
-    icon: 'monk_stance_wiseserpent',
-  },
   UNITY_WITHIN_CAST: {
     id: 443591,
-    name: 'Unity Within',
-    icon: 'ability_monk_prideofthetiger',
-  },
-  UNITY_WITHIN_BUFF: {
-    id: 443592,
     name: 'Unity Within',
     icon: 'ability_monk_prideofthetiger',
   },
@@ -497,12 +472,12 @@ const spells = {
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
-  ZENITH_STOMP_CAST: {
+  ZENITH_STOMP_DAMAGE: {
     id: 1272696,
     name: 'Zenith Stomp',
     icon: 'inv_ability_monk_jadefirestomp',
   },
-  ZENITH_STOMP_CASTS_AVAILABLE: {
+  ZENITH_STOMP_CAST: {
     id: 1291484,
     name: 'Zenith Stomp',
     icon: 'inv_ability_monk_jadefirestomp',
@@ -1131,16 +1106,6 @@ const spells = {
     id: 450763,
     name: 'Aspect of Harmony',
     icon: 'inv_enchant_essencenethersmall',
-  },
-  COALESCENCE_DAMAGE: {
-    id: 1292919,
-    name: 'Coalescence',
-    icon: 'inv_ability_masterofharmonymonk_aspectofharmony',
-  },
-  COALESCENCE_HEAL: {
-    id: 1292922,
-    name: 'Coalescence',
-    icon: 'inv_ability_masterofharmonymonk_aspectofharmony',
   },
   ASPECT_OF_HARMONY_HOT: {
     id: 450769,

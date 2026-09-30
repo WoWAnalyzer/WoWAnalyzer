@@ -5,13 +5,7 @@ import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import GuideDataWrapper, {
-  StatsRow,
-  StatCard,
-  StatCardDivider,
-  StatCardLabel,
-  StatCardValue,
-} from './GuideDataWrapper';
+import GuideDataWrapper, { StatsRow, StatCard } from './GuideDataWrapper';
 
 function UptimeGraph({
   buffHistory,
@@ -214,24 +208,21 @@ export default function BuffUptimeBar({
   const statsContent = (
     <StatsRow>
       <StatCard color={backgroundBarColor}>
-        <StatCardValue>{formatPercentage(uptimePercent, 0)}%</StatCardValue>
-        <StatCardDivider />
-        <StatCardLabel>Uptime</StatCardLabel>
+        <StatValue>{formatPercentage(uptimePercent, 0)}%</StatValue>
+        <StatLabel>Uptime</StatLabel>
       </StatCard>
       {hasStacks && averageStacks !== undefined && (
         <Tooltip content={averageStacksTooltip || defaultTooltip}>
           <StatCard color={barColor}>
-            <StatCardValue>{averageStacks.toFixed(1)}</StatCardValue>
-            <StatCardDivider />
-            <StatCardLabel>Avg Stacks</StatCardLabel>
+            <StatValue>{averageStacks.toFixed(1)}</StatValue>
+            <StatLabel>Avg Stacks</StatLabel>
           </StatCard>
         </Tooltip>
       )}
       {hasStacks && maxStacks !== undefined && (
         <StatCard color="#888">
-          <StatCardValue>{maxStacks}</StatCardValue>
-          <StatCardDivider />
-          <StatCardLabel>Max Stacks</StatCardLabel>
+          <StatValue>{maxStacks}</StatValue>
+          <StatLabel>Max Stacks</StatLabel>
         </StatCard>
       )}
     </StatsRow>
@@ -261,3 +252,7 @@ export const InsetContainer = cssComponent('div', styles.InsetContainer, [] as c
 const TimelineContainer = cssComponent(InsetContainer, styles.TimelineContainer, [] as const);
 
 const UptimeGraphContainer = cssComponent('div', styles.UptimeGraphContainer, [] as const);
+
+const StatValue = cssComponent('div', styles.StatValue, [] as const);
+
+const StatLabel = cssComponent('div', styles.StatLabel, [] as const);

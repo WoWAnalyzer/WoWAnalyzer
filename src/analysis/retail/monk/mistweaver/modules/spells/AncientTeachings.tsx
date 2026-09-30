@@ -9,14 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
-import {
-  getCurrentAncientTeachingsTransferCoefficient,
-  getCurrentRSKTalent,
-  getCurrentRSKTalentDamage,
-  MEDITATIVE_FOCUS_TRANSFER_COEFFICIENT,
-  SPELL_COLORS,
-} from '../../constants';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
@@ -35,9 +28,6 @@ class AncientTeachings extends Analyzer {
   currentDamage: Spell;
   hasJadefireTeachings = false;
 
-  meditativeFocusHealing = 0;
-  meditativeFocusIncrease = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = true;
@@ -46,14 +36,6 @@ class AncientTeachings extends Analyzer {
     );
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.currentDamage = getCurrentRSKTalentDamage(this.selectedCombatant);
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MEDITATIVE_FOCUS_TALENT)) {
-      const totalCoefficient = getCurrentAncientTeachingsTransferCoefficient(
-        this.selectedCombatant,
-      );
-      this.meditativeFocusIncrease =
-        MEDITATIVE_FOCUS_TRANSFER_COEFFICIENT /
-        (totalCoefficient - MEDITATIVE_FOCUS_TRANSFER_COEFFICIENT);
-    }
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -92,9 +74,6 @@ class AncientTeachings extends Analyzer {
     const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
     this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
     this.overhealing += event.overheal || 0;
-    if (this.meditativeFocusIncrease > 0) {
-      this.meditativeFocusHealing += calculateEffectiveHealing(event, this.meditativeFocusIncrease);
-    }
   }
 
   talentHealingStatistic() {

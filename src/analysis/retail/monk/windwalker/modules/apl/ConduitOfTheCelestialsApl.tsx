@@ -74,18 +74,13 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
       )),
     },
     {
-      spell: SPELLS.ZENITH_STOMP_CAST,
+      spell: TALENTS.ZENITH_STOMP_TALENT,
       condition: describe(
-        and(
-          buffPresent(SPELLS.ZENITH_STOMP_CASTS_AVAILABLE),
-          or(
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
-            and(
-              buffPresent(TALENTS.ZENITH_TALENT),
-              buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), {
-                atMost: 3000,
-              }),
-            ),
+        or(
+          hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
+          and(
+            buffPresent(TALENTS.ZENITH_TALENT),
+            buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), { atMost: 3000 }),
           ),
         ),
         () => (

@@ -82,8 +82,7 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
               <DrilldownIcon />
             </a>
           ) : (
-            // FIXME: The use of `document.location` here is wrong and bad but we can't use hooks in a class component
-            <Link to={{ pathname: drilldown, search: document.location.search }}>
+            <Link to={drilldown}>
               <DrilldownIcon />
             </Link>
           )}

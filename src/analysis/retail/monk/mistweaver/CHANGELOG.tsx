@@ -8,7 +8,6 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 9, 27), <>Added and updated several Conduit of the Celestials and Master of Harmony talent statistics.</>, swirl),
   change(date(2026, 9, 23), <>Enhanced <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> with cast distribution and utilization.</>, swirl),
   change(date(2026, 9, 15), <>Reworked Healing Cooldowns section show a per-cast timeline and healing table.</>, swirl),
   change(date(2026, 9, 15), <>Fixed proc chance on <ItemSetLink id={MONK_MID2_ID}>12.1 4pc</ItemSetLink> to more accurately match in-game.</>, swirl),

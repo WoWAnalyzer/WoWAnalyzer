@@ -38,7 +38,6 @@ export default function makeReportUrl(
   playerId?: number,
   tab?: string,
   build = 'standard',
-  pull?: 'all' | number,
 ) {
   const parts = [];
   if (report) {
@@ -64,18 +63,7 @@ export default function makeReportUrl(
       }
     }
   }
-  let url = `/${parts.join('/')}`;
-
-  const search = new URLSearchParams();
-  if (pull) {
-    search.set('pull', pull.toString());
-  }
-
-  if (search.size > 0) {
-    url += `?${search.toString()}`;
-  }
-
-  return url;
+  return `/${parts.join('/')}`;
 }
 
 export function makeCharacterUrl(player: Combatant) {

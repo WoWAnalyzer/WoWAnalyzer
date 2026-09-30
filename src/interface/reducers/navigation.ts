@@ -9,7 +9,6 @@ interface NavigationState {
     link: string;
     title: string;
   };
-  pull?: 'all' | number;
 }
 
 const initialState: NavigationState = {};
@@ -20,7 +19,7 @@ const navigationSlice = createSlice({
   reducers: {
     reset: () => initialState,
     clearReport: (state) => ({ ...state, report: undefined }),
-    clearFight: (state) => ({ ...state, fight: undefined, pull: undefined }),
+    clearFight: (state) => ({ ...state, fight: undefined }),
     setReport: (state, action: PayloadAction<{ link: string; title: string }>) => ({
       ...state,
       report: { link: action.payload.link, title: action.payload.title },
@@ -29,14 +28,8 @@ const navigationSlice = createSlice({
       ...state,
       fight: { link: action.payload.link, title: action.payload.title },
     }),
-    clearPull: (state) => ({ ...state, pull: undefined }),
-    setPull: (state, action: PayloadAction<{ id: 'all' | number }>) => ({
-      ...state,
-      pull: action.payload.id,
-    }),
   },
 });
 
-export const { clearReport, clearFight, reset, setReport, setFight, clearPull, setPull } =
-  navigationSlice.actions;
+export const { clearReport, clearFight, reset, setReport, setFight } = navigationSlice.actions;
 export const { reducer } = navigationSlice;

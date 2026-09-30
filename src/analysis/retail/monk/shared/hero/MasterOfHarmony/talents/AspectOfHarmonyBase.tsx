@@ -9,13 +9,6 @@ import Events, {
   HealEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import SPECS from 'game/SPECS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export interface CastInfo {
   totalDamage: number;
@@ -31,15 +24,12 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  talent = TALENTS_MONK.ASPECT_OF_HARMONY_TALENT;
   castEntries: CastInfo[] = [];
   protected combatants!: Combatants;
-  protected isMistweaver = false;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(this.talent);
-    this.isMistweaver = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ASPECT_OF_HARMONY_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_BUFF),
       this.onBuffApply,
@@ -52,14 +42,8 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_DOT),
       this.onPeriodicApply,
     );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_HOT),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_DOT),
-      this.onDmg,
-    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDmg);
   }
 
   // initializes entry if Aspect buff or a pre-pull damage/heal/apply HoT/DoT event
@@ -101,9 +85,13 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    const entity = this.combatants.getEntity(event);
+    if (!entity || !entity.hasBuff(SPELLS.ASPECT_OF_HARMONY_BUFF.id)) {
+      return;
+    }
     const entry = this.initAndGetEntry(event);
     if (entry) {
-      entry.totalHealing += event.amount + (event.absorbed || 0);
+      entry.totalHealing += event.amount;
       entry.overhealing += event.overheal || 0;
     }
   }
@@ -114,32 +102,6 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
       entry.totalDamage += event.amount;
       entry.overkill += event.overkill || 0;
     }
-  }
-
-  get healing(): number {
-    return this.castEntries.reduce((sum, entry) => sum + entry.totalHealing, 0);
-  }
-
-  get damage(): number {
-    return this.castEntries.reduce((sum, entry) => sum + entry.totalDamage, 0);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(1)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.HERO_TALENTS}
-      >
-        <TalentSpellText talent={this.talent}>
-          {this.isMistweaver ? (
-            <ItemHealingDone amount={this.healing} />
-          ) : (
-            <ItemDamageDone amount={this.damage} />
-          )}
-        </TalentSpellText>
-      </Statistic>
-    );
   }
 
   get avgDots(): number {

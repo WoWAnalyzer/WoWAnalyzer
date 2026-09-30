@@ -73,18 +73,13 @@ function BossDamageStat() {
   }
 
   const duration = combatLogParser.fightDuration / 1000;
-  const bossDamage = combatLogParser.getModule(DamageDone).totalBoss.effective;
-  if (bossDamage === 0) {
-    // indirectly handle M+ pull selections with no bosses in them
-    return null;
-  }
 
   return (
     <StatBoxStat>
       <dt>
         <DamageIcon /> Boss DPS
       </dt>
-      <dd>{formatNumber(bossDamage / duration)}</dd>
+      <dd>{formatNumber(combatLogParser.getModule(DamageDone).totalBoss.effective / duration)}</dd>
     </StatBoxStat>
   );
 }
