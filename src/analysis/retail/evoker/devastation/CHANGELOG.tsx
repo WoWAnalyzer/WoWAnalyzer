@@ -7,6 +7,7 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 9, 30), <>Fixed channels being able to get cancelled by other players casts and fixed secondary <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> channel end events cancelling the chained cast.</>, Baumritter),
   change(date(2026, 9, 24), <>Adjusted the performance ratings for <SpellLink spell={SPELLS.DISINTEGRATE} /> to be a lot more granular. </>, Baumritter),
   change(date(2026, 9, 24), <>Fixed <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> false flagging as wasted.</>, Baumritter),
   change(date(2026, 9, 23), <>Fixed various mistakes, that weren't caught in the last update. </>, Baumritter),
