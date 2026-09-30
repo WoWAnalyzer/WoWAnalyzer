@@ -27,8 +27,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/D9abMCy2jZqgkhT6/3-Heroic+Ulgrax+the+Devourer+-+Kill+(4:06)/Chilla/standard/overview',
+  exampleReport: '/report/V1Pwn9bLWDc6A2Cg/9-Mythic+The+Twin+Fangs+-+Kill+(7:30)/2-Nosaoo/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
