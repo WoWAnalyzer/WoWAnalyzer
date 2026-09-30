@@ -389,13 +389,19 @@ function buffAndNextCastChannelSpec(spellId: number): ChannelSpec {
       // now scan ahead for the matched removebuff or another cast and end the channel at it
       for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
         const laterEvent = events[idx];
+        /*
+        1. Check if source is the same since otherwise healer casts can and will cancel the channel.
+        2. If the event is a removedebuff event then check if the target is the same. This needs to be done because of multi-target channels (specifically Mass Disintegrate) that tend to remove the debuff from the previous cast after the new cast started, immediately cancellling the next channel in doing so.
+        */
         if (
-          (HasAbility(laterEvent) &&
+          ((HasAbility(laterEvent) &&
             laterEvent.ability.guid === spellId &&
             (laterEvent.type === EventType.RemoveBuff ||
-              laterEvent.type === EventType.RemoveDebuff)) ||
-          laterEvent.type === EventType.BeginCast ||
-          (laterEvent.type === EventType.Cast && isRealCast(laterEvent))
+              (laterEvent.type === EventType.RemoveDebuff &&
+                event.targetID === laterEvent.targetID))) ||
+            laterEvent.type === EventType.BeginCast ||
+            (laterEvent.type === EventType.Cast && isRealCast(laterEvent))) &&
+          event.sourceID === laterEvent.sourceID
         ) {
           endCurrentChannel(laterEvent, state);
           break;
