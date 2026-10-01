@@ -97,7 +97,7 @@ class StormstoutsLastKeg extends Analyzer.withDependencies({
             </p>
           </>
         }
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={talents.STORMSTOUTS_LAST_KEG_TALENT}>
           <>
