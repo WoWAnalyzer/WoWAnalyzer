@@ -241,7 +241,6 @@ class Accretion extends Analyzer {
       (this.duplicateUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
 
     this.accretionDuplicate = (this.totalDuplicateDamage / DuplicateUptime) * cdrDupeExtension;
-    this.fightEndHasAlreadyBeenCalled = true;
   }
 
   statistic() {
