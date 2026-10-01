@@ -45,6 +45,7 @@ class MightyInferno extends Analyzer {
   extensionDamage = 0;
   infernoApps: infernoApplication[] = [];
   totalInfernosExtension = 0;
+  infernoAppCount = 0;
   // These can mess with the results.
   hasReceivedExternalInfernos = false;
   retHasTriggeredInfernos = false;
@@ -121,9 +122,13 @@ class MightyInferno extends Analyzer {
 
   onFightEnd(event: FightEndEvent) {
     this.infernoApps.forEach((app) => this.onInfernosRemove(app.playerID, event.timestamp));
+    if (this.infernoAppCount === 0) {
+      this.infernoAppCount = 1; // Avoid potential divide by zero
+    }
   }
 
   onInfernosApply(targetID: number, timestamp: number) {
+    this.infernoAppCount++;
     this.infernoApps.push({
       playerID: targetID,
       baseEndTimestamp:
@@ -184,8 +189,9 @@ class MightyInferno extends Analyzer {
             <ItemDamageDone amount={this.ampedDamage + this.extensionDamage} />
           </div>
           <div>
-            <InformationIcon /> {formatNumber(this.totalInfernosExtension / 1000)} sec
-            <small> extra duration granted</small>
+            <InformationIcon />{' '}
+            {formatNumber(this.totalInfernosExtension / 1000 / this.infernoAppCount)} sec
+            <small> avg extra duration per buff</small>
           </div>
         </TalentSpellText>
       </Statistic>

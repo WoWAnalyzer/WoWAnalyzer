@@ -237,7 +237,10 @@ class Accretion extends Analyzer {
 
     this.accretionEbonMight = (this.totalEbonMightDamage / EbonMightUptime) * cdrUpheavalExtension;
 
-    this.accretionDuplicate = (this.totalDuplicateDamage / DuplicateUptime) * cdrUpheavalExtension;
+    const cdrDupeExtension =
+      (this.duplicateUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
+
+    this.accretionDuplicate = (this.totalDuplicateDamage / DuplicateUptime) * cdrDupeExtension;
   }
 
   statistic() {
