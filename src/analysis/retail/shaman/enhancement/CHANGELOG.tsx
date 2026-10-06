@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+    change(date(2026, 10, 6), <>Fixed <SpellLink spell={TALENTS_SHAMAN.TEMPEST_TALENT} /> full Maelstrom Weapon count: <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> casts now count as full, and casts with no Maelstrom Weapon no longer do.</>, Seriousnes),
     change(date(2026, 8, 27), <>Guide fixes: <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> window source correctly identified as proc or cast, <SpellLink spell={TALENTS_SHAMAN.VOLTAIC_BLAZE_TALENT} /> no longer counts as a missed cast during <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.HOT_HAND_TALENT} />.</>, Seriousnes),
     change(date(2026, 8, 27), <>Added Midnight Season 2 tier set guide section tracking delayed <SpellLink spell={TALENTS_SHAMAN.VOLTAIC_BLAZE_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT} /> casts, and <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> hold time per <SpellLink spell={TALENTS_SHAMAN.DOOM_WINDS_TALENT} /> window.</>, Seriousnes),
     change(date(2026, 6, 19), <>Added Midnight Season 2 tier set analysis, with <SpellLink spell={TALENTS_SHAMAN.VOLTAIC_BLAZE_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT} /> modules.</>, Seriousnes),
