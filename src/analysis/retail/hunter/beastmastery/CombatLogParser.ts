@@ -40,6 +40,7 @@ import NaturesAlly from './modules/talents/NaturesAlly';
 import PackMentality from './modules/talents/PackMentality';
 import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
 import DireBeastSourceNormalizer from './normalizers/DireBeastSourceNormalizer';
+import DireBeastSummonNormalizer from './normalizers/DireBeastSummonNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -64,6 +65,8 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //Normalizers
+    // DireBeastSummonNormalizer must come before other normalizers that look for Dire Beast summons
+    direBeastSummonNormalizer: DireBeastSummonNormalizer,
     direCommandNormalizer: DireCommandNormalizer,
     direBeastSourceNormalizer: DireBeastSourceNormalizer,
     hunterEventLinkNormalizer: HunterEventLinkNormalizers,
