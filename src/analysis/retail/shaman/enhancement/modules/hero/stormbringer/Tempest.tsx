@@ -61,8 +61,13 @@ class Tempest extends Analyzer {
   }
 
   private onCast(event: CastEvent | FreeCastEvent) {
-    const stacks = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-    if (stacks === undefined || stacks >= FULL_MSW_STACKS) {
+    if (event.type === EventType.FreeCast) {
+      this.consumedAtFullStacks += 1;
+      return;
+    }
+
+    const stacks = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) ?? 0;
+    if (stacks >= FULL_MSW_STACKS) {
       this.consumedAtFullStacks += 1;
     } else {
       this.consumedAtLowStacks += 1;
