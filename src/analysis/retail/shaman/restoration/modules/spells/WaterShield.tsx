@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -9,8 +10,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { WATER_SHIELD_MANA_REGENERATION_PER_SECOND } from '../../constants';
-
-// just gonna steal my mtt formatting
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { RESTORATION_COLORS } from 'src/analysis/retail/shaman/restoration/constants';
+import { Uptime } from 'parser/ui/UptimeBar';
+import { SpellLink } from 'interface';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'src/analysis/retail/shaman/restoration/Guide';
+import type { JSX } from 'react';
 import './ManaTideTotem.scss';
 
 class WaterShield extends Analyzer {
@@ -43,7 +50,7 @@ class WaterShield extends Analyzer {
   get regenOnPlayer() {
     let uptimePercent = this.uptimePercent;
     if (uptimePercent === 0) {
-      uptimePercent = 1; // quick fix for water shield not being in logs
+      uptimePercent = 1;
     }
 
     return (
@@ -97,6 +104,91 @@ class WaterShield extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const hasResurgence = this.selectedCombatant.hasTalent(TALENTS.RESURGENCE_TALENT);
+    const hasReactiveWarding = this.selectedCombatant.hasTalent(TALENTS.REACTIVE_WARDING_TALENT);
+    const hasTherazanesResilience = this.selectedCombatant.hasTalent(
+      TALENTS.THERAZANES_RESILIENCE_TALENT,
+    );
+
+    const explanation = (
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.WATER_SHIELD} />
+          </b>{' '}
+          should be applied prior to the fight starting and reapplied after a consuming your{' '}
+          <SpellLink spell={SPELLS.REINCARNATION} /> or a battle-resurrection as to not loose out on
+          the Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
+        </p>
+        {hasResurgence && (
+          <>
+            <p>
+              <b>
+                <SpellLink spell={TALENTS.RESURGENCE_TALENT} />
+              </b>{' '}
+              allows you to refund mana through critical strikes from{' '}
+              <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
+              <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />,{' '}
+              <SpellLink spell={TALENTS.RIPTIDE_TALENT} />.
+            </p>
+          </>
+        )}
+        {hasReactiveWarding && (
+          <>
+            <p>
+              <b>
+                <SpellLink spell={TALENTS.REACTIVE_WARDING_TALENT} />
+              </b>{' '}
+              When refreshing Water Shield, you are refunded 429 mana for each stack of Water Shield
+              missing. Additionally, Earth Shield and Water Shield can consume charges 1.0 sec
+              faster.
+            </p>
+          </>
+        )}
+        {hasTherazanesResilience && (
+          <>
+            <p>
+              As you have taken{' '}
+              <b>
+                <SpellLink spell={TALENTS.THERAZANES_RESILIENCE_TALENT} />
+              </b>
+              , this uptime should be close to 100%.
+            </p>
+          </>
+        )}
+      </>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.WATER_SHIELD} /> Uptimes
+          </strong>
+          {this.waterShieldUptimeBar()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  getUptimeHistory(spellId: number): Uptime[] {
+    return this.selectedCombatant.getBuffHistory(spellId).map((trackedBuff) => ({
+      start: trackedBuff.start,
+      end: trackedBuff.end || this.owner.fight.end_time,
+    }));
+  }
+
+  waterShieldUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.WATER_SHIELD],
+      uptimes: this.getUptimeHistory(SPELLS.WATER_SHIELD.id),
+      color: RESTORATION_COLORS.WATER_SHIELD,
+    });
   }
 }
 
