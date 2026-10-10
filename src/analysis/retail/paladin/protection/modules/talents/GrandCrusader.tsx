@@ -105,10 +105,11 @@ class GrandCrusader extends Analyzer.withDependencies({
         size="flexible"
         tooltip={
           <>
-            Grand Crusader reset the cooldown of Avenger's Shield {this.gcProcs} times.
-            <br />
-            You had {this.resetChances} chances for Grand Crusader to trigger with a{' '}
-            {formatPercentage(this.procChance, 0)}% chance to trigger.
+            <div>Grand Crusader reset the cooldown of Avenger's Shield {this.gcProcs} times.</div>
+            <div>
+              You had {this.resetChances} chances for Grand Crusader to trigger with a{' '}
+              {formatPercentage(this.procChance, 0)}% chance to trigger.
+            </div>
           </>
         }
         dropdown={

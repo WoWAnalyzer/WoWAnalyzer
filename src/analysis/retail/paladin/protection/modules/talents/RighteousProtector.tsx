@@ -122,21 +122,23 @@ class RighteousProtector extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={TALENTS.RIGHTEOUS_PROTECTOR_TALENT}>
-          <SpellIcon spell={TALENTS.AVENGING_WRATH_TALENT} />{' '}
-          {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
-          <small>
-            CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
-          </small>
-          <br />
-          <SpellIcon spell={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT} />{' '}
-          {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
-          <small>
-            CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)
-          </small>
-          <small>
-            <br />
-            Guardian of Ancient kings version: ({this.guardianOfAncientKingsVariant})
-          </small>
+          <div>
+            <SpellIcon spell={TALENTS.AVENGING_WRATH_TALENT} />{' '}
+            {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
+            <small>
+              CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
+            </small>
+          </div>
+          <div>
+            <SpellIcon spell={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT} />{' '}
+            {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
+            <small>
+              CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)
+            </small>
+          </div>
+          <div>
+            <small>Guardian of Ancient kings version: ({this.guardianOfAncientKingsVariant})</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );
