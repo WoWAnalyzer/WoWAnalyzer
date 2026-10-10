@@ -18,7 +18,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BASE_PROC_CHANCE = 0.15;
 
-const BASE_CDR_AMOUNT = 3000;
+const BASE_CDR_AMOUNT = 0;
 const CJ_CDR_AMOUNT = 3000;
 
 class GrandCrusader extends Analyzer.withDependencies({

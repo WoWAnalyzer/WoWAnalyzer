@@ -69,18 +69,6 @@ class Abilities extends CoreAbilities {
           suggestion: false,
         },
       },
-      {
-        spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 5 / (1 + haste),
-        charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
       //COOLDOWNS
       {
         spell: [SPELLS.SACRED_WEAPON_TALENT.id, TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.id],
@@ -212,14 +200,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAMMER_OF_JUSTICE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },

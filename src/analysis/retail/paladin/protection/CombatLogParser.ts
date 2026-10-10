@@ -22,6 +22,8 @@ import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import WordOfGlory from './modules/spells/WordOfGlory';
+import HammerOfWrath from './modules/spells/HammerOfWrath';
+import JudgmentCooldown from './modules/spells/JudgmentCooldown';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
 import Redoubt from './modules/talents/Redoubt';
@@ -55,6 +57,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
+    hammerOfWrath: HammerOfWrath,
+    judgmentCooldown: JudgmentCooldown,
     judgment: Judgment,
 
     // Features
