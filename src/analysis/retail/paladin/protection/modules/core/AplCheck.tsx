@@ -11,6 +11,11 @@ const howCastable = cnd.always(
   cnd.or(cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT), cnd.buffPresent(SPELLS.SENTINEL)),
 );
 
+const judgmentCastable = cnd.and(
+  cnd.buffMissing(TALENTS.AVENGING_WRATH_TALENT),
+  cnd.buffMissing(SPELLS.SENTINEL),
+);
+
 const holCastable = cnd.always(cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF));
 
 export const apl = build([
@@ -54,7 +59,7 @@ export const apl = build([
     condition: cnd.hasTalent(TALENTS.BULWARK_OF_RIGHTEOUS_FURY_TALENT),
   },
   { spell: SPELLS.HAMMER_OF_WRATH_PROTECTION, condition: howCastable },
-  SPELLS.JUDGMENT_CAST,
+  { spell: SPELLS.JUDGMENT_CAST_PROTECTION, condition: judgmentCastable },
   {
     spell: [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],
     condition: cnd.buffPresent(SPELLS.SHAKE_THE_HEAVENS_BUFF),
