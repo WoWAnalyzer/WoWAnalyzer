@@ -83,7 +83,9 @@ class Abilities extends CoreAbilities {
       },
       //COOLDOWNS
       {
-        spell: [TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
+        spell: [SPELLS.SACRED_WEAPON_TALENT.id, TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.id],
+        name: TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.name,
+        buffSpellId: [SPELLS.HOLY_BULWARK_BUFF.id, SPELLS.SACRED_WEAPON_BUFF.id],
         charges: 2,
         enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
