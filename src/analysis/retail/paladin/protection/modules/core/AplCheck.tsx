@@ -8,7 +8,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 const howCastable = cnd.always(
-  cnd.or(cnd.inExecute(), cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT)),
+  cnd.or(cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT), cnd.buffPresent(SPELLS.SENTINEL)),
 );
 
 const holCastable = cnd.always(cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF));
@@ -53,7 +53,7 @@ export const apl = build([
     spell: TALENTS.AVENGERS_SHIELD_TALENT,
     condition: cnd.hasTalent(TALENTS.BULWARK_OF_RIGHTEOUS_FURY_TALENT),
   },
-  { spell: TALENTS.HAMMER_OF_WRATH_TALENT, condition: howCastable },
+  { spell: SPELLS.HAMMER_OF_WRATH_PROTECTION, condition: howCastable },
   SPELLS.JUDGMENT_CAST,
   {
     spell: [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],
