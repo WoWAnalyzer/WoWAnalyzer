@@ -588,6 +588,11 @@ const spells = {
     name: 'Blaze of Glory',
     icon: 'inv12_apextalent_paladin_gloryofthevanguard',
   },
+  GLORY_OF_THE_VANGUARD_HOLY_POWER: {
+    id: 1307639,
+    name: 'Glory of the Vanguard',
+    icon: 'inv12_apextalent_paladin_gloryofthevanguard',
+  },
 
   // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {

@@ -41,18 +41,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-const PERFECT_HOLY_POWER_CAP = 0.1;
-const GOOD_HOLY_POWER_CAP = 0.15;
-const OK_HOLY_POWER_CAP = 0.2;
+const PERFECT_HOLY_POWER_WASTE = 0.05;
+const GOOD_HOLY_POWER_WASTE = 0.1;
+const OK_HOLY_POWER_WASTE = 0.2;
 function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  const percentAtHolyPowerCap = modules.holyPowerTracker.percentAtCap;
-  let percentAtHolyPowerCapPerformance = QualitativePerformance.Fail;
-  if (percentAtHolyPowerCap <= PERFECT_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Perfect;
-  } else if (percentAtHolyPowerCap <= GOOD_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Good;
-  } else if (percentAtHolyPowerCap <= OK_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Ok;
+  const percentHolyPowerWasted = modules.holyPowerTracker.percentWasted;
+  let percentHolyPowerWastedPerformance = QualitativePerformance.Fail;
+  if (percentHolyPowerWasted <= PERFECT_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Perfect;
+  } else if (percentHolyPowerWasted <= GOOD_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Good;
+  } else if (percentHolyPowerWasted <= OK_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Ok;
   }
   const holyPowerWasted = modules.holyPowerTracker.wasted;
 
@@ -73,11 +73,11 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
             <p>
               You wasted{' '}
               <PerformancePercentage
-                performance={percentAtHolyPowerCapPerformance}
-                perfectPercentage={PERFECT_HOLY_POWER_CAP}
-                goodPercentage={GOOD_HOLY_POWER_CAP}
-                okPercentage={OK_HOLY_POWER_CAP}
-                percentage={percentAtHolyPowerCap}
+                performance={percentHolyPowerWastedPerformance}
+                perfectPercentage={PERFECT_HOLY_POWER_WASTE}
+                goodPercentage={GOOD_HOLY_POWER_WASTE}
+                okPercentage={OK_HOLY_POWER_WASTE}
+                percentage={percentHolyPowerWasted}
                 flatAmount={holyPowerWasted}
               />{' '}
               of your <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
