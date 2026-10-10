@@ -15,7 +15,6 @@ import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import MitigationCheck from './modules/features/MitigationCheck';
 import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
-import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
@@ -70,7 +69,6 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     noDamageSOTR: NoDamageShieldOfTheRighteous,
-    overcapSOTR: OvercapShieldOfTheRighteous,
 
     // Defensive Usage
     defensiveBuffs: DefensiveBuffs,
