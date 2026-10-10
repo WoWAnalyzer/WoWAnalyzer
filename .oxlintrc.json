@@ -29,7 +29,6 @@
     "playwright.config.ts",
     "vite.config.ts",
     "src/analysis/retail/druid/restoration/**",
-    "src/analysis/retail/paladin/protection/**",
     "src/analysis/retail/rogue/outlaw/**",
     "src/analysis/retail/warrior/protection/**"
   ],
