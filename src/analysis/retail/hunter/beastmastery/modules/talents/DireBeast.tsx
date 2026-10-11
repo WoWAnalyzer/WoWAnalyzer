@@ -1,5 +1,4 @@
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
@@ -9,6 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { DIRE_BEAST_SUMMONS } from '../../constants';
 
 /**
  * Damage from your bleed effects has a 4% chance of attracting a powerful wild beast
@@ -25,7 +25,7 @@ class DireBeast extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.DIRE_BEAST_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      Events.summon.by(SELECTED_PLAYER).spell(DIRE_BEAST_SUMMONS),
       this.onDireSummon,
     );
     this.addEventListener(
