@@ -15,6 +15,8 @@ import { FoundationCooldownSection } from 'interface/guide/foundation/Foundation
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
+import SPELLS from 'common/SPELLS/paladin';
+import { formatDuration } from 'common/format';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -33,6 +35,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         )}
         <AplSectionData checker={check} apl={apl} />
       </Section>
+      {modules.gloryOfTheVanguard.active && (
+        <GloryOfTheVanguardSection modules={modules} events={events} info={info} />
+      )}
       <MitigationSection />
       <ActiveMitigationSection />
       <PreparationSection />
@@ -89,6 +94,67 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
             {modules.builderUse.chart}
           </RoundedPanel>
         </SideBySidePanels>
+      </SubSection>
+    </Section>
+  );
+}
+
+const PERFECT_VANGUARD_LOST = 0;
+const GOOD_VANGUARD_LOST = 0.05;
+const OK_VANGUARD_LOST = 0.1;
+function GloryOfTheVanguardSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const { gained, used, lostInWings, lost, lostCount } = modules.gloryOfTheVanguard;
+  const percentLost = gained === 0 ? 0 : lostCount / gained;
+  let percentLostPerformance = QualitativePerformance.Fail;
+  if (percentLost <= PERFECT_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Perfect;
+  } else if (percentLost <= GOOD_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Good;
+  } else if (percentLost <= OK_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <Section title="Glory of the Vanguard">
+      <SubSection title="Vanguard">
+        <p>
+          Spend every <SpellLink spell={SPELLS.VANGUARD_BUFF} /> proc on{' '}
+          <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> before it runs out. Procs that were
+          up at any point during your wings aren't counted, even if they drop after your wings end.
+        </p>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.VANGUARD_BUFF} /> procs
+          </strong>
+          <p>
+            You lost{' '}
+            <PerformancePercentage
+              performance={percentLostPerformance}
+              perfectPercentage={PERFECT_VANGUARD_LOST}
+              goodPercentage={GOOD_VANGUARD_LOST}
+              okPercentage={OK_VANGUARD_LOST}
+              percentage={percentLost}
+              flatAmount={lostCount}
+            />{' '}
+            of your {gained} procs. {used} were spent on{' '}
+            <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />
+            {lostInWings > 0 && <>, and {lostInWings} dropped during or after wings</>}.
+          </p>
+          {lost.length > 0 && (
+            <p>
+              <small>
+                Lost at{' '}
+                {lost
+                  .map(
+                    ({ timestamp, count }) =>
+                      formatDuration(timestamp - info.fightStart) +
+                      (count > 1 ? ` (${count})` : ''),
+                  )
+                  .join(', ')}
+              </small>
+            </p>
+          )}
+        </RoundedPanel>
       </SubSection>
     </Section>
   );
