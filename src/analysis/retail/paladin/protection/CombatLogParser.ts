@@ -29,6 +29,7 @@ import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import GloryOfTheVanguard from './modules/talents/GloryOfTheVanguard';
+import InstrumentOfTheDivine from './modules/talents/InstrumentOfTheDivine';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import GrandCrusaderAfterTrigger from './normalizers/GrandCrusaderAfterTrigger';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousProtector: RighteousProtector,
     giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
     gloryOfTheVanguard: GloryOfTheVanguard,
+    instrumentOfTheDivine: InstrumentOfTheDivine,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
     firstAvenger: FirstAvenger,

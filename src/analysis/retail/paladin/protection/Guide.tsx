@@ -7,12 +7,15 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 
 import MajorDefensives from './modules/core/Defensives';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS/paladin';
@@ -35,6 +38,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           </AlertWarning>
         )}
         <AplSectionData checker={check} apl={apl} />
+        {modules.instrumentOfTheDivine.active && (
+          <InstrumentOfTheDivineSubSection modules={modules} events={events} info={info} />
+        )}
       </Section>
       {modules.gloryOfTheVanguard.active && (
         <GloryOfTheVanguardSection modules={modules} events={events} info={info} />
@@ -215,6 +221,112 @@ function WingsSection({ info }: GuideProps<typeof CombatLogParser>) {
         }
       />
     </Section>
+  );
+}
+
+const PERFECT_VALOR_AT_MAX = 0.9;
+const GOOD_VALOR_AT_MAX = 0.8;
+const OK_VALOR_AT_MAX = 0.7;
+function InstrumentOfTheDivineSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const { valorCasts, castsAtMax } = modules.instrumentOfTheDivine;
+  const percentAtMax = valorCasts.length === 0 ? 1 : castsAtMax.length / valorCasts.length;
+  let performance = QualitativePerformance.Fail;
+  if (percentAtMax >= PERFECT_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Perfect;
+  } else if (percentAtMax >= GOOD_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Good;
+  } else if (percentAtMax >= OK_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <ExplanationAndDataSubSection
+      title="Instrument of the Divine"
+      explanation={
+        <>
+          <p>
+            With <SpellLink spell={talents.INSTRUMENT_OF_THE_DIVINE_TALENT} />, build to 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> before casting{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> while you have{' '}
+            <SpellLink spell={SPELLS.VALOR} />. You gain <SpellLink spell={SPELLS.VALOR} /> from
+            consuming <SpellLink spell={SPELLS.VANGUARD_BUFF} />.
+          </p>
+          <p>
+            At 5 <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />,{' '}
+            <SpellLink spell={talents.INSTRUMENT_OF_THE_DIVINE_TALENT} /> increases the damage of{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> by 100%, and{' '}
+            <SpellLink spell={SPELLS.VALOR} /> increases it by another 100%. These multiply, so{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> with{' '}
+            <SpellLink spell={SPELLS.VALOR} /> deals 4 times its normal damage at 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
+          </p>
+        </>
+      }
+      data={
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> casts with{' '}
+            <SpellLink spell={SPELLS.VALOR} />
+          </strong>
+          <PerformanceBoxRow
+            values={valorCasts.map(({ timestamp, holyPower, divinePurpose }) => {
+              const [value, grade] =
+                holyPower >= 5
+                  ? [QualitativePerformance.Perfect, 'Perfect']
+                  : holyPower >= OK_HOLY_POWER || divinePurpose
+                    ? [QualitativePerformance.Ok, 'OK']
+                    : [QualitativePerformance.Fail, 'Bad'];
+              return {
+                value,
+                tooltip: (
+                  <>
+                    <PerformanceMark perf={value} /> {grade}:{' '}
+                    {formatDuration(timestamp - info.fightStart)}, {holyPower}{' '}
+                    <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />
+                    {divinePurpose && (
+                      <>
+                        {' '}
+                        with <SpellLink spell={SPELLS.DIVINE_PURPOSE_BUFF} />
+                      </>
+                    )}
+                  </>
+                ),
+              };
+            })}
+          />
+          <p>
+            You consumed <SpellLink spell={SPELLS.VALOR} /> at 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> on{' '}
+            <PerformanceStrongWithTooltip
+              performance={performance}
+              tooltip={
+                <>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect:{' '}
+                    {formatPercentage(PERFECT_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Good} /> Good:{' '}
+                    {formatPercentage(GOOD_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Ok} /> OK:{' '}
+                    {formatPercentage(OK_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: below{' '}
+                    {formatPercentage(OK_VALOR_AT_MAX, 0)}%
+                  </div>
+                </>
+              }
+            >
+              {formatPercentage(percentAtMax, 0)}%
+            </PerformanceStrongWithTooltip>{' '}
+            of your {valorCasts.length} casts.
+          </p>
+        </RoundedPanel>
+      }
+    />
   );
 }
 
