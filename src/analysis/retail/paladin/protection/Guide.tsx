@@ -1,5 +1,5 @@
-import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
-import { AlertWarning, ResourceLink, SpellLink } from 'interface';
+import { GuideProps, PerformanceMark, Section, SubSection, useInfo } from 'interface/guide';
+import { AlertWarning, ResourceLink, SpellLink, Tooltip } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/protection/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
@@ -13,10 +13,11 @@ import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS/paladin';
-import { formatDuration } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -26,6 +27,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <FoundationCooldownSection />
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <WingsSection modules={modules} events={events} info={info} />
       <Section title="Rotation">
         {info.combatant.hasTalent(talents.LIGHTS_GUIDANCE_TALENT) && (
           <AlertWarning>
@@ -95,6 +97,125 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           </RoundedPanel>
         </SideBySidePanels>
       </SubSection>
+    </Section>
+  );
+}
+
+const RIGHTEOUS_PROTECTOR_WINGS_BASE = 12000;
+const WINGS_BASE = 20000;
+const WINGS_DURATION_RATIOS = { perfect: 20 / 12, good: 18 / 12, ok: 15 / 12 };
+function wingsDurationPerformance(
+  duration: number,
+  thresholds: Record<keyof typeof WINGS_DURATION_RATIOS, number>,
+) {
+  if (duration >= thresholds.perfect) {
+    return QualitativePerformance.Perfect;
+  } else if (duration >= thresholds.good) {
+    return QualitativePerformance.Good;
+  } else if (duration >= thresholds.ok) {
+    return QualitativePerformance.Ok;
+  }
+  return QualitativePerformance.Fail;
+}
+
+function WingsSection({ info }: GuideProps<typeof CombatLogParser>) {
+  if (!info.combatant.hasTalent(talents.ZEALOTS_PARAGON_TALENT)) {
+    return null;
+  }
+  const base = info.combatant.hasTalent(talents.RIGHTEOUS_PROTECTOR_TALENT)
+    ? RIGHTEOUS_PROTECTOR_WINGS_BASE
+    : WINGS_BASE;
+  const extension =
+    info.combatant.getTalentRank(talents.ZEALOTS_PARAGON_TALENT) /
+    talents.ZEALOTS_PARAGON_TALENT.maxRanks;
+  const threshold = (ratio: number) =>
+    Math.round((base * (1 + (ratio - 1) * extension)) / 1000) * 1000;
+  const thresholds = {
+    perfect: threshold(WINGS_DURATION_RATIOS.perfect),
+    good: threshold(WINGS_DURATION_RATIOS.good),
+    ok: threshold(WINGS_DURATION_RATIOS.ok),
+  };
+  const thresholdsTooltip = (
+    <>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect:{' '}
+        {thresholds.perfect / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Good} /> Good: {thresholds.good / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Ok} /> OK: {thresholds.ok / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: below {thresholds.ok / 1000} sec
+      </div>
+    </>
+  );
+  const wingsSpell = info.combatant.hasTalent(talents.SENTINEL_TALENT)
+    ? SPELLS.SENTINEL
+    : talents.AVENGING_WRATH_TALENT;
+  const wingsUptime = info.combatant.getBuffUptime(wingsSpell.id) / info.fightDuration;
+  const casts = info.combatant.getBuffHistory(wingsSpell.id).map((buff) => {
+    const end = buff.end ?? info.fightEnd;
+    return { start: buff.start, duration: end - buff.start, fightEnded: end >= info.fightEnd };
+  });
+
+  return (
+    <Section title={wingsSpell.name}>
+      <ExplanationAndDataSubSection
+        explanation={
+          <p>
+            Our main cooldown, <SpellLink spell={talents.AVENGING_WRATH_TALENT} />/
+            <SpellLink spell={SPELLS.SENTINEL} />, has a base duration of 20 sec (12 sec with{' '}
+            <SpellLink spell={talents.RIGHTEOUS_PROTECTOR_TALENT} />
+            ). With <SpellLink spell={talents.ZEALOTS_PARAGON_TALENT} />, each{' '}
+            <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} /> cast extends the active{' '}
+            <SpellLink spell={talents.AVENGING_WRATH_TALENT} />/
+            <SpellLink spell={SPELLS.SENTINEL} /> by 0.5 sec/1 sec. A big part of maximizing your
+            damage is to ensure you play around this.
+          </p>
+        }
+        data={
+          <div>
+            <p>
+              <strong>
+                <SpellLink spell={wingsSpell} /> uptime: {formatPercentage(wingsUptime)}%
+              </strong>
+            </p>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Cast</th>
+                  <th>Duration</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {casts.map(({ start, duration, fightEnded }) => (
+                  <tr key={start}>
+                    <td>{formatDuration(start - info.fightStart)}</td>
+                    <td>{(duration / 1000).toFixed(1)} sec</td>
+                    <td>
+                      {fightEnded ? (
+                        <small>(fight ended)</small>
+                      ) : (
+                        <Tooltip content={thresholdsTooltip}>
+                          <span>
+                            <PerformanceMark
+                              perf={wingsDurationPerformance(duration, thresholds)}
+                            />
+                          </span>
+                        </Tooltip>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        }
+      />
     </Section>
   );
 }
