@@ -333,14 +333,15 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
                   event.timestamp >= from &&
                   event.timestamp <= to,
               );
-            const durationPerformance = wingsDurationPerformance(duration, thresholds);
+            const roundedDuration = Math.round(duration / 100) * 100;
+            const durationPerformance = wingsDurationPerformance(roundedDuration, thresholds);
             const checklistItems: CooldownExpandableItem[] = [
               {
                 label: 'Duration',
                 details: fightEnded ? (
-                  <>{(duration / 1000).toFixed(1)} sec (fight ended)</>
+                  <>{(roundedDuration / 1000).toFixed(1)} sec (fight ended)</>
                 ) : (
-                  <>{(duration / 1000).toFixed(1)} sec</>
+                  <>{(roundedDuration / 1000).toFixed(1)} sec</>
                 ),
                 result: fightEnded ? undefined : (
                   <Tooltip content={thresholdsTooltip}>
