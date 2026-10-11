@@ -38,13 +38,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           </AlertWarning>
         )}
         <AplSectionData checker={check} apl={apl} />
+        {modules.gloryOfTheVanguard.active && (
+          <GloryOfTheVanguardSubSection modules={modules} events={events} info={info} />
+        )}
         {modules.instrumentOfTheDivine.active && (
           <InstrumentOfTheDivineSubSection modules={modules} events={events} info={info} />
         )}
       </Section>
-      {modules.gloryOfTheVanguard.active && (
-        <GloryOfTheVanguardSection modules={modules} events={events} info={info} />
-      )}
       <MitigationSection />
       <PreparationSection />
     </>
@@ -333,7 +333,7 @@ function InstrumentOfTheDivineSubSection({ modules, info }: GuideProps<typeof Co
 const PERFECT_VANGUARD_LOST = 0;
 const GOOD_VANGUARD_LOST = 0.05;
 const OK_VANGUARD_LOST = 0.1;
-function GloryOfTheVanguardSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+function GloryOfTheVanguardSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const { gained, used, lostInWings, lost, lostCount } = modules.gloryOfTheVanguard;
   const percentLost = gained === 0 ? 0 : lostCount / gained;
   let percentLostPerformance = QualitativePerformance.Fail;
@@ -346,13 +346,16 @@ function GloryOfTheVanguardSection({ modules, info }: GuideProps<typeof CombatLo
   }
 
   return (
-    <Section title="Glory of the Vanguard">
-      <SubSection title="Vanguard">
+    <ExplanationAndDataSubSection
+      title="Glory of the Vanguard"
+      explanation={
         <p>
           Spend every <SpellLink spell={SPELLS.VANGUARD_BUFF} /> proc on{' '}
           <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> before it runs out. Procs that were
           up at any point during your wings aren't counted, even if they drop after your wings end.
         </p>
+      }
+      data={
         <RoundedPanel>
           <strong>
             <SpellLink spell={SPELLS.VANGUARD_BUFF} /> procs
@@ -386,8 +389,8 @@ function GloryOfTheVanguardSection({ modules, info }: GuideProps<typeof CombatLo
             </p>
           )}
         </RoundedPanel>
-      </SubSection>
-    </Section>
+      }
+    />
   );
 }
 
