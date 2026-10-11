@@ -14,13 +14,18 @@ import { FoundationDowntimeSection } from 'interface/guide/foundation/Foundation
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import Explanation from 'interface/guide/components/Explanation';
+import CooldownGrid from 'interface/CooldownGrid/CooldownGrid';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import {
   ApplyBuffEvent,
+  CastEvent,
   EventType,
   RefreshBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
+import { HAMMER_AND_ANVIL_DAMAGE_ID, LESSER_WEAPON_DAMAGE_ID } from './constants';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
@@ -117,6 +122,7 @@ const GRADE_LABELS: Partial<Record<QualitativePerformance, string>> = {
   [QualitativePerformance.Ok]: 'OK',
   [QualitativePerformance.Fail]: 'Bad',
 };
+const DIVINE_TOLL_WITH_WINGS = 3000;
 const HOLY_BULWARK_SAME_CAST_MS = 1000;
 const HOLY_BULWARK_PERFECT_BEFORE = 2500;
 const HOLY_BULWARK_GOOD_BEFORE = 5000;
@@ -267,8 +273,8 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
 
   return (
     <Section title={wingsSpell.name}>
-      <ExplanationAndDataSubSection
-        explanation={
+      <SubSection>
+        <Explanation>
           <p>
             Our main cooldown, <SpellLink spell={talents.AVENGING_WRATH_TALENT} />/
             <SpellLink spell={SPELLS.SENTINEL} />, has a base duration of 20 sec (12 sec with{' '}
@@ -279,47 +285,115 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
             <SpellLink spell={SPELLS.SENTINEL} /> by 0.5 sec/1 sec. A big part of maximizing your
             damage is to ensure you play around this.
           </p>
-        }
-        data={
-          <div>
-            <p>
-              <strong>
-                <SpellLink spell={wingsSpell} /> uptime: {formatPercentage(wingsUptime)}%
-              </strong>
-            </p>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Cast</th>
-                  <th>Duration</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {casts.map(({ start, duration, fightEnded }) => (
-                  <tr key={start}>
-                    <td>{formatDuration(start - info.fightStart)}</td>
-                    <td>{(duration / 1000).toFixed(1)} sec</td>
-                    <td>
-                      {fightEnded ? (
-                        <small>(fight ended)</small>
-                      ) : (
-                        <Tooltip content={thresholdsTooltip}>
-                          <span>
-                            <PerformanceMark
-                              perf={wingsDurationPerformance(duration, thresholds)}
-                            />
-                          </span>
-                        </Tooltip>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        }
-      />
+        </Explanation>
+        <p>
+          <strong>
+            <SpellLink spell={wingsSpell} /> uptime: {formatPercentage(wingsUptime)}%
+          </strong>
+        </p>
+        <CooldownGrid
+          label={<SpellLink spell={wingsSpell} />}
+          timeline={{
+            cooldowns: [
+              SPELLS.HAMMER_OF_WRATH_PROTECTION,
+              talents.AVENGERS_SHIELD_TALENT,
+              talents.DIVINE_TOLL_TALENT,
+            ],
+          }}
+          table={{
+            type: EventType.Damage,
+            mergeAbilities: [
+              [
+                talents.AVENGERS_SHIELD_TALENT,
+                SPELLS.REFINING_FIRE_DOT,
+                talents.REFINING_FIRE_TALENT,
+                SPELLS.GLORY_OF_THE_VANGUARD_DAMAGE,
+              ],
+              [
+                SPELLS.SACRED_WEAPON_DAMAGE,
+                LESSER_WEAPON_DAMAGE_ID,
+                SPELLS.BLESSING_OF_THE_FORGE_DAMAGE,
+              ],
+              [SPELLS.CONSECRATION_DAMAGE, SPELLS.DIVINE_GUIDANCE_DAMAGE],
+              [
+                SPELLS.HAMMER_OF_WRATH_PROTECTION,
+                talents.HAMMER_OF_WRATH_TALENT,
+                HAMMER_AND_ANVIL_DAMAGE_ID,
+              ],
+            ],
+          }}
+          items={casts.map(({ start, duration, fightEnded }) => {
+            const end = start + duration;
+            const castsBetween = (spellId: number, from: number, to: number) =>
+              events.filter(
+                (event): event is CastEvent =>
+                  event.type === EventType.Cast &&
+                  event.sourceID === info.playerId &&
+                  event.ability.guid === spellId &&
+                  event.timestamp >= from &&
+                  event.timestamp <= to,
+              );
+            const durationPerformance = wingsDurationPerformance(duration, thresholds);
+            const checklistItems: CooldownExpandableItem[] = [
+              {
+                label: 'Duration',
+                details: fightEnded ? (
+                  <>{(duration / 1000).toFixed(1)} sec (fight ended)</>
+                ) : (
+                  <>{(duration / 1000).toFixed(1)} sec</>
+                ),
+                result: fightEnded ? undefined : (
+                  <Tooltip content={thresholdsTooltip}>
+                    <span>
+                      <PerformanceMark perf={durationPerformance} />
+                    </span>
+                  </Tooltip>
+                ),
+              },
+              {
+                label: <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />,
+                details: (
+                  <>{castsBetween(SPELLS.HAMMER_OF_WRATH_PROTECTION.id, start, end).length} casts</>
+                ),
+              },
+            ];
+            if (info.combatant.hasTalent(talents.DIVINE_TOLL_TALENT)) {
+              const divineToll = castsBetween(talents.DIVINE_TOLL_TALENT.id, start, end)[0];
+              const divineTollDelay =
+                divineToll === undefined ? undefined : divineToll.timestamp - start;
+              checklistItems.push({
+                label: (
+                  <>
+                    <SpellLink spell={talents.DIVINE_TOLL_TALENT} /> with wings
+                  </>
+                ),
+                details:
+                  divineTollDelay === undefined ? (
+                    'not cast'
+                  ) : (
+                    <>{(divineTollDelay / 1000).toFixed(1)} sec in</>
+                  ),
+                result: (
+                  <PerformanceMark
+                    perf={
+                      divineTollDelay === undefined
+                        ? QualitativePerformance.Fail
+                        : divineTollDelay <= DIVINE_TOLL_WITH_WINGS
+                          ? QualitativePerformance.Perfect
+                          : QualitativePerformance.Ok
+                    }
+                  />
+                ),
+              });
+            }
+            return {
+              range: { start, end },
+              perf: fightEnded ? undefined : durationPerformance,
+              checklistItems,
+            };
+          })}
+        />
+      </SubSection>
       {isLightsmith && (
         <ExplanationAndDataSubSection
           title="Holy Bulwark"
