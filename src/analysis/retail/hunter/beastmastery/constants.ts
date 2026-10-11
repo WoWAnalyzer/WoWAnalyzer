@@ -11,6 +11,18 @@ export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 //endregion
 
 //region Talents
+//Dire Beast has multiple summon ids based on glyphs, pets etc.
+export const DIRE_BEAST_SUMMONS = [
+  SPELLS.DIRE_BEAST_SUMMON,
+  SPELLS.DIRE_BEAST_SUMMON_2,
+  SPELLS.DIRE_BEAST_SUMMON_3,
+  SPELLS.DIRE_BEAST_SUMMON_4,
+  SPELLS.DIRE_BEAST_SUMMON_5,
+  SPELLS.DIRE_BEAST_SUMMON_6,
+  SPELLS.DIRE_BEAST_GLYPHED,
+  SPELLS.DARKHOUND_SUMMON,
+];
+export const DIRE_BEAST_SUMMON_IDS = DIRE_BEAST_SUMMONS.map((spell) => spell.id);
 /** Pack Tactics */
 // Pack Tactics increases focus regeneration by 75%.
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 0.75;
