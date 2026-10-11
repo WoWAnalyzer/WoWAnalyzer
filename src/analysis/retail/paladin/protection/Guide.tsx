@@ -9,7 +9,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
 
 import MajorDefensives from './modules/core/Defensives';
-import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
@@ -41,7 +40,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <GloryOfTheVanguardSection modules={modules} events={events} info={info} />
       )}
       <MitigationSection />
-      <ActiveMitigationSection />
       <PreparationSection />
     </>
   );
@@ -290,19 +288,6 @@ function MitigationSection() {
   return (
     <Section title="Defensive Cooldowns">
       <MajorDefensives />
-    </Section>
-  );
-}
-
-function ActiveMitigationSection() {
-  const info = useInfo();
-  if (!info) {
-    return null;
-  }
-
-  return (
-    <Section title="Active Mitigation">
-      <ActiveMitgation />
     </Section>
   );
 }
