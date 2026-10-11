@@ -36,6 +36,7 @@ import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuff
 import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
+import Sentinel from './modules/core/Defensives/Sentinel';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffs: DefensiveBuffs,
     guardianOfAncientKings: GuardianOfAncientKings,
     ardentDefender: ArdentDefender,
+    sentinel: Sentinel,
     consecrationDefensives: ConsecrationDefensives,
 
     // Talents
