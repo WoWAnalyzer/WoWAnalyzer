@@ -14,6 +14,12 @@ import { FoundationDowntimeSection } from 'interface/guide/foundation/Foundation
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import {
+  ApplyBuffEvent,
+  EventType,
+  RefreshBuffEvent,
+  UpdateSpellUsableEvent,
+} from 'parser/core/Events';
 import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
@@ -105,6 +111,34 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   );
 }
 
+const GRADE_LABELS: Partial<Record<QualitativePerformance, string>> = {
+  [QualitativePerformance.Perfect]: 'Perfect',
+  [QualitativePerformance.Good]: 'Good',
+  [QualitativePerformance.Ok]: 'OK',
+  [QualitativePerformance.Fail]: 'Bad',
+};
+const HOLY_BULWARK_SAME_CAST_MS = 1000;
+const HOLY_BULWARK_PERFECT_BEFORE = 2500;
+const HOLY_BULWARK_GOOD_BEFORE = 5000;
+const HOLY_BULWARK_OK_BEFORE = 8000;
+const HOLY_BULWARK_OK_AFTER = 8000;
+function holyBulwarkPerformance(
+  before: number | undefined,
+  after: number | undefined,
+  atMaxCharges: boolean,
+) {
+  if (before !== undefined && before < HOLY_BULWARK_PERFECT_BEFORE) {
+    return QualitativePerformance.Perfect;
+  } else if ((before !== undefined && before < HOLY_BULWARK_GOOD_BEFORE) || atMaxCharges) {
+    return QualitativePerformance.Good;
+  } else if (
+    (before !== undefined && before < HOLY_BULWARK_OK_BEFORE) ||
+    (after !== undefined && after <= HOLY_BULWARK_OK_AFTER)
+  ) {
+    return QualitativePerformance.Ok;
+  }
+  return QualitativePerformance.Fail;
+}
 const RIGHTEOUS_PROTECTOR_WINGS_BASE = 12000;
 const WINGS_BASE = 20000;
 const WINGS_DURATION_RATIOS = { perfect: 20 / 12, good: 18 / 12, ok: 15 / 12 };
@@ -122,7 +156,7 @@ function wingsDurationPerformance(
   return QualitativePerformance.Fail;
 }
 
-function WingsSection({ info }: GuideProps<typeof CombatLogParser>) {
+function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
   if (!info.combatant.hasTalent(talents.ZEALOTS_PARAGON_TALENT)) {
     return null;
   }
@@ -160,10 +194,76 @@ function WingsSection({ info }: GuideProps<typeof CombatLogParser>) {
     ? SPELLS.SENTINEL
     : talents.AVENGING_WRATH_TALENT;
   const wingsUptime = info.combatant.getBuffUptime(wingsSpell.id) / info.fightDuration;
-  const casts = info.combatant.getBuffHistory(wingsSpell.id).map((buff) => {
+  const isLightsmith = info.combatant.hasTalent(talents.HOLY_ARMAMENTS_PROTECTION_TALENT);
+  const bulwarkTooltip = (
+    <>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect: less than{' '}
+        {HOLY_BULWARK_PERFECT_BEFORE / 1000} sec before wings
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Good} /> Good: less than{' '}
+        {HOLY_BULWARK_GOOD_BEFORE / 1000} sec before wings, or cast at max charges
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Ok} /> OK: less than{' '}
+        {HOLY_BULWARK_OK_BEFORE / 1000} sec before or up to {HOLY_BULWARK_OK_AFTER / 1000} sec after
+        wings
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: otherwise
+      </div>
+    </>
+  );
+  const bulwarkCasts = events
+    .filter(
+      (event): event is ApplyBuffEvent | RefreshBuffEvent =>
+        (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff) &&
+        event.sourceID === info.playerId &&
+        event.ability.guid === SPELLS.HOLY_BULWARK_BUFF.id,
+    )
+    .map((event) => event.timestamp)
+    .filter(
+      (timestamp, index, timestamps) =>
+        index === 0 || timestamp - timestamps[index - 1] >= HOLY_BULWARK_SAME_CAST_MS,
+    );
+  const wingsBuffs = info.combatant.getBuffHistory(wingsSpell.id);
+  const casts = wingsBuffs.map((buff) => {
     const end = buff.end ?? info.fightEnd;
     return { start: buff.start, duration: end - buff.start, fightEnded: end >= info.fightEnd };
   });
+  const holyArmaments = info.abilities.find((ability) =>
+    (Array.isArray(ability.spell) ? ability.spell : [ability.spell]).includes(
+      talents.HOLY_ARMAMENTS_PROTECTION_TALENT.id,
+    ),
+  );
+  const holyArmamentsUpdates = events.filter(
+    (event): event is UpdateSpellUsableEvent =>
+      event.type === EventType.UpdateSpellUsable &&
+      event.ability.guid === holyArmaments?.primarySpell,
+  );
+  const wingsStarts = casts.map(({ start }) => start);
+  const bulwarks = bulwarkCasts.map((timestamp) => {
+    const nextWings = wingsStarts.find((start) => start >= timestamp);
+    const previousWings = wingsStarts.findLast((start) => start < timestamp);
+    const lastUpdate = holyArmamentsUpdates.findLast((update) => update.timestamp < timestamp);
+    const before = nextWings === undefined ? undefined : nextWings - timestamp;
+    const after = previousWings === undefined ? undefined : timestamp - previousWings;
+    const atMaxCharges =
+      lastUpdate === undefined || lastUpdate.chargesAvailable >= lastUpdate.maxCharges;
+    return {
+      timestamp,
+      before,
+      after,
+      atMaxCharges,
+      performance: holyBulwarkPerformance(before, after, atMaxCharges),
+    };
+  });
+  const wingsWithPerfectBulwark = wingsStarts.filter((start) =>
+    bulwarkCasts.some(
+      (timestamp) => timestamp <= start && start - timestamp < HOLY_BULWARK_PERFECT_BEFORE,
+    ),
+  ).length;
 
   return (
     <Section title={wingsSpell.name}>
@@ -220,6 +320,61 @@ function WingsSection({ info }: GuideProps<typeof CombatLogParser>) {
           </div>
         }
       />
+      {isLightsmith && (
+        <ExplanationAndDataSubSection
+          title="Holy Bulwark"
+          explanation={
+            <p>
+              <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+              grants a lot of <SpellLink spell={talents.GRAND_CRUSADER_TALENT} /> procs through{' '}
+              <SpellLink spell={talents.REFLECTION_OF_RADIANCE_TALENT} />. With{' '}
+              <SpellLink spell={talents.CRUSADERS_JUDGMENT_TALENT} />, each of these reduces the
+              cooldown of <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />, and each{' '}
+              <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} /> extends{' '}
+              <SpellLink spell={wingsSpell} /> through{' '}
+              <SpellLink spell={talents.ZEALOTS_PARAGON_TALENT} />. Therefore, you should cast{' '}
+              <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+              immediately before <SpellLink spell={wingsSpell} /> to get the most out of it.
+            </p>
+          }
+          data={
+            <RoundedPanel>
+              <strong>
+                <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+                casts
+              </strong>
+              <PerformanceBoxRow
+                values={bulwarks.map(({ timestamp, before, after, atMaxCharges, performance }) => ({
+                  value: performance,
+                  tooltip: (
+                    <>
+                      <div>
+                        <PerformanceMark perf={performance} /> {GRADE_LABELS[performance]}:{' '}
+                        {formatDuration(timestamp - info.fightStart)}
+                      </div>
+                      {before !== undefined && (
+                        <div>{(before / 1000).toFixed(1)} sec before wings</div>
+                      )}
+                      {after !== undefined && (
+                        <div>{(after / 1000).toFixed(1)} sec after wings started</div>
+                      )}
+                      {atMaxCharges && <div>Cast at max charges</div>}
+                    </>
+                  ),
+                }))}
+              />
+              <p>
+                {wingsWithPerfectBulwark} of your {wingsStarts.length} wings had{' '}
+                <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+                less than {HOLY_BULWARK_PERFECT_BEFORE / 1000} sec before them.
+              </p>
+              <Tooltip content={bulwarkTooltip}>
+                <small>Grading</small>
+              </Tooltip>
+            </RoundedPanel>
+          }
+        />
+      )}
     </Section>
   );
 }
