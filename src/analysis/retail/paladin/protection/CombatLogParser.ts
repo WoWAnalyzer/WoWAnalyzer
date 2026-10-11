@@ -26,7 +26,6 @@ import JudgmentCooldown from './modules/spells/JudgmentCooldown';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
 import Redoubt from './modules/talents/Redoubt';
-import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import GloryOfTheVanguard from './modules/talents/GloryOfTheVanguard';
 import InstrumentOfTheDivine from './modules/talents/InstrumentOfTheDivine';
@@ -81,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     consecrationDefensives: ConsecrationDefensives,
 
     // Talents
-    righteousProtector: RighteousProtector,
     giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
     gloryOfTheVanguard: GloryOfTheVanguard,
     instrumentOfTheDivine: InstrumentOfTheDivine,

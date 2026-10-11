@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.ARDENT_DEFENDER_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ARDENT_DEFENDER_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120 * (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 0.7 : 1),
+        cooldown: 90 * (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 0.7 : 1),
         castEfficiency: {
           suggestion: true,
         },
@@ -98,7 +98,8 @@ class Abilities extends CoreAbilities {
           SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
         ],
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 300,
+        cooldown: 180,
+        charges: combatant.hasTalent(TALENTS.EMPYREAN_AUTHORITY_TALENT) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
         },
@@ -111,7 +112,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        cooldown: 120,
+        cooldown: 120 * (combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 0.5 : 1),
         enabled:
           combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) &&
           !combatant.hasTalent(TALENTS.SENTINEL_TALENT),
@@ -124,7 +125,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        cooldown: 120,
+        cooldown: 120 * (combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 0.5 : 1),
         enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {
