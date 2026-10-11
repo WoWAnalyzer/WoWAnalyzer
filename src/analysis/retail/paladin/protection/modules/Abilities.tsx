@@ -38,10 +38,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
