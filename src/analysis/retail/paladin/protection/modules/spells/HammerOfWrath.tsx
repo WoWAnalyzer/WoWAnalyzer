@@ -2,20 +2,21 @@ import SPELLS from 'common/SPELLS/paladin';
 import TALENTS from 'common/TALENTS/paladin';
 import Spell from 'common/SPELLS/Spell';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ChangeHasteEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ChangeHasteEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import Haste from 'parser/shared/modules/Haste';
+import GrandCrusader from '../talents/GrandCrusader';
 import RechargeProgress from './RechargeProgress';
 
 const CHARGES = 2;
 const BASE_COOLDOWN_MS = 5000;
-export const CRUSADERS_JUDGMENT_CDR = 3000;
 
 export default class HammerOfWrath extends ExecuteHelper.withDependencies({
   abilities: Abilities,
   haste: Haste,
+  grandCrusader: GrandCrusader,
 }) {
   static executeSpells: Spell[] = [SPELLS.HAMMER_OF_WRATH_PROTECTION];
   static executeSources = SELECTED_PLAYER;
@@ -33,17 +34,6 @@ export default class HammerOfWrath extends ExecuteHelper.withDependencies({
       this.deps.haste.current,
     );
     this.addEventListener(Events.ChangeHaste, this.onChangeHaste);
-
-    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
-      this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-        this.onGrandCrusaderProc,
-      );
-      this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-        this.onGrandCrusaderProc,
-      );
-    }
 
     this.deps.abilities.add({
       spell: SPELLS.HAMMER_OF_WRATH_PROTECTION.id,
@@ -63,15 +53,6 @@ export default class HammerOfWrath extends ExecuteHelper.withDependencies({
     this.recharge.changeHaste(event.timestamp, event.newHaste);
   }
 
-  private onGrandCrusaderProc(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.recharge.reduceCooldown(event.timestamp, CRUSADERS_JUDGMENT_CDR);
-    this.spellUsable.reduceCooldown(
-      SPELLS.HAMMER_OF_WRATH_PROTECTION.id,
-      CRUSADERS_JUDGMENT_CDR,
-      event.timestamp,
-    );
-  }
-
   get wingsWindows(): [number, number][] {
     const windows = this.executeRanges
       .map((range): [number, number] => [range.startEvent.timestamp, range.endEvent.timestamp])
@@ -87,9 +68,19 @@ export default class HammerOfWrath extends ExecuteHelper.withDependencies({
     }, []);
   }
 
+  private rechargesBetween(start: number, end: number) {
+    const resets = this.deps.grandCrusader
+      .resetsBetween(start, end)
+      .map((reset) => reset.timestamp);
+    return (
+      this.recharge.between(start, end) +
+      this.recharge.reductionProgress(resets, this.deps.grandCrusader.cooldownReduction)
+    );
+  }
+
   private maxCastsDuringWings() {
     return this.wingsWindows.reduce(
-      (total, [start, end]) => total + CHARGES + Math.floor(this.recharge.between(start, end)),
+      (total, [start, end]) => total + CHARGES + Math.floor(this.rechargesBetween(start, end)),
       0,
     );
   }

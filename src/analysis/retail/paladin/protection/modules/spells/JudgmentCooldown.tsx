@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS/paladin';
 import TALENTS from 'common/TALENTS/paladin';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ChangeHasteEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { ChangeHasteEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
-import HammerOfWrath, { CRUSADERS_JUDGMENT_CDR } from './HammerOfWrath';
+import GrandCrusader from '../talents/GrandCrusader';
+import HammerOfWrath from './HammerOfWrath';
 import RechargeProgress from './RechargeProgress';
 
 const BASE_COOLDOWN_MS = 5000;
@@ -14,6 +15,7 @@ export default class JudgmentCooldown extends Analyzer.withDependencies({
   abilities: Abilities,
   haste: Haste,
   hammerOfWrath: HammerOfWrath,
+  grandCrusader: GrandCrusader,
 }) {
   charges = 1;
   recharge: RechargeProgress;
@@ -30,14 +32,6 @@ export default class JudgmentCooldown extends Analyzer.withDependencies({
 
     if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
       this.charges = 2;
-      this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-        this.onGrandCrusaderProc,
-      );
-      this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-        this.onGrandCrusaderProc,
-      );
     }
 
     this.deps.abilities.add({
@@ -74,13 +68,19 @@ export default class JudgmentCooldown extends Analyzer.withDependencies({
     this.recharge.changeHaste(event.timestamp, event.newHaste);
   }
 
-  private onGrandCrusaderProc(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.recharge.reduceCooldown(event.timestamp, CRUSADERS_JUDGMENT_CDR);
+  private rechargesBetween(start: number, end: number) {
+    const resets = this.deps.grandCrusader
+      .resetsBetween(start, end)
+      .map((reset) => reset.timestamp);
+    return (
+      this.recharge.between(start, end) +
+      this.recharge.reductionProgress(resets, this.deps.grandCrusader.cooldownReduction)
+    );
   }
 
   private maxCastsOutsideWings() {
     return this.windowsOutsideWings.reduce(
-      (total, [start, end]) => total + this.charges + Math.floor(this.recharge.between(start, end)),
+      (total, [start, end]) => total + this.charges + Math.floor(this.rechargesBetween(start, end)),
       0,
     );
   }

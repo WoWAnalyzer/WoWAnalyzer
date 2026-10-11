@@ -23,13 +23,11 @@ export default class RechargeProgress {
     });
   }
 
-  reduceCooldown(timestamp: number, reductionMs: number) {
-    const current = this.checkpointAt(timestamp);
-    this.checkpoints.push({
-      timestamp,
-      progress: this.progressAt(timestamp) + reductionMs / current.cooldownMs,
-      cooldownMs: current.cooldownMs,
-    });
+  reductionProgress(timestamps: number[], reductionMs: number) {
+    return timestamps.reduce(
+      (total, timestamp) => total + reductionMs / this.checkpointAt(timestamp).cooldownMs,
+      0,
+    );
   }
 
   between(start: number, end: number) {

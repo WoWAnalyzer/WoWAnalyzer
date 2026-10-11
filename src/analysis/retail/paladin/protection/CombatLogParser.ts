@@ -29,9 +29,8 @@ import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import GloryOfTheVanguard from './modules/talents/GloryOfTheVanguard';
-import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
-import GrandCrusaderAfterHammer from './normalizers/GrandCrusaderAfterHammer';
+import GrandCrusaderAfterTrigger from './normalizers/GrandCrusaderAfterTrigger';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
 import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
@@ -53,8 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
-    grandCrusaderAfterHammer: GrandCrusaderAfterHammer,
-    castLinkNormalizer: CastLinkNormalizer,
+    grandCrusaderAfterTrigger: GrandCrusaderAfterTrigger,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
