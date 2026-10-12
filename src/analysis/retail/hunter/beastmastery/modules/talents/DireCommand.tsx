@@ -1,4 +1,7 @@
-import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter/beastmastery/constants';
+import {
+  DIRE_BEAST_SUMMONS,
+  DIRE_COMMAND_PROC_CHANCE,
+} from 'analysis/retail/hunter/beastmastery/constants';
 import { MS_BUFFER_50 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
@@ -29,7 +32,7 @@ class DireCommand extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.DIRE_COMMAND_TALENT);
 
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      Events.summon.by(SELECTED_PLAYER).spell(DIRE_BEAST_SUMMONS),
       this.direBeastSummon,
     );
     this.addEventListener(

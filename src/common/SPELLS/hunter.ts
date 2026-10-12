@@ -28,6 +28,41 @@ const spells = {
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
+  DIRE_BEAST_SUMMON_2: {
+    id: 132764,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_3: {
+    id: 212382,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_4: {
+    id: 304051,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_5: {
+    id: 1308188,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_6: {
+    id: 212396,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_GLYPHED: {
+    id: 219199,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DARK_HOUND_SUMMON: {
+    id: 442419,
+    name: 'Dark Hound',
+    icon: 'inv_darkhoundmount_draka_blue',
+  },
   // Separate from DIRE_BEAST_SUMMON - this is the `cast` event marker attributed to the player
   // when a Dire Beast is summoned (as opposed to the `summon` event for the pet itself), which
   // shows up on the Timeline. Left unlabeled it falls back to raw report data and shows a stale ID.
@@ -40,16 +75,6 @@ const spells = {
     id: 1264826,
     name: 'Beast Mastery 4-Set',
     icon: 'ability_hunter_sickem',
-  },
-  DIRE_BEAST_GLYPHED: {
-    id: 219199,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_sickem',
-  },
-  DARK_HOUND_SUMMON: {
-    id: 442419,
-    name: 'Dark Hound',
-    icon: 'inv_darkhoundmount_draka_blue',
   },
   DIRE_PACK_BUFF: {
     id: 378747,
