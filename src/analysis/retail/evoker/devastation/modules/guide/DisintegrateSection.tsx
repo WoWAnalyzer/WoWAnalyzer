@@ -52,7 +52,7 @@ export function DisintegrateSection({ modules, info }: GuideProps<typeof CombatL
 
   if (tickData.totalPossibleRegularTicks > 0) {
     stats.push({
-      label: 'Basic Tick Efficiency',
+      label: 'Disintegrate Tick Efficiency',
       value: `${tickData.regularTicks}/${tickData.totalPossibleRegularTicks}`,
       tooltip: (
         <>
