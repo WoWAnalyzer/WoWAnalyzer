@@ -745,10 +745,10 @@ class Disintegrate extends Analyzer {
           dragonRageTicks.actual--;
         }
       } else {
-        massDisintegrateTicks.actual += cast.maxTickCount - cast.tickCount;
-        massDisintegrateTicks.total += this.ticksPerDisintegrate;
+        regularTicks.actual += cast.maxTickCount - cast.tickCount;
+        regularTicks.total += this.ticksPerDisintegrate;
         if (cast.preceedingCast === SPELLS.MASS_DISINTEGRATE_BUFF.id) {
-          massDisintegrateTicks.actual--;
+          regularTicks.actual--;
         }
       }
     });
