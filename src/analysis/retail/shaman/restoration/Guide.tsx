@@ -42,6 +42,7 @@ function CoreSpells({ modules, events, info }: GuideProps<typeof CombatLogParser
       {info.combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT)
         ? modules.naturesSwiftness.farseerGuideSubsection
         : modules.naturesSwiftness.guideSubsection}
+      {modules.waterShield.guideSubsection}
       {info.combatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT) && modules.earthShield.guideSubsection}
       {info.combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT) && modules.unleashLife.guideSubsection}
       {modules.healingStreamTotem.guideSubsection}
