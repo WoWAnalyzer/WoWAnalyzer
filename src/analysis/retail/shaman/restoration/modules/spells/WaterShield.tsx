@@ -120,7 +120,7 @@ class WaterShield extends Analyzer {
             <SpellLink spell={SPELLS.WATER_SHIELD} />
           </b>{' '}
           should be applied prior to the fight starting and reapplied after a consuming your{' '}
-          <SpellLink spell={SPELLS.REINCARNATION} /> or a battle-resurrection as to not loose out on
+          <SpellLink spell={SPELLS.REINCARNATION} /> or a battle-resurrection as to not lose out on
           the Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
         </p>
         {hasResurgence && (
@@ -142,7 +142,7 @@ class WaterShield extends Analyzer {
               <b>
                 <SpellLink spell={TALENTS.REACTIVE_WARDING_TALENT} />
               </b>{' '}
-              When refreshing Water Shield, you are refunded 429 mana for each stack of Water Shield
+              When refreshing Water Shield, you are refunded mana for each stack of Water Shield
               missing. Additionally, Earth Shield and Water Shield can consume charges 1.0 sec
               faster.
             </p>
