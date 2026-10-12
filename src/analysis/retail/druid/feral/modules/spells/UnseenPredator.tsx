@@ -185,7 +185,14 @@ class UnseenPredator extends Analyzer {
   get breakdownRows(): BreakdownRow[] {
     const rows: BreakdownRow[] = [
       { label: <SpellLink spell={SPELLS.UNSEEN_SLASH_DAMAGE} />, damage: this.slashDirectDamage },
-      { label: <SpellLink spell={SPELLS.UNSEEN_SLASH_BLEED} />, damage: this.slashBleedDamage },
+      {
+        label: (
+          <>
+            <SpellLink spell={SPELLS.UNSEEN_SLASH_BLEED} /> <small>bleed</small>
+          </>
+        ),
+        damage: this.slashBleedDamage,
+      },
       { label: <SpellLink spell={SPELLS.UNSEEN_SWIPE_DAMAGE} />, damage: this.swipeDamage },
     ];
     if (this.hasNode3) {
@@ -202,8 +209,8 @@ class UnseenPredator extends Analyzer {
       rows.push({
         label: (
           <>
-            <SpellLink spell={SPELLS.UNSEEN_PREDATORS_CRAVING_BUFF} />{' '}
-            <small>+{formatPercentage(this.cravingMultiplier, 1)}%</small>
+            <SpellLink spell={SPELLS.UNSEEN_PREDATORS_CRAVING_BUFF}>Craving</SpellLink>{' '}
+            <small>+{formatPercentage(this.cravingMultiplier, 0)}%</small>
           </>
         ),
         damage: this.cravingBonusDamage,
@@ -228,7 +235,8 @@ class UnseenPredator extends Analyzer {
         tooltip={
           <>
             <p>
-              Total damage attributed to the <strong>Unseen Predator</strong> apex talent.
+              Total damage attributed to the <strong>Unseen Predator</strong> apex talent, broken
+              down by source below the headline.
             </p>
             <p style={{ color: fullStrengthColor }}>
               Full-strength <SpellLink spell={SPELLS.FEROCIOUS_BITE} />:{' '}
@@ -251,12 +259,12 @@ class UnseenPredator extends Analyzer {
         </TalentSpellText>
         <div className="pad" style={{ paddingTop: 0 }}>
           <small>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <table style={{ width: '100%', whiteSpace: 'nowrap' }}>
               <tbody>
                 {this.breakdownRows.map((row, i) => (
                   <tr key={i}>
-                    <td style={{ textAlign: 'left', padding: '1px 0' }}>{row.label}</td>
-                    <td style={{ textAlign: 'right', padding: '1px 0' }}>
+                    <td>{row.label}</td>
+                    <td style={{ textAlign: 'right' }}>
                       {formatPercentage(this.owner.getPercentageOfTotalDamageDone(row.damage), 2)}%
                     </td>
                   </tr>

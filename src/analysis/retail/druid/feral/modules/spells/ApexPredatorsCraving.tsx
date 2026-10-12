@@ -31,7 +31,7 @@ const BUFFER_MS = 50;
  * **Apex Predator's Craving**
  * Spec Talent
  *
- * Rip damage has a 6% chance to make your next Ferocious Bite free and deal the maximum damage.
+ * Rip damage has a 4% chance to make your next Ferocious Bite free and deal the maximum damage.
  */
 class ApexPredatorsCraving extends Analyzer {
   hasSotf: boolean;

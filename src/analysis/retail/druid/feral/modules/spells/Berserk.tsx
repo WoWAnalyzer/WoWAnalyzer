@@ -8,6 +8,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import { cdSpell } from 'analysis/retail/druid/feral/constants';
+import Combatant from 'parser/core/Combatant';
+import { TIERS } from 'game/TIERS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
@@ -22,6 +24,22 @@ import AlwaysBeCasting from 'analysis/retail/druid/feral/modules/features/Always
 
 const BERSERK_HARDCAST_DURATION = 15_000;
 const INCARN_HARDCAST_DURATION = 20_000;
+/** Midnight S2 4pc: Berserk / Incarnation lasts 10 sec longer */
+export const MID2_FOUR_PIECE_BERSERK_BONUS = 10_000;
+
+/** Berserk / Incarnation hardcast duration before tier set bonuses */
+export function getBerserkBaseDuration(c: Combatant): number {
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
+    ? INCARN_HARDCAST_DURATION
+    : BERSERK_HARDCAST_DURATION;
+}
+
+/** Berserk / Incarnation hardcast duration, including the MID2 4pc extension */
+export function getBerserkDuration(c: Combatant): number {
+  return (
+    getBerserkBaseDuration(c) + (c.has4PieceByTier(TIERS.MID2) ? MID2_FOUR_PIECE_BERSERK_BONUS : 0)
+  );
+}
 
 /**
  * This tracks Berserk and its 'upgrade' talents, and produces guide / statistic output.
@@ -29,7 +47,8 @@ const INCARN_HARDCAST_DURATION = 20_000;
  * **Berserk**
  * Spec Talent
  *
- * Go Berserk for 15 seconds. While Berserk: Generate 1 combo point every 1.5 seconds.
+ * Go Berserk for 15 seconds (20 for Incarnation, +10 with the Midnight S2 4pc).
+ * While Berserk: Generate 1 combo point every 1.5 seconds.
  * Finishing moves restore up to 3 combo points generated over the cap.
  * Shred and Rake damage increased by 50%.
  * Combo point generating abilities generate one additional combo point.
@@ -86,7 +105,7 @@ class Berserk extends Analyzer {
     this.hasIncarn = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT,
     );
-    this.hardcastDuration = this.hasIncarn ? INCARN_HARDCAST_DURATION : BERSERK_HARDCAST_DURATION;
+    this.hardcastDuration = getBerserkDuration(this.selectedCombatant);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
 
     this.cdSpell = cdSpell(this.selectedCombatant);

@@ -1061,6 +1061,13 @@ const spells = {
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
+  // stacking buff during Berserk / Incarn: one stack per combo point generated over the cap,
+  // refunded by the next finisher
+  OVERFLOWING_POWER: {
+    id: 405189,
+    name: 'Overflowing Power',
+    icon: 'ability_druid_berserk',
+  },
   // this is the spell for the combo point refund (anything else?)
   BERSERK_ENERGIZE: {
     id: 343216,
@@ -1343,6 +1350,12 @@ const spells = {
     id: 1272262,
     name: 'Flash of Clarity',
     icon: 'spell_shadow_manaburn',
+  },
+  // 2pc proc from Feral Druid Midnight S2 tier set (Bark of the Enigmatic Dreamwatcher)
+  FERAL_DRUID_HALAZZIS_FURY: {
+    id: 1301600,
+    name: "Halazzi's Fury",
+    icon: 'inv_misc_monsterfang_02',
   },
 
   /////////////////////////////////////////////////////////////////////////////

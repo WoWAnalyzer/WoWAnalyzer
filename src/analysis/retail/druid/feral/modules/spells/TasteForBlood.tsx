@@ -10,14 +10,14 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
 
-const BASE_BOOST = 0.15;
-const TF_BOOST = 0.15;
+const BASE_BOOST = 0.16;
+const TF_BOOST = 0.08;
 
 /**
  * **Taste for Blood**
  * Spec Talent
  *
- * Ferocious Bite deals 15% increased damage and an additional 15% during Tiger's Fury.
+ * Ferocious Bite deals 16% increased damage and an additional 8% during Tiger's Fury.
  */
 class TasteForBlood extends Analyzer {
   damage = 0;
