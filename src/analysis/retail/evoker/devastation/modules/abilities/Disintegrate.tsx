@@ -915,7 +915,6 @@ class Disintegrate extends Analyzer {
 
   /** Evaluate individual disintegrate casts */
   guideSubSection(): JSX.Element | null {
-    console.log(this.tickData);
     const windowData: CastWindow[] = [];
 
     this.windows.forEach((w) => {
