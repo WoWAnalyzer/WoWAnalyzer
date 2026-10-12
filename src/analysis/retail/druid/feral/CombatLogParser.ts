@@ -47,6 +47,7 @@ import InfectedWounds from 'analysis/retail/druid/feral/modules/spells/InfectedW
 import UnseenPredator from 'analysis/retail/druid/feral/modules/spells/UnseenPredator';
 import TigersFuryWindows from 'analysis/retail/druid/feral/modules/spells/TigersFury/TigersFuryWindows';
 import MID1TierSet from 'analysis/retail/druid/feral/modules/tier/MID1TierSet';
+import MID2TierSet from 'analysis/retail/druid/feral/modules/tier/MID2TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // tier
     mid1TierSet: MID1TierSet,
+    mid2TierSet: MID2TierSet,
   };
 
   static guide = Guide;

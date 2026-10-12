@@ -12,13 +12,13 @@ import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkN
 import { getAdditionalEnergyUsed } from 'analysis/retail/druid/feral/normalizers/FerociousBiteDrainLinkNormalizer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const FEROCIOUS_BITE_BONUS_BOOST_PER_POINT = 0.4;
+const FEROCIOUS_BITE_BONUS_BOOST_PER_POINT = 0.6;
 
 /**
  * **Saber Jaws**
  * Spec Talent
  *
- * When you spend extra Energy on Ferocious Bite, the extra damage is increased by (40/80)%.
+ * When you spend extra Energy on Ferocious Bite, the extra damage is increased by (60/120)%.
  */
 export default class SaberJaws extends Analyzer {
   /** Number of points in Carnivorous Instinct */
@@ -52,7 +52,7 @@ export default class SaberJaws extends Analyzer {
     /*
      * Saber Jaws boosts FB's BONUS damage, not the total.
      *
-     * For example, imagine a player with rank 2 SJ (+80% bonus):
+     * For example, imagine a player with rank 2 SJ (+120% bonus):
      *
      * On a full drain bite, we do 180% bonus damage (280% total) vs the 100% bonus damage (200% total)
      * that we would have had without Saber Jaws. This is a total boost of 280/200 = 1.4.

@@ -2,6 +2,8 @@ import { change, date } from 'common/changelog';
 import {  Drowzen } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2026, 10, 10), "Added Midnight S2 tier set statistic; Berserk windows account for the 4pc duration", Drowzen),
+  change(date(2026, 10, 9), "12.1 talent tuning: Saber Jaws, Merciless Claws, Taste for Blood, and Blood Spattered values updated", Drowzen),
   change(date(2026, 5, 24), "Added Analyzers for Hunger For Battle and BloodSpattered; Collapsable Tiger's Fury Window List", Drowzen),
   change(date(2026, 5, 21), "Added Tiger's Fury Windows guide subsection — per-TF cast breakdown of what you cast inside each window; energy/CPs at start are now correctly the pre-cast values, not post-energize", Drowzen),
   change(date(2026, 5, 16), "Ferocious Bite no longer flags low-Rip warnings when the target dies within 5s of the cast (verified via Rake/Rip bleed ending early — switching to a still-alive target still counts)", Drowzen),

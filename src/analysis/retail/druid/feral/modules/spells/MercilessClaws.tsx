@@ -12,14 +12,14 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import Enemy from 'parser/core/Enemy';
 
-const SHRED_BONUS = 0.2;
-const SWIPE_BONUS = 0.15;
+const SHRED_BONUS = 0.25;
+const SWIPE_BONUS = 0.25;
 
 /**
  * *Merciless Claws*
  * Spec Talent
  *
- * Shred deals 20% increased damage and [Brutal Slash / Swipe] deals 15% increased damage against bleeding targets.
+ * Shred and Swipe deal 25% increased damage against bleeding targets.
  */
 export default class MercilessClaws extends Analyzer.withDependencies({ enemies: Enemies }) {
   /** Total damage added by Merciless Claws */

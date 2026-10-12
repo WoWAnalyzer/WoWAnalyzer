@@ -17,15 +17,15 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
 
-const BOOST_PER_RIP = 0.02;
-const MAX_RIPS = 10;
+const BOOST_PER_RIP = 0.08;
+const MAX_RIPS = 6;
 
 /**
  * **Blood Spattered**
  * Spec Talent
  *
- * Ferocious Bite's damage to its primary target is increased by 2% for each enemy affected by your
- * Rip, up to 10 (cap +20%).
+ * Ferocious Bite's damage to its primary target is increased by 8% for each enemy affected by your
+ * Rip, up to 6 (cap +48%).
  */
 class BloodSpattered extends Analyzer {
   damage = 0;
@@ -83,8 +83,8 @@ class BloodSpattered extends Analyzer {
         tooltip={
           <>
             Bonus damage from <SpellLink spell={TALENTS_DRUID.BLOOD_SPATTERED_TALENT} />: each{' '}
-            <SpellLink spell={SPELLS.FEROCIOUS_BITE} /> is boosted by 2% per enemy with your{' '}
-            <SpellLink spell={SPELLS.RIP} /> (capped at 10).
+            <SpellLink spell={SPELLS.FEROCIOUS_BITE} /> is boosted by 8% per enemy with your{' '}
+            <SpellLink spell={SPELLS.RIP} /> (capped at 6).
           </>
         }
       >
