@@ -44,6 +44,8 @@ import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
 import VisceralStrength from './modules/talents/VisceralStrength';
 import WastedExterminate from './modules/talents/WastedExterminate';
+import BoilingPoint from './modules/talents/BoilingPoint';
+import { BoilingPointNormalizer } from './modules/talents/BoilingPointNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,6 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     EssenceOfTheBloodQueen,
     visceralStrength: VisceralStrength,
     wastedExterminate: WastedExterminate,
+    boilingPoint: BoilingPoint,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,
@@ -108,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resourceOrderNormalizer: ResourceOrderNormalizer,
     boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
     ExterminateCostNormalizer,
+    boilingPointNormalizer: BoilingPointNormalizer,
   };
 
   static guide = BloodGuide;

@@ -33,6 +33,19 @@ const spells = {
   },
 
   // region Blood Specialization
+  // 15 second buff that empowers Blood Boil
+  BOILING_POINT_BUFF: {
+    id: 1265968,
+    name: 'Boiling Point',
+    icon: 'warlock_pvp_endlessaffliction',
+  },
+  // 3 second buff applied when Blood Boil uses up Boiling Point. Ending it triggers the explosion.
+  BOILING_POINT_ECHO_BUFF: {
+    id: 1265982,
+    name: 'Boiling Point',
+    icon: 'warlock_pvp_endlessaffliction',
+  },
+
   DEATHS_CARESS: {
     id: 195292,
     name: "Death's Caress",
