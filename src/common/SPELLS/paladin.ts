@@ -302,6 +302,11 @@ const spells = {
     name: 'Blessing of the Forge',
     icon: 'inv_ability_lightsmithpaladin_sacredweapon',
   },
+  LESSER_WEAPON_DAMAGE: {
+    id: 1239282,
+    name: 'Lesser Weapon',
+    icon: 'inv_sword_2h_lightforged_c_01',
+  },
   DIVINE_GUIDANCE_BUFF: {
     id: 460822,
     name: 'Divine Guidance',
@@ -771,6 +776,11 @@ const spells = {
   },
   HAMMER_AND_ANVIL_HEAL: {
     id: 433722,
+    name: 'Hammer and Anvil',
+    icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
+  },
+  HAMMER_AND_ANVIL_DAMAGE: {
+    id: 433717,
     name: 'Hammer and Anvil',
     icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
   },

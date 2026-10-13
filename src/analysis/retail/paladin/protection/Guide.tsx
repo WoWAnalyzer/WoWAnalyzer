@@ -25,7 +25,6 @@ import {
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
-import { HAMMER_AND_ANVIL_DAMAGE_ID, LESSER_WEAPON_DAMAGE_ID } from './constants';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
@@ -311,14 +310,14 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
               ],
               [
                 SPELLS.SACRED_WEAPON_DAMAGE,
-                LESSER_WEAPON_DAMAGE_ID,
+                SPELLS.LESSER_WEAPON_DAMAGE,
                 SPELLS.BLESSING_OF_THE_FORGE_DAMAGE,
               ],
               [SPELLS.CONSECRATION_DAMAGE, SPELLS.DIVINE_GUIDANCE_DAMAGE],
               [
                 SPELLS.HAMMER_OF_WRATH_PROTECTION,
                 talents.HAMMER_OF_WRATH_TALENT,
-                HAMMER_AND_ANVIL_DAMAGE_ID,
+                SPELLS.HAMMER_AND_ANVIL_DAMAGE,
               ],
             ],
           }}
