@@ -1,5 +1,5 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import { ReactNode } from 'react';
 import {
@@ -13,9 +13,10 @@ import SPELLS from 'common/SPELLS/paladin';
 import TALENTS from 'common/TALENTS/paladin';
 
 const MAX_MITIGATION = 0.3;
+const SENTINEL_INITIAL_STACKS = 15;
 
 export default class Sentinel extends MajorDefensiveBuff {
-  private startingStacks = 1;
+  private stacks = SENTINEL_INITIAL_STACKS;
 
   constructor(options: Options) {
     super(SPELLS.SENTINEL, buff(SPELLS.SENTINEL), options);
@@ -24,22 +25,31 @@ export default class Sentinel extends MajorDefensiveBuff {
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SENTINEL),
       this.onSentinelApply,
     );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.SENTINEL),
+      this.onSentinelStackLost,
+    );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
 
   private onSentinelApply() {
-    this.startingStacks = Math.max(1, this.selectedCombatant.getBuffStacks(SPELLS.SENTINEL.id));
+    this.stacks = SENTINEL_INITIAL_STACKS;
+  }
+
+  private onSentinelStackLost(event: RemoveBuffStackEvent) {
+    this.stacks = event.stack;
   }
 
   private recordDamage(event: DamageEvent) {
     if (!this.defensiveActive || event.sourceIsFriendly) {
       return;
     }
-    const stacks = this.selectedCombatant.getBuffStacks(SPELLS.SENTINEL.id);
-    this.startingStacks = Math.max(this.startingStacks, stacks);
     this.recordMitigation({
       event,
-      mitigatedAmount: absoluteMitigation(event, (MAX_MITIGATION * stacks) / this.startingStacks),
+      mitigatedAmount: absoluteMitigation(
+        event,
+        (MAX_MITIGATION * this.stacks) / SENTINEL_INITIAL_STACKS,
+      ),
     });
   }
 
