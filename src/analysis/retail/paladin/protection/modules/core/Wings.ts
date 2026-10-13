@@ -38,7 +38,6 @@ export default class Wings extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ZEALOTS_PARAGON_TALENT);
 
     const base = this.selectedCombatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT)
       ? RIGHTEOUS_PROTECTOR_WINGS_BASE
@@ -74,6 +73,10 @@ export default class Wings extends Analyzer {
       this.onHolyBulwark,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  get windows(): [number, number][] {
+    return this.casts.map(({ start, duration }) => [start, start + duration]);
   }
 
   get uptime() {

@@ -152,7 +152,7 @@ function wingsDurationPerformance(
 }
 
 function WingsSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!modules.wings.active) {
+  if (!info.combatant.hasTalent(talents.ZEALOTS_PARAGON_TALENT)) {
     return null;
   }
   const {

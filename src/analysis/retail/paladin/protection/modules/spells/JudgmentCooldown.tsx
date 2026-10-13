@@ -5,8 +5,8 @@ import Events, { ChangeHasteEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
+import Wings from '../core/Wings';
 import GrandCrusader from '../talents/GrandCrusader';
-import HammerOfWrath from './HammerOfWrath';
 import RechargeProgress from './RechargeProgress';
 
 const BASE_COOLDOWN_MS = 5000;
@@ -14,7 +14,7 @@ const BASE_COOLDOWN_MS = 5000;
 export default class JudgmentCooldown extends Analyzer.withDependencies({
   abilities: Abilities,
   haste: Haste,
-  hammerOfWrath: HammerOfWrath,
+  wings: Wings,
   grandCrusader: GrandCrusader,
 }) {
   charges = 1;
@@ -52,7 +52,7 @@ export default class JudgmentCooldown extends Analyzer.withDependencies({
   get windowsOutsideWings(): [number, number][] {
     const windows: [number, number][] = [];
     let start = this.owner.fight.start_time;
-    this.deps.hammerOfWrath.wingsWindows.forEach(([wingsStart, wingsEnd]) => {
+    this.deps.wings.windows.forEach(([wingsStart, wingsEnd]) => {
       if (wingsStart > start) {
         windows.push([start, wingsStart]);
       }
