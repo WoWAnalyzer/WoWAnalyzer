@@ -14,6 +14,7 @@ export interface WingsCast {
   fightEnded: boolean;
   hammerOfWrathCasts: number;
   divineTollDelay?: number;
+  holyBulwarkUptime: number;
 }
 
 export interface HolyBulwarkCast {
@@ -109,6 +110,14 @@ export default class Wings extends Analyzer {
   private onFightEnd(event: FightEndEvent) {
     const between = (timestamps: number[], start: number, end: number) =>
       timestamps.filter((timestamp) => timestamp >= start && timestamp <= end);
+    const holyBulwarkBuffs = this.selectedCombatant.getBuffHistory(SPELLS.HOLY_BULWARK_BUFF.id);
+    const holyBulwarkUptime = (start: number, end: number) =>
+      holyBulwarkBuffs.reduce(
+        (total, buff) =>
+          total +
+          Math.max(0, Math.min(end, buff.end ?? event.timestamp) - Math.max(start, buff.start)),
+        0,
+      );
 
     this.casts = this.selectedCombatant.getBuffHistory(this.spell.id).map((buff) => {
       const end = buff.end ?? event.timestamp;
@@ -119,6 +128,7 @@ export default class Wings extends Analyzer {
         fightEnded: end >= event.timestamp,
         hammerOfWrathCasts: between(this.hammerOfWrathCasts, buff.start, end).length,
         divineTollDelay: divineToll === undefined ? undefined : divineToll - buff.start,
+        holyBulwarkUptime: holyBulwarkUptime(buff.start, end),
       };
     });
 

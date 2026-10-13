@@ -257,7 +257,14 @@ function WingsSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
             ],
           }}
           items={casts.map(
-            ({ start, duration, fightEnded, hammerOfWrathCasts, divineTollDelay }) => {
+            ({
+              start,
+              duration,
+              fightEnded,
+              hammerOfWrathCasts,
+              divineTollDelay,
+              holyBulwarkUptime,
+            }) => {
               const end = start + duration;
               const roundedDuration = Math.round(duration / 100) * 100;
               const durationPerformance = wingsDurationPerformance(roundedDuration, thresholds);
@@ -305,6 +312,24 @@ function WingsSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
                             : QualitativePerformance.Ok
                       }
                     />
+                  ),
+                });
+              }
+              if (isLightsmith) {
+                checklistItems.push({
+                  label: (
+                    <>
+                      <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>
+                        Holy Bulwark
+                      </SpellLink>{' '}
+                      uptime
+                    </>
+                  ),
+                  details: (
+                    <>
+                      {(holyBulwarkUptime / 1000).toFixed(1)} sec (
+                      {formatPercentage(holyBulwarkUptime / duration, 0)}%)
+                    </>
                   ),
                 });
               }
