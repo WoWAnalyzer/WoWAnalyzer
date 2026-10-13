@@ -51,6 +51,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
     } else if (spellId === TALENTS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
+    } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
+      this.getLavaBurstDamageDetails(spellInfo);
     }
 
     if (spellId === SPELLS.DOWNPOUR_ABILITY.id) {
@@ -89,6 +91,12 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   // Todo: Same treatment for Earth Shield as for Unleash Life and remove the healing from affected spells
   getEarthShieldBuffDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone += this.earthShield.buffHealing || 0;
+  }
+
+  getLavaBurstDamageDetails(spellInfo: SpellInfoDetails) {
+    const ability = this.abilityTracker.getAbility(SPELLS.LAVA_BURST_DAMAGE.id);
+    spellInfo.damageHits = ability.damageHits || 0;
+    spellInfo.damageDone = ability.damageVal.effective;
   }
 
   getDownpourDetails(spellInfo: SpellInfoDetails) {
