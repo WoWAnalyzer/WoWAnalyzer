@@ -41,8 +41,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
-    if (spellId === TALENTS.RIPTIDE_TALENT.id) {
-      this.getManaSpringDetails(spellInfo);
+    if (spellId === TALENTS.RIPTIDE_TALENT.id || spellId === TALENTS.LAVA_BURST_TALENT.id) {
+      this.getManaSpringDetails(spellInfo, spellId);
     }
 
     if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
@@ -69,10 +69,10 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   getResurgenceDetails(spellInfo: SpellInfoDetails, spellId: number) {
     spellInfo.manaSpent -= this.resurgence.resurgence[spellId].resurgenceTotal;
   }
-  // manaSpring "refunds" mana, so the riptide is essentially cheaper
-  getManaSpringDetails(spellInfo: SpellInfoDetails) {
+  // manaSpring "refunds" mana, so the riptide and lava burst are essentially cheaper
+  getManaSpringDetails(spellInfo: SpellInfoDetails, spellId: number) {
     if (this.manaSpring) {
-      spellInfo.manaSpent -= this.manaSpring.selfManaRestored;
+      spellInfo.manaSpent -= this.manaSpring.manaRestoredBy(spellId);
     }
   }
 

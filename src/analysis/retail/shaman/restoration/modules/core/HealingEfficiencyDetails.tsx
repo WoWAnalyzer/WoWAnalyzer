@@ -16,16 +16,17 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
             {this.selectedCombatant.hasTalent(TALENTS.MANA_SPRING_TALENT) && (
               <li>
                 <Trans id="shaman.restoration.healingEfficiencyDetails.manaSpring">
-                  <SpellLink spell={TALENTS.MANA_SPRING_TALENT} /> mana gained is removed from{' '}
-                  <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, meaning the mana spent of that spell
-                  will be lower.
+                  <SpellLink spell={TALENTS.MANA_SPRING_TALENT} /> mana gain is removed from{' '}
+                  <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> and{' '}
+                  <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />, meaning the mana spent of those
+                  spells will be lower.
                 </Trans>
               </li>
             )}
             {this.selectedCombatant.hasTalent(TALENTS.RESURGENCE_TALENT) && (
               <li>
                 <Trans id="shaman.restoration.healingEfficiencyDetails.resurgence">
-                  <SpellLink spell={TALENTS.RESURGENCE_TALENT} /> mana gained is removed from the
+                  <SpellLink spell={TALENTS.RESURGENCE_TALENT} /> mana gain is removed from the
                   spell, meaning the mana spent of that spell will be lower.
                 </Trans>
               </li>
