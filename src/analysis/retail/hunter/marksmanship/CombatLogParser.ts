@@ -14,6 +14,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import Haste from '../shared/modules/Haste';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    haste: Haste,
     spellUsable: SpellUsable,
 
     // Features
