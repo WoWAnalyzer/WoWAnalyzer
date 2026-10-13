@@ -2,21 +2,12 @@ import SPELLS from 'common/SPELLS/paladin';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  ApplyBuffEvent,
   ApplyBuffStackEvent,
-  CastEvent,
-  FightEndEvent,
+  HasRelatedEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-
-const BUFFER_MS = 100;
-
-interface Removal {
-  timestamp: number;
-  count: number;
-  sawWings: boolean;
-}
+import { VANGUARD_CONSUMED_BY } from '../../normalizers/VanguardLinkNormalizer';
 
 export default class GloryOfTheVanguard extends Analyzer {
   gained = 0;
@@ -26,8 +17,6 @@ export default class GloryOfTheVanguard extends Analyzer {
 
   private stacks = 0;
   private sawWings = false;
-  private lastAvengersShield = -Infinity;
-  private pendingRemoval?: Removal;
 
   constructor(options: Options) {
     super(options);
@@ -52,14 +41,9 @@ export default class GloryOfTheVanguard extends Analyzer {
       this.onRemove,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
-      this.onAvengersShield,
-    );
-    this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell([TALENTS.AVENGING_WRATH_TALENT, SPELLS.SENTINEL]),
       this.onWings,
     );
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   get lostCount() {
@@ -73,78 +57,40 @@ export default class GloryOfTheVanguard extends Analyzer {
     );
   }
 
-  private onApply(event: ApplyBuffEvent) {
-    this.resolvePendingRemoval(event.timestamp);
+  private onApply() {
     this.gained += 1;
     this.stacks = 1;
     this.sawWings = this.inWings;
   }
 
   private onApplyStack(event: ApplyBuffStackEvent) {
-    this.resolvePendingRemoval(event.timestamp);
     this.gained += Math.max(0, event.stack - this.stacks);
     this.stacks = event.stack;
   }
 
   private onRemoveStack(event: RemoveBuffStackEvent) {
-    this.resolvePendingRemoval(event.timestamp);
     this.used += Math.max(0, this.stacks - event.stack);
     this.stacks = event.stack;
   }
 
   private onRemove(event: RemoveBuffEvent) {
-    this.resolvePendingRemoval(event.timestamp);
-    const removal = {
-      timestamp: event.timestamp,
-      count: this.stacks,
-      sawWings: this.sawWings || this.inWings,
-    };
+    let count = this.stacks;
     this.stacks = 0;
-    if (removal.count === 0) {
+    if (count > 0 && HasRelatedEvent(event, VANGUARD_CONSUMED_BY)) {
+      this.used += 1;
+      count -= 1;
+    }
+    if (count <= 0) {
       return;
     }
-    if (event.timestamp - this.lastAvengersShield <= BUFFER_MS) {
-      this.used += 1;
-      this.recordLost({ ...removal, count: removal.count - 1 });
+    if (this.sawWings || this.inWings) {
+      this.lostInWings += count;
     } else {
-      this.pendingRemoval = removal;
-    }
-  }
-
-  private onAvengersShield(event: CastEvent) {
-    this.lastAvengersShield = event.timestamp;
-    if (this.pendingRemoval && event.timestamp - this.pendingRemoval.timestamp <= BUFFER_MS) {
-      this.used += 1;
-      this.recordLost({ ...this.pendingRemoval, count: this.pendingRemoval.count - 1 });
-      this.pendingRemoval = undefined;
+      this.lost.push({ timestamp: event.timestamp, count });
     }
   }
 
   private onWings() {
     this.sawWings = true;
-  }
-
-  private onFightEnd(event: FightEndEvent) {
-    this.resolvePendingRemoval(event.timestamp);
-    this.pendingRemoval = undefined;
-  }
-
-  private resolvePendingRemoval(timestamp: number) {
-    if (!this.pendingRemoval || timestamp - this.pendingRemoval.timestamp <= BUFFER_MS) {
-      return;
-    }
-    this.recordLost(this.pendingRemoval);
-    this.pendingRemoval = undefined;
-  }
-
-  private recordLost({ timestamp, count, sawWings }: Removal) {
-    if (count <= 0) {
-      return;
-    }
-    if (sawWings) {
-      this.lostInWings += count;
-    } else {
-      this.lost.push({ timestamp, count });
-    }
   }
 }

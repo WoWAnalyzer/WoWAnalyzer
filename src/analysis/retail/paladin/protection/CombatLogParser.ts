@@ -31,6 +31,7 @@ import GloryOfTheVanguard from './modules/talents/GloryOfTheVanguard';
 import InstrumentOfTheDivine from './modules/talents/InstrumentOfTheDivine';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import GrandCrusaderLinkNormalizer from './normalizers/GrandCrusaderLinkNormalizer';
+import VanguardLinkNormalizer from './normalizers/VanguardLinkNormalizer';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
 import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
     grandCrusaderLinkNormalizer: GrandCrusaderLinkNormalizer,
+    vanguardLinkNormalizer: VanguardLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
