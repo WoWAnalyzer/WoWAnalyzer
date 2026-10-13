@@ -10,6 +10,7 @@ import {
   CancelledCasts,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Haste from '../shared/modules/Haste';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Features
     abilities: Abilities,
+    haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cancelledCasts: CancelledCasts,

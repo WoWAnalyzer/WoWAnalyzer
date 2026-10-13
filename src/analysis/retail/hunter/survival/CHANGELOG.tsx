@@ -1,7 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Kivlov, Arlie } from 'CONTRIBUTORS';
+import { Kivlov, Arlie, Putro } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2026, 10, 13), "Added support for Trigger Finger to reduce issues with hasted cooldowns.", Putro),
   change(date(2026, 8, 6), 'Update for 12.1.0.69111 PTR talent changes (Flamefang Pitch removed)', Arlie),
   change(date(2026,5,31), 'Boomstick fix and Tip of the Spear Analysis adjustment', Kivlov),
   change(date(2026,5,24), 'Swipe ready for Takedown no longer suggested', Kivlov),

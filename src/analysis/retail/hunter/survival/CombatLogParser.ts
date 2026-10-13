@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
+import Haste from '../shared/modules/Haste';
 import {
   BindingShot,
   DeathTracker,
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     buffs: Buffs,
+    haste: Haste,
 
     //Resources
     focusTracker: FocusTracker,
