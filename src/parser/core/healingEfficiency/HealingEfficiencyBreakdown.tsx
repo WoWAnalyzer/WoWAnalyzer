@@ -146,6 +146,7 @@ const BarView = (
   const hasHealing = spellDetail.healingDone;
   const hasDamage = spellDetail.damageDone > 0;
   const barWidth = 20;
+  const manaPositive = spellDetail.manaSpent < 0;
 
   return (
     <>
@@ -155,9 +156,11 @@ const BarView = (
       </td>
       {showHealing && (
         <>
-          <td className="text-right">{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
+          <td className="text-right">
+            {hasHealing ? (manaPositive ? 'Mana Positive' : spellDetail.hpm.toFixed(2)) : '-'}
+          </td>
           <td width={barWidth + '%'}>
-            <PerformanceBar percent={spellDetail.hpm / topHpm} />
+            <PerformanceBar percent={manaPositive && hasHealing ? 1 : spellDetail.hpm / topHpm} />
           </td>
 
           <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
@@ -168,9 +171,11 @@ const BarView = (
       )}
       {!showHealing && (
         <>
-          <td className="text-right">{hasDamage ? spellDetail.dpm.toFixed(2) : '-'}</td>
+          <td className="text-right">
+            {hasDamage ? (manaPositive ? 'Mana Positive' : spellDetail.dpm.toFixed(2)) : '-'}
+          </td>
           <td width={barWidth + '%'}>
-            <PerformanceBar percent={spellDetail.dpm / topDpm} />
+            <PerformanceBar percent={manaPositive && hasDamage ? 1 : spellDetail.dpm / topDpm} />
           </td>
 
           <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
@@ -187,6 +192,7 @@ const DetailView = (spellDetail: SpellInfoDetails, showHealing: boolean) => {
   const hasHealing = spellDetail.healingDone;
   const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
   const hasDamage = spellDetail.damageDone > 0;
+  const manaPositive = spellDetail.manaSpent < 0;
 
   return (
     <>
@@ -218,7 +224,9 @@ const DetailView = (spellDetail: SpellInfoDetails, showHealing: boolean) => {
               ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)'
               : ''}
           </td>
-          <td>{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
+          <td>
+            {hasHealing ? (manaPositive ? 'Mana Positive' : spellDetail.hpm.toFixed(2)) : '-'}
+          </td>
           <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
         </>
       )}
@@ -228,7 +236,7 @@ const DetailView = (spellDetail: SpellInfoDetails, showHealing: boolean) => {
             {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
             {hasDamage ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
           </td>
-          <td>{hasDamage ? spellDetail.dpm.toFixed(2) : '-'}</td>
+          <td>{hasDamage ? (manaPositive ? 'Mana Positive' : spellDetail.dpm.toFixed(2)) : '-'}</td>
           <td>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
         </>
       )}
@@ -271,25 +279,21 @@ export const HealingEfficiencyTable = ({
   showCooldowns,
 }: TableProps) => {
   const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(showCooldowns);
-
+  const isManaPositive = (s: SpellInfoDetails, showHealing: boolean) =>
+    s.manaSpent < 0 && (showHealing ? s.healingDone : s.damageDone) > 0;
   const spellArray = Object.values(spells);
 
   spellArray.sort((a, b) => {
-    if (showHealing) {
-      if (a.hpm < b.hpm) {
-        return 1;
-      } else if (a.hpm > b.hpm) {
-        return -1;
-      }
-    } else {
-      if (a.dpm < b.dpm) {
-        return 1;
-      } else if (a.dpm > b.dpm) {
-        return -1;
-      }
+    const aPos = isManaPositive(a, showHealing);
+    const bPos = isManaPositive(b, showHealing);
+    if (aPos !== bPos) {
+      return aPos ? -1 : 1;
     }
-
-    return 0;
+    if (aPos && bPos) {
+      // both free: rank by absolute output
+      return showHealing ? b.healingDone - a.healingDone : b.damageDone - a.damageDone;
+    }
+    return showHealing ? b.hpm - a.hpm : b.dpm - a.dpm;
   });
 
   const spellRows = spellArray.map((spellDetail) => {

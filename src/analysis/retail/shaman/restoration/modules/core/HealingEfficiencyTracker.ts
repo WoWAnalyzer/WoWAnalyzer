@@ -4,7 +4,6 @@ import TALENTS from 'common/TALENTS/shaman';
 import CoreHealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import Resurgence from '../spells/Resurgence';
 import UnleashLife from '../talents/UnleashLife';
@@ -12,6 +11,7 @@ import HealingDone from './HealingDone';
 import RestorationAbilityTracker from './RestorationAbilityTracker';
 import Downpour from '../talents/Downpour';
 import SurgingTotem from '../talents/totemic/SurgingTotem';
+import ManaSpring from 'src/analysis/retail/shaman/shared/talents/ManaSpring';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -24,6 +24,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     earthShield: EarthShield,
     downpour: Downpour,
     surgingTotem: SurgingTotem,
+    manaSpring: ManaSpring,
   };
 
   declare protected abilityTracker: RestorationAbilityTracker;
@@ -32,14 +33,18 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected unleashLife!: UnleashLife;
   protected earthShield!: EarthShield;
-
   protected downpour!: Downpour;
   protected surgingTotem!: SurgingTotem;
+  protected manaSpring!: ManaSpring;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
+    if (spellId === TALENTS.RIPTIDE_TALENT.id || spellId === TALENTS.LAVA_BURST_TALENT.id) {
+      this.getManaSpringDetails(spellInfo, spellId);
+    }
+
     if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.getUnleashLifeDetails(spellInfo);
     } else if (this.unleashLife.healingMap[spellId]) {
@@ -49,12 +54,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
       this.getLavaBurstDamageDetails(spellInfo);
     }
-    // Primordial
-    if (spellId === SPELLS.HEALING_WAVE.id) {
-      this.getHealingWaveDetails(spellInfo);
-    } else if (spellId === TALENTS.RIPTIDE_TALENT.id) {
-      this.getRiptideDetails(spellInfo);
-    }
+
     if (spellId === SPELLS.DOWNPOUR_ABILITY.id) {
       this.getDownpourDetails(spellInfo);
     }
@@ -68,6 +68,12 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   // Resurgence "refunds" mana, so the spell is essentially cheaper
   getResurgenceDetails(spellInfo: SpellInfoDetails, spellId: number) {
     spellInfo.manaSpent -= this.resurgence.resurgence[spellId].resurgenceTotal;
+  }
+  // manaSpring "refunds" mana, so the riptide and lava burst are essentially cheaper
+  getManaSpringDetails(spellInfo: SpellInfoDetails, spellId: number) {
+    if (this.manaSpring) {
+      spellInfo.manaSpent -= this.manaSpring.manaRestoredBy(spellId);
+    }
   }
 
   // Healing from other spells that Unleash Life is responsible for
@@ -87,18 +93,12 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     spellInfo.healingDone += this.earthShield.buffHealing || 0;
   }
 
-  // Different spellId for damage and no existing "damageSpellIds" implementation
   getLavaBurstDamageDetails(spellInfo: SpellInfoDetails) {
     const ability = this.abilityTracker.getAbility(SPELLS.LAVA_BURST_DAMAGE.id);
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageVal.effective;
   }
-  getHealingWaveDetails(spellInfo: SpellInfoDetails) {
-    // do something eventually, maybe
-  }
-  getRiptideDetails(spellInfo: SpellInfoDetails) {
-    // do something eventually, maybe
-  }
+
   getDownpourDetails(spellInfo: SpellInfoDetails) {
     if (this.downpour) {
       spellInfo.healingDone += this.downpour.downpourHealing;
