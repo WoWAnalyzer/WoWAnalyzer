@@ -22,6 +22,7 @@ class ManaSpring extends Analyzer {
   protected manaTargets: Record<number, number> = [];
   protected totalManaRestored = 0;
   protected wasted = 0;
+  protected manaRestoredToSelf = 0;
   protected combatants!: Combatants;
 
   constructor(options: Options) {
@@ -42,6 +43,10 @@ class ManaSpring extends Analyzer {
 
   onManaRestored(event: ResourceChangeEvent) {
     const target = event.targetID;
+    if (target === this.selectedCombatant.id) {
+      this.manaRestoredToSelf += event.resourceChange;
+    }
+
     const player = this.combatants.players[target];
     if (player?.spec?.role === ROLES.HEALER || player?.spec?.id === SPECS.ARCANE_MAGE.id) {
       this.totalManaRestored += event.resourceChange;
@@ -51,6 +56,10 @@ class ManaSpring extends Analyzer {
       this.manaTargets[target] += event.resourceChange;
       this.wasted += event.waste;
     }
+  }
+
+  get selfManaRestored() {
+    return this.manaRestoredToSelf;
   }
 
   get regenPerTarget(): Record<number, { target: Combatant; amount: number }> {
@@ -75,20 +84,20 @@ class ManaSpring extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Mana restored:
-            <ul>
-              {Object.values(this.regenPerTarget).map((p) => {
-                return (
-                  <li key={p.target.player.id}>
-                    <SpecIcon icon={p.target.player.icon} /> {p.target.name}:{' '}
-                    {formatNumber(p.amount)}
-                  </li>
-                );
-              })}
-            </ul>
-            Mana Wasted: <ManaIcon /> {formatNumber(this.wasted)} wasted
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <p>
+              Mana restored:
+              <ul>
+                {Object.values(this.regenPerTarget).map((p) => {
+                  return (
+                    <li key={p.target.player.id}>
+                      <SpecIcon icon={p.target.player.icon} /> {p.target.name}:{' '}
+                      {formatNumber(p.amount)}
+                    </li>
+                  );
+                })}
+              </ul>
+              Mana Wasted: <ManaIcon /> {formatNumber(this.wasted)} wasted
+            </p>
             <small>Only mana restored to healers and arcane mages is included.</small>
           </>
         }
