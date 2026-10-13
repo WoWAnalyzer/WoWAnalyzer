@@ -1,18 +1,11 @@
 import SPELLS from 'common/SPELLS/paladin';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  FightEndEvent,
-  RefreshBuffEvent,
-  UpdateSpellUsableEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, FightEndEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 const RIGHTEOUS_PROTECTOR_WINGS_BASE = 12000;
 const WINGS_BASE = 20000;
 const WINGS_DURATION_RATIOS = { perfect: 20 / 12, good: 18 / 12, ok: 15 / 12 };
-const HOLY_BULWARK_SAME_CAST_MS = 1000;
 export const HOLY_BULWARK_PERFECT_BEFORE = 2500;
 
 export interface WingsCast {
@@ -77,11 +70,7 @@ export default class Wings extends Analyzer {
       this.onHolyArmamentsUpdate,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOLY_BULWARK_BUFF),
-      this.onHolyBulwark,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOLY_BULWARK_BUFF),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT),
       this.onHolyBulwark,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -103,11 +92,7 @@ export default class Wings extends Analyzer {
     this.holyArmamentsUpdates.push(event);
   }
 
-  private onHolyBulwark(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const previous = this.holyBulwarkCasts.at(-1);
-    if (previous && event.timestamp - previous.timestamp < HOLY_BULWARK_SAME_CAST_MS) {
-      return;
-    }
+  private onHolyBulwark(event: CastEvent) {
     const lastUpdate = this.holyArmamentsUpdates.findLast(
       (update) => update.timestamp < event.timestamp,
     );
