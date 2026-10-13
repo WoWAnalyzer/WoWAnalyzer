@@ -17,14 +17,9 @@ import { ExplanationAndDataSubSection } from 'interface/guide/components/Explana
 import Explanation from 'interface/guide/components/Explanation';
 import CooldownGrid from 'interface/CooldownGrid/CooldownGrid';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
-import {
-  ApplyBuffEvent,
-  CastEvent,
-  EventType,
-  RefreshBuffEvent,
-  UpdateSpellUsableEvent,
-} from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
+import { HOLY_BULWARK_PERFECT_BEFORE } from './modules/core/Wings';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
@@ -122,8 +117,6 @@ const GRADE_LABELS: Partial<Record<QualitativePerformance, string>> = {
   [QualitativePerformance.Fail]: 'Bad',
 };
 const DIVINE_TOLL_WITH_WINGS = 3000;
-const HOLY_BULWARK_SAME_CAST_MS = 1000;
-const HOLY_BULWARK_PERFECT_BEFORE = 2500;
 const HOLY_BULWARK_GOOD_BEFORE = 5000;
 const HOLY_BULWARK_OK_BEFORE = 8000;
 const HOLY_BULWARK_OK_AFTER = 8000;
@@ -144,12 +137,9 @@ function holyBulwarkPerformance(
   }
   return QualitativePerformance.Fail;
 }
-const RIGHTEOUS_PROTECTOR_WINGS_BASE = 12000;
-const WINGS_BASE = 20000;
-const WINGS_DURATION_RATIOS = { perfect: 20 / 12, good: 18 / 12, ok: 15 / 12 };
 function wingsDurationPerformance(
   duration: number,
-  thresholds: Record<keyof typeof WINGS_DURATION_RATIOS, number>,
+  thresholds: { perfect: number; good: number; ok: number },
 ) {
   if (duration >= thresholds.perfect) {
     return QualitativePerformance.Perfect;
@@ -161,23 +151,17 @@ function wingsDurationPerformance(
   return QualitativePerformance.Fail;
 }
 
-function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.hasTalent(talents.ZEALOTS_PARAGON_TALENT)) {
+function WingsSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  if (!modules.wings.active) {
     return null;
   }
-  const base = info.combatant.hasTalent(talents.RIGHTEOUS_PROTECTOR_TALENT)
-    ? RIGHTEOUS_PROTECTOR_WINGS_BASE
-    : WINGS_BASE;
-  const extension =
-    info.combatant.getTalentRank(talents.ZEALOTS_PARAGON_TALENT) /
-    talents.ZEALOTS_PARAGON_TALENT.maxRanks;
-  const threshold = (ratio: number) =>
-    Math.round((base * (1 + (ratio - 1) * extension)) / 1000) * 1000;
-  const thresholds = {
-    perfect: threshold(WINGS_DURATION_RATIOS.perfect),
-    good: threshold(WINGS_DURATION_RATIOS.good),
-    ok: threshold(WINGS_DURATION_RATIOS.ok),
-  };
+  const {
+    spell: wingsSpell,
+    durationThresholds: thresholds,
+    uptime: wingsUptime,
+    casts,
+    wingsWithPerfectBulwark,
+  } = modules.wings;
   const thresholdsTooltip = (
     <>
       <div>
@@ -195,10 +179,6 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
       </div>
     </>
   );
-  const wingsSpell = info.combatant.hasTalent(talents.SENTINEL_TALENT)
-    ? SPELLS.SENTINEL
-    : talents.AVENGING_WRATH_TALENT;
-  const wingsUptime = info.combatant.getBuffUptime(wingsSpell.id) / info.fightDuration;
   const isLightsmith = info.combatant.hasTalent(talents.HOLY_ARMAMENTS_PROTECTION_TALENT);
   const bulwarkTooltip = (
     <>
@@ -220,55 +200,10 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
       </div>
     </>
   );
-  const bulwarkCasts = events
-    .filter(
-      (event): event is ApplyBuffEvent | RefreshBuffEvent =>
-        (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff) &&
-        event.sourceID === info.playerId &&
-        event.ability.guid === SPELLS.HOLY_BULWARK_BUFF.id,
-    )
-    .map((event) => event.timestamp)
-    .filter(
-      (timestamp, index, timestamps) =>
-        index === 0 || timestamp - timestamps[index - 1] >= HOLY_BULWARK_SAME_CAST_MS,
-    );
-  const wingsBuffs = info.combatant.getBuffHistory(wingsSpell.id);
-  const casts = wingsBuffs.map((buff) => {
-    const end = buff.end ?? info.fightEnd;
-    return { start: buff.start, duration: end - buff.start, fightEnded: end >= info.fightEnd };
-  });
-  const holyArmaments = info.abilities.find((ability) =>
-    (Array.isArray(ability.spell) ? ability.spell : [ability.spell]).includes(
-      talents.HOLY_ARMAMENTS_PROTECTION_TALENT.id,
-    ),
-  );
-  const holyArmamentsUpdates = events.filter(
-    (event): event is UpdateSpellUsableEvent =>
-      event.type === EventType.UpdateSpellUsable &&
-      event.ability.guid === holyArmaments?.primarySpell,
-  );
-  const wingsStarts = casts.map(({ start }) => start);
-  const bulwarks = bulwarkCasts.map((timestamp) => {
-    const nextWings = wingsStarts.find((start) => start >= timestamp);
-    const previousWings = wingsStarts.findLast((start) => start < timestamp);
-    const lastUpdate = holyArmamentsUpdates.findLast((update) => update.timestamp < timestamp);
-    const before = nextWings === undefined ? undefined : nextWings - timestamp;
-    const after = previousWings === undefined ? undefined : timestamp - previousWings;
-    const atMaxCharges =
-      lastUpdate === undefined || lastUpdate.chargesAvailable >= lastUpdate.maxCharges;
-    return {
-      timestamp,
-      before,
-      after,
-      atMaxCharges,
-      performance: holyBulwarkPerformance(before, after, atMaxCharges),
-    };
-  });
-  const wingsWithPerfectBulwark = wingsStarts.filter((start) =>
-    bulwarkCasts.some(
-      (timestamp) => timestamp <= start && start - timestamp < HOLY_BULWARK_PERFECT_BEFORE,
-    ),
-  ).length;
+  const bulwarks = modules.wings.holyBulwarkCasts.map((bulwark) => ({
+    ...bulwark,
+    performance: holyBulwarkPerformance(bulwark.before, bulwark.after, bulwark.atMaxCharges),
+  }));
 
   return (
     <Section title={wingsSpell.name}>
@@ -321,77 +256,65 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
               ],
             ],
           }}
-          items={casts.map(({ start, duration, fightEnded }) => {
-            const end = start + duration;
-            const castsBetween = (spellId: number, from: number, to: number) =>
-              events.filter(
-                (event): event is CastEvent =>
-                  event.type === EventType.Cast &&
-                  event.sourceID === info.playerId &&
-                  event.ability.guid === spellId &&
-                  event.timestamp >= from &&
-                  event.timestamp <= to,
-              );
-            const roundedDuration = Math.round(duration / 100) * 100;
-            const durationPerformance = wingsDurationPerformance(roundedDuration, thresholds);
-            const checklistItems: CooldownExpandableItem[] = [
-              {
-                label: 'Duration',
-                details: fightEnded ? (
-                  <>{(roundedDuration / 1000).toFixed(1)} sec (fight ended)</>
-                ) : (
-                  <>{(roundedDuration / 1000).toFixed(1)} sec</>
-                ),
-                result: fightEnded ? undefined : (
-                  <Tooltip content={thresholdsTooltip}>
-                    <span>
-                      <PerformanceMark perf={durationPerformance} />
-                    </span>
-                  </Tooltip>
-                ),
-              },
-              {
-                label: <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />,
-                details: (
-                  <>{castsBetween(SPELLS.HAMMER_OF_WRATH_PROTECTION.id, start, end).length} casts</>
-                ),
-              },
-            ];
-            if (info.combatant.hasTalent(talents.DIVINE_TOLL_TALENT)) {
-              const divineToll = castsBetween(talents.DIVINE_TOLL_TALENT.id, start, end)[0];
-              const divineTollDelay =
-                divineToll === undefined ? undefined : divineToll.timestamp - start;
-              checklistItems.push({
-                label: (
-                  <>
-                    <SpellLink spell={talents.DIVINE_TOLL_TALENT} /> with wings
-                  </>
-                ),
-                details:
-                  divineTollDelay === undefined ? (
-                    'not cast'
+          items={casts.map(
+            ({ start, duration, fightEnded, hammerOfWrathCasts, divineTollDelay }) => {
+              const end = start + duration;
+              const roundedDuration = Math.round(duration / 100) * 100;
+              const durationPerformance = wingsDurationPerformance(roundedDuration, thresholds);
+              const checklistItems: CooldownExpandableItem[] = [
+                {
+                  label: 'Duration',
+                  details: fightEnded ? (
+                    <>{(roundedDuration / 1000).toFixed(1)} sec (fight ended)</>
                   ) : (
-                    <>{(divineTollDelay / 1000).toFixed(1)} sec in</>
+                    <>{(roundedDuration / 1000).toFixed(1)} sec</>
                   ),
-                result: (
-                  <PerformanceMark
-                    perf={
-                      divineTollDelay === undefined
-                        ? QualitativePerformance.Fail
-                        : divineTollDelay <= DIVINE_TOLL_WITH_WINGS
-                          ? QualitativePerformance.Perfect
-                          : QualitativePerformance.Ok
-                    }
-                  />
-                ),
-              });
-            }
-            return {
-              range: { start, end },
-              perf: fightEnded ? undefined : durationPerformance,
-              checklistItems,
-            };
-          })}
+                  result: fightEnded ? undefined : (
+                    <Tooltip content={thresholdsTooltip}>
+                      <span>
+                        <PerformanceMark perf={durationPerformance} />
+                      </span>
+                    </Tooltip>
+                  ),
+                },
+                {
+                  label: <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />,
+                  details: <>{hammerOfWrathCasts} casts</>,
+                },
+              ];
+              if (info.combatant.hasTalent(talents.DIVINE_TOLL_TALENT)) {
+                checklistItems.push({
+                  label: (
+                    <>
+                      <SpellLink spell={talents.DIVINE_TOLL_TALENT} /> with wings
+                    </>
+                  ),
+                  details:
+                    divineTollDelay === undefined ? (
+                      'not cast'
+                    ) : (
+                      <>{(divineTollDelay / 1000).toFixed(1)} sec in</>
+                    ),
+                  result: (
+                    <PerformanceMark
+                      perf={
+                        divineTollDelay === undefined
+                          ? QualitativePerformance.Fail
+                          : divineTollDelay <= DIVINE_TOLL_WITH_WINGS
+                            ? QualitativePerformance.Perfect
+                            : QualitativePerformance.Ok
+                      }
+                    />
+                  ),
+                });
+              }
+              return {
+                range: { start, end },
+                perf: fightEnded ? undefined : durationPerformance,
+                checklistItems,
+              };
+            },
+          )}
         />
       </SubSection>
       {isLightsmith && (
@@ -438,7 +361,7 @@ function WingsSection({ info, events }: GuideProps<typeof CombatLogParser>) {
                 }))}
               />
               <p>
-                {wingsWithPerfectBulwark} of your {wingsStarts.length} wings had{' '}
+                {wingsWithPerfectBulwark} of your {casts.length} wings had{' '}
                 <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
                 less than {HOLY_BULWARK_PERFECT_BEFORE / 1000} sec before them.
               </p>

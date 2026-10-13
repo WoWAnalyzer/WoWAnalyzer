@@ -40,6 +40,7 @@ import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefens
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
+import Wings from './modules/core/Wings';
 import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
+    wings: Wings,
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
