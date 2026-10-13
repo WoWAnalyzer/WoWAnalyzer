@@ -3,11 +3,13 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AbsorbedEvent,
+  AnyEvent,
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
-  AbsorbedEvent,
-  HealEvent,
+  FightEndEvent,
+  GetRelatedEvents,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -23,13 +25,15 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   GRAND_CRUSADER_AVOIDANCE_HIT_TYPES,
+  GRAND_CRUSADER_FROM_AVOIDANCE,
+  GRAND_CRUSADER_FROM_HAMMER,
+  GRAND_CRUSADER_FROM_HOLY_BULWARK,
+  GRAND_CRUSADER_FROM_SACRED_WEAPON,
   GRAND_CRUSADER_HAMMERS,
-  GRAND_CRUSADER_WINDOW_MS,
-} from '../../normalizers/GrandCrusaderAfterTrigger';
+} from '../../normalizers/GrandCrusaderLinkNormalizer';
 
 const BASE_PROC_CHANCE = 0.15;
 const CRUSADERS_JUDGMENT_CDR = 3000;
-const SACRED_WEAPON_WINDOW_MS = 100;
 
 export type GrandCrusaderSource = 'hammer' | 'avoidance' | 'holyBulwark' | 'sacredWeapon' | 'other';
 
@@ -49,10 +53,8 @@ class GrandCrusader extends Analyzer.withDependencies({
   procChance = BASE_PROC_CHANCE;
   cooldownReduction = 0;
 
-  private lastHammerCast = -Infinity;
-  private lastAvoidance = -Infinity;
-  private lastHolyBulwark = -Infinity;
-  private unattributedResets: GrandCrusaderReset[] = [];
+  private processedTriggers = new WeakSet<AnyEvent>();
+  private pendingResets = new Map<AnyEvent, GrandCrusaderReset[]>();
 
   constructor(options: Options) {
     super(options);
@@ -72,14 +74,6 @@ class GrandCrusader extends Analyzer.withDependencies({
       this.onHolyBulwark,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SACRED_WEAPON_DAMAGE),
-      this.onSacredWeapon,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SACRED_WEAPON_HEAL),
-      this.onSacredWeapon,
-    );
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
       this.onProc,
     );
@@ -87,6 +81,7 @@ class GrandCrusader extends Analyzer.withDependencies({
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
       this.onProc,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   get gcProcs() {
@@ -120,7 +115,7 @@ class GrandCrusader extends Analyzer.withDependencies({
   private onHammerCast(event: CastEvent) {
     this.resetChances += 1;
     this.hammerChances += 1;
-    this.lastHammerCast = event.timestamp;
+    this.onTrigger(event);
   }
 
   private onDamageTaken(event: DamageEvent) {
@@ -129,41 +124,62 @@ class GrandCrusader extends Analyzer.withDependencies({
     }
     this.resetChances += 1;
     this.avoidanceChances += 1;
-    this.lastAvoidance = event.timestamp;
+    this.onTrigger(event);
   }
 
   private onHolyBulwark(event: AbsorbedEvent) {
-    this.lastHolyBulwark = event.timestamp;
+    this.onTrigger(event);
   }
 
-  private onSacredWeapon(event: DamageEvent | HealEvent) {
-    this.unattributedResets = this.unattributedResets.filter(
-      (reset) => event.timestamp - reset.timestamp <= SACRED_WEAPON_WINDOW_MS,
-    );
-    const reset = this.unattributedResets.shift();
-    if (reset) {
-      reset.source = 'sacredWeapon';
-    }
+  private onTrigger(event: AnyEvent) {
+    this.processedTriggers.add(event);
+    this.pendingResets.get(event)?.forEach((reset) => this.applyReset(reset, event.timestamp));
+    this.pendingResets.delete(event);
   }
 
   private onProc(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const instant: [GrandCrusaderSource, number][] = (
+    const [trigger] = (
       [
-        ['hammer', event.timestamp - this.lastHammerCast],
-        ['avoidance', event.timestamp - this.lastAvoidance],
-        ['holyBulwark', event.timestamp - this.lastHolyBulwark],
-      ] as [GrandCrusaderSource, number][]
+        ['hammer', GRAND_CRUSADER_FROM_HAMMER],
+        ['avoidance', GRAND_CRUSADER_FROM_AVOIDANCE],
+        ['holyBulwark', GRAND_CRUSADER_FROM_HOLY_BULWARK],
+      ] as [GrandCrusaderSource, string][]
     )
-      .filter(([, since]) => since <= GRAND_CRUSADER_WINDOW_MS)
-      .sort(([, a], [, b]) => a - b);
-    const reset = this.applyReset(event.timestamp, instant.length > 0 ? instant[0][0] : 'other');
-    if (instant.length === 0) {
-      this.unattributedResets.push(reset);
+      .flatMap(([source, relation]) =>
+        GetRelatedEvents(event, relation).map((triggerEvent) => ({ source, event: triggerEvent })),
+      )
+      .sort(
+        (a, b) =>
+          Math.abs(a.event.timestamp - event.timestamp) -
+          Math.abs(b.event.timestamp - event.timestamp),
+      );
+    if (!trigger) {
+      const source =
+        GetRelatedEvents(event, GRAND_CRUSADER_FROM_SACRED_WEAPON).length > 0
+          ? 'sacredWeapon'
+          : 'other';
+      this.applyReset({ timestamp: event.timestamp, source }, event.timestamp);
+      return;
+    }
+    const reset: GrandCrusaderReset = { timestamp: event.timestamp, source: trigger.source };
+    if (this.processedTriggers.has(trigger.event)) {
+      this.applyReset(reset, event.timestamp);
+    } else {
+      this.pendingResets.set(trigger.event, [
+        ...(this.pendingResets.get(trigger.event) ?? []),
+        reset,
+      ]);
     }
   }
 
-  private applyReset(timestamp: number, source: GrandCrusaderSource) {
-    const reset: GrandCrusaderReset = { timestamp, source };
+  private onFightEnd(event: FightEndEvent) {
+    this.pendingResets.forEach((resets) =>
+      resets.forEach((reset) => this.applyReset(reset, event.timestamp)),
+    );
+    this.pendingResets.clear();
+  }
+
+  private applyReset(reset: GrandCrusaderReset, timestamp: number) {
     this.resets.push(reset);
     this.deps.spellUsable.endCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id, timestamp);
     if (this.cooldownReduction > 0) {
@@ -178,7 +194,6 @@ class GrandCrusader extends Analyzer.withDependencies({
         timestamp,
       );
     }
-    return reset;
   }
 
   statistic() {
