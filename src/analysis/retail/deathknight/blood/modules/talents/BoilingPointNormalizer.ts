@@ -22,3 +22,5 @@ export const { normalizer: BoilingPointNormalizer, linkHelper: BoilingPointEcho 
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(talents.BOILING_POINT_TALENT),
   });
+
+export default BoilingPointNormalizer;
