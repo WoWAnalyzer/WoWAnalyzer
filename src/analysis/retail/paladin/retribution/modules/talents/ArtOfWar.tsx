@@ -59,7 +59,9 @@ class ArtOfWar extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
 
   #onRefreshBuff(event: RefreshBuffEvent) {
     this.#totalProcs += 1;
-    if ((this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR, event.timestamp - 1)?.stacks || 0) === 2) {
+    if (
+      (this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR, event.timestamp - 1)?.stacks || 0) === 2
+    ) {
       this.#artOfWarOvercaps += 1;
     }
 
