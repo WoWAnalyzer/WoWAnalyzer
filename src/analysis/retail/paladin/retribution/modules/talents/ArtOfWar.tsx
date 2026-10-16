@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import type { JSX } from 'react';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { TooltipElement } from 'interface/Tooltip';
@@ -57,9 +57,9 @@ class ArtOfWar extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
     }
   }
 
-  #onRefreshBuff() {
+  #onRefreshBuff(event: RefreshBuffEvent) {
     this.#totalProcs += 1;
-    if ((this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR)?.stacks || 0) === 2) {
+    if ((this.selectedCombatant.getBuff(SPELLS.ART_OF_WAR, event.timestamp - 1)?.stacks || 0) === 2) {
       this.#artOfWarOvercaps += 1;
     }
 
@@ -68,8 +68,8 @@ class ArtOfWar extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
     }
   }
 
-  #onArtOfWarSpenderCast() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ART_OF_WAR)) {
+  #onArtOfWarSpenderCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ART_OF_WAR, event.timestamp - 1)) {
       return;
     }
 
