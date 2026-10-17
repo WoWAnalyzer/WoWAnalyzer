@@ -1,63 +1,35 @@
 import { Options } from 'parser/core/Analyzer';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import { isFromBurnout } from '../normalizers/CastLinkNormalizer';
+import { getBurnoutConsumeEvent } from '../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 import TALENTS from 'common/TALENTS/evoker';
 import ProcBuffAnalyzer, {
-  ProcBuffAnalyzerOptions,
+  BuffRemoveEvent,
+  ProcEvaluation,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
-
-const ProcBuffOptions: ProcBuffAnalyzerOptions = {
-  trackedBuffs: SPELLS.BURNOUT_BUFF,
-  inactiveListeners: {},
-};
 
 class Burnout extends ProcBuffAnalyzer {
   constructor(options: Options) {
-    super(options, ProcBuffOptions);
-    this.maxStacks = 2;
+    super(options, { buff: SPELLS.BURNOUT_BUFF, maxStacks: 2 });
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    return;
+  protected getConsumeEvent(event: BuffRemoveEvent) {
+    return getBurnoutConsumeEvent(event);
   }
-  onApplyBuffStack(event: ApplyBuffStackEvent) {
-    return;
-  }
-  onRefreshBuff(event: RefreshBuffEvent) {
-    return;
-  }
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.onBurnoutRemove(event);
-  }
-  onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    this.onBurnoutRemove(event);
-  }
-  onBurnoutRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    if (isFromBurnout(event)) {
-      this.pushCastData(event, `Used Buff.`, QualitativePerformance.Good);
-    } else {
-      if (this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
-        this.pushCastData(event, `Buff decayed during Dragonrage.`, QualitativePerformance.Ok);
-      } else {
-        this.pushCastData(event, `Buff decayed.`, QualitativePerformance.Fail);
-      }
+
+  protected evaluateExpire(): ProcEvaluation {
+    if (this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id)) {
+      return { performance: QualitativePerformance.Ok, reason: 'Buff decayed during Dragonrage.' };
     }
+    return { performance: QualitativePerformance.Fail, reason: 'Buff decayed.' };
   }
 
-  get procUsageData(): AnalysisData {
-    return {
-      casts: this.casts,
-      spell: SPELLS.BURNOUT_BUFF,
-    };
+  // Burnout is played around in a way where overcapping isn't a mistake
+  protected evaluateOvercap() {
+    return undefined;
+  }
+  protected evaluateRefresh() {
+    return undefined;
   }
 }
 
