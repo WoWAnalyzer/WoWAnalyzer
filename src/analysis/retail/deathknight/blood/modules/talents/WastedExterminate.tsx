@@ -8,6 +8,7 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   FightEndEvent,
+  HasRelatedEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -15,6 +16,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { EXTERMINATE_CONSUMER } from './WastedExterminateNormalizer';
 
 const MAX_STACKS = 2;
 const REAPERS_MARK_STACKS = 2;
@@ -22,16 +24,9 @@ const DANCING_RUNE_WEAPON_STACKS = 1;
 // the buff from a Dancing Rune Weapon cast can land a little after the cast.
 const DANCING_RUNE_WEAPON_WINDOW_MS = 250;
 const EXTERMINATE_DURATION_MS = 30_000;
-// the consuming cast is emitted before the buff removal, but allow a little slack for log jitter.
-const CONSUME_WINDOW_MS = 100;
 
 // the casts this analyzer needs to react to, consolidated into a single cast listener
-const CAST_SPELLS_OF_INTEREST = [
-  talents.DANCING_RUNE_WEAPON_TALENT,
-  talents.MARROWREND_TALENT,
-  talents.OBLITERATE_TALENT,
-  SPELLS.EXTERMINATE_FIRST_HIT,
-];
+const CAST_SPELLS_OF_INTEREST = [talents.DANCING_RUNE_WEAPON_TALENT, SPELLS.EXTERMINATE_FIRST_HIT];
 
 type WasteReason = 'overcap' | 'expired';
 
@@ -59,7 +54,6 @@ export default class WastedExterminate extends Analyzer {
   private stacks = 0;
   private activeBuffs = new Set<number>();
   private lastDancingRuneWeaponCast: number | undefined = undefined;
-  private lastConsumeTimestamp: number | undefined = undefined;
   private expiresAt: number | undefined = undefined;
 
   private gained = 0;
@@ -100,10 +94,6 @@ export default class WastedExterminate extends Analyzer {
       case talents.DANCING_RUNE_WEAPON_TALENT.id:
         this.lastDancingRuneWeaponCast = event.timestamp;
         break;
-      case talents.MARROWREND_TALENT.id:
-      case talents.OBLITERATE_TALENT.id:
-        this.lastConsumeTimestamp = event.timestamp;
-        break;
       case SPELLS.EXTERMINATE_FIRST_HIT.id:
         // each empowered cast triggers a first and a second hit. count the first.
         this.stacks = Math.max(0, this.stacks - 1);
@@ -124,13 +114,6 @@ export default class WastedExterminate extends Analyzer {
       this.records.push({ timestamp: this.expiresAt, reason: 'expired', stacks: this.stacks });
       this.stacks = 0;
     }
-  }
-
-  private isConsume(timestamp: number) {
-    return (
-      this.lastConsumeTimestamp !== undefined &&
-      timestamp - this.lastConsumeTimestamp <= CONSUME_WINDOW_MS
-    );
   }
 
   private onApply(event: ApplyBuffEvent) {
@@ -164,14 +147,14 @@ export default class WastedExterminate extends Analyzer {
 
   private onRefresh(event: RefreshBuffEvent) {
     // consuming a stack also logs a refresh. anything else is a gain at the cap.
-    if (!this.isConsume(event.timestamp)) {
+    if (!HasRelatedEvent(event, EXTERMINATE_CONSUMER)) {
       this.onGain(event);
     }
   }
 
   private onRemove(event: RemoveBuffEvent) {
     this.activeBuffs.delete(event.ability.guid);
-    if (this.isConsume(event.timestamp)) {
+    if (HasRelatedEvent(event, EXTERMINATE_CONSUMER)) {
       // the stacks used are accounted for by the Exterminate hits
       return;
     }
