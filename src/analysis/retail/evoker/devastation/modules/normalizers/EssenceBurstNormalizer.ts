@@ -5,7 +5,7 @@ import { Options } from 'parser/core/Module';
 import EssenceBurstCastLinkNormalizer, {
   EB_GENERATION_EVENT_TYPES,
 } from '../../../shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
-import { EssenceBurstRefreshNormalizer } from 'analysis/retail/evoker/shared';
+import { BuffStackRefreshRemover } from 'analysis/retail/evoker/shared';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
@@ -34,7 +34,7 @@ class EssenceBurstNormalizer extends EventOrderNormalizer {
   static dependencies = {
     ...EventOrderNormalizer.dependencies,
     // We need these dependency to ensure we don't mess up our other normalizers
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: BuffStackRefreshRemover,
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
   };
   constructor(options: Options) {
