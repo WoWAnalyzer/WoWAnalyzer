@@ -110,7 +110,6 @@ class GiftOfTheGoldenValkyr extends Analyzer {
           <small>
             CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)
           </small>
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

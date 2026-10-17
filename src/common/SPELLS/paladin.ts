@@ -302,6 +302,11 @@ const spells = {
     name: 'Blessing of the Forge',
     icon: 'inv_ability_lightsmithpaladin_sacredweapon',
   },
+  LESSER_WEAPON_DAMAGE: {
+    id: 1239282,
+    name: 'Lesser Weapon',
+    icon: 'inv_sword_2h_lightforged_c_01',
+  },
   DIVINE_GUIDANCE_BUFF: {
     id: 460822,
     name: 'Divine Guidance',
@@ -588,6 +593,11 @@ const spells = {
     name: 'Blaze of Glory',
     icon: 'inv12_apextalent_paladin_gloryofthevanguard',
   },
+  GLORY_OF_THE_VANGUARD_HOLY_POWER: {
+    id: 1307639,
+    name: 'Glory of the Vanguard',
+    icon: 'inv12_apextalent_paladin_gloryofthevanguard',
+  },
 
   // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
@@ -766,6 +776,11 @@ const spells = {
   },
   HAMMER_AND_ANVIL_HEAL: {
     id: 433722,
+    name: 'Hammer and Anvil',
+    icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
+  },
+  HAMMER_AND_ANVIL_DAMAGE: {
+    id: 433717,
     name: 'Hammer and Anvil',
     icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
   },
