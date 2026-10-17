@@ -113,7 +113,10 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
         </SideBySidePanels>
       </SubSection>
       {info.combatant.hasTalent(TALENTS.HOLY_FLAMES_TALENT) && (
-        <SubSection title="Buffs and debuffs">{modules.expurgation.guideSubsection}</SubSection>
+        <SubSection title="Buffs and debuffs">
+          {modules.expurgation.guideSubsection}
+          {modules.artOfWar.guideSubsection}
+        </SubSection>
       )}
     </Section>
   );
