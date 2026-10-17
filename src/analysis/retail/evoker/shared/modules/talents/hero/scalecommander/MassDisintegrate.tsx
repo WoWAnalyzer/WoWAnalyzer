@@ -1,14 +1,8 @@
 import { Options } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
+import SPECS from 'game/SPECS';
 import {
   getDisintegrateDamageEvents,
   isMassDisintegrateTick,
@@ -32,26 +26,11 @@ import {
   getMassEruptionDamageEvents,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 import { getMassCast, getMassEventTargetCount } from './ScalecommanderTargetHelper';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
-import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../../../core/ProcBuffAnalyzer';
+import ProcBuffAnalyzer, { BuffRemoveEvent } from '../../../core/ProcBuffAnalyzer';
 
 type DamageResult = {
   ampedDamage: number;
   extraDamage: number;
-};
-
-const ProcBuffOptions: ProcBuffAnalyzerOptions = {
-  trackedBuffs: [SPELLS.MASS_DISINTEGRATE_BUFF, SPELLS.MASS_ERUPTION_BUFF],
-  inactiveListeners: {},
-  stackOptions: {
-    amountOfStacksGenerated: 1,
-    maxStacks: 2,
-    settings: {
-      overcapBuffIsFail: true,
-      refreshingBuffIsFail: false,
-    },
-  },
 };
 
 /**
@@ -61,8 +40,7 @@ const ProcBuffOptions: ProcBuffAnalyzerOptions = {
  * Concentrated Power:
  * Mass Disintegrate/Eruption strikes 1 additional target.
  */
-class MassDisintegrate extends ProcBuffAnalyzer {
-  buffCount = 0;
+class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
   castCount = 0;
   targetCount = 0;
   damageFromAmp = 0;
@@ -79,7 +57,11 @@ class MassDisintegrate extends ProcBuffAnalyzer {
   hasConcentratedPower = this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT);
 
   constructor(options: Options) {
-    super(options, ProcBuffOptions);
+    const isDevastation = options.owner.selectedCombatant.spec === SPECS.DEVASTATION_EVOKER;
+    super(options, {
+      buff: isDevastation ? SPELLS.MASS_DISINTEGRATE_BUFF : SPELLS.MASS_ERUPTION_BUFF,
+      maxStacks: 2,
+    });
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.MASS_ERUPTION_TALENT);
@@ -90,39 +72,12 @@ class MassDisintegrate extends ProcBuffAnalyzer {
     }
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.onAddBuff();
-  }
-  onApplyBuffStack(event: ApplyBuffStackEvent) {
-    this.onAddBuff();
-  }
-  private onAddBuff() {
-    this.buffCount += 1;
-  }
-
-  onRefreshBuff(event: RefreshBuffEvent) {
-    return;
-  }
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.onMassBuffRemove(event);
-  }
-  onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    this.onMassBuffRemove(event);
+  protected getConsumeEvent(event: BuffRemoveEvent) {
+    return getMassCast(event);
   }
 
   // Shared cast handler that delegates to the appropriate spell handler for the damage specifics.
-  private onMassBuffRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const castEvent = getMassCast(event);
-
-    if (castEvent === undefined) {
-      this.pushCastData(
-        event,
-        `Buff expired, wasting ${-this.stackDifference} stack(s)`,
-        QualitativePerformance.Fail,
-      );
-      return;
-    }
-
+  protected onStacksConsumed(event: BuffRemoveEvent, castEvent: CastEvent) {
     this.castCount += 1;
     const targetCount = getMassEventTargetCount(castEvent, this.maxTargetsForAmp);
     const missingTargetCount = this.maxTargetsForAmp - targetCount;
@@ -134,7 +89,6 @@ class MassDisintegrate extends ProcBuffAnalyzer {
         : this.onEruptionCast(castEvent, missingTargetCount);
 
     this.attributeDamage(damageResult, targetCount);
-    this.pushCastData(castEvent, 'Buff used', QualitativePerformance.Good);
   }
 
   private onEruptionCast(event: CastEvent, missingTargetCount: number) {
@@ -248,20 +202,11 @@ class MassDisintegrate extends ProcBuffAnalyzer {
   }
 
   get wastedBuffs() {
-    return this.buffCount - this.castCount;
+    return this.stacksWasted;
   }
 
   get totalBuffs() {
-    return this.buffCount;
-  }
-
-  get procUsageData(): AnalysisData {
-    return {
-      casts: this.casts,
-      spell: this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
-        ? SPELLS.MASS_DISINTEGRATE_BUFF
-        : SPELLS.MASS_ERUPTION_BUFF,
-    };
+    return this.stacksGenerated;
   }
 
   statistic() {
