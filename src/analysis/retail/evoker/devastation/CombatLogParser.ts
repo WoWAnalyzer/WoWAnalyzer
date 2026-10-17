@@ -9,7 +9,6 @@ import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/talents/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
-import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
 import DevastationBuffStackRefreshRemover from './modules/normalizers/DevastationBuffStackRefreshRemover';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
@@ -121,7 +120,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
-    essenceBurstNormalizer: EssenceBurstNormalizer,
     eternitySurgeNormalizer: EternitySurgeNormalizer,
     disintegrateChainCastLinks: DisintegrateChainCastLinks,
     strafingRunNormalizer: StrafingRunNormalizer,
