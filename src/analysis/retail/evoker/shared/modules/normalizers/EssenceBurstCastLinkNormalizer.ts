@@ -16,7 +16,7 @@ import {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { EB_BUFF_IDS } from '../../constants';
-import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
+import BuffStackRefreshRemover from './BuffStackRefreshRemover';
 import { Options } from 'parser/core/Analyzer';
 import TipTheScalesNormalizer from './TipTheScalesNormalizer';
 
@@ -222,7 +222,7 @@ const EVENT_LINKS: EventLink[] = [
 class EssenceBurstCastLinkNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: BuffStackRefreshRemover,
     TipTheScalesNormalizer: TipTheScalesNormalizer,
   };
   constructor(options: Options) {
@@ -353,10 +353,8 @@ export function isCastFromEB(event: CastEvent) {
 }
 
 /** Get the event that consumed EB */
-export function getEssenceBurstConsumeAbility(
-  event: RemoveBuffEvent | RemoveBuffStackEvent,
-): null | CastEvent {
-  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME) ?? null;
+export function getEssenceBurstConsumeAbility(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME);
 }
 
 export default EssenceBurstCastLinkNormalizer;

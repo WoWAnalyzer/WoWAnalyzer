@@ -36,6 +36,7 @@ import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStac
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
+import AugmentationBuffStackRefreshRemover from './modules/normalizers/AugmentationBuffStackRefreshRemover';
 
 import ExternalGraph from './modules/abilities/ExternalGraph';
 
@@ -49,7 +50,6 @@ import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   EssenceBurstCastLinkNormalizer,
-  EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
   TipTheScalesNormalizer,
@@ -101,7 +101,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: AugmentationBuffStackRefreshRemover,
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,

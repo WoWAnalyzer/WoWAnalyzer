@@ -1,6 +1,6 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
-import { EssenceBurstRefreshNormalizer } from '../../../shared';
+import { BuffStackRefreshRemover } from '../../../shared';
 import { GROUPING_EVENT_LINKS } from './GroupingEventLinks';
 import { ESSENCE_BURST_EVENT_LINKS } from './EssenceBurstEventLinks';
 import { ECHO_EVENT_LINKS } from './EchoEventLinks';
@@ -29,7 +29,7 @@ const EVENT_LINKS: EventLink[] = [
 class CastLinkNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: BuffStackRefreshRemover,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
