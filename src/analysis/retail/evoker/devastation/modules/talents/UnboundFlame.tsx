@@ -46,17 +46,21 @@ class UnboundFlame extends ProcBuffAnalyzer<CastEvent> {
     return getUnboundFlameConsumeEvent(event);
   }
 
-  protected evaluateConsume(event: BuffRemoveEvent, consumeEvent: CastEvent, stacks: number) {
+  protected onStacksConsumed(event: BuffRemoveEvent, consumeEvent: CastEvent) {
     if (eventWastedEB(consumeEvent, EBSource.UnboundFlame)) {
       this.statsEssenceBurst.wasted += 1;
+    } else {
+      this.statsEssenceBurst.generated += 1;
+    }
+  }
 
+  protected evaluateConsume(event: BuffRemoveEvent, consumeEvent: CastEvent, stacks: number) {
+    if (eventWastedEB(consumeEvent, EBSource.UnboundFlame)) {
       return {
         performance: QualitativePerformance.Fail,
         reason: 'Overcapped Essence Burst',
       };
     }
-
-    this.statsEssenceBurst.generated += 1;
 
     return super.evaluateConsume(event, consumeEvent, stacks);
   }
