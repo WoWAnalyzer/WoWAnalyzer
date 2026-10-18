@@ -353,10 +353,8 @@ export function isCastFromEB(event: CastEvent) {
 }
 
 /** Get the event that consumed EB */
-export function getEssenceBurstConsumeAbility(
-  event: RemoveBuffEvent | RemoveBuffStackEvent,
-): null | CastEvent {
-  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME) ?? null;
+export function getEssenceBurstConsumeAbility(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME);
 }
 
 export default EssenceBurstCastLinkNormalizer;

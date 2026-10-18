@@ -21,7 +21,7 @@ class EssenceBurst extends ProcBuffAnalyzer<CastEvent> {
   }
 
   protected getConsumeEvent(event: BuffRemoveEvent) {
-    return getEssenceBurstConsumeAbility(event) ?? undefined;
+    return getEssenceBurstConsumeAbility(event);
   }
 
   protected onStacksConsumed(event: BuffRemoveEvent, castEvent: CastEvent) {
