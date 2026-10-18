@@ -191,7 +191,7 @@ class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
   }
 
   get averageTargets() {
-    return this.targetCount / this.stacksConsumed;
+    return this.stacksConsumed > 0 ? this.targetCount / this.stacksConsumed : 0;
   }
 
   statistic() {

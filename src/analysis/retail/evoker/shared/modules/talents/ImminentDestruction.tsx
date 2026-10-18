@@ -103,15 +103,16 @@ class ImminentDestruction extends ProcBuffAnalyzer<CastEvent> {
   }
   get procUsageData(): AnalysisData {
     const usableStacks = this.stacksConsumed + this.stacksWasted;
+    const utilization = usableStacks > 0 ? this.stacksConsumed / usableStacks : 0;
     return {
       casts: this.casts,
       spell: this.buff,
       stats: [
         {
           label: 'Stack Utilization',
-          value: `${formatPercentage(this.stacksConsumed / usableStacks, 2)}%`,
+          value: `${formatPercentage(utilization, 2)}%`,
           tooltip: `Used ${this.stacksConsumed} out of ${usableStacks} stack(s). ${this.stacksExpired} expired, ${this.stacksOvercapped} overcapped.`,
-          performance: PerformanceResolver(this.stacksConsumed / usableStacks),
+          performance: PerformanceResolver(utilization),
         },
       ],
       additionalContent: this.isDeva
