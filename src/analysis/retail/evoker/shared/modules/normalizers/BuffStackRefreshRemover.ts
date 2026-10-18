@@ -29,7 +29,7 @@ const ESSENCE_BURST_REFRESH_PAIRINGS: BuffStackRefreshPairing[] = [
  * Each stack event removes at most one refresh, so a real refresh logged right after it is kept.
  */
 class BuffStackRefreshRemover extends EventsNormalizer {
-  private readonly pairings: Map<number, BuffStackRefreshPairing>;
+  private readonly pairings: Map<number, Required<BuffStackRefreshPairing>>;
 
   constructor(options: Options, extraPairings: BuffStackRefreshPairing[] = []) {
     super(options);
@@ -68,7 +68,7 @@ class BuffStackRefreshRemover extends EventsNormalizer {
       const lastStackEventTimestamp = lastStackEventTimestamps.get(event.ability.guid);
       if (
         lastStackEventTimestamp !== undefined &&
-        event.timestamp - lastStackEventTimestamp <= pairing.bufferMs!
+        event.timestamp - lastStackEventTimestamp <= pairing.bufferMs
       ) {
         lastStackEventTimestamps.delete(event.ability.guid);
         return false;
