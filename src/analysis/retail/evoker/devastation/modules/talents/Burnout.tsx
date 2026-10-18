@@ -7,8 +7,9 @@ import ProcBuffAnalyzer, {
   BuffRemoveEvent,
   ProcEvaluation,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
+import { CastEvent } from 'parser/core/Events';
 
-class Burnout extends ProcBuffAnalyzer {
+class Burnout extends ProcBuffAnalyzer<CastEvent> {
   constructor(options: Options) {
     super(options, { buff: SPELLS.BURNOUT_BUFF, maxStacks: 2 });
   }
