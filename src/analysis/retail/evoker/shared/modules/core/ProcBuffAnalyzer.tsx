@@ -35,8 +35,8 @@ export type ProcEvaluation = Omit<CastEvaluation, 'timestamp'> & { timestamp?: n
  * how its stacks were used.
  *
  * It keeps track of the active stacks and counts the generated, consumed, expired and overcapped
- * stacks (see `stacksGenerated` and friends). Every consume, expiry, overcap and stacks left at the
- * end of the fight gets an entry in the guide, which can be customized.
+ * stacks (see `stacksGenerated` and friends). Every consume, expiry, overcap, refresh at max stacks
+ * and stacks left at the end of the fight gets an entry in the guide, which can be customized.
  *
  * ## Usage
  *
@@ -56,8 +56,9 @@ export type ProcEvaluation = Omit<CastEvaluation, 'timestamp'> & { timestamp?: n
  *
  * ## Example
  *
- * Burnout is the simplest implementation and only customizes the guide entries. Imminent
- * Destruction also uses `onStacksConsumed` to keep track of which spells consumed the buff.
+ * Azure Sweep is the simplest implementation and only implements `getConsumeEvent`. Burnout also
+ * customizes the guide entries, and Imminent Destruction uses `onStacksConsumed` to keep track of
+ * which spells consumed the buff.
  *
  * ## Event handling
  *
@@ -73,8 +74,8 @@ export type ProcEvaluation = Omit<CastEvaluation, 'timestamp'> & { timestamp?: n
  */
 abstract class ProcBuffAnalyzer<ConsumeEvent extends AnyEvent = AnyEvent> extends Analyzer {
   readonly buff: Spell;
-  private readonly _stacksPerProc: number;
-  private readonly _maxStacks: number;
+  readonly stacksPerProc: number;
+  readonly maxStacks: number;
 
   private _activeStacks = 0;
   /** False when the active stacks are a guess, eg. after a prepull applybuff */
@@ -92,8 +93,8 @@ abstract class ProcBuffAnalyzer<ConsumeEvent extends AnyEvent = AnyEvent> extend
   protected constructor(options: Options, config: ProcBuffAnalyzerConfig) {
     super(options);
     this.buff = config.buff;
-    this._stacksPerProc = config.stacksPerProc ?? 1;
-    this._maxStacks = config.maxStacks ?? 1;
+    this.stacksPerProc = config.stacksPerProc ?? 1;
+    this.maxStacks = config.maxStacks ?? 1;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(config.buff),
@@ -201,12 +202,6 @@ abstract class ProcBuffAnalyzer<ConsumeEvent extends AnyEvent = AnyEvent> extend
     }
   }
 
-  get stacksPerProc() {
-    return this._stacksPerProc;
-  }
-  get maxStacks() {
-    return this._maxStacks;
-  }
   get activeStacks() {
     return this._activeStacks;
   }
@@ -374,6 +369,8 @@ abstract class ProcBuffAnalyzer<ConsumeEvent extends AnyEvent = AnyEvent> extend
     this.onStacksExpired?.(event, stacks);
     this.pushEvaluation(event, this.evaluateExpire(event, stacks));
   }
+
+  // endregion
 }
 
 export default ProcBuffAnalyzer;
