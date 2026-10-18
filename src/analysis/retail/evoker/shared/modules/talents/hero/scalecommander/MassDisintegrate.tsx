@@ -41,7 +41,6 @@ type DamageResult = {
  * Mass Disintegrate/Eruption strikes 1 additional target.
  */
 class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
-  castCount = 0;
   targetCount = 0;
   damageFromAmp = 0;
   damageFromExtraTargets = 0;
@@ -76,9 +75,7 @@ class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
     return getMassCast(event);
   }
 
-  // Shared cast handler that delegates to the appropriate spell handler for the damage specifics.
   protected onStacksConsumed(event: BuffRemoveEvent, castEvent: CastEvent) {
-    this.castCount += 1;
     const targetCount = getMassEventTargetCount(castEvent, this.maxTargetsForAmp);
     const missingTargetCount = this.maxTargetsForAmp - targetCount;
     this.targetCount += targetCount;
@@ -194,19 +191,7 @@ class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
   }
 
   get averageTargets() {
-    return this.targetCount / this.castCount;
-  }
-
-  get consumedBuffs() {
-    return this.castCount;
-  }
-
-  get wastedBuffs() {
-    return this.stacksWasted;
-  }
-
-  get totalBuffs() {
-    return this.stacksGenerated;
+    return this.targetCount / this.stacksConsumed;
   }
 
   statistic() {
@@ -264,9 +249,9 @@ class MassDisintegrate extends ProcBuffAnalyzer<CastEvent> {
             <small> average targets per cast</small>
           </div>
 
-          {this.wastedBuffs > 0 && (
+          {this.stacksWasted > 0 && (
             <div className="value">
-              <WarningIcon /> {this.wastedBuffs}{' '}
+              <WarningIcon /> {this.stacksWasted}{' '}
               <small>
                 <SpellLink
                   spell={
