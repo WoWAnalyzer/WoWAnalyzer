@@ -5,7 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import { EventType } from 'parser/core/Events';
 import Buffs from 'parser/core/modules/Auras';
 
-import styles from './AuraConfiguration.module.scss';
+import { ConfigurationSection } from './ConfigurationSection';
 
 export interface AuraConfigurationProps {
   visibleAuras: Set<number>;
@@ -34,62 +34,18 @@ export const AuraConfiguration = ({
     return aurasSet;
   }, [parser.eventHistory, auras]);
 
-  const getDisplayableAuras = (): number[] => {
-    const displayableAuras: number[] = [];
-
-    aurasInCombatLog.forEach((spellId) => {
-      const aura = auras.getAura(spellId);
-      if (!aura || !aura.timelineHighlight) {
-        return;
-      }
-
-      displayableAuras.push(spellId);
-    });
-
-    return displayableAuras;
-  };
-
-  const displayableAuras = getDisplayableAuras();
-
-  const toggleAll = (visible: boolean) => {
-    displayableAuras.forEach((spellId) => {
-      onAuraVisibilityChange(spellId, visible);
-    });
-  };
+  const displayableAuras = [...aurasInCombatLog].sort((a, b) =>
+    (maybeGetTalentOrSpell(a)?.name ?? '').localeCompare(maybeGetTalentOrSpell(b)?.name ?? ''),
+  );
 
   return (
-    <>
-      <div className={styles['aura-config-header']}>
-        <h4>Buffs</h4>
-        <div className={styles['aura-config-controls']}>
-          <button type="button" className="btn btn-sm btn-default" onClick={() => toggleAll(true)}>
-            Show All
-          </button>
-          <button type="button" className="btn btn-sm btn-default" onClick={() => toggleAll(false)}>
-            Hide All
-          </button>
-        </div>
-      </div>
-
-      <div className={styles['aura-config-list']}>
-        {displayableAuras.length === 0 ? (
-          <div className="aura-config-empty">No timeline auras available</div>
-        ) : (
-          displayableAuras
-            .map((spellId) => maybeGetTalentOrSpell(spellId)!)
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((spell) => (
-              <label key={spell.id} className={styles['aura-config-item']}>
-                <input
-                  type="checkbox"
-                  checked={visibleAuras.has(spell.id)}
-                  onChange={(e) => onAuraVisibilityChange(spell.id, e.target.checked)}
-                />
-                <SpellLink spell={spell} className={styles['aura-config-spell-link']} />
-              </label>
-            ))
-        )}
-      </div>
-    </>
+    <ConfigurationSection
+      title="Buffs"
+      items={displayableAuras}
+      visibleItems={visibleAuras}
+      onVisibilityChange={onAuraVisibilityChange}
+      renderLabel={(spellId) => <SpellLink spell={maybeGetTalentOrSpell(spellId) ?? spellId} />}
+      emptyText="No timeline auras available"
+    />
   );
 };
