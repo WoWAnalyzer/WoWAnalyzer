@@ -730,8 +730,8 @@ const talents = {
     name: 'Holy Celerity',
     icon: 'spell_priest_pathofdevout',
     maxRanks: 1,
-    entryIds: [103745],
-    definitionIds: [{ id: 108750, specId: 257 }],
+    entryIds: [103733],
+    definitionIds: [{ id: 108738, specId: 257 }],
   },
   HOLY_FIRE_TALENT: {
     id: 14914,
@@ -1878,8 +1878,8 @@ const talents = {
     name: 'Ultimate Serenity',
     icon: 'ability_priest_holywordlife',
     maxRanks: 1,
-    entryIds: [103733],
-    definitionIds: [{ id: 108738, specId: 257 }],
+    entryIds: [103745],
+    definitionIds: [{ id: 108750, specId: 257 }],
   },
   UNFOLDING_VISION_TALENT: {
     id: 1272363,
