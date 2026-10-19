@@ -1,13 +1,7 @@
 import { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -29,14 +23,8 @@ import {
   PerformanceResolver,
 } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
 import { StackedBar, StackedBarSegment } from 'interface/guide/components';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatPercentage } from 'common/format';
-import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../core/ProcBuffAnalyzer';
-
-const ProcBuffOptions: ProcBuffAnalyzerOptions = {
-  trackedBuffs: [SPELLS.IMMINENT_DESTRUCTION_DEV_BUFF, SPELLS.IMMINENT_DESTRUCTION_AUG_BUFF],
-  inactiveListeners: {},
-};
+import ProcBuffAnalyzer, { BuffRemoveEvent } from '../core/ProcBuffAnalyzer';
 
 /**
  * Devastation:
@@ -45,72 +33,36 @@ const ProcBuffOptions: ProcBuffAnalyzerOptions = {
  * Augmentation:
  * [Breath of Eons / Deep Breath] reduces the Essence cost of your next 6 Eruptions by 1.
  */
-class ImminentDestruction extends ProcBuffAnalyzer {
+class ImminentDestruction extends ProcBuffAnalyzer<CastEvent> {
   isDeva = this.selectedCombatant.spec === SPECS.DEVASTATION_EVOKER;
 
   talent = this.isDeva
     ? TALENTS.IMMINENT_DESTRUCTION_DEVASTATION_TALENT
     : TALENTS.IMMINENT_DESTRUCTION_AUGMENTATION_TALENT;
 
-  buffSpell = this.isDeva
-    ? SPELLS.IMMINENT_DESTRUCTION_DEV_BUFF
-    : SPELLS.IMMINENT_DESTRUCTION_AUG_BUFF;
-
-  amountOfStacksGenerated = this.isDeva
-    ? IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA
-    : IMMINENT_DESTRUCTION_INITIAL_STACKS_AUG;
-
-  maxStacks = this.isDeva
-    ? IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA * 2
-    : IMMINENT_DESTRUCTION_INITIAL_STACKS_AUG;
-
   spenders = { Disintegrate: 0, Pyre: 0, Eruption: 0 };
   totalEssenceReduction = 0;
 
   constructor(options: Options) {
-    super(options, ProcBuffOptions);
+    const isDeva = options.owner.selectedCombatant.spec === SPECS.DEVASTATION_EVOKER;
+    const initialStacks = isDeva
+      ? IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA
+      : IMMINENT_DESTRUCTION_INITIAL_STACKS_AUG;
+
+    super(options, {
+      buff: isDeva ? SPELLS.IMMINENT_DESTRUCTION_DEV_BUFF : SPELLS.IMMINENT_DESTRUCTION_AUG_BUFF,
+      stacksPerProc: initialStacks,
+      maxStacks: isDeva ? initialStacks * 2 : initialStacks,
+    });
     this.active = this.selectedCombatant.hasTalent(this.talent);
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    return;
-  }
-  onApplyBuffStack(event: ApplyBuffStackEvent) {
-    return;
-  }
-  onRefreshBuff(event: RefreshBuffEvent) {
-    return;
+  protected getConsumeEvent(event: BuffRemoveEvent) {
+    return getImminentDestructionConsumeEvent(event);
   }
 
-  onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    if (!this.handleReduction(event)) {
-      console.error(
-        '[ImminentDestruction] No consume ability found for RemoveBuffStackEvent',
-        this.owner.formatTimestamp(event.timestamp),
-        event,
-      );
-    }
-
-    this.pushCastData(event, 'Buff used', QualitativePerformance.Good);
-  }
-
-  onRemoveBuff(event: RemoveBuffEvent) {
-    if (!this.handleReduction(event)) {
-      this.pushCastData(
-        event,
-        `Buff expired, wasting ${-this.stackDifference} stack(s)`,
-        QualitativePerformance.Fail,
-      );
-    } else {
-      this.pushCastData(event, 'Buff used', QualitativePerformance.Good);
-    }
-  }
-
-  private handleReduction(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
-    const consumeEvent = getImminentDestructionConsumeEvent(event);
-    if (!consumeEvent) {
-      return false;
-    }
+  protected onStacksConsumed(event: BuffRemoveEvent, consumeEvent: CastEvent, stacks: number) {
+    this.totalEssenceReduction += IMMINENT_DESTRUCTION_ESSENCE_REDUCTION * stacks;
 
     if (this.isDeva) {
       if (consumeEvent.ability.guid === SPELLS.DISINTEGRATE.id) {
@@ -121,11 +73,6 @@ class ImminentDestruction extends ProcBuffAnalyzer {
     } else {
       this.spenders.Eruption += 1;
     }
-
-    this.addStacksUsed(1);
-    this.totalEssenceReduction += IMMINENT_DESTRUCTION_ESSENCE_REDUCTION;
-
-    return true;
   }
 
   private buildSpenderBar(): StackedBarSegment[] {
@@ -136,7 +83,7 @@ class ImminentDestruction extends ProcBuffAnalyzer {
         color: 'hsl(190, 70%, 55%)',
         tooltip: (
           <>
-            {this.spenders.Disintegrate} <SpellLink spell={this.buffSpell} /> spent on{' '}
+            {this.spenders.Disintegrate} <SpellLink spell={this.buff} /> spent on{' '}
             <SpellLink spell={SPELLS.DISINTEGRATE} />
           </>
         ),
@@ -147,7 +94,7 @@ class ImminentDestruction extends ProcBuffAnalyzer {
         color: 'hsl(20, 70%, 55%)',
         tooltip: (
           <>
-            {this.spenders.Pyre} <SpellLink spell={this.buffSpell} /> spent on{' '}
+            {this.spenders.Pyre} <SpellLink spell={this.buff} /> spent on{' '}
             <SpellLink spell={SPELLS.PYRE} />
           </>
         ),
@@ -155,15 +102,17 @@ class ImminentDestruction extends ProcBuffAnalyzer {
     ];
   }
   get procUsageData(): AnalysisData {
+    const usableStacks = this.stacksConsumed + this.stacksWasted;
+    const utilization = usableStacks > 0 ? this.stacksConsumed / usableStacks : 0;
     return {
       casts: this.casts,
-      spell: this.buffSpell,
+      spell: this.buff,
       stats: [
         {
           label: 'Stack Utilization',
-          value: `${formatPercentage(this.stacksUsed / (this.stacksGenerated - this.activeStacks), 2)}%`,
-          tooltip: `Used ${this.stacksUsed} out of ${this.stacksGenerated - this.activeStacks} (${this.stacksGenerated}) stack(s).`,
-          performance: PerformanceResolver(this.stacksUsed / this.stacksGenerated),
+          value: `${formatPercentage(utilization, 2)}%`,
+          tooltip: `Used ${this.stacksConsumed} out of ${usableStacks} stack(s). ${this.stacksExpired} expired, ${this.stacksOvercapped} overcapped.`,
+          performance: PerformanceResolver(utilization),
         },
       ],
       additionalContent: this.isDeva
@@ -180,7 +129,7 @@ class ImminentDestruction extends ProcBuffAnalyzer {
     const tooltip = hasWastedBuffStacks ? (
       <>
         Wasted <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> represent the amount of unused stacks
-        of <SpellLink spell={this.buffSpell} />.
+        of <SpellLink spell={this.buff} />.
       </>
     ) : null;
 

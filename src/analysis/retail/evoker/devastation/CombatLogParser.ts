@@ -9,7 +9,7 @@ import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/talents/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
-import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
+import DevastationBuffStackRefreshRemover from './modules/normalizers/DevastationBuffStackRefreshRemover';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
@@ -43,7 +43,6 @@ import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   EssenceBurstCastLinkNormalizer,
-  EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
   TipTheScalesNormalizer,
@@ -93,7 +92,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: DevastationBuffStackRefreshRemover,
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,
@@ -121,7 +120,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
-    essenceBurstNormalizer: EssenceBurstNormalizer,
     eternitySurgeNormalizer: EternitySurgeNormalizer,
     disintegrateChainCastLinks: DisintegrateChainCastLinks,
     strafingRunNormalizer: StrafingRunNormalizer,
