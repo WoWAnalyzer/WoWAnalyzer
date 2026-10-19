@@ -40,7 +40,7 @@ import {
 import SPECS from 'game/SPECS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { AnalysisData } from 'analysis/retail/evoker/shared/modules/components/ProcAnalysis';
-import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../core/ProcBuffAnalyzer';
+import ProcBuffAnalyzer, { ProcBuffAnalyzerOptions } from '../core/LegacyProcBuffAnalyzer';
 
 const ProcBuffOptions: ProcBuffAnalyzerOptions = {
   trackedBuffs: SPELLS.LEAPING_FLAMES_BUFF,
@@ -75,6 +75,11 @@ const ProcBuffOptions: ProcBuffAnalyzerOptions = {
  * 4. Beyond this we need to determine the actual probability of an EB being generated and attribute a fraction.
  *
  * The same process applies to the wasted amount.
+ *
+ * NOTE: Leaping Flames seems omega busted in how it logs right now
+ * so this analyzer is left as-is using the old `ProcBuffAnalyzer` until leaping flames events are properly normalized
+ * There are just no events between 01:34.027-03:13.266 lol: https://www.warcraftlogs.com/reports/nkGFatpqWbNx6Tr2?fight=3&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24186387984.0.0.Evoker%24true%240.0.0.Any%24false%24357208%7C%22Living+Flame%22%5E0%24Separate%24%23909049%24auras-gained%240%240.0.0.Any%240.0.0.Any%24true%24186387984.0.0.Evoker%24false%24370553&source=72&ability=370901&view=events
+ * This is how it should look: https://www.warcraftlogs.com/reports/nkGFatpqWbNx6Tr2?fight=3&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176685725.0.0.Evoker%24true%240.0.0.Any%24false%24357208%7C%22Living+Flame%22%5E0%24Separate%24%23909049%24auras-gained%240%240.0.0.Any%240.0.0.Any%24true%24176685725.0.0.Evoker%24false%24370553&source=12&ability=370901&view=events
  */
 class LeapingFlames extends ProcBuffAnalyzer {
   leapingFlamesDamage = 0;

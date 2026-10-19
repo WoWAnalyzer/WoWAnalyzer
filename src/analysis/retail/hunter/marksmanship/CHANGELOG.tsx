@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
-import { Azortharion, Arlie, LittleBoyBlu } from 'CONTRIBUTORS';
+import { Azortharion, Arlie, LittleBoyBlu, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface/index';
 export default [
+  change(date(2026, 10, 13), "Added support for Trigger Finger to reduce issues with hasted cooldowns.", Putro),
   change(
     date(2026, 9, 12),
     <>

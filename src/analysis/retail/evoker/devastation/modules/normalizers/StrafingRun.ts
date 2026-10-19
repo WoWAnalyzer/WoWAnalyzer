@@ -8,6 +8,7 @@ import {
   GetRelatedEvent,
   HasRelatedEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { STRAFING_RUN_DURATION } from '../../constants';
 import { DEEP_BREATH_SPELL_IDS } from 'analysis/retail/evoker/shared';
@@ -62,6 +63,6 @@ export function getPrimaryDeepBreathEvent(event: CastEvent): CastEvent | undefin
   return GetRelatedEvent<CastEvent>(event, STRAFING_RUN_PRIMARY);
 }
 
-export function isFromStrafingRunConsume(event: CastEvent | RemoveBuffEvent) {
-  return HasRelatedEvent(event, STRAFING_RUN_BUFF_CONSUME);
+export function getStrafingRunConsumeEvent(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, STRAFING_RUN_BUFF_CONSUME);
 }

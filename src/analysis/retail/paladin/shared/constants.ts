@@ -4,7 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
 
 export const DIVINE_PURPOSE_CHANCE = 0.15;
-export const RET_DIVINE_PURPOSE_CHANCE = 0.1;
+export const RET_DIVINE_PURPOSE_CHANCE = (hasMid2TwoPiece = false) => (hasMid2TwoPiece ? 0.2 : 0.1);
 
 // Every healing spender casts and heals under the same spell id, so one entry each
 // covers both the cast and heal filters these lists are used for.
