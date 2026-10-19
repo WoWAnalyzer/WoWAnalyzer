@@ -44,6 +44,7 @@ import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
 import VisceralStrength from './modules/talents/VisceralStrength';
 import WastedExterminate from './modules/talents/WastedExterminate';
+import WastedExterminateNormalizer from './modules/talents/WastedExterminateNormalizer';
 import BoilingPoint from './modules/talents/BoilingPoint';
 import BoilingPointNormalizer from './modules/talents/BoilingPointNormalizer';
 
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resourceOrderNormalizer: ResourceOrderNormalizer,
     boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
     ExterminateCostNormalizer,
+    WastedExterminateNormalizer,
     boilingPointNormalizer: BoilingPointNormalizer,
   };
 

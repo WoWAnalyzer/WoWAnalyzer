@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 10, 13), <>Wasted <SpellLink spell={talents.EXTERMINATE_TALENT} /> stack tracking now matches a consuming cast logged slightly before or after the buff change.</>, jcthenerd),
   change(date(2026, 10, 13), <>Added tracking for overlapping, early-used, and expired <SpellLink spell={talents.BOILING_POINT_TALENT} /> buffs.</>, jcthenerd),
   change(date(2026, 9, 25), <>Added tracking of wasted <SpellLink spell={talents.EXTERMINATE_TALENT} /> stacks.</>, jcthenerd),
   change(date(2026, 9, 24), <>Added <SpellLink spell={SPELLS.DEATH_AND_DECAY_BUFF} /> uptime tracking.</>, jcthenerd),
