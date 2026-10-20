@@ -45,6 +45,29 @@ export function isApplicableUpdateSpellUsableEvent(
   return true;
 }
 
+export function isCooldownLaneCastEvent(
+  event: CastEvent | FilterCooldownInfoEvent,
+  parser: CombatLogParser,
+  abilities: Abilities,
+): boolean {
+  if (!parser.byPlayer(event)) {
+    // Ignore pet/boss casts
+    return false;
+  }
+  const spellId = event.ability.guid;
+  if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+    return false;
+  }
+  const ability = abilities.getAbility(spellId);
+  if (!ability || !ability.cooldown || ability.timelineHide) {
+    return false;
+  }
+  if (event.timestamp >= parser.fight.end_time) {
+    return false;
+  }
+  return true;
+}
+
 interface TimelineProps {
   abilities: Abilities;
   enemyCasts?: Array<AnyEvent>;
@@ -130,24 +153,7 @@ class Timeline extends PureComponent<TimelineProps, TimelineState> {
   }
 
   isApplicableCastEvent(event: CastEvent | FilterCooldownInfoEvent): boolean {
-    const parser = this.props.parser;
-
-    if (!parser.byPlayer(event)) {
-      // Ignore pet/boss casts
-      return false;
-    }
-    const spellId = event.ability.guid;
-    if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
-      return false;
-    }
-    const ability = this.props.abilities.getAbility(spellId);
-    if (!ability || !ability.cooldown || ability.timelineHide) {
-      return false;
-    }
-    if (event.timestamp >= this.end) {
-      return false;
-    }
-    return true;
+    return isCooldownLaneCastEvent(event, this.props.parser, this.props.abilities);
   }
 
   isApplicableBuffEvent(event: ApplyBuffEvent | RemoveBuffEvent): boolean {

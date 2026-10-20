@@ -1,3 +1,5 @@
+@use 'interface/Theme.scss';
+
 .timeline-configuration {
   position: relative;
   display: inline-block;
@@ -33,22 +35,86 @@
   border: 1px solid #555;
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  display: grid;
-  grid-template-columns: minmax(220px, 1fr) 320px;
-  gap: 12px;
-  min-width: 280px;
-  max-width: 640px;
-  max-height: 400px;
-  overflow: hidden;
+  width: 280px;
+  max-width: calc(100vw - 32px);
+  max-height: 70vh;
+  overflow-y: auto;
   margin-top: 4px;
+  padding: 8px 0;
+}
+
+.timeline-configuration-menu section {
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding-top: 8px;
+  border-top: 1px solid #444;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 12px 4px;
+}
+
+.section-header h4 {
+  margin: 0;
+  color: Theme.$muted;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.section-count {
+  margin-left: 6px;
+  color: #888;
+  font-weight: normal;
+}
+
+.section-controls {
+  display: flex;
+  gap: 4px;
+  color: #666;
+  font-size: 12px;
+}
+
+.section-controls button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: Theme.$primaryColor;
+  cursor: pointer;
+}
+
+.section-controls button:hover {
+  text-decoration: underline;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 12px;
+  color: #ddd;
+  font-size: 13px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.item input[type='checkbox'] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.empty {
   padding: 12px;
-}
-
-.timeline-configuration-menu-left {
-  display: grid;
-  gap: 12px;
-}
-
-.timeline-configuration-menu-right {
-  display: grid;
+  text-align: center;
+  color: #888;
+  font-style: italic;
 }

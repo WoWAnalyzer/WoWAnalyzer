@@ -1,5 +1,11 @@
-import styles from 'interface/report/Results/Timeline/configuration/AuraConfiguration.module.scss';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { useMemo } from 'react';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
+import { EventType } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY, { getSpellCategoryName } from 'parser/core/SPELL_CATEGORY';
+
+import { isCooldownLaneCastEvent } from '../Timeline';
+import { ConfigurationSection } from './ConfigurationSection';
 
 export interface SpellCategoryConfigurationProps {
   spellCategoriesShown: Set<keyof typeof SPELL_CATEGORY>;
@@ -13,46 +19,32 @@ export const SpellCategoryConfiguration = ({
   spellCategoriesShown,
   onSpellCategoryVisibilityChange,
 }: SpellCategoryConfigurationProps) => {
-  const toggleAll = (visible: boolean) => {
-    Object.values(SPELL_CATEGORY).forEach((category) => {
-      onSpellCategoryVisibilityChange(category, visible);
+  const { combatLogParser: parser } = useCombatLogParser();
+
+  // Categories with at least one cooldown lane on the timeline, in SPELL_CATEGORY order.
+  const spellCategories = useMemo(() => {
+    const abilities = parser.getModule(Abilities);
+    const categories = new Set<keyof typeof SPELL_CATEGORY | null>();
+    parser.eventHistory.forEach((event) => {
+      if (
+        (event.type === EventType.Cast || event.type === EventType.FilterCooldownInfo) &&
+        isCooldownLaneCastEvent(event, parser, abilities)
+      ) {
+        categories.add(abilities.getAbility(event.ability.guid)!.category);
+      }
     });
-  };
+    return (Object.keys(SPELL_CATEGORY) as (keyof typeof SPELL_CATEGORY)[]).filter((category) =>
+      categories.has(category),
+    );
+  }, [parser]);
 
   return (
-    <>
-      <div className={styles['aura-config-header']}>
-        <h4>Spell Categories</h4>
-        <div className={styles['aura-config-controls']}>
-          <button type="button" className="btn btn-sm btn-default" onClick={() => toggleAll(true)}>
-            Show All
-          </button>
-          <button type="button" className="btn btn-sm btn-default" onClick={() => toggleAll(false)}>
-            Hide All
-          </button>
-        </div>
-      </div>
-      <div className={styles['aura-config-list']}>
-        {Object.entries(SPELL_CATEGORY).map(([category, displayName]) => {
-          const removeUnderline = displayName.split('_').join(' ');
-          const formattedName = removeUnderline.charAt(0) + removeUnderline.slice(1).toLowerCase();
-          return (
-            <label key={category} className={styles['aura-config-item']}>
-              <input
-                type="checkbox"
-                checked={spellCategoriesShown.has(category as keyof typeof SPELL_CATEGORY)}
-                onChange={(e) =>
-                  onSpellCategoryVisibilityChange(
-                    category as keyof typeof SPELL_CATEGORY,
-                    e.target.checked,
-                  )
-                }
-              />
-              {formattedName}
-            </label>
-          );
-        })}
-      </div>
-    </>
+    <ConfigurationSection
+      title="Spell Categories"
+      items={spellCategories}
+      visibleItems={spellCategoriesShown}
+      onVisibilityChange={onSpellCategoryVisibilityChange}
+      renderLabel={getSpellCategoryName}
+    />
   );
 };

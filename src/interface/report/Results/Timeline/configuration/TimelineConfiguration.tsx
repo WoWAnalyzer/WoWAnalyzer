@@ -54,23 +54,18 @@ export const TimelineConfiguration = (props: TimelineConfigurationProps) => {
 
       {isOpen && (
         <div className={styles['timeline-configuration-menu']}>
-          <div className={styles['timeline-configuration-menu-left']}>
-            <GeneralConfiguration
-              isMovementVisible={props.isMovementVisible}
-              toggleMovementVisibility={props.toggleMovementVisibility}
-            />
-            <AuraConfiguration
-              visibleAuras={props.visibleAuras}
-              onAuraVisibilityChange={props.onAuraVisibilityChange}
-            />
-          </div>
-
-          <div className={styles['timeline-configuration-menu-right']}>
-            <SpellCategoryConfiguration
-              spellCategoriesShown={props.spellCategoriesShown}
-              onSpellCategoryVisibilityChange={props.onSpellCategoryVisibilityChange}
-            />
-          </div>
+          <GeneralConfiguration
+            isMovementVisible={props.isMovementVisible}
+            toggleMovementVisibility={props.toggleMovementVisibility}
+          />
+          <AuraConfiguration
+            visibleAuras={props.visibleAuras}
+            onAuraVisibilityChange={props.onAuraVisibilityChange}
+          />
+          <SpellCategoryConfiguration
+            spellCategoriesShown={props.spellCategoriesShown}
+            onSpellCategoryVisibilityChange={props.onSpellCategoryVisibilityChange}
+          />
         </div>
       )}
     </div>

@@ -87,6 +87,13 @@ export function getSpellCategoryName(category: keyof typeof SPELL_CATEGORY) {
           message: `Consumable`,
         }),
       );
+    case SPELL_CATEGORY.HIDDEN:
+      return i18n._(
+        defineMessage({
+          id: 'core.abilities.spellCategories.hidden',
+          message: `Hidden`,
+        }),
+      );
     default:
       // Should never happen
       return 'Unknown Spell Category';
