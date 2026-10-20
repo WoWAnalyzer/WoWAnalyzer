@@ -129,6 +129,7 @@ export const SPELL_DURATIONS = {
 } as const;
 
 // mana saves
+export const ASCENDANCE_MANA_REDUCTION = 0.25;
 export const CURRENT_CONTROL_MANA_REDUCTION = 0.15;
 export const CURRENT_CONTROL_AFFECTED_SPELLS: number[] = [
   SPELLS.HEALING_WAVE.id,

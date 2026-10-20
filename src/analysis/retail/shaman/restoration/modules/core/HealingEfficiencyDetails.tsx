@@ -13,34 +13,61 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
         title={<Trans id="shared.healingEfficiency.title">Mana Efficiency</Trans>}
         explanation={
           <ul>
-            <li>
-              <Trans id="shaman.restoration.healingEfficiencyDetails.resurgence">
-                <SpellLink spell={SPELLS.RESURGENCE} /> mana gained is removed from the spell,
-                meaning the mana spent of that spell will be lower.
-              </Trans>
-            </li>
+            {this.selectedCombatant.hasTalent(TALENTS.MANA_SPRING_TALENT) && (
+              <li>
+                <Trans id="shaman.restoration.healingEfficiencyDetails.manaSpring">
+                  <SpellLink spell={TALENTS.MANA_SPRING_TALENT} /> mana gain is removed from{' '}
+                  <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> and{' '}
+                  <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />, meaning the mana spent of those
+                  spells will be lower.
+                </Trans>
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.RESURGENCE_TALENT) && (
+              <li>
+                <Trans id="shaman.restoration.healingEfficiencyDetails.resurgence">
+                  <SpellLink spell={TALENTS.RESURGENCE_TALENT} /> mana gain is removed from the
+                  spell, meaning the mana spent of that spell will be lower.
+                </Trans>
+              </li>
+            )}
             {this.selectedCombatant.hasTalent(TALENTS.CURRENT_CONTROL_TALENT) && (
               <li>
                 <Trans id="shaman.restoration.healingEfficiencyDetails.currentControl">
                   <SpellLink spell={TALENTS.CURRENT_CONTROL_TALENT} /> reduces the mana cost of{' '}
                   <SpellLink spell={SPELLS.HEALING_WAVE} /> and{' '}
-                  <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />.
+                  <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> by 15%.
                 </Trans>
               </li>
             )}
-            <li>
-              <Trans id="shaman.restoration.healingEfficiencyDetails.unleashLife">
-                Healing that is caused by the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> buff
-                is added to <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> instead of the spell
-                that was buffed.
-              </Trans>
-            </li>
-            <li>
-              <Trans id="shaman.restoration.healingEfficiencyDetails.earthShield">
-                <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> is given the healing from its
-                healing buff and is removed from the spells that were buffed.
-              </Trans>
-            </li>
+            {(this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT) ||
+              this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) && (
+              <li>
+                <Trans id="shaman.restoration.healingEfficiencyDetails.ascendance">
+                  <SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT} /> reduces the mana cost
+                  of <SpellLink spell={SPELLS.HEALING_WAVE} /> and{' '}
+                  <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> for the duration of the buff by
+                  25%.
+                </Trans>
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT) && (
+              <li>
+                <Trans id="shaman.restoration.healingEfficiencyDetails.unleashLife">
+                  Healing that is caused by the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
+                  buff is added to <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> instead of the
+                  spell that was buffed.
+                </Trans>
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT) && (
+              <li>
+                <Trans id="shaman.restoration.healingEfficiencyDetails.earthShield">
+                  <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> is given the healing from its
+                  healing buff and is removed from the spells that were buffed.
+                </Trans>
+              </li>
+            )}
           </ul>
         }
         pad={false}
