@@ -403,6 +403,10 @@ export function isFromBurnout(event: CastEvent | RemoveBuffEvent | RemoveBuffSta
   return HasRelatedEvent(event, BURNOUT_CONSUME);
 }
 
+export function getBurnoutConsumeEvent(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, BURNOUT_CONSUME);
+}
+
 export function isFromSnapfire(event: CastEvent) {
   return HasRelatedEvent(event, SNAPFIRE_CONSUME);
 }
@@ -685,8 +689,8 @@ export function getConsumeFlameDamageLinkEvent(event: DamageEvent) {
   return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_DAMAGE_LINK);
 }
 
-export function isFromUnboundFlameConsume(event: RemoveBuffEvent) {
-  return HasRelatedEvent(event, UNBOUND_FLAME_CONSUME);
+export function getUnboundFlameConsumeEvent(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent<CastEvent>(event, UNBOUND_FLAME_CONSUME);
 }
 
 export default CastLinkNormalizer;

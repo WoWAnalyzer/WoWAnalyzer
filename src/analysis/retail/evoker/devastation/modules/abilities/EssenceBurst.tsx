@@ -1,65 +1,34 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
 import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { StackedBar, StackedBarSegment } from 'interface/guide/components';
 import SpellLink from 'interface/SpellLink';
 import ProcBuffAnalyzer, {
-  ProcBuffAnalyzerOptions,
+  BuffRemoveEvent,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
 
-const ProcBuffOptions: ProcBuffAnalyzerOptions = {
-  trackedBuffs: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF],
-  inactiveListeners: {},
-};
-
-class EssenceBurst extends ProcBuffAnalyzer {
+class EssenceBurst extends ProcBuffAnalyzer<CastEvent> {
   spenders = { Disintegrate: 0, Pyre: 0 };
-  maxStacks = this.selectedCombatant.hasTalent(TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT) ? 2 : 1;
 
   constructor(options: Options) {
-    super(options, ProcBuffOptions);
+    const hasAttunement = options.owner.selectedCombatant.hasTalent(
+      TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT,
+    );
+    super(options, { buff: SPELLS.ESSENCE_BURST_DEV_BUFF, maxStacks: hasAttunement ? 2 : 1 });
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    return;
+  protected getConsumeEvent(event: BuffRemoveEvent) {
+    return getEssenceBurstConsumeAbility(event);
   }
-  onApplyBuffStack(event: ApplyBuffStackEvent) {
-    return;
-  }
-  onRefreshBuff(event: RefreshBuffEvent): void {
-    return;
-  }
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.onEssenceBurstConsume(event);
-  }
-  onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    this.onEssenceBurstConsume(event);
-  }
-  onEssenceBurstConsume(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const castEvent = getEssenceBurstConsumeAbility(event);
-    if (castEvent !== null) {
-      if (castEvent.ability.guid === SPELLS.DISINTEGRATE.id) {
-        this.spenders.Disintegrate += 1;
-      } else {
-        this.spenders.Pyre += 1;
-      }
-      this.pushCastData(event, 'Buff used', QualitativePerformance.Good);
+
+  protected onStacksConsumed(event: BuffRemoveEvent, castEvent: CastEvent) {
+    if (castEvent.ability.guid === SPELLS.DISINTEGRATE.id) {
+      this.spenders.Disintegrate += 1;
     } else {
-      this.pushCastData(
-        event,
-        `Buff expired wasting ${this.stackDifference} stack(s)`,
-        QualitativePerformance.Fail,
-      );
+      this.spenders.Pyre += 1;
     }
   }
 
@@ -93,7 +62,7 @@ class EssenceBurst extends ProcBuffAnalyzer {
   get procUsageData(): AnalysisData {
     return {
       casts: this.casts,
-      spell: SPELLS.ESSENCE_BURST_DEV_BUFF,
+      spell: this.buff,
       additionalContent: {
         title: 'Spender Breakdown',
         content: <StackedBar segments={this.buildSpenderBar()} />,

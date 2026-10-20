@@ -51,8 +51,8 @@ import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
-  EssenceBurstRefreshNormalizer,
   EssenceBurstCastLinkNormalizer,
+  BuffStackRefreshRemover,
   LeapingFlames,
   TipTheScalesNormalizer,
   SpellUsable,
@@ -83,7 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizer
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
-    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    buffStackRefreshRemover: BuffStackRefreshRemover,
     livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,

@@ -1,14 +1,7 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 import { getDamageEventsFromCast } from '../normalizers/CastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -19,26 +12,21 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber, formatSeconds } from 'common/format';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellLink from 'interface/SpellLink';
-import { getPrimaryDeepBreathEvent, isFromStrafingRunConsume } from '../normalizers/StrafingRun';
+import { getPrimaryDeepBreathEvent, getStrafingRunConsumeEvent } from '../normalizers/StrafingRun';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { AnalysisData } from '../../../shared/modules/components/ProcAnalysis';
 import ProcBuffAnalyzer, {
-  ProcBuffAnalyzerOptions,
+  BuffRemoveEvent,
+  ProcEvaluation,
 } from 'analysis/retail/evoker/shared/modules/core/ProcBuffAnalyzer';
 
-const ProcBuffOptions: ProcBuffAnalyzerOptions = {
-  trackedBuffs: SPELLS.STRAFING_RUN_BUFF,
-  inactiveListeners: {},
-};
-
 /** Deep Breath deals 20% increased damage and can be cast again within 18 sec of being used. */
-class StrafingRun extends ProcBuffAnalyzer {
+class StrafingRun extends ProcBuffAnalyzer<CastEvent> {
   damageFromAmp = 0;
   damageFromExtraCasts = 0;
   currentCastTimestamp = 0;
 
   constructor(options: Options) {
-    super(options, ProcBuffOptions);
+    super(options, { buff: SPELLS.STRAFING_RUN_BUFF });
     this.active = this.selectedCombatant.hasTalent(TALENTS.STRAFING_RUN_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DEEP_BREATH_SPELLS), this.onCast);
@@ -65,35 +53,14 @@ class StrafingRun extends ProcBuffAnalyzer {
     );
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    return;
-  }
-  onApplyBuffStack(event: ApplyBuffStackEvent) {
-    return;
-  }
-  onRefreshBuff(event: RefreshBuffEvent) {
-    return;
-  }
-  onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    return;
+  protected getConsumeEvent(event: BuffRemoveEvent) {
+    return getStrafingRunConsumeEvent(event);
   }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
-    if (isFromStrafingRunConsume(event)) {
-      this.pushCastData(
-        event,
-        `Buff used after ${formatSeconds(event.timestamp - this.currentCastTimestamp, 1)}s`,
-        QualitativePerformance.Good,
-      );
-    } else {
-      this.pushCastData(event, `Buff expired`, QualitativePerformance.Fail);
-    }
-  }
-
-  get procUsageData(): AnalysisData {
+  protected evaluateConsume(event: BuffRemoveEvent): ProcEvaluation {
     return {
-      casts: this.casts,
-      spell: SPELLS.STRAFING_RUN_BUFF,
+      performance: QualitativePerformance.Good,
+      reason: `Buff used after ${formatSeconds(event.timestamp - this.currentCastTimestamp, 1)}s`,
     };
   }
 
