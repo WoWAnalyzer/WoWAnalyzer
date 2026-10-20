@@ -45,7 +45,16 @@ export const ConfigurationSection = <T extends number | string>({
         <div className={styles['empty']}>{emptyText}</div>
       ) : (
         items.map((item) => (
-          <label key={item} className={styles['item']}>
+          <label
+            key={item}
+            className={styles['item']}
+            onClick={(e) => {
+              if (e.target instanceof Element && e.target.closest('a')) {
+                e.preventDefault();
+                onVisibilityChange(item, !visibleItems.has(item));
+              }
+            }}
+          >
             <input
               type="checkbox"
               checked={visibleItems.has(item)}
