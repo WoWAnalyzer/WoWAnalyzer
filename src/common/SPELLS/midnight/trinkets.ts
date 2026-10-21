@@ -238,6 +238,45 @@ const spells = {
     name: "Vexhul's Everflowing Gland",
     icon: 'inv_11_0_misc_organmass_color3',
   },
+  //Soulcoiler Ritual Vessel
+  SOULCOILER_RITUAL_VESSEL: {
+    id: 1291894,
+    name: 'Soulcoiler Ritual Vessel',
+    icon: 'inv_121_trinket_raid_ulatek_ritualvessel',
+  },
+  SOULCOIL_BARRIER: {
+    id: 1307578,
+    name: 'Soulcoil Barrier',
+    icon: 'inv_121_trinket_raid_ulatek_ritualvessel',
+  },
+  //Unstable Felheart Crystal
+  UNSTABLE_FELHEART_CRYSTAL_SHIELD: {
+    id: 1255200,
+    name: 'Unstable Felheart Crystal',
+    icon: 'tooltip_crystallizedfel',
+  },
+  UNSTABLE_FELHEART_CRYSTAL_DAMAGE: {
+    id: 1254339,
+    name: 'Unstable Felheart Crystal',
+    icon: 'tooltip_crystallizedfel',
+  },
+  //Stormbound Emblem of Dazar
+  THE_KINGS_UNYIELDING_WIND: {
+    id: 1295275,
+    name: "The King's Unyielding Wind",
+    icon: 'inv_7_0raid_necklace_14a',
+  },
+  //Effigy of Ula'tek's Faithful
+  EFFIGY_OF_ULATEKS_FAITHFUL: {
+    id: 1294329,
+    name: "Effigy of Ula'tek's Faithful",
+    icon: 'ability_fomor_boss_rune_green',
+  },
+  FAITH_IN_ULATEK: {
+    id: 1296714,
+    name: "Faith in Ula'tek",
+    icon: 'ability_fomor_boss_rune_green',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
