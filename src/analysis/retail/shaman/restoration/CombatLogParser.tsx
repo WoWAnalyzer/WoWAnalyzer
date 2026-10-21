@@ -60,6 +60,9 @@ import EarthenCommunion from './modules/talents/farseer/EarthenCommunion';
 // Spells
 // Tiers
 // Shared
+// Trinkets
+import SoulcoilerRitualVessel from 'parser/retail/modules/items/midnight/trinkets/SoulcoilerRitualVessel';
+import UnstableFelheartCrystal from 'parser/retail/modules/items/midnight/trinkets/UnstableFelheartCrystal';
 
 // Normalizers
 import EarthShieldNormalizer from './normalizers/EarthShieldNormalizer';
@@ -182,6 +185,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tiers
 
     // Items
+    soulcoilerRitualVessel: SoulcoilerRitualVessel,
+    unstableFelheartCrystal: UnstableFelheartCrystal,
   };
   static guide = Guide;
 }
