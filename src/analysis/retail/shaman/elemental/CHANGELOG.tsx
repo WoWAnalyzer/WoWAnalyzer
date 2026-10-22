@@ -7,6 +7,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 10, 23), <>Fixed <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> windows from <SpellLink spell={TALENTS_SHAMAN.STORMKEEPER_TALENT} /> ending after their ancestors expired, which lengthened the timeline and active time interval.</>, Seriousnes),
   change(date(2026, 9, 18), <>Fixed the <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> guide section not rendering.</>, LittleBoyBlu),
   change(date(2026, 8, 27), <>Track <SpellLink spell={TALENTS_SHAMAN.PURGING_FLAMES_TALENT} /> on the timeline, and add <SpellLink spell={TALENTS_SHAMAN.VOLTAIC_BLAZE_TALENT} /> exception to <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT} /> for multi-target.</>, Seriousnes),
   change(date(2026, 6, 19), <>Added Midnight Season 2 tier set analysis and a <SpellLink spell={TALENTS_SHAMAN.POWER_OF_THE_MAELSTROM_TALENT} /> module.</>, Seriousnes),
