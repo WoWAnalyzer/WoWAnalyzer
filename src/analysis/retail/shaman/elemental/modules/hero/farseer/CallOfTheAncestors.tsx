@@ -9,7 +9,6 @@ import Events, {
   EndChannelEvent,
   EventType,
   FightEndEvent,
-  GetRelatedEvent,
   GlobalCooldownEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
@@ -30,7 +29,6 @@ import Casts from 'interface/report/Results/Timeline/Casts';
 import { formatNumber, formatPercentage } from 'common/format';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { UptimeIcon } from 'interface/icons';
-import { EVENT_LINKS } from '../../../constants';
 import NPCS from 'common/NPCS/shaman';
 import Abilities from '../../Abilities';
 
@@ -130,16 +128,18 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   }
 
   onAncestorEnd(event: RemoveBuffStackEvent | RemoveBuffEvent) {
-    if (this.activeWindows.length > 0) {
-      // decrement the ancestor count from the oldest active window
-      const window = this.activeWindows[0];
-      window.activeAncestors -= 1;
-      // if no ancestors left, end the window
-      if (window.activeAncestors === 0) {
-        window.timeline.end = event.timestamp;
-        this.activeWindows.splice(0, 1);
-        this.windows.push(window);
-      }
+    // ancestors share one fixed duration, so the oldest window with an ancestor owns this expiry
+    const index = this.activeWindows.findIndex((window) => window.activeAncestors > 0);
+    if (index === -1) {
+      return;
+    }
+    const window = this.activeWindows[index];
+    window.activeAncestors -= 1;
+    // if no ancestors left, end the window
+    if (window.activeAncestors === 0) {
+      window.timeline.end = event.timestamp;
+      this.activeWindows.splice(index, 1);
+      this.windows.push(window);
     }
   }
 
@@ -161,18 +161,12 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       (window) => event.timestamp - window.event.timestamp < RELATED_WINDOW_BUFFER,
     );
     if (relatedWindows.length > 0) {
-      if (
-        event.type === EventType.Summon &&
-        !GetRelatedEvent(event, EVENT_LINKS.CallOfTheAncestors)
-      ) {
-        relatedWindows.forEach((window) => (window.activeAncestors += 1));
-      }
       return relatedWindows;
     }
     const window: CallAncestor = {
       event: event,
       ancestors: new Set<number>(),
-      activeAncestors: 1,
+      activeAncestors: 0,
       activeTime: 0,
       timeline: {
         start: Math.max(event.timestamp, this.globalCooldownEnds),
@@ -209,8 +203,10 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     const windows = this.createAncestorWindow(event);
     windows.forEach((window) => {
       const sourceID = event.targetInstance;
+      // a window counts each summoned ancestor once, whichever event opened it
       if (!window.ancestors.has(sourceID)) {
         window.ancestors.add(sourceID);
+        window.activeAncestors += 1;
       }
     });
   }
@@ -296,7 +292,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
         </>
       ) : (
         <>
-          <SpellLink spell={TALENTS.ANCESTRAL_SWIFTNESS_TALENT} />
+          <SpellLink spell={cast.event.ability.guid} />
         </>
       );
 
