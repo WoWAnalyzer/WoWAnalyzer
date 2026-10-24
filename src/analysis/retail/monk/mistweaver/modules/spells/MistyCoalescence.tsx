@@ -10,13 +10,13 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'interface/SpellLink';
 
 class MistyCoalescence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  remCounts: number[] = [];
+  increaseTotal = 0;
+  healCount = 0;
   combatants!: Combatants;
   currentRems = 0;
   healing = 0;
@@ -49,7 +49,8 @@ class MistyCoalescence extends Analyzer {
       event,
       this.currentIncrease * MISTY_COALESCENCE_MAX_INCREASE,
     );
-    this.remCounts.push(this.currentRems);
+    this.increaseTotal += this.currentIncrease;
+    this.healCount += 1;
   }
 
   get cappedGroupSize() {
@@ -61,26 +62,14 @@ class MistyCoalescence extends Analyzer {
     return cappedRems / this.cappedGroupSize;
   }
 
-  get avgRems() {
-    return this.remCounts.reduce((count, acc) => count + acc, 0) / this.remCounts.length || 0;
-  }
-
+  // averaged per heal since the bonus is applied per heal, not over time
   get averageIncrease() {
-    return (this.avgRems / this.cappedGroupSize) * MISTY_COALESCENCE_MAX_INCREASE;
+    return (this.increaseTotal / this.healCount || 0) * MISTY_COALESCENCE_MAX_INCREASE;
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(21)}
-        size="flexible"
-        tooltip={
-          <>
-            {this.avgRems.toFixed(2)} average <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} />
-            (s) on a {this.combatants.playerCount} player group.
-          </>
-        }
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(21)} size="flexible">
         <TalentSpellText talent={TALENTS_MONK.MISTY_COALESCENCE_TALENT}>
           <div>
             {formatPercentage(this.averageIncrease)}% <small> average increase</small>
