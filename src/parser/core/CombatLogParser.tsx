@@ -113,6 +113,8 @@ import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
 import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
 import FrenziedFocus from 'parser/retail/modules/items/midnight/enchants/FrenziedFocus';
+import SoulcoilerRitualVessel from 'parser/retail/modules/items/midnight/trinkets/SoulcoilerRitualVessel';
+import UnstableFelheartCrystal from 'parser/retail/modules/items/midnight/trinkets/UnstableFelheartCrystal';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -226,6 +228,8 @@ class CombatLogParser {
     volatileVoidSuffuser: VolatileVoidSuffuser,
     lightOfTheCosmicCrescendo: LightOfTheCosmicCrescendo,
     fanaticalInspiration: FanaticalInspiration,
+    soulcoilerRitualVessel: SoulcoilerRitualVessel,
+    unstableFelheartCrystal: UnstableFelheartCrystal,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,
