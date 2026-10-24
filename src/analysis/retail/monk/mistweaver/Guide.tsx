@@ -122,7 +122,7 @@ function RemGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
       course of the fight in relation to your{' '}
       <SpellLink spell={getCurrentRSKTalent(info.combatant)} /> and{' '}
       <SpellLink spell={SPELLS.VIVIFY} /> casts.
-      {modules.remGraph.plot}
+      <div style={{ marginTop: '1.5em' }}>{modules.remGraph.plot}</div>
     </SubSection>
   );
 }

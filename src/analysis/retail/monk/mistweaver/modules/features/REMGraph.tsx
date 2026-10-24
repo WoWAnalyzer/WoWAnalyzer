@@ -21,9 +21,12 @@ class REMGraph extends Analyzer {
   rskCasts: SpellTracker[] = [];
 
   currentRems = 0;
+  weightedRemTime = 0;
+  lastRemChange = 0;
 
   constructor(options: Options) {
     super(options);
+    this.lastRemChange = this.owner.fight.start_time;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
@@ -62,14 +65,27 @@ class REMGraph extends Analyzer {
   }
 
   remApplied(event: ApplyBuffEvent) {
+    this.trackWeightedTime(event.timestamp);
     this.currentRems += 1;
 
     this.handleChange(event.timestamp);
   }
 
   remRemoved(event: RemoveBuffEvent) {
+    this.trackWeightedTime(event.timestamp);
     this.currentRems -= 1;
     this.handleChange(event.timestamp);
+  }
+
+  trackWeightedTime(timestamp: number) {
+    this.weightedRemTime += this.currentRems * (timestamp - this.lastRemChange);
+    this.lastRemChange = timestamp;
+  }
+
+  get averageRems() {
+    const total =
+      this.weightedRemTime + this.currentRems * (this.owner.fight.end_time - this.lastRemChange);
+    return total / this.owner.fightDuration;
   }
 
   handleChange(timestamp: number) {
@@ -235,6 +251,33 @@ class REMGraph extends Analyzer {
             color: { datum: 'Rising Sun Kick', value: SPELL_COLORS.RISING_SUN_KICK },
           },
         },
+
+        {
+          data: {
+            name: 'averageRems',
+          },
+          mark: {
+            type: 'line' as const,
+            strokeDash: [6, 4],
+            strokeWidth: 1.5,
+          },
+          encoding: {
+            x: xAxis,
+            y: {
+              field: 'remCount',
+              type: 'quantitative' as const,
+            },
+            tooltip: [
+              {
+                field: 'remCount',
+                type: 'quantitative' as const,
+                title: 'Average Renewing Mist Count',
+                format: '.2f',
+              },
+            ],
+            color: { datum: `Average (${this.averageRems.toFixed(2)})` },
+          },
+        },
       ],
       config: {
         axis: {
@@ -265,6 +308,10 @@ class REMGraph extends Analyzer {
                 vivifyCasts: this.vivifyCasts,
                 instantVivifyCasts: this.instantVivifyCasts,
                 rskCast: this.rskCasts,
+                averageRems: [
+                  { timestamp_shifted: 0, remCount: this.averageRems },
+                  { timestamp_shifted: this.owner.fightDuration, remCount: this.averageRems },
+                ],
               }}
               width={width}
               height={height}
