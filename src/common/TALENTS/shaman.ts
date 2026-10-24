@@ -106,11 +106,10 @@ const talents = {
     entryIds: [117482],
     definitionIds: [{ id: 122494, specId: 263 }],
   },
-  /* The Ascendance talents intentionally use a numerical icon */
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
     name: 'Ascendance',
-    icon: '8026697',
+    icon: 'inv121_ability_shaman_ascendance_fire',
     maxRanks: 1,
     entryIds: [101860],
     definitionIds: [{ id: 106820, specId: 262 }],
@@ -118,7 +117,7 @@ const talents = {
   ASCENDANCE_ENHANCEMENT_TALENT: {
     id: 114051,
     name: 'Ascendance',
-    icon: '8026696',
+    icon: 'inv121_ability_shaman_ascendance_air',
     maxRanks: 1,
     entryIds: [114291],
     definitionIds: [{ id: 119296, specId: 263 }],
@@ -126,7 +125,7 @@ const talents = {
   ASCENDANCE_RESTORATION_TALENT: {
     id: 114052,
     name: 'Ascendance',
-    icon: '8026698',
+    icon: 'inv121_ability_shaman_ascendance_water',
     maxRanks: 1,
     entryIds: [101912],
     definitionIds: [{ id: 106942, specId: 264 }],
