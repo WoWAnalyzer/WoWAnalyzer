@@ -8,6 +8,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 10, 24), <>Removed <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT}/> perf mark from <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> casts.</>, swirl),
+  change(date(2026, 10, 24), <>Added average <SpellLink spell={SPELLS.RENEWING_MIST_CAST}/> count to the <SpellLink spell={SPELLS.RENEWING_MIST_CAST}/> graph.</>, swirl),
   change(date(2026, 9, 27), <>Added and updated several Conduit of the Celestials and Master of Harmony talent statistics.</>, swirl),
   change(date(2026, 9, 23), <>Enhanced <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> with cast distribution and utilization.</>, swirl),
   change(date(2026, 9, 15), <>Reworked Healing Cooldowns section show a per-cast timeline and healing table.</>, swirl),
