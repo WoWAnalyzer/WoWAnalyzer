@@ -46,6 +46,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 10, 20), <>Added trinket support for <ItemLink id={ITEMS.TWISTED_HORRORS_TENDRIL.id} />.</>, swirl),
   change(date(2026, 10, 20), "Clean up timeline configuration menu", Seriousnes),
   change(date(2026, 9, 25), "Fix BuffUptimeBar stat cards (Uptime, Avg Stacks, Max Stacks) so the value and label no longer run together. The cards now use the same value, divider, and label layout as other guide stat cards.", Katorri),
   change(date(2026, 9, 15), "Fix buffs on the Overview tab's cooldown timelines showing as active for the whole window, or as stacked duplicate icons, when they weren't.", swirl),

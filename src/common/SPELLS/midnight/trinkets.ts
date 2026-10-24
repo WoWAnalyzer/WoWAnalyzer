@@ -238,6 +238,12 @@ const spells = {
     name: "Vexhul's Everflowing Gland",
     icon: 'inv_11_0_misc_organmass_color3',
   },
+  // Twisted Horror's Tendril
+  DEVASTATING_POWER: {
+    id: 1310414,
+    name: 'Devastating Power',
+    icon: 'inv_cosmicvoid_groundstate',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -67,6 +67,11 @@ const trinkets = {
     name: "Hex Lord's Dooming Idol",
     icon: 'inv_archaeology_orcclans_crackedidol',
   },
+  TWISTED_HORRORS_TENDRIL: {
+    id: 281215,
+    name: "Twisted Horror's Tendril",
+    icon: 'inv_cosmicvoid_groundstate',
+  },
   // Season 2 (Mythic+ dungeon pool)
   SAPLING_OF_THE_DAWNROOT: {
     id: 250259,
