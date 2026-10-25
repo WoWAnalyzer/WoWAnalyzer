@@ -185,22 +185,36 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
     debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(
+    entity.removeBuffSource(event.ability.guid, event.sourceID);
+
+    // logging is client-side so anything that triggers the game to do a full
+    // buff list refresh (like `/reload` or being phased out then back in) for a target
+    // will re-dump *all* auras as `applybuff` / `applydebuff`.
+    // this can result in the same buff having multiple active entries.
+    //
+    // to correct for this, when we see a `removebuff` we end all active instances of it.
+    // this is also wrong in some niche cases (ex: Fire debuff on Vashnik is multiple
+    // separate debuff instances) but those cases are pretty narrow and easier to diagnose.
+
+    const existingBuffs = entity.buffs.filter(
       (item) =>
         item.ability.guid === event.ability.guid &&
         item.end === null &&
         event.sourceID === item.sourceID,
     );
-    entity.removeBuffSource(event.ability.guid, event.sourceID);
-    if (existingBuff) {
+
+    for (const existingBuff of existingBuffs) {
       existingBuff.end = event.timestamp;
       existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });
+    }
+    const finalBuff = existingBuffs.at(-1);
 
-      this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
-    } else {
-      // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
-      // TODO: throw new Error(`Buff ${event.ability.name} wasn't correctly applied in the ApplyBuff normalizer.`);
-      // TODO: Remove below and add above. http://localhost:3000/report/YcbxZv1hKX4GVr82/33-Mythic+Grong+-+Wipe+23+(4:26)/45-Teish has issues due to Tricks of the Trade being applied twice at the start by different people. Need to change ApplyBuff to fix this, probably not super complicated but too late to do now.
+    if (existingBuffs.length > 1) {
+      console.warn('Clearing multiple existing buffs from a single removebuff', event);
+    }
+
+    if (!finalBuff) {
+      // this can happen due to logging quirks with range or reloads
       const isDebuff = event.type === EventType.RemoveDebuff;
       const buff = {
         ...event,
@@ -217,6 +231,8 @@ abstract class Entities<T extends Entity> extends Analyzer {
       entity.buffs.push(buff);
 
       this._triggerChangeBuffStack(buff, event.timestamp, 1, 0);
+    } else {
+      this._triggerChangeBuffStack(finalBuff, event.timestamp, finalBuff.stacks, 0);
     }
   }
 
