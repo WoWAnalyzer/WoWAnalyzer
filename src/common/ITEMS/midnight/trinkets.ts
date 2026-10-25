@@ -128,7 +128,7 @@ const trinkets = {
   TWISTED_HORRORS_TENDRIL: {
     id: 281215,
     name: "Twisted Horror's Tendril",
-    icon: '8268563', //no name on wowhead
+    icon: 'inv_cosmicvoid_groundstate',
   },
   // Season 2 (Mythic+ dungeon pool)
   SEED_OF_RADIANT_HOPE: {

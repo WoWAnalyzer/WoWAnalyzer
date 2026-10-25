@@ -276,6 +276,11 @@ const spells = {
     id: 1296714,
     name: "Faith in Ula'tek",
     icon: 'ability_fomor_boss_rune_green',
+  // Twisted Horror's Tendril
+  DEVASTATING_POWER: {
+    id: 1310414,
+    name: 'Devastating Power',
+    icon: 'inv_cosmicvoid_groundstate',
   },
 } satisfies Record<string, Spell>;
 

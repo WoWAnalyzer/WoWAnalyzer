@@ -14,7 +14,7 @@ import Events, {
 } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getAveragePerf } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -23,7 +23,6 @@ import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnal
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 import { SOOTHING_MIST_CHANNEL_END } from '../../normalizers/EventLinks/EventLinkConstants';
-import { PerformanceMark } from 'interface/guide';
 import { Arrow } from 'interface/icons';
 
 interface YulonCastTracker extends BaseCelestialTracker {
@@ -194,22 +193,19 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     );
   }
 
-  // skipping soom is ok, but add this for info only (no perf remark)
+  // skipping soom is often unavoidable, so this is info only (no perf mark)
   private getSoomItem(cast: YulonCastTracker): CooldownExpandableItem {
-    let perf = QualitativePerformance.Fail;
-    if (cast.envmOutsideSoom === 0 && cast.totalEnvM > 0) {
-      perf = QualitativePerformance.Good;
-    } else if (cast.envmOutsideSoom < cast.totalEnvM) {
-      perf = QualitativePerformance.Ok;
-    }
     return {
       label: (
         <span style={{ paddingLeft: '1.5em' }}>
           <Arrow /> Cast during <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />
         </span>
       ),
-      result: <PerformanceMark perf={perf} />,
-      details: <>{cast.totalEnvM - cast.envmOutsideSoom}</>,
+      details: (
+        <>
+          {cast.totalEnvM - cast.envmOutsideSoom} / {cast.totalEnvM}
+        </>
+      ),
     };
   }
 

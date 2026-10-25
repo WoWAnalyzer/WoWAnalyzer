@@ -112,6 +112,7 @@ import IncorporealEssenceGorger from 'parser/retail/modules/items/thewarwithin/t
 import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
 import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
+import TwistedHorrorsTendril from 'parser/retail/modules/items/midnight/trinkets/TwistedHorrorsTendril';
 import FrenziedFocus from 'parser/retail/modules/items/midnight/enchants/FrenziedFocus';
 import SoulcoilerRitualVessel from 'parser/retail/modules/items/midnight/trinkets/SoulcoilerRitualVessel';
 import UnstableFelheartCrystal from 'parser/retail/modules/items/midnight/trinkets/UnstableFelheartCrystal';
@@ -227,6 +228,7 @@ class CombatLogParser {
     incorporealEssenceGorger: IncorporealEssenceGorger,
     volatileVoidSuffuser: VolatileVoidSuffuser,
     lightOfTheCosmicCrescendo: LightOfTheCosmicCrescendo,
+    twistedHorrorsTendril: TwistedHorrorsTendril,
     fanaticalInspiration: FanaticalInspiration,
     soulcoilerRitualVessel: SoulcoilerRitualVessel,
     unstableFelheartCrystal: UnstableFelheartCrystal,
