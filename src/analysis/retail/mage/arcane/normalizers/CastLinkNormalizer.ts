@@ -185,14 +185,18 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.PRISMATIC_BOLT_BUFF.id,
     parentType: [EventType.ApplyBuff, EventType.RefreshBuff],
     links: [
+      // A negative backwardBuffer disables the backward scan entirely, including events logged in
+      // the same millisecond. A new buff must not link to the previous bolt's cast or remove.
       link(EventType.RefreshBuff, {
         maxLinks: 1,
         forwardBuffer: 60_000,
+        backwardBuffer: -1,
         condition: (linkingEvent, referencedEvent) => linkingEvent !== referencedEvent,
       }),
       link(EventType.RemoveBuff, {
         maxLinks: 1,
         forwardBuffer: 60_000,
+        backwardBuffer: -1,
         condition: (linkingEvent, referencedEvent) => {
           const refresh = GetRelatedEvent(linkingEvent, EventType.RefreshBuff);
           return !refresh || referencedEvent.timestamp < refresh.timestamp;
@@ -204,6 +208,7 @@ const EVENT_LINKS = createEventLinks(
         maxLinks: 1,
         anyTarget: true,
         forwardBuffer: 60_000,
+        backwardBuffer: -1,
         reverseRelation: EventType.ApplyBuff,
         condition: (linkingEvent, referencedEvent) => {
           const buffEnd = GetRelatedEvent(linkingEvent, EventType.RemoveBuff);
