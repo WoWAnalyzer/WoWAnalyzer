@@ -14,7 +14,7 @@ import CastDetail, {
 } from 'interface/guide/components/CastDetail';
 
 import ArcaneMissiles, { ArcaneMissilesData } from '../analyzers/ArcaneMissiles';
-import { TipBox } from 'interface/guide/components';
+import { PerformanceTipBox, TipBox } from 'interface/guide/components';
 
 const MISSILE_EARLY_CLIP_DELAY = 200;
 
@@ -44,12 +44,33 @@ class ArcaneMissilesGuide extends Analyzer {
       };
     }
 
+    if (this.isSunfury && am.ticks < 7) {
+      return {
+        performance: QualitativePerformance.Fail,
+        reason: `Arcane Missiles cancelled at ${am.ticks} ticks.`,
+        timestamp: am.cast.timestamp,
+      };
+    }
+
     // PERFECT CONDITIONS
     if (this.isSpellslinger && am.salvoStacks < 15 && !am.opMissiles && am.clipped) {
       return {
         timestamp: am.cast.timestamp,
         performance: QualitativePerformance.Perfect,
         reason: `You clipped your channel properly, had ${am.salvoStacks} Arcane Salvo stacks, and ${am.clearcastingProcs} Clearcasting procs.`,
+      };
+    }
+
+    if (
+      this.isSunfury &&
+      am.clipped &&
+      am.ticks === 7 &&
+      am.nextCast?.ability.guid === TALENTS.ARCANE_MISSILES_TALENT.id
+    ) {
+      return {
+        timestamp: am.cast.timestamp,
+        performance: QualitativePerformance.Perfect,
+        reason: `Chained Arcane Missiles.`,
       };
     }
 
@@ -146,6 +167,13 @@ class ArcaneMissilesGuide extends Analyzer {
               {arcaneMissiles} just before the last tick of the previous cast. This will chain into
               the second channel and will still result in the same number of missile waves.
             </TipBox>
+            <PerformanceTipBox performance={QualitativePerformance.Perfect} title="Perfection">
+              When you are using multiple {clearcasting} procs back to back, you can chain one cast
+              into the next using the advice above for Chaining. Note that the detection of this,
+              and channel end delay, is experimental and might not be totally accurate. This will
+              increase your rating to Perfect and net you a moderate DPS increase if you are
+              consistently being rated "Good".
+            </PerformanceTipBox>
           </>
         )}
       </>
@@ -201,6 +229,13 @@ class ArcaneMissilesGuide extends Analyzer {
             value: cast.opMissiles ? 'Yes' : 'No',
             label: 'Had Overpowered Missiles',
             tooltip: <>Whether the player had an Overpowered Missiles proc or not.</>,
+          },
+          {
+            value: cast.ticks,
+            label: 'Missile Ticks',
+            tooltip: (
+              <>The number of ticks of Arcane Missiles that were cast before the channel ended.</>
+            ),
           },
           cast.channelEndDelay !== undefined
             ? {

@@ -19,6 +19,7 @@ const arcanePulse = <SpellLink spell={TALENTS.ARCANE_PULSE_TALENT} />;
 const overpoweredMissiles = <SpellLink spell={TALENTS.OVERPOWERED_MISSILES_TALENT} />;
 
 export default [
+  change(date(2026, 10, 25), <>Rework {arcaneMissiles} tick tracking and channel end delay.</>, Sharrq),
   change(date(2026, 10, 25), <>Fix the Spell ID on {overpoweredMissiles}.</>, Sharrq),
   change(date(2026, 10, 24), <>Stop {arcanePulse} from showing in Cast Efficiency when not talented.</>, Sharrq),
   change(date(2026, 9, 11), <>Fixed {clearcasting} buff tracking for {arcaneBarrage}.</>, Sharrq),
