@@ -51,6 +51,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ARCANE_PULSE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.ARCANE_PULSE_TALENT),
         gcd: {
           base: 1500,
         },
