@@ -16,8 +16,10 @@ const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
 const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 const cumulativePower = <SpellLink spell={SPELLS.CUMULATIVE_POWER_BUFF} />;
 const arcanePulse = <SpellLink spell={TALENTS.ARCANE_PULSE_TALENT} />;
+const overpoweredMissiles = <SpellLink spell={TALENTS.OVERPOWERED_MISSILES_TALENT} />;
 
 export default [
+  change(date(2026, 10, 25), <>Fix the Spell ID on {overpoweredMissiles}.</>, Sharrq),
   change(date(2026, 10, 24), <>Stop {arcanePulse} from showing in Cast Efficiency when not talented.</>, Sharrq),
   change(date(2026, 9, 11), <>Fixed {clearcasting} buff tracking for {arcaneBarrage}.</>, Sharrq),
   change(date(2026, 9, 10), <>Fixed the {cumulativePower} and {arcaneSalvo} buff stack counts for {prismaticBolt}.</>, Sharrq),

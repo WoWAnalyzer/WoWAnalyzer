@@ -88,7 +88,7 @@ const spells = {
     icon: 'inv12_ability_mage_arcanesalvo',
   },
   OVERPOWERED_MISSILES_BUFF: {
-    id: 1227009,
+    id: 1277009,
     name: 'Overpowered Missiles',
     icon: 'ability_socererking_arcanereplication',
   },
