@@ -20,6 +20,7 @@ const overpoweredMissiles = <SpellLink spell={TALENTS.OVERPOWERED_MISSILES_TALEN
 const arcaneSoul = <SpellLink spell={SPELLS.ARCANE_SOUL_BUFF} />;
 
 export default [
+  change(date(2026, 10, 25), <>Fixed {prismaticBolt} showing 0 targets hit on a munched buff that was applied at the same timestamp as the previous cast.</>, Sharrq),
   change(date(2026, 10, 25), <>Restore the {arcaneSoul} buff tracking on {prismaticBolt}.</>, Sharrq),
   change(date(2026, 10, 25), <>Rework {arcaneMissiles} tick tracking and channel end delay.</>, Sharrq),
   change(date(2026, 10, 25), <>Fix the Spell ID on {overpoweredMissiles}.</>, Sharrq),
