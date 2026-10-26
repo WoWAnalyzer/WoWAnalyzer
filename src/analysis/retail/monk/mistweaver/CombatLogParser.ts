@@ -2,7 +2,6 @@ import {
   MysticTouch,
   TouchOfDeath,
   SaveThemAll,
-  TeachingsOfTheMonestary,
   CelestialHooks,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -89,6 +88,7 @@ import StampedeOfTheAncients from './modules/heroTalents/StampedeOfTheAncients';
 import UnityWithin from './modules/heroTalents/UnityWithin';
 import TempleTraining from './modules/heroTalents/TempleTraining';
 import XuensGuidance from './modules/heroTalents/XuensGuidance';
+import TeachingsOfTheMonastery from './modules/spells/TeachingsOfTheMonastery';
 import NiuzaosProtection from './modules/heroTalents/NiuzaosProtection';
 import CourageOfTheWhiteTiger from './modules/heroTalents/CourageOfTheWhiteTiger';
 import FlowingWisdom from './modules/heroTalents/FlowingWisdom';
@@ -203,7 +203,7 @@ class CombatLogParser extends CoreCombatLogParser {
     yulonsWhisper: YulonsWhisper,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
-    teachingsOfTheMonestary: TeachingsOfTheMonestary,
+    teachingsOfTheMonestary: TeachingsOfTheMonastery,
     sheilunsGift: SheilunsGift,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
