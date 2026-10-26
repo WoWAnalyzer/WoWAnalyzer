@@ -13,7 +13,7 @@ export const MANA_GRAPH_CONFIG = {
   // legends beside the plot would make the graphs different widths
   legend: {
     orient: 'top' as const,
-    // the default cuts off longer names like the lifecycles consumers
+    // the default cuts off longer names
     labelLimit: 300,
   },
 };

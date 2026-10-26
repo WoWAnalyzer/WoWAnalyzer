@@ -36,6 +36,8 @@ interface LifecyclesTracker extends StackTracker {
   buff: string;
 }
 
+const TIME_AT_MAX_STACKS = 'Time at max stacks';
+const LIFE_COCOON_CAST = 'Life Cocoon cast';
 const LIFECYCLES_GAINED = 'Lifecycles (stack gained)';
 const LIFECYCLES_WASTED_AT_MAX = 'Lifecycles (wasted at max stacks)';
 const LIFECYCLES_WASTED_OTHER = 'Lifecycles (refreshed/expired)';
@@ -290,25 +292,34 @@ class ManaTeaGraph extends Analyzer {
             ],
           },
         },
-        {
-          data: {
-            name: 'capWindows',
-          },
-          mark: {
-            type: 'rect' as const,
-            color: '#e5484d',
-            opacity: 0.25,
-          },
-          encoding: {
-            x: { field: 'start', type: 'quantitative' as const },
-            x2: { field: 'end' },
-            tooltip: [
-              { field: 'from', type: 'nominal' as const, title: 'At cap from' },
-              { field: 'until', type: 'nominal' as const, title: 'Until' },
-              { field: 'duration', type: 'nominal' as const, title: 'Duration' },
-            ],
-          },
-        },
+        ...(this.capWindows.length > 0
+          ? [
+              {
+                data: {
+                  name: 'capWindows',
+                },
+                mark: {
+                  type: 'rect' as const,
+                  opacity: 0.25,
+                },
+                encoding: {
+                  x: { field: 'start', type: 'quantitative' as const },
+                  x2: { field: 'end' },
+                  color: {
+                    datum: TIME_AT_MAX_STACKS,
+                    type: 'nominal' as const,
+                    scale: { domain: [TIME_AT_MAX_STACKS], range: ['#e5484d'] },
+                    legend: { title: null },
+                  },
+                  tooltip: [
+                    { field: 'from', type: 'nominal' as const, title: 'At cap from' },
+                    { field: 'until', type: 'nominal' as const, title: 'Until' },
+                    { field: 'duration', type: 'nominal' as const, title: 'Duration' },
+                  ],
+                },
+              },
+            ]
+          : []),
         ...(this.hasLifecycles
           ? [
               {
@@ -394,7 +405,12 @@ class ManaTeaGraph extends Analyzer {
                     type: 'quantitative' as const,
                     title: 'Stacks',
                   },
-                  color: { datum: 'Life Cocoon cast', value: SPELL_COLORS.LIFE_COCOON },
+                  color: {
+                    datum: LIFE_COCOON_CAST,
+                    type: 'nominal' as const,
+                    scale: { domain: [LIFE_COCOON_CAST], range: [SPELL_COLORS.LIFE_COCOON] },
+                    legend: { title: null },
+                  },
                   tooltip: [
                     {
                       field: 'stacks',

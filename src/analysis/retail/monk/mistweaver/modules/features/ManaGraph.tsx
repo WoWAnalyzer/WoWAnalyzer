@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
@@ -20,11 +20,6 @@ const MANA_TEA_WASTED = 'Mana Tea (mana wasted)';
 interface Window {
   start: number;
   end: number;
-}
-
-interface CooldownCast {
-  timestamp: number;
-  series: string;
 }
 
 const COOLDOWNS = [
@@ -46,7 +41,6 @@ class ManaGraph extends Analyzer.withDependencies({
   innervateStart = -1;
   unityWindows: Window[] = [];
   unityStart = -1;
-  cooldownCasts: CooldownCast[] = [];
   cooldowns: { talent: Talent; color: string }[];
 
   constructor(options: Options) {
@@ -61,12 +55,6 @@ class ManaGraph extends Analyzer.withDependencies({
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
       this.onInnervateRemove,
     );
-    if (this.cooldowns.length > 0) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(this.cooldowns.map(({ talent }) => talent)),
-        this.onCooldownCast,
-      );
-    }
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -89,13 +77,6 @@ class ManaGraph extends Analyzer.withDependencies({
     const start = this.unityStart === -1 ? this.owner.fight.start_time : this.unityStart;
     this.unityWindows.push({ start, end: event.timestamp });
     this.unityStart = -1;
-  }
-
-  onCooldownCast(event: CastEvent) {
-    const cooldown = this.cooldowns.find(({ talent }) => talent.id === event.ability.guid);
-    if (cooldown) {
-      this.cooldownCasts.push({ timestamp: event.timestamp, series: cooldown.talent.name });
-    }
   }
 
   onFightEnd() {
@@ -211,52 +192,6 @@ class ManaGraph extends Analyzer.withDependencies({
         },
         {
           data: {
-            name: 'innervateWindows',
-          },
-          mark: {
-            type: 'rect' as const,
-            color: '#a86cf0',
-            opacity: 0.25,
-          },
-          encoding: {
-            x: { field: 'start', type: 'quantitative' as const },
-            x2: { field: 'end' },
-            tooltip: [
-              { field: 'from', type: 'nominal' as const, title: 'Innervate from' },
-              { field: 'until', type: 'nominal' as const, title: 'Until' },
-            ],
-          },
-        },
-        ...(this.cooldowns.length > 0
-          ? [
-              {
-                data: {
-                  name: 'cooldownWindows',
-                },
-                mark: {
-                  type: 'rect' as const,
-                  opacity: 0.2,
-                },
-                encoding: {
-                  x: { field: 'start', type: 'quantitative' as const },
-                  x2: { field: 'end' },
-                  color: {
-                    field: 'series',
-                    type: 'nominal' as const,
-                    scale: cooldownScale,
-                    legend: null,
-                  },
-                  tooltip: [
-                    { field: 'series', type: 'nominal' as const, title: 'Active' },
-                    { field: 'from', type: 'nominal' as const, title: 'From' },
-                    { field: 'until', type: 'nominal' as const, title: 'Until' },
-                  ],
-                },
-              },
-            ]
-          : []),
-        {
-          data: {
             name: 'manaTeaCasts',
           },
           mark: {
@@ -286,6 +221,61 @@ class ManaGraph extends Analyzer.withDependencies({
             ],
           },
         },
+        ...(this.innervateWindows.length > 0
+          ? [
+              {
+                data: {
+                  name: 'innervateWindows',
+                },
+                mark: {
+                  type: 'rect' as const,
+                  opacity: 0.25,
+                },
+                encoding: {
+                  x: { field: 'start', type: 'quantitative' as const },
+                  x2: { field: 'end' },
+                  color: {
+                    datum: 'Innervate',
+                    type: 'nominal' as const,
+                    scale: { domain: ['Innervate'], range: ['#a86cf0'] },
+                    legend: { title: null },
+                  },
+                  tooltip: [
+                    { field: 'from', type: 'nominal' as const, title: 'Innervate from' },
+                    { field: 'until', type: 'nominal' as const, title: 'Until' },
+                  ],
+                },
+              },
+            ]
+          : []),
+        ...(this.cooldowns.length > 0
+          ? [
+              {
+                data: {
+                  name: 'cooldownWindows',
+                },
+                mark: {
+                  type: 'rect' as const,
+                  opacity: 0.2,
+                },
+                encoding: {
+                  x: { field: 'start', type: 'quantitative' as const },
+                  x2: { field: 'end' },
+                  color: {
+                    field: 'series',
+                    type: 'nominal' as const,
+                    scale: cooldownScale,
+                    legend: { title: null },
+                  },
+                  tooltip: [
+                    { field: 'series', type: 'nominal' as const, title: 'Active' },
+                    { field: 'from', type: 'nominal' as const, title: 'From' },
+                    { field: 'until', type: 'nominal' as const, title: 'Until' },
+                  ],
+                },
+              },
+            ]
+          : []),
       ],
       // each marker layer has its own colour scale, otherwise one layer's domain hides the others
       resolve: {
@@ -315,11 +305,6 @@ class ManaGraph extends Analyzer.withDependencies({
                 cooldownWindows: this.cooldownWindows.map((window) => ({
                   ...this.windowData(window),
                   series: window.series,
-                })),
-                cooldownCasts: this.cooldownCasts.map((cast) => ({
-                  x: this.shift(cast.timestamp),
-                  mana: this.manaPercentAt(cast.timestamp),
-                  series: cast.series,
                 })),
                 manaTeaCasts,
               }}
