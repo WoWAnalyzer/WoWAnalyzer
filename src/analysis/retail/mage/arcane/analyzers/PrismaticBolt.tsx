@@ -41,6 +41,9 @@ export default class PrismaticBolt extends Analyzer {
     const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
     const munched = !cast && !!refresh;
     const expired = !cast && !!remove;
+    const surgeBuff = this.selectedCombatant.getBuff(SPELLS.ARCANE_SURGE_BUFF);
+    const soulBuff = this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF);
+    const timeUntilSoul = surgeBuff ? surgeBuff.start + 15000 - event.timestamp : undefined;
 
     this.prismaticBolts.push({
       timestamp: event.timestamp,
@@ -53,7 +56,7 @@ export default class PrismaticBolt extends Analyzer {
       has4pc: this.selectedCombatant.has4PieceByTier(TIERS.MID2),
       targetsHit: damage?.length || 0,
       delay: cast ? cast.timestamp - event.timestamp : undefined,
-      hasArcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF),
+      hasArcaneSoul: soulBuff || (timeUntilSoul && timeUntilSoul <= 3000) ? true : false,
     });
   }
 
