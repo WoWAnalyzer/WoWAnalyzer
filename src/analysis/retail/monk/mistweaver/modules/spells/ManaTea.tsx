@@ -18,11 +18,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { HasStackChange } from '../../normalizers/CastLinkNormalizer';
 import Haste from 'parser/shared/modules/Haste';
+import ManaTeaGraph from '../features/ManaTeaGraph';
 
 interface ManaTeaTracker {
   timestamp: number;
   stacksConsumed: number;
   manaRestored: number;
+  manaWasted: number;
   channelTime: number | undefined;
 }
 
@@ -30,13 +32,16 @@ class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     haste: Haste,
+    manaTeaGraph: ManaTeaGraph,
   };
 
   protected haste!: Haste;
+  protected manaTeaGraph!: ManaTeaGraph;
   castStart = this.owner.fight.start_time;
   castTrackers: ManaTeaTracker[] = [];
   stacksWasted = 0;
   manaRestoredSinceLastApply = 0;
+  manaWastedSinceLastApply = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
@@ -81,9 +86,11 @@ class ManaTea extends Analyzer {
       timestamp: event.timestamp,
       stacksConsumed: 0,
       manaRestored: 0,
+      manaWasted: 0,
       channelTime: -1,
     });
     this.manaRestoredSinceLastApply = 0;
+    this.manaWastedSinceLastApply = 0;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -93,6 +100,7 @@ class ManaTea extends Analyzer {
     }
     tracker.channelTime = event.timestamp - this.castStart;
     tracker.manaRestored = this.manaRestoredSinceLastApply;
+    tracker.manaWasted = this.manaWastedSinceLastApply;
     this.castStart = -1;
   }
 
@@ -104,10 +112,11 @@ class ManaTea extends Analyzer {
 
   onManaRestored(event: ResourceChangeEvent) {
     this.manaRestoredSinceLastApply += event.resourceChange;
+    this.manaWastedSinceLastApply += event.waste;
   }
 
   onStackWaste(event: RefreshBuffEvent) {
-    if (!HasStackChange(event)) {
+    if (!HasStackChange(event) && !this.manaTeaGraph.isRefreshmentEvent(event)) {
       this.stacksWasted += 1;
     }
   }
@@ -160,7 +169,10 @@ class ManaTea extends Analyzer {
               {this.avgStacks.toFixed(1)}
             </div>
             <div>Average channel duration: {(this.avgChannelDuration / 1000).toFixed(1)}s</div>
-            <div>Total wasted stacks: {this.stacksWasted}</div>
+            <div>Total gained stacks: {this.manaTeaGraph.stacksGained}</div>
+            <div>
+              Total wasted stacks: {this.stacksWasted + this.manaTeaGraph.refreshmentWasted}
+            </div>
           </>
         }
       >

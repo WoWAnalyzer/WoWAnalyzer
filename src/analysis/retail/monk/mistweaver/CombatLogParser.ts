@@ -23,6 +23,8 @@ import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import REMGraph from './modules/features/REMGraph';
+import ManaTeaGraph from './modules/features/ManaTeaGraph';
+import ManaGraph from './modules/features/ManaGraph';
 import JadeBond from './modules/spells/JadeBond';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import AncientTeachings from './modules/spells/AncientTeachings';
@@ -156,6 +158,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
+    manaTeaGraph: ManaTeaGraph,
+    manaGraph: ManaGraph,
     hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
     heroTalentHealingStatistic: HeroTalentHealingStatistic,

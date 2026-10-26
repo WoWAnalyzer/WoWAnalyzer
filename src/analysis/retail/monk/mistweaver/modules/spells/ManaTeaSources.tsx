@@ -15,6 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { MANA_TEA_MAX_STACKS, SPELL_COLORS } from '../../constants';
 import { HasStackChange, isMTStackFromLifeCycles } from '../../normalizers/CastLinkNormalizer';
+import ManaTeaGraph from '../features/ManaTeaGraph';
 
 interface StackInfo {
   usedStacks: number;
@@ -22,13 +23,22 @@ interface StackInfo {
 }
 
 class ManaTeaSources extends Analyzer {
+  static dependencies = {
+    manaTeaGraph: ManaTeaGraph,
+  };
+  protected manaTeaGraph!: ManaTeaGraph;
+
   healing = 0;
   lifecyclesStacks: StackInfo = { usedStacks: 0, wastedStacks: 0 };
   naturalStacks: StackInfo = { usedStacks: 0, wastedStacks: 0 };
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
+    // with only natural stacks there is nothing to break down
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+      (this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT) ||
+        this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHMENT_TALENT));
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
       this.onStackGain,
@@ -55,7 +65,17 @@ class ManaTeaSources extends Analyzer {
     );
   }
 
+  get refreshmentStacks(): StackInfo {
+    return {
+      usedStacks: this.manaTeaGraph.refreshmentGained,
+      wastedStacks: this.manaTeaGraph.refreshmentWasted,
+    };
+  }
+
   onStackGain(event: ApplyBuffStackEvent | ApplyBuffEvent) {
+    if (this.manaTeaGraph.isRefreshmentEvent(event)) {
+      return;
+    }
     if (isMTStackFromLifeCycles(event)) {
       this.lifecyclesStacks.usedStacks += 1;
     } else {
@@ -72,6 +92,7 @@ class ManaTeaSources extends Analyzer {
   onStackWaste(event: RefreshBuffEvent) {
     if (
       HasStackChange(event) ||
+      this.manaTeaGraph.isRefreshmentEvent(event) ||
       this.selectedCombatant.getBuffStacks(SPELLS.MANA_TEA_STACK.id, event.timestamp) <
         MANA_TEA_MAX_STACKS
     ) {
@@ -86,42 +107,40 @@ class ManaTeaSources extends Analyzer {
   }
 
   renderChart(wasted: boolean) {
-    const naturalStacks = wasted ? this.naturalStacks.wastedStacks : this.naturalStacks.usedStacks;
-    const lifecyclesStacks = wasted
-      ? this.lifecyclesStacks.wastedStacks
-      : this.lifecyclesStacks.usedStacks;
+    const pick = (info: StackInfo) => (wasted ? info.wastedStacks : info.usedStacks);
     const items = [
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Lifecycles',
         spellId: TALENTS_MONK.LIFECYCLES_TALENT.id,
-        value: lifecyclesStacks,
-        valueTooltip: formatNumber(lifecyclesStacks),
+        value: pick(this.lifecyclesStacks),
+        valueTooltip: formatNumber(pick(this.lifecyclesStacks)),
+        active: this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT),
+      },
+      {
+        color: SPELL_COLORS.LIFE_COCOON,
+        label: 'Refreshment',
+        spellId: TALENTS_MONK.REFRESHMENT_TALENT.id,
+        value: pick(this.refreshmentStacks),
+        valueTooltip: formatNumber(pick(this.refreshmentStacks)),
+        active: this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHMENT_TALENT),
       },
       {
         color: SPELL_COLORS.REVIVAL,
         label: 'Mana Tea',
         spellId: TALENTS_MONK.MANA_TEA_TALENT.id,
-        value: naturalStacks,
-        valueTooltip: formatNumber(naturalStacks),
+        value: pick(this.naturalStacks),
+        valueTooltip: formatNumber(pick(this.naturalStacks)),
+        active: true,
       },
-    ];
+    ].filter(({ active }) => active);
 
     return <DonutChart items={items} />;
   }
 
-  get lifecyclesEfficiency() {
-    return (
-      this.lifecyclesStacks.usedStacks /
-      (this.lifecyclesStacks.usedStacks + this.lifecyclesStacks.wastedStacks)
-    );
-  }
-
-  get mtEfficiency() {
-    return (
-      this.naturalStacks.usedStacks /
-      (this.naturalStacks.usedStacks + this.naturalStacks.wastedStacks)
-    );
+  private efficiency({ usedStacks, wastedStacks }: StackInfo) {
+    const total = usedStacks + wastedStacks;
+    return total === 0 ? 0 : usedStacks / total;
   }
 
   statistic() {
@@ -132,13 +151,21 @@ class ManaTeaSources extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
-            <div>
-              <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT} /> stack efficiency:{' '}
-              {formatPercentage(this.lifecyclesEfficiency)}%
-            </div>
+            {this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT) && (
+              <div>
+                <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT} /> stack efficiency:{' '}
+                {formatPercentage(this.efficiency(this.lifecyclesStacks))}%
+              </div>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHMENT_TALENT) && (
+              <div>
+                <SpellLink spell={TALENTS_MONK.REFRESHMENT_TALENT} /> stack efficiency:{' '}
+                {formatPercentage(this.efficiency(this.refreshmentStacks))}%
+              </div>
+            )}
             <div>
               <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> natural stack efficiency:{' '}
-              {formatPercentage(this.mtEfficiency)}%
+              {formatPercentage(this.efficiency(this.naturalStacks))}%
             </div>
           </>
         }
