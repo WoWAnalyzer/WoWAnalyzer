@@ -6,13 +6,12 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ATTRIBUTION_STRINGS,
-  getCurrentRSKTalent,
   getEnvelopingMistHealingIncrease,
+  getCurrentRSKTalent,
   RISING_MIST_EXTENSION,
   SPELL_COLORS,
 } from '../../constants';
@@ -31,13 +30,11 @@ const ATTRIBUTION_PREFIX = 'RisingMist #';
 class RisingMist extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
-    abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
     vivify: Vivify,
   };
 
   hotTracker!: HotTrackerMW;
-  abilityTracker!: AbilityTracker;
   spellUsable!: SpellUsable;
   vivify!: Vivify;
 
@@ -99,22 +96,8 @@ class RisingMist extends Analyzer {
     );
   }
 
-  get directHealing() {
-    return this.abilityTracker.getAbilityHealing(SPELLS.RISING_MIST_HEAL.id);
-  }
-
   get totalHealing() {
-    return (
-      this.hotHealing + this.directHealing + this.vivHealing + this.envBonusHealing + this.zpHealing
-    );
-  }
-
-  get averageHealing() {
-    return this.risingMistCount === 0 ? 0 : this.directHealing / this.risingMistCount;
-  }
-
-  get averageTargetsPerRM() {
-    return this.targetCount / this.risingMistCount || 0;
+    return this.hotHealing + this.vivHealing + this.envBonusHealing + this.zpHealing;
   }
 
   get calculateVivOverHealing() {
@@ -127,7 +110,6 @@ class RisingMist extends Analyzer {
   risingMists: Attribution[] = [];
   remCount = 0;
   evmCount = 0;
-  targetCount = 0;
   trackUplift = false;
   //zen pulse
   zpHits = 0;
@@ -164,10 +146,6 @@ class RisingMist extends Analyzer {
       this.extendHots,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RISING_MIST_HEAL),
-      this.countRisingMistHits,
-    );
-    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_MISTS_HEAL),
       this.handleVivify,
     );
@@ -179,10 +157,6 @@ class RisingMist extends Analyzer {
     }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
-  }
-
-  countRisingMistHits(event: HealEvent) {
-    this.targetCount += 1;
   }
 
   calculateEnv(event: HealEvent) {
@@ -315,10 +289,6 @@ class RisingMist extends Analyzer {
       }
     });
     return value;
-  }
-
-  averageTargetsPerRSKCast() {
-    return <>{formatNumber(this.averageTargetsPerRM)}</>;
   }
 
   subStatistic() {
