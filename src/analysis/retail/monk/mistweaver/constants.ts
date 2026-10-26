@@ -42,6 +42,9 @@ export const INVIGORATING_MISTS_INCREASE = 5;
 export const MAX_CHIJI_STACKS = 3;
 export const CHIJI_REDUCTION = 0.2;
 export const MANA_TEA_MAX_STACKS = 20;
+export const REFRESHMENT_MANA_TEA_STACKS = 5;
+// the stacks from refreshment land within ~25ms of the life cocoon cast
+export const REFRESHMENT_WINDOW_MS = 100;
 export const JADE_BOND_INC = 0.2;
 export const JADE_BOND_SOOB_INC = 5;
 export const DANCING_MIST_CHANCE = 0.08;
@@ -135,6 +138,7 @@ export const SPELL_COLORS = {
   THUNDER_FOCUS_TEA: '#96ade5',
   LIFE_COCOON: '#a8d8a8',
   CHI_JI: '#d4380d',
+  YULON: '#35a853',
 };
 
 export const ID_TO_SPELL_COLOR: Partial<Record<number, string>> = {

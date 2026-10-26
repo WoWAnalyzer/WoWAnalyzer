@@ -56,9 +56,10 @@ class LifeCocoon extends Analyzer {
         is a strong external cooldown that has many supporting talents in{' '}
         <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT} />,{' '}
         <SpellLink spell={TALENTS_MONK.CHRYSALIS_TALENT} />, and{' '}
-        <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT} />, and is important as often as
-        possible while still getting good value from it. Similar to your other cooldowns, this just
-        means don't hold it for so long that you miss out on an entire cast.
+        <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT} />/
+        <SpellLink spell={TALENTS_MONK.REFRESHMENT_TALENT} />, and is important as often as possible
+        while still getting good value from it. Similar to your other cooldowns, this just means
+        don't hold it for so long that you miss out on an entire cast.
       </p>
     );
 

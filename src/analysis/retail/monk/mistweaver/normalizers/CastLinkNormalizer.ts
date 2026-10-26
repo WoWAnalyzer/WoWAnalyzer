@@ -309,6 +309,15 @@ export function isMTStackFromLifeCycles(
   return HasRelatedEvent(event, LIFECYCLES);
 }
 
+// the link also covers a refresh at the stack cap, which is a wasted stack and not a gained one
+export function didLifecyclesGainStack(
+  event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent,
+) {
+  return GetRelatedEvents(event, LIFECYCLES).some(
+    (related) => related.type === EventType.ApplyBuff || related.type === EventType.ApplyBuffStack,
+  );
+}
+
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
