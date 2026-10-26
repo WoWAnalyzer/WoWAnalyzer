@@ -482,11 +482,6 @@ const spells = {
     name: 'Gust of Mists',
     icon: 'monk_stance_redcrane',
   },
-  RISING_MIST_HEAL: {
-    id: 274912,
-    name: 'Rising Mist',
-    icon: 'ability_monk_effuse',
-  },
   WHIRLING_DRAGON_PUNCH_DAMAGE: {
     id: 158221,
     name: 'Whirling Dragon Punch',

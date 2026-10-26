@@ -23,7 +23,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   273354, // overflowing mists
   SPELLS.ENVELOPING_MIST_TFT.id,
   274774, // strength of spirit
-  SPELLS.RISING_MIST_HEAL.id,
+  // 274912, // rising mist (removed in midnight)
   278564, // burst of life
   297850, // revival
   311123, // weapons of order

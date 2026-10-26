@@ -1,7 +1,8 @@
+import { plural } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink, Tooltip, TooltipElement } from 'interface';
 import { PerformanceMark } from 'interface/guide';
 import { CooldownGridItem } from 'interface/CooldownGrid/CooldownGrid';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
@@ -20,8 +21,10 @@ import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { getCurrentRSKTalent } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
+import TeachingsOfTheMonastery from './TeachingsOfTheMonastery';
 import InformationIcon from 'interface/icons/Information';
 
 const debug = false;
@@ -33,9 +36,16 @@ const debug = false;
 
 interface ChijiCastTracker extends BaseCelestialTracker {
   overcappedTotmStacks: number;
+  totmWastedOnCast: number;
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
+  static dependencies = {
+    ...BaseCelestialAnalyzer.dependencies,
+    teachings: TeachingsOfTheMonastery,
+  };
+  protected teachings!: TeachingsOfTheMonastery;
+
   castTrackers: ChijiCastTracker[] = [];
   //healing breakdown vars
   gustHealing = 0;
@@ -48,8 +58,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   chijiGlobals = 0;
   chijiUses = 0;
   lastGlobal = 0;
-  checkForSckDamage = -1;
-  castBokInWindow = false;
 
   get totalHealing() {
     return this.gustHealing + this.envelopHealing + this.chiCocoonHealing;
@@ -76,13 +84,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.onEnvmCast,
     );
 
-    //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
-    this.addEventListener(
-      Events.GlobalCooldown.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
-      this.handleSpinningCraneKick,
-    );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onBOK);
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
       this.onTotmRefresh,
@@ -94,10 +96,22 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.chijiStart = this.lastGlobal = event.timestamp;
     this.chijiGlobals += 1;
     this.chijiUses += 1;
-    this.castBokInWindow = false;
+    const totmWastedOnCast = this.teachings.lastEntryWasted;
+    if (totmWastedOnCast > 0) {
+      addInefficientCastReason(
+        event,
+        <>
+          Cast with {totmWastedOnCast} <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY} />{' '}
+          {plural(totmWastedOnCast, { one: 'stack', other: 'stacks' })} built, overcapping the
+          stacks granted by <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+        </>,
+      );
+    }
     this.castTrackers.push({
       ...this.createBaseTracker(event),
+      // celestial harmony always grants 4 totm on cast, so any stacks held beforehand are wasted
       overcappedTotmStacks: 0,
+      totmWastedOnCast,
     });
   }
 
@@ -108,25 +122,12 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.castTrackers.at(-1)!.totalEnvM += 1;
   }
 
-  onBOK(event: CastEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
-    // the first cast of BoK in the window should overcap (intentionally). ignore it
-    if (!this.castBokInWindow) {
-      this.castBokInWindow = true;
-      return;
-    }
-  }
-
-  onSCK(event: CastEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
-  }
-
   onTotmRefresh(event: RefreshBuffEvent) {
-    if (this.celestialActive) {
+    if (
+      this.teachings.isOvercap(event) &&
+      this.celestialActive &&
+      event.timestamp > this.castTrackers.at(-1)!.timestamp
+    ) {
       debug && console.log('wasted totm stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedTotmStacks += 1;
     }
@@ -150,12 +151,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
 
   handleChiCocoon(event: AbsorbedEvent) {
     this.chiCocoonHealing += event.amount;
-  }
-
-  handleSpinningCraneKick(event: GlobalCooldownEvent) {
-    if (this.celestialActive) {
-      this.checkForSckDamage = event.duration + this.lastGlobal;
-    }
   }
 
   subStatistic() {
@@ -183,7 +178,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> should be{' '}
           <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to immediately utilize the{' '}
           <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks granted by{' '}
-          <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />. Enter with no{' '}
+          <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks so that they
+          aren't overcapped.
         </p>
         <hr />
         <p>
@@ -248,8 +245,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       checklistItems.push(totmItem);
     }
 
+    const totmWasted = cast.totmWastedOnCast + cast.overcappedTotmStacks;
     const totmRefreshPerf =
-      cast.overcappedTotmStacks > 0 ? QualitativePerformance.Fail : QualitativePerformance.Good;
+      totmWasted > 0 ? QualitativePerformance.Fail : QualitativePerformance.Good;
     allPerfs.push(totmRefreshPerf);
     checklistItems.push({
       label: (
@@ -258,7 +256,33 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         </>
       ),
       result: <PerformanceMark perf={totmRefreshPerf} />,
-      details: <>{cast.overcappedTotmStacks}</>,
+      details:
+        totmWasted > 0 ? (
+          <TooltipElement
+            content={
+              <ul>
+                {cast.totmWastedOnCast > 0 && (
+                  <li>
+                    {cast.totmWastedOnCast} from casting{' '}
+                    <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> with
+                    stacks already built, since{' '}
+                    <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} /> grants 4 on cast
+                  </li>
+                )}
+                {cast.overcappedTotmStacks > 0 && (
+                  <li>
+                    {cast.overcappedTotmStacks} from <SpellLink spell={SPELLS.TIGER_PALM} /> casts
+                    at max stacks during the window
+                  </li>
+                )}
+              </ul>
+            }
+          >
+            {totmWasted}
+          </TooltipElement>
+        ) : (
+          <>{totmWasted}</>
+        ),
     });
 
     return { perf: getAveragePerf(allPerfs), checklistItems, range: this.getCastRange(cast) };

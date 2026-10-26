@@ -8,6 +8,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 10, 26), <>Updated <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT}/> for Midnight by removing its direct heal, and corrected the bonus <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT}/> healing used by it and <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT}/> to 10% (20% with <SpellLink spell={TALENTS_MONK.MIST_WRAP_TALENT}/>).</>, swirl),
+  change(date(2026, 10, 26), <>Added wasted <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY}/> stack tracking, which marks <SpellLink spell={SPELLS.TIGER_PALM}/> casts that overcap stacks on the timeline and shows wasted stacks in the statistic tooltip.</>, swirl),
+  change(date(2026, 10, 26), <>Updated <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT}/> analysis for <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}/> to count <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY}/> stacks held on cast as wasted, and cleaned up unused code.</>, swirl),
   change(date(2026, 10, 24), <>Removed <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT}/> perf mark from <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> casts.</>, swirl),
   change(date(2026, 10, 24), <>Added average <SpellLink spell={SPELLS.RENEWING_MIST_CAST}/> count to the <SpellLink spell={SPELLS.RENEWING_MIST_CAST}/> graph.</>, swirl),
   change(date(2026, 9, 27), <>Added and updated several Conduit of the Celestials and Master of Harmony talent statistics.</>, swirl),

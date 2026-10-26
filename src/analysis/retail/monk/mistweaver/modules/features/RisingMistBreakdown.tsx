@@ -6,35 +6,25 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
-import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
+import { SPELL_COLORS } from '../../constants';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber } from 'common/format';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import DonutChart from 'parser/ui/DonutChart';
-import { Talent } from 'common/TALENTS/types';
 
 class RisingMistBreakdown extends Analyzer {
   static dependencies = {
     risingMist: RisingMist,
   };
   risingMistItems: TalentAggregateBarSpec[] = [];
-  currentRskTalent: Talent;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RISING_MIST_TALENT);
-    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
   }
   protected risingMist!: RisingMist;
 
   getRisingMistDataItems() {
     this.risingMistItems = [
-      {
-        spell: SPELLS.RISING_MIST_HEAL,
-        amount: this.risingMist.directHealing,
-        color: SPELL_COLORS.DANCING_MIST,
-        tooltip: this.risingMistDirectTooltip(),
-      },
       {
         spell: SPELLS.RENEWING_MIST_HEAL,
         amount: this.risingMist.renewingMistExtensionHealing,
@@ -160,25 +150,6 @@ class RisingMistBreakdown extends Analyzer {
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> extension healing by source:
         <hr />
         <DonutChart items={items} />
-      </>
-    );
-  }
-
-  risingMistDirectTooltip() {
-    return (
-      <>
-        <SpellLink spell={talents.RISING_MIST_TALENT} /> direct healing from{' '}
-        <SpellLink spell={this.currentRskTalent} /> casts
-        <ul>
-          <li>
-            {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
-            <SpellLink spell={this.currentRskTalent} />
-          </li>
-          <li>
-            {this.risingMist.averageTargetsPerRSKCast()} average hits per{' '}
-            <SpellLink spell={this.currentRskTalent} />
-          </li>
-        </ul>
       </>
     );
   }

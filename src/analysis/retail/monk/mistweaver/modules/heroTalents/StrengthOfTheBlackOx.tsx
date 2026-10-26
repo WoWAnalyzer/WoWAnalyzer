@@ -23,11 +23,7 @@ import GuideSection from 'interface/guide/components/GuideSection';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import CastOverview from 'interface/guide/components/CastOverview';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
-import {
-  ENVELOPING_MIST_INCREASE,
-  getCurrentCelestialTalent,
-  MISTWRAP_INCREASE,
-} from '../../constants';
+import { getEnvelopingMistHealingIncrease, getCurrentCelestialTalent } from '../../constants';
 import { STAMPEDE_OF_THE_ANCIENTS_INCREASE } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/constants';
 import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 import Statistic from 'parser/ui/Statistic';
@@ -96,9 +92,7 @@ class StrengthOfTheBlackOx extends Analyzer.withDependencies({
     this.hasStampede = this.selectedCombatant.hasTalent(
       TALENTS_MONK.STAMPEDE_OF_THE_ANCIENTS_TALENT,
     );
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.evmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
 
     this.addEventListener(
       Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.STRENGTH_OF_THE_BLACK_OX_BUFF),

@@ -15,6 +15,7 @@ import Events, {
 } from 'parser/core/Events';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import GlobalCooldown from '../core/GlobalCooldown';
+import TeachingsOfTheMonastery from '../spells/TeachingsOfTheMonastery';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -36,11 +37,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // refunded stacks land ~100ms after the consuming blackout kick
 const REFUND_WINDOW_MS = 250;
-// a stack gain and its paired refresh land on the same timestamp
-const REFRESH_PAIR_WINDOW_MS = 10;
 
 class XuensGuidance extends Analyzer.withDependencies({
   globalCooldown: GlobalCooldown,
+  teachings: TeachingsOfTheMonastery,
 }) {
   talent = TALENTS_MONK.XUENS_GUIDANCE_TALENT;
   tigerPalmHealing = 0;
@@ -51,8 +51,6 @@ class XuensGuidance extends Analyzer.withDependencies({
   pendingRefundedStacks = 0;
   stacksWasted = 0;
   wastedSinceRefund = 0;
-  lastStackGain = Number.MIN_SAFE_INTEGER;
-  unpairedStackGains = 0;
   stacksRefunded = 0;
   blackoutKicksWithRefund = 0;
   timeSaved = 0; // ms
@@ -88,15 +86,9 @@ class XuensGuidance extends Analyzer.withDependencies({
     );
   }
 
-  // refreshes also fire alongside normal stack gains, so a refresh only counts as an overcap
-  // when there is no gain on the same timestamp to pair it with
   // only the refunded stacks are blamed since those are what pushed the count up
   onStackOvercap(event: RefreshBuffEvent) {
-    if (
-      event.timestamp - this.lastStackGain <= REFRESH_PAIR_WINDOW_MS &&
-      this.unpairedStackGains > 0
-    ) {
-      this.unpairedStackGains -= 1;
+    if (!this.deps.teachings.isOvercap(event)) {
       return;
     }
     if (this.wastedSinceRefund < this.pendingRefundedStacks) {
@@ -128,11 +120,6 @@ class XuensGuidance extends Analyzer.withDependencies({
   }
 
   onStackGained(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    if (event.timestamp - this.lastStackGain > REFRESH_PAIR_WINDOW_MS) {
-      this.unpairedStackGains = 0;
-    }
-    this.unpairedStackGains += 1;
-    this.lastStackGain = event.timestamp;
     if (event.timestamp - this.lastBlackoutKick > REFUND_WINDOW_MS) {
       return;
     }

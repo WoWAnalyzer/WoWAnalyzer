@@ -14,7 +14,7 @@ import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import { getEnvelopingMistHealingIncrease } from '../../constants';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -44,9 +44,7 @@ class MistyPeaks extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.envmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.handleEnvApply,
