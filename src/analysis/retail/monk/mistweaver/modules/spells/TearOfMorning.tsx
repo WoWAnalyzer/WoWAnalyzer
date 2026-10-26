@@ -14,8 +14,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
 import {
   ATTRIBUTION_STRINGS,
-  ENVELOPING_MIST_INCREASE,
-  MISTWRAP_INCREASE,
+  getEnvelopingMistHealingIncrease,
   TEAR_OF_MORNING_VIV_SG_INCREASE,
   getCurrentCelestialTalent,
 } from '../../constants';
@@ -56,9 +55,7 @@ class TearOfMorning extends Analyzer {
       ? talents.SHEILUNS_GIFT_TALENT
       : spells.INVIGORATING_MISTS_HEAL;
 
-    this.envHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.envHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
     this.addEventListener(

@@ -15,7 +15,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber } from 'common/format';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import { getEnvelopingMistHealingIncrease } from '../../constants';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -50,9 +50,7 @@ class JadeBond extends Analyzer {
       this.boostAmount = JADE_BOND_SOOB_INC;
     }
 
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.envmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),

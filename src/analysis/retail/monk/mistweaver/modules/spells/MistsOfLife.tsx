@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
+import { getEnvelopingMistHealingIncrease } from '../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -50,9 +51,7 @@ class MistsOfLife extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? 0.4
-      : 0.3;
+    this.envmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvApply,

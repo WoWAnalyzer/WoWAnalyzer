@@ -165,6 +165,16 @@ export const SOOTHING_MIST_SOURCES = [
   { spell: TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT, heal: SPELLS.SPIRITFONT_HOT },
 ] as const;
 
+export function getEnvelopingMistHealingIncrease(player: Combatant): number {
+  return player.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+    ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
+    : ENVELOPING_MIST_INCREASE;
+}
+export function getEnvelopingMistDuration(player: Combatant): number {
+  return player.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+    ? ENV_BASE_DURATION + MISTWRAP
+    : ENV_BASE_DURATION;
+}
 export function getCurrentRSKTalent(player: Combatant): Talent {
   return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)
     ? TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT

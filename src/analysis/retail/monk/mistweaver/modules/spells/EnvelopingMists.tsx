@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import { getEnvelopingMistHealingIncrease } from '../../constants';
 import { isFromEnvelopingMist } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -36,9 +36,7 @@ class EnvelopingMists extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.evmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.onCast,

@@ -12,6 +12,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ATTRIBUTION_STRINGS,
   getCurrentRSKTalent,
+  getEnvelopingMistHealingIncrease,
   RISING_MIST_EXTENSION,
   SPELL_COLORS,
 } from '../../constants';
@@ -153,9 +154,7 @@ class RisingMist extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? 0.4
-      : 0.3;
+    this.envmHealingIncrease = getEnvelopingMistHealingIncrease(this.selectedCombatant);
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;

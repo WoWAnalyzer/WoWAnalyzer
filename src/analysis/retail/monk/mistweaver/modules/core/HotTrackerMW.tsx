@@ -5,9 +5,8 @@ import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
 import {
   ATTRIBUTION_STRINGS,
-  ENV_BASE_DURATION,
+  getEnvelopingMistDuration,
   LOTUS_INFUSION_DURATION,
-  MISTWRAP,
   MISTY_PEAKS_DURATION,
   RAPID_DIFFUSION_DURATION,
   REM_BASE_DURATION,
@@ -224,16 +223,12 @@ class HotTrackerMW extends HotTracker {
   }
 
   _calculateEnvDuration(combatant: Combatant): number {
-    return combatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? ENV_BASE_DURATION + MISTWRAP
-      : ENV_BASE_DURATION;
+    return getEnvelopingMistDuration(combatant);
   }
 
   _calculateMaxEnvDuration(combatant: Combatant): number {
     return (
-      (combatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-        ? ENV_BASE_DURATION + MISTWRAP
-        : ENV_BASE_DURATION) *
+      getEnvelopingMistDuration(combatant) *
       combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) *
       RISING_MIST
     );
