@@ -206,7 +206,7 @@ const trinkets = {
     name: "Venomous Gladiator's Badge of Ferocity",
     icon: 'spell_holy_championsbond',
   },
-  VENOMOUS_GLADIATORS_BADGE_OF_ALACRITY: {
+  VENOMOUS_GLADIATORS_INSIGNIA_OF_ALACRITY: {
     id: 270603,
     name: "Venomous Gladiator's Insignia of Alacrity",
     icon: 'inv_misc_token_argentdawn3',
