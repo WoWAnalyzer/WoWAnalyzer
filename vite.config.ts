@@ -105,7 +105,9 @@ export default defineConfig((env) => ({
     // Vite's `resolve.tsconfigPaths` only applies `paths` to files matched by
     // tsconfig.json's `include`/`files`. Several specs are excluded from
     // typechecking but are still bundled, so mirror `compilerOptions.paths` here.
+    // `src` covers tsconfig.json's `baseUrl` imports (e.g. `src/...`).
     alias: {
+      src: SRC_DIR,
       analysis: `${SRC_DIR}/analysis`,
       common: `${SRC_DIR}/common`,
       game: `${SRC_DIR}/game`,
