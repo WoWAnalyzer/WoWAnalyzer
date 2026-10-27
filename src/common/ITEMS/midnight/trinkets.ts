@@ -53,7 +53,7 @@ const trinkets = {
     name: "Effigy of Ula'tek's Faithful",
     icon: 'ability_fomor_boss_rune_green',
   },
-  GLORIUS_CRUSADERS_KEEPSAKE: {
+  GLORIOUS_CRUSADERS_KEEPSAKE: {
     id: 251792,
     name: "Glorious Crusader's Keepsake",
     icon: 'inv_12_trinket_gloriuscrusaderskeepsake',
