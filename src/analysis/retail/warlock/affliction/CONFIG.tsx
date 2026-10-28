@@ -11,8 +11,8 @@ const CONFIG: Config = {
   contributors: [Katorri],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.1.0',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '12.1.5',
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -51,7 +51,7 @@ const CONFIG: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/qdGa21vBHtLJrgnb/27-Heroic+Lightblinded+Vanguard+-+Kill+(3:28)/1-Katorriwl/standard',
+    "/report/hfyqKPD42r6X3aHN/19-Mythic+Nek'zali+the+Soulcoiler+-+Kill+(7:35)/138-Katorrí/standard",
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

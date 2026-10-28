@@ -7,6 +7,7 @@ import DefensivesGuide from '../shared/Defensives';
 import UnstableAfflictionGuide from './modules/guide/UnstableAfflictionGuide';
 import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
 import DarkHarvestGuide from './modules/guide/DarkHarvestGuide';
+import { ShardInstabilityGuide } from './modules/guide/ShardInstabilityGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -31,6 +32,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       {modules.darkHarvest.active && (
         <Section title="Dark Harvest">
           <DarkHarvestGuide />
+        </Section>
+      )}
+
+      {/* Shard Instability Section */}
+      {modules.shardInstability.active && (
+        <Section title="Shard Instability">
+          <ShardInstabilityGuide
+            analyzer={modules.shardInstability}
+            fightStart={info.fightStart}
+            fightEnd={info.fightEnd}
+          />
         </Section>
       )}
 
