@@ -216,12 +216,13 @@ abstract class Entities<T extends Entity> extends Analyzer {
     if (!finalBuff) {
       // this can happen due to logging quirks with range or reloads
       const isDebuff = event.type === EventType.RemoveDebuff;
+      const start = entity.buffs.at(-1)?.timestamp ?? this.owner.fight.start_time;
       const buff = {
         ...event,
-        start: this.owner.fight.start_time,
+        start,
         end: event.timestamp,
         stackHistory: [
-          { stacks: 1, timestamp: this.owner.fight.start_time },
+          { stacks: 1, timestamp: start },
           { stacks: 0, timestamp: event.timestamp },
         ],
         refreshHistory: [],
