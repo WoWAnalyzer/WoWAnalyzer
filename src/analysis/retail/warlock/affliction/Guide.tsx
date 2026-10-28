@@ -19,7 +19,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 
       {/* Unstable Affliction Section */}
       <Section title="Unstable Affliction">
-        <UnstableAfflictionGuide unstableAffliction={modules.unstableaffliction} />
+        <UnstableAfflictionGuide
+          unstableAffliction={modules.unstableaffliction}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
       </Section>
 
       {/* Cooldowns Section */}
