@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 import { lingui, linguiTransformerBabelPreset } from '@lingui/vite-plugin';
 import babel from '@rolldown/plugin-babel';
@@ -44,6 +45,8 @@ gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4Pa
 `.trim();
 
 const HASH_ONLY_CHUNKS = new Set(['StatTracker']);
+
+const SRC_DIR = fileURLToPath(new URL('./src', import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
@@ -99,7 +102,24 @@ export default defineConfig((env) => ({
       : undefined,
   ],
   resolve: {
-    tsconfigPaths: true,
+    // Vite's `resolve.tsconfigPaths` only applies `paths` to files matched by
+    // tsconfig.json's `include`/`files`. Several specs are excluded from
+    // typechecking but are still bundled, so mirror `compilerOptions.paths` here.
+    // `src` covers tsconfig.json's `baseUrl` imports (e.g. `src/...`).
+    alias: {
+      src: SRC_DIR,
+      analysis: `${SRC_DIR}/analysis`,
+      common: `${SRC_DIR}/common`,
+      game: `${SRC_DIR}/game`,
+      interface: `${SRC_DIR}/interface`,
+      localization: `${SRC_DIR}/localization`,
+      parser: `${SRC_DIR}/parser`,
+      CHANGELOG: `${SRC_DIR}/CHANGELOG`,
+      CONTRIBUTORS: `${SRC_DIR}/CONTRIBUTORS`,
+      mergeAllChangelogs: `${SRC_DIR}/mergeAllChangelogs`,
+      Root: `${SRC_DIR}/Root`,
+      store: `${SRC_DIR}/store`,
+    },
   },
   css: {
     preprocessorOptions: {

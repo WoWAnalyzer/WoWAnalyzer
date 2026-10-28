@@ -1,8 +1,6 @@
 import { cleanup } from '@testing-library/react';
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { afterEach, beforeEach, expect, vi } from 'vitest';
-
-expect.extend(matchers);
+import '@testing-library/jest-dom/vitest';
+import { afterEach, beforeEach, vi } from 'vitest';
 
 if (import.meta.env.CI) {
   // Hide all console output
