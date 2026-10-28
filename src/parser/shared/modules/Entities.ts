@@ -116,7 +116,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
     debug && this.log(`Apply buff stack ${event.ability.name} to ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(
+    const existingBuff = entity.buffs.findLast(
       (item) =>
         item.ability.guid === event.ability.guid &&
         item.end === null &&
@@ -153,7 +153,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
     debug && this.log(`Refresh buff ${event.ability.name} to ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(
+    const existingBuff = entity.buffs.findLast(
       (item) =>
         item.ability.guid === event.ability.guid &&
         item.end === null &&
