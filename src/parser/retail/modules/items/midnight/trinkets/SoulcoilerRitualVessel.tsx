@@ -4,7 +4,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
   CastEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -38,11 +37,9 @@ interface TrinketUse {
   removalsWithAbsorb: number;
 }
 
-export default class SoulcoilerRitualVessel extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-  };
-
+export default class SoulcoilerRitualVessel extends Analyzer.withDependencies({
+  abilities: Abilities,
+}) {
   protected abilities!: Abilities;
   protected totalAbsorb = 0;
   protected uses: TrinketUse[] = [];
@@ -56,24 +53,18 @@ export default class SoulcoilerRitualVessel extends Analyzer {
       return;
     }
 
-    const { abilities } = options as Options & { abilities: Abilities };
-    abilities.add({
+    this.deps.abilities.add({
       spell: SPELLS.SOULCOILER_RITUAL_VESSEL.id,
       category: SPELL_CATEGORY.ITEMS,
       cooldown: COOLDOWN_SECONDS,
       gcd: null,
     });
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOULCOILER_RITUAL_VESSEL),
       this.onCast,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SOULCOIL_BARRIER),
-      this.onApplyBarrier,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOULCOIL_BARRIER),
       this.onApplyBarrier,
     );
     this.addEventListener(
@@ -90,17 +81,20 @@ export default class SoulcoilerRitualVessel extends Analyzer {
     );
   }
 
-  private useForTarget(targetID: number): TrinketUse | undefined {
-    return this.barrierOwner.get(targetID) ?? this.currentUse;
+  private useForTarget(targetID: number): TrinketUse {
+    return this.barrierOwner.get(targetID) ?? this.getCurrentUse();
   }
 
-  private get currentUse(): TrinketUse | undefined {
+  private getCurrentUse(): TrinketUse {
+    if (this.uses.length === 0) {
+      this.addUse(this.owner.fight.start_time);
+    }
     return this.uses[this.uses.length - 1];
   }
 
-  private onCast(event: CastEvent) {
+  private addUse(timestamp: number) {
     this.uses.push({
-      timestamp: event.timestamp,
+      timestamp,
       targets: new Set<number>(),
       barriers: 0,
       applied: 0,
@@ -110,11 +104,12 @@ export default class SoulcoilerRitualVessel extends Analyzer {
     });
   }
 
-  private onApplyBarrier(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
-    const use = this.currentUse;
-    if (!use) {
-      return;
-    }
+  private onCast(event: CastEvent) {
+    this.addUse(event.timestamp);
+  }
+
+  private onApplyBarrier(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const use = this.getCurrentUse();
     // Every barrier is counted, including those from allied deaths.
     // They are attached to the latest cast and never create a cast of their own.
     use.targets.add(event.targetID);
@@ -122,27 +117,19 @@ export default class SoulcoilerRitualVessel extends Analyzer {
     this.barrierOwner.set(event.targetID, use);
     // The buff event carries the real size of the barrier,
     // which includes the player's own healing bonuses like versatility.
-    use.applied += (event as { absorb?: number }).absorb ?? 0;
+    use.applied += event.absorb ?? 0;
   }
 
   private onAbsorb(event: AbsorbedEvent) {
     this.totalAbsorb += event.amount;
-    const use = this.useForTarget(event.targetID);
-    if (use) {
-      use.absorb += event.amount;
-    }
+    this.useForTarget(event.targetID).absorb += event.amount;
   }
 
   private onRemoveBarrier(event: RemoveBuffEvent) {
     const use = this.useForTarget(event.targetID);
     this.barrierOwner.delete(event.targetID);
-    if (!use) {
-      return;
-    }
-    // WCL reports the leftover shield of a removed absorb as overheal.
-    const leftover = (event as { absorb?: number }).absorb;
-    if (typeof leftover === 'number') {
-      use.expired += leftover;
+    if (event.absorb !== undefined) {
+      use.expired += event.absorb;
       use.removalsWithAbsorb += 1;
     }
   }

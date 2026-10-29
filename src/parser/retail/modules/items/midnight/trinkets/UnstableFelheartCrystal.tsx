@@ -38,16 +38,12 @@ interface TrinketUse {
   selfDamage: number;
 }
 
-export default class UnstableFelheartCrystal extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-    combatants: Combatants,
-  };
-
-  protected abilities!: Abilities;
-  protected combatants!: Combatants;
-  protected uses: TrinketUse[] = [];
+export default class UnstableFelheartCrystal extends Analyzer.withDependencies({
+  abilities: Abilities,
+  combatants: Combatants,
+}) {
   protected totalAbsorb = 0;
+  protected uses: TrinketUse[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -57,8 +53,7 @@ export default class UnstableFelheartCrystal extends Analyzer {
       return;
     }
 
-    const { abilities } = options as Options & { abilities: Abilities };
-    abilities.add({
+    this.deps.abilities.add({
       spell: SPELLS.UNSTABLE_FELHEART_CRYSTAL_DAMAGE.id,
       category: SPELL_CATEGORY.ITEMS,
       cooldown: COOLDOWN_SECONDS,
@@ -92,14 +87,17 @@ export default class UnstableFelheartCrystal extends Analyzer {
     );
   }
 
-  private get currentUse(): TrinketUse | undefined {
+  private getCurrentUse(): TrinketUse {
+    if (this.uses.length === 0) {
+      this.addUse(this.owner.fight.start_time);
+    }
     return this.uses[this.uses.length - 1];
   }
 
-  private onCast(event: CastEvent) {
+  private addUse(timestamp: number, targetID?: number) {
     this.uses.push({
-      timestamp: event.timestamp,
-      targetID: event.targetID,
+      timestamp,
+      targetID,
       applied: 0,
       absorb: 0,
       expired: 0,
@@ -108,71 +106,53 @@ export default class UnstableFelheartCrystal extends Analyzer {
     });
   }
 
+  private onCast(event: CastEvent) {
+    this.addUse(event.timestamp, event.targetID);
+  }
+
   private onApplyAbsorb(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const use = this.currentUse;
-    if (!use) {
-      return;
-    }
+    const use = this.getCurrentUse();
     use.targetID = event.targetID;
-    const size = (event as { absorb?: number }).absorb;
-    use.applied += size ?? 0;
+    use.applied += event.absorb ?? 0;
   }
 
   private onAbsorb(event: AbsorbedEvent) {
     this.totalAbsorb += event.amount;
-    const use = this.currentUse;
-    if (use) {
-      use.absorb += event.amount;
-    }
+    this.getCurrentUse().absorb += event.amount;
   }
 
   private onRemoveAbsorb(event: RemoveBuffEvent) {
-    const use = this.currentUse;
-    if (!use) {
-      return;
-    }
-    const leftover = (event as { absorb?: number }).absorb;
-    if (typeof leftover === 'number') {
-      use.expired += leftover;
+    if (event.absorb !== undefined) {
+      const use = this.getCurrentUse();
+      use.expired += event.absorb;
       use.hasRemovalAmount = true;
     }
   }
 
   private onSelfDamage(event: DamageEvent) {
-    const use = this.currentUse;
-    if (!use) {
-      return;
-    }
-    use.selfDamage += event.amount + (event.absorbed ?? 0);
+    this.getCurrentUse().selfDamage += event.amount + (event.absorbed ?? 0);
   }
 
-  private targetName(targetID?: number): string {
+  private targetName(targetID?: number) {
     if (targetID === undefined) {
       return 'Unknown';
     }
-    return this.combatants.players[targetID]?.name ?? 'Unknown';
+    return this.deps.combatants.players[targetID]?.name ?? 'Unknown';
   }
 
-  // Amount of absorb that could have prevented damage but did not
   private unusedAbsorb(use: TrinketUse) {
     if (use.hasRemovalAmount) {
       return use.expired;
     }
-    // fallback when the removal event carries no leftover amount
     return Math.max(0, use.applied - use.absorb);
-  }
-
-  // Health lost by using the trinket
-  private damageTaken(use: TrinketUse) {
-    return use.selfDamage;
   }
 
   get totalCasts() {
     return this.uses.length;
   }
 
-  get totalApplied() {
-    return this.uses.reduce((sum, use) => sum + use.applied, 0);
+  get targetCount() {
+    return new Set(this.uses.map((use) => use.targetID)).size;
   }
 
   get totalUnusedAbsorb() {
@@ -180,15 +160,12 @@ export default class UnstableFelheartCrystal extends Analyzer {
   }
 
   get totalDamageTaken() {
-    return this.uses.reduce((sum, use) => sum + this.damageTaken(use), 0);
-  }
-
-  get targetCount() {
-    return new Set(this.uses.map((use) => use.targetID)).size;
+    return this.uses.reduce((sum, use) => sum + use.selfDamage, 0);
   }
 
   get averageAbsorbPerUse() {
-    return this.uses.length === 0 ? 0 : this.totalAbsorb / this.uses.length;
+    if (this.uses.length === 0) return 0;
+    return this.totalAbsorb / this.uses.length;
   }
 
   statistic() {
@@ -201,7 +178,7 @@ export default class UnstableFelheartCrystal extends Analyzer {
           <td>{formatNumber(use.applied)}</td>
           <td>{formatNumber(use.absorb)}</td>
           <td>{formatNumber(this.unusedAbsorb(use))}</td>
-          <td>{formatNumber(this.damageTaken(use))}</td>
+          <td>{formatNumber(use.selfDamage)}</td>
         </tr>
       );
     });
@@ -224,7 +201,7 @@ export default class UnstableFelheartCrystal extends Analyzer {
               Damage taken from using the trinket: <b>{formatNumber(this.totalDamageTaken)}</b>.
             </p>
             <p>
-              Applied is the absorb size reported by the buff event, so it includes your own
+              Applied is the absorb size reported by the buff event, so it includes your own healing
               bonuses. Not consumed is the shield left when the absorb is removed (the same value
               WCL shows as overheal).
             </p>
