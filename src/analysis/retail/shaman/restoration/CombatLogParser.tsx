@@ -1,10 +1,12 @@
-import { AstralShift, SpiritWolf, StaticCharge } from 'analysis/retail/shaman/shared';
+// Shared
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import { AstralShift, SpiritWolf, StaticCharge } from 'analysis/retail/shaman/shared';
+import EarthElemental from 'src/analysis/retail/shaman/shared/talents/EarthElemental';
+import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import EarthElemental from 'src/analysis/retail/shaman/shared/talents/EarthElemental';
 //Core
 import StatTracker from './modules/core/StatTracker';
 import SpellManaCost from 'src/analysis/retail/shaman/restoration/modules/core/SpellManaCost';
@@ -59,8 +61,6 @@ import OfferingFromBeyond from './modules/talents/farseer/OfferingFromBeyond';
 import EarthenCommunion from './modules/talents/farseer/EarthenCommunion';
 // Spells
 // Tiers
-// Shared
-
 // Normalizers
 import EarthShieldNormalizer from './normalizers/EarthShieldNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
@@ -76,11 +76,10 @@ import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
 import FlowOfTheTides from './modules/talents/FlowOfTheTides';
 import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
-import EarthenHarmony from '../shared/talents/EarthenHarmony';
-import ElementalOrbit from '../shared/talents/ElementalOrbit';
+import EarthenHarmony from '../shared/talents/EarthenHarmony'; // technically shared
+import ElementalOrbit from '../shared/talents/ElementalOrbit'; // technically shared
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
-import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import SurgingTotemPrePullNormalizer from 'analysis/retail/shaman/restoration/normalizers/SurgingTotemPrePullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -125,7 +124,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ancestralReach: AncestralReach,
     flowOfTheTides: FlowOfTheTides,
     earthenHarmony: EarthenHarmony,
-    manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     whiteWater: WhiteWater,
     earthLivingWeapon: EarthlivingWeapon,
@@ -166,6 +164,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
     earthElemental: EarthElemental,
+    manaSpring: ManaSpring,
 
     // Normalizers
     earthShieldNormalizer: EarthShieldNormalizer,
