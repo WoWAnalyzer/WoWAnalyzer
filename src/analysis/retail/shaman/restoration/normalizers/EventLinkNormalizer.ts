@@ -10,7 +10,6 @@ import {
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
-  SummonEvent,
 } from 'parser/core/Events';
 
 import { EVENT_LINKS, CAST_BUFFER_MS, SPELL_DURATIONS } from '../constants';
@@ -258,28 +257,6 @@ const chainHealEventLink: EventLink = {
   anySource: false, //Needed to prevent mixing up the link, in case of more than one shaman in the same raid fight.
 };
 
-const livelyTotemsEventLink: EventLink = {
-  // Links the SUMMON event of the totems with the next CAST event of chain heal
-  linkRelation: EVENT_LINKS.livelyTotemsOrigin,
-  linkingEventId: [
-    SPELLS.HEALING_TIDE_TOTEM.id,
-    SPELLS.HEALING_STREAM_TOTEM.id,
-    SPELLS.SPIRIT_LINK_TOTEM.id,
-    SPELLS.STORMSTREAM_TOTEM.id,
-  ],
-  linkingEventType: [EventType.Summon],
-  reverseLinkRelation: EVENT_LINKS.livelyTotemsChainHealCast, // Needed to be able to track the summon from the cast.
-  referencedEventId: [TALENTS.CHAIN_HEAL_TALENT.id],
-  referencedEventType: [EventType.Cast],
-  forwardBufferMs: CAST_BUFFER_MS, //maximum time between totem summon and chainheal cast.
-  maximumLinks: 1, //only one totem can be linked to a chainheal cast.
-  anyTarget: true, //Player cannot choose the target of the livelyTotem chainheal cast.
-  anySource: false, //Needed to prevent mixing up the link, in case of more than one shaman in the same raid fight.
-  isActive(c) {
-    return c.hasTalent(TALENTS.LIVELY_TOTEMS_TALENT);
-  },
-};
-
 export function riptideHoT(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
   return HasRelatedEvent(event, EVENT_LINKS.riptideBuffApply);
 }
@@ -343,17 +320,6 @@ export function earthlivingApplication(event: ApplyBuffEvent | RefreshBuffEvent)
   return GetRelatedEvent<HealEvent>(event, EVENT_LINKS.earthlivingBuffCycle);
 }
 
-export function isLivelyTotemsChainHealCast(event: SummonEvent | CastEvent) {
-  switch (event.type) {
-    case EventType.Summon: {
-      return GetRelatedEvent(event, EVENT_LINKS.livelyTotemsOrigin);
-    }
-    case EventType.Cast: {
-      return GetRelatedEvent(event, EVENT_LINKS.livelyTotemsChainHealCast);
-    }
-  }
-}
-
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -370,7 +336,6 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       earthlivingEventLink,
       flowOfTheTidesEventLink,
       chainHealEventLink,
-      livelyTotemsEventLink,
     ]);
   }
 }
