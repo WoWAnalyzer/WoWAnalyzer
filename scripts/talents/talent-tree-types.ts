@@ -97,10 +97,11 @@ export interface TalentNode {
   entries: TalentEntry[];
   freeNode?: boolean;
   reqPoints?: number;
+  subTreeId?: number;
 }
 
 export interface TalentEntry {
-  id: number;
+  id?: number;
   definitionId: number;
   maxRanks: number;
   type: EntryType;
