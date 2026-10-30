@@ -29,6 +29,7 @@ import Guide from './Guide';
 import CullTheWeak from './modules/analyzers/CulltheWeak';
 import SiphonLife from './modules/analyzers/SiphonLife';
 import DarkHarvest from './modules/analyzers/DarkHarvest';
+import ShardInstability from './modules/analyzers/ShardInstability';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // allowing it to read the pre-reduction cooldown state on each UA/SoC cast.
     darkHarvest: DarkHarvest,
     cullTheWeak: CullTheWeak,
+    shardInstability: ShardInstability,
     siphonLife: SiphonLife,
 
     // Shared Spells
