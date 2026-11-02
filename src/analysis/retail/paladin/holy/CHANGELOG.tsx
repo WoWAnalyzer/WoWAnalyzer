@@ -1,12 +1,14 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PALADIN } from 'common/TALENTS/paladin';
-import { swirl, Taleria } from 'CONTRIBUTORS';
+import { swirl, Taleria, Abelito75 } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2026, 10, 28), <>Updated Beacon Transfer to correctly ignore handle ticks.</>, Abelito75),
+  change(date(2026, 10, 28), <>Updated <SpellLink spell={TALENTS_PALADIN.COMMANDING_LIGHT_TALENT} /> to correctly reflect a 5% buff.</>, Abelito75),
   change(date(2026, 9, 28), <>Added spells cast during <SpellLink spell={TALENTS_PALADIN.BEACON_OF_VIRTUE_TALENT}/> performance analysis.</>, swirl),
   change(date(2026, 7, 17), <>Added a Defensives section to the overview, showing when <SpellLink spell={SPELLS.DIVINE_PROTECTION} /> and <SpellLink spell={SPELLS.DIVINE_SHIELD} /> were used against the damage you were taking, and how much each one mitigated.</>, Taleria),
   change(date(2026, 7, 17), <>Fixed <SpellLink spell={TALENTS_PALADIN.GREATER_JUDGMENT_HOLY_TALENT} /> healing not being tracked. It shields rather than heals, so it was only being looked for as healing and nothing matched it.</>, Taleria),
