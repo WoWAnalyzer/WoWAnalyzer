@@ -13,7 +13,7 @@ const talents = {
   AIMED_SHOT_TALENT: {
     id: 19434,
     name: 'Aimed Shot',
-    icon: '8026692',
+    icon: 'inv121_ability_hunter_aimedshot',
     maxRanks: 1,
     entryIds: [128404],
     definitionIds: [{ id: 133210, specId: 254 }],
@@ -203,6 +203,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [126400],
     definitionIds: [{ id: 131226, specId: 253 }],
+  },
+  BLOOD_FLETCHING_TALENT: {
+    id: 1319011,
+    name: 'Blood Fletching',
+    icon: 'ability_revendreth_hunter',
+    maxRanks: 1,
+    entryIds: [128609],
+    definitionIds: [{ id: 133412, specId: 254 }],
   },
   BOMBARDIER_TALENT: {
     id: 1311963,
@@ -1760,14 +1768,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [132194],
     definitionIds: [{ id: 136995, specId: 254 }],
-  },
-  UNLOAD_TALENT: {
-    id: 1277548,
-    name: 'Unload',
-    icon: 'ability_hunter_efficiency_brown',
-    maxRanks: 1,
-    entryIds: [128609],
-    definitionIds: [{ id: 133412, specId: 254 }],
   },
   UNMATCHED_PRECISION_TALENT: {
     id: 1232955,

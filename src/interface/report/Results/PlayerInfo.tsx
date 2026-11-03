@@ -6,8 +6,6 @@ import PlayerGearHeader from './PlayerGearHeader';
 import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
-import PlayerInfoTalents from './PlayerInfoTalents';
-import GameBranch from 'game/GameBranch';
 import { CLASS_NAMES } from 'game/CLASSES';
 
 interface Props {
@@ -35,9 +33,7 @@ export const classBackgroundImage = (className?: string, region?: string): strin
 };
 
 const PlayerInfo = ({ combatant }: Props) => {
-  const isRetail = combatant.owner.config.branch === GameBranch.Retail;
   const gear = combatant.gear;
-  const talents = combatant.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
   const classBackground = combatant.characterProfile?.class
     ? classBackgroundImage(
@@ -63,13 +59,6 @@ const PlayerInfo = ({ combatant }: Props) => {
             <PlayerInfoEnchants gear={gear} />
           </div>
         </div>
-      </div>
-      <div className="player-details">
-        {isRetail && (
-          <>
-            <PlayerInfoTalents talents={talents} />
-          </>
-        )}
       </div>
     </div>
   );

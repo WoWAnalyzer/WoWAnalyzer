@@ -967,7 +967,7 @@ const talents = {
     definitionIds: [{ id: 85184, specId: 64 }],
   },
   ICE_COLD_TALENT: {
-    id: 414659,
+    id: 414658,
     name: 'Ice Cold',
     icon: 'spell_fire_bluefire',
     maxRanks: 1,
