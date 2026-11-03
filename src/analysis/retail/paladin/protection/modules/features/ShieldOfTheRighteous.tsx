@@ -80,7 +80,6 @@ class ShieldOfTheRighteous extends Analyzer {
             </ul>
             <strong>{formatPercentage(this.sotrHits / this.totalHits)}%</strong> of physical attacks
             were mitigated with Shield of the Righteous.
-            <br />
           </>
         }
       />
