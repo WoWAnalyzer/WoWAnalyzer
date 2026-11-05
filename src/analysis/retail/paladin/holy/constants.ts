@@ -58,44 +58,48 @@ export const JUDGMENT_OF_LIGHT_HEALS = 5;
 
 // Beacon Constants & Functions
 export const BEACON_TRANSFERING_ABILITIES = {
-  [SPELLS.HOLY_SHOCK_HEAL.id]: 1,
-  [SPELLS.LIGHT_OF_DAWN_HEAL.id]: 0.5,
-  [SPELLS.FLASH_OF_LIGHT.id]: 1,
-  [SPELLS.HOLY_PRISM_HEAL.id]: 0.5,
-  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: 1,
-  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
-  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
-  [SPELLS.WORD_OF_GLORY.id]: 1,
-  [SPELLS.HOLY_LIGHT.id]: 1,
-  [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
-  [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id]: 1,
-  [SPELLS.RESPLENDENT_LIGHT_HEAL.id]: 1,
-  [SPELLS.SEAL_OF_THE_CRUSADER_HEAL.id]: 1,
-  [SPELLS.AURA_OF_MERCY_HEAL.id]: 1,
-  [TALENTS.ETERNAL_FLAME_TALENT.id]: 1,
-  [TALENTS.TRUTH_PREVAILS_TALENT.id]: 1,
-  [SPELLS.TRUTH_PREVAILS_HEAL.id]: 1,
-  [SPELLS.SUN_SEAR_HEAL.id]: 1,
-  [SPELLS.HAMMER_AND_ANVIL_HEAL.id]: 1,
-  [SPELLS.VENERATION_HEAL.id]: 1,
-  [SPELLS.VENERATION_HEAL_CRIT.id]: 1,
-  [SPELLS.LIGHTBEARER_HEAL.id]: 1,
-  [SPELLS.RADIANT_AURA_HEAL.id]: 1,
-  [SPELLS.SACRED_WORD_HEAL.id]: 1,
-  [SPELLS.HOLY_RITUAL_HEAL.id]: 1,
-  [SPELLS.LIGHTFORGED_BLESSING.id]: 1,
-
-  // TODO: figure out beacon healing for new LotM
-  // [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
-  //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
+  [SPELLS.HOLY_SHOCK_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.LIGHT_OF_DAWN_HEAL.id]: { factor: 0.5, ignoreTick: true },
+  [SPELLS.FLASH_OF_LIGHT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.HOLY_PRISM_HEAL.id]: { factor: 0.5, ignoreTick: true },
+  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.WORD_OF_GLORY.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.HOLY_LIGHT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.RESPLENDENT_LIGHT_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.SEAL_OF_THE_CRUSADER_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.AURA_OF_MERCY_HEAL.id]: { factor: 1, ignoreTick: true },
+  [TALENTS.ETERNAL_FLAME_TALENT.id]: { factor: 1, ignoreTick: true },
+  [TALENTS.TRUTH_PREVAILS_TALENT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.TRUTH_PREVAILS_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.SUN_SEAR_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.HAMMER_AND_ANVIL_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.VENERATION_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.VENERATION_HEAL_CRIT.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.LIGHTBEARER_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.RADIANT_AURA_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.SACRED_WORD_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.HOLY_RITUAL_HEAL.id]: { factor: 1, ignoreTick: true },
+  [SPELLS.LIGHTFORGED_BLESSING.id]: { factor: 1, ignoreTick: true },
 };
 
 export function getBeaconSpellFactor(spellID: number): number | undefined {
-  const factor = BEACON_TRANSFERING_ABILITIES[spellID];
-  if (!factor) {
+  const definition = BEACON_TRANSFERING_ABILITIES[spellID];
+  if (!definition) {
     return undefined;
   }
-  return factor;
+  return definition.factor;
+}
+
+export function beaconSpellShouldIgnoreTick(spellId: number): boolean {
+  const definition = BEACON_TRANSFERING_ABILITIES[spellId];
+  if (!definition) {
+    return false;
+  }
+  return definition.ignoreTick;
 }
 
 export const enum BEACON_TYPE {
