@@ -264,6 +264,11 @@ const spells = {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
+  SHARD_INSTABILITY_BUFF: {
+    id: 1260269,
+    name: 'Shard Instability',
+    icon: 'spell_warlock_focusshadow',
+  },
 
   // Affliction talents
   DREAD_TOUCH_DEBUFF: {
