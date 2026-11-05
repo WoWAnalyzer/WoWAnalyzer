@@ -19,6 +19,7 @@ import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker'
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Haste from './modules/core/Haste';
 // Talents
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
@@ -67,6 +68,9 @@ import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import CastLinkNormalizer from './normalizers/EventLinkNormalizer';
 import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
 import ChainHealNormalizer from './normalizers/ChainHealNormalizer';
+import LivelyTotemsNormalizer from './normalizers/LivelyTotemsNormalizer';
+import RestoChanneling from './normalizers/RestoChanneling';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
 import EarthlivingTracker from './modules/core/EarthlivingTracker';
@@ -100,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     statTracker: StatTracker,
     spellManaCost: SpellManaCost,
+    haste: Haste,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -173,6 +178,9 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     unleashLifeNormalizer: UnleashLifeNormalizer,
     chainHealNormalizer: ChainHealNormalizer,
+    livelyTotemsNormalizer: LivelyTotemsNormalizer,
+    channeling: RestoChanneling,
+    globalCooldown: GlobalCooldown,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
     earthlivingTracker: EarthlivingTracker,

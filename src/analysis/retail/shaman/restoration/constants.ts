@@ -42,6 +42,8 @@ export enum EVENT_LINKS {
 
   livelyTotemsOrigin = 'livelyTotemsOrigin',
   livelyTotemsChainHealCast = 'livelyTotemsChainHealCast',
+  livelyTotemsBeginCastOrigin = 'livelyTotemsBeginCastOrigin',
+  livelyTotemsChainHealBeginCast = 'livelyTotemsChainHealBeginCast',
 
   APPLIED_HEAL = 'AppliedHeal',
 

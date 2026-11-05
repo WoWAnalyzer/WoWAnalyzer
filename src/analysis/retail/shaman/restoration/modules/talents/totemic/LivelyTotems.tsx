@@ -5,17 +5,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemManaGained from 'parser/ui/ItemManaGained';
-import { isLivelyTotemsChainHealCast } from '../../../normalizers/EventLinkNormalizer';
+import { isLivelyTotemsChainHealCast } from '../../../normalizers/LivelyTotemsNormalizer';
 import ChainHealAnalyzer from '../../../normalizers/ChainHealNormalizer';
 import { formatNumber } from 'common/format';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-export default class LivelyTotemsAnalyzer extends Analyzer {
-  static dependencies = {
-    ...Analyzer.dependencies,
-    chainHealAnalyzer: ChainHealAnalyzer,
-  };
+export default class LivelyTotemsAnalyzer extends Analyzer.withDependencies({
+  chainHealAnalyzer: ChainHealAnalyzer,
+}) {
   protected chainHealAnalyzer!: ChainHealAnalyzer;
 
   manaSavedFromTalent = 0;
@@ -48,10 +44,6 @@ export default class LivelyTotemsAnalyzer extends Analyzer {
       this.healingDoneFromTalent += heal.amount + (heal.absorbed ?? 0);
       this.overhealingDoneFromTalent += heal.overheal ?? 0;
     });
-
-    if (event.resourceCost) {
-      this.manaSavedFromTalent += event.resourceCost[RESOURCE_TYPES.MANA.id] ?? 0;
-    }
   }
 
   statistic() {
@@ -61,21 +53,17 @@ export default class LivelyTotemsAnalyzer extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            <strong>{formatNumber(this.healingDoneFromTalent)}</strong> bonus healing (
-            {formatNumber(this.overhealingDoneFromTalent)} overhealing)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {this.chainHealCasts} free chain heals, saving {formatNumber(this.manaSavedFromTalent)}{' '}
-            mana.
+            <p>
+              <strong>{formatNumber(this.healingDoneFromTalent)}</strong> bonus healing (
+              {formatNumber(this.overhealingDoneFromTalent)} overhealing)
+            </p>
+            <p>{this.chainHealCasts} free chain heals.</p>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.LIVELY_TOTEMS_TALENT}>
           <div>
             <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
-          </div>
-          <div>
-            <ItemManaGained amount={this.manaSavedFromTalent} useAbbrev />
           </div>
         </TalentSpellText>
       </Statistic>
