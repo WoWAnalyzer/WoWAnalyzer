@@ -92,16 +92,6 @@ class Abilities extends SharedAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.MALEVOLENCE.id,
-        buffSpellId: SPELLS.MALEVOLENCE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.MALEVOLENCE_TALENT),
-        cooldown: 60,
-      },
       // Cooldowns
       {
         spell: TALENTS.DARK_HARVEST_TALENT.id,
@@ -127,6 +117,16 @@ class Abilities extends SharedAbilities {
           recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT),
+      },
+      {
+        spell: SPELLS.MALEVOLENCE.id,
+        buffSpellId: SPELLS.MALEVOLENCE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.MALEVOLENCE_TALENT),
+        cooldown: 60,
       },
 
       // Utility
