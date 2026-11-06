@@ -94,8 +94,6 @@ class EarthShield extends Analyzer.withDependencies({
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
-    // Earth Shield's own heal is not boosted by its 20%: the measured heal is only ~4% (mastery)
-    // above the tooltip value. Counting it here would also double count it in EarthShieldBreakdown.
     if (event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id) {
       return;
     }
