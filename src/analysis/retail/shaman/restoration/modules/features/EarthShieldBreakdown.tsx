@@ -16,6 +16,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Events, { HealEvent } from 'parser/core/Events';
 import type { ReactNode } from 'react';
 import { splitEarthShieldHeal } from 'analysis/retail/shaman/shared/talents/earthShieldHealSplit';
+import ReactiveWarding from '../talents/ReactiveWarding';
 
 interface TooltipConfig {
   sourceSpell?: number;
@@ -24,6 +25,7 @@ interface TooltipConfig {
   directHealing?: number;
   bonusHealing?: number;
   damageMitigated?: ReactNode;
+  directHealingLabel?: string;
   customText?: string;
 }
 
@@ -31,6 +33,7 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
   earthShield: EarthShield,
   earthenHarmony: EarthenHarmony,
   elementalOrbit: ElementalOrbit,
+  reactiveWarding: ReactiveWarding,
   combatants: Combatants,
 }) {
   wide = false;
@@ -41,8 +44,6 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
 
   earthenCommunionBaseBonus = 0;
   earthenCommunionOrbitBonus = 0;
-
-  reactiveWardingHealing = 0;
 
   therazanesResilienceBaseBonus = 0;
   therazanesResilienceOrbitBonus = 0;
@@ -66,13 +67,6 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
         this.onEarthShieldTalentHeal,
       );
     }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.REACTIVE_WARDING_TALENT)) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onReactiveWardingHeal,
-      );
-    }
   }
   /** Attributes each Earth Shield heal to the talents that increased it (see earthShieldHealSplit). */
   onEarthShieldTalentHeal(event: HealEvent) {
@@ -93,8 +87,8 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
     }
   }
 
-  onReactiveWardingHeal(event: HealEvent) {
-    this.reactiveWardingHealing += event.amount + (event.absorbed || 0);
+  get reactiveWardingHealing() {
+    return this.deps.reactiveWarding.active ? this.deps.reactiveWarding.healing : 0;
   }
 
   get totalHealing() {
@@ -192,6 +186,7 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
         color: RESTORATION_COLORS.EARTHSHIELD_REACTIVE_WARDING,
         tooltip: this.buildTooltip({
           directHealing: this.reactiveWardingHealing,
+          directHealingLabel: 'Healing when refreshing Earth Shield',
           customText:
             "The internal cooldown reduction of Reactive Warding's direct healing is only applied to your own Earth Shield. This is a known and reported bug.",
         }),
@@ -241,8 +236,8 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
 
         {config.directHealing !== undefined && (
           <div>
-            {this.healingIcon()} <strong>{formatNumber(config.directHealing)}</strong> direct
-            healing on hit
+            {this.healingIcon()} <strong>{formatNumber(config.directHealing)}</strong>{' '}
+            {config.directHealingLabel ?? 'direct healing on hit'}
           </div>
         )}
 

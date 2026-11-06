@@ -16,13 +16,9 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 const EARTH_SHIELD_BUFFS = [TALENTS.EARTH_SHIELD_TALENT, SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF];
 
-export default class ReactiveWarding extends Analyzer {
-  static dependencies = {
-    cooldownThroughputTracker: CooldownThroughputTracker,
-  };
-
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
-
+export default class ReactiveWarding extends Analyzer.withDependencies({
+  cooldownThroughputTracker: CooldownThroughputTracker,
+}) {
   healing = 0;
   healCount = 0;
   totalStacksRestored = 0;

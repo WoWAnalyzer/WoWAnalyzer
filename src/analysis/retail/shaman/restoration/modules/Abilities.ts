@@ -221,7 +221,7 @@ class Abilities extends ClassAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [SPELLS.EARTH_SHIELD_HEAL.id],
+        healSpellIds: [SPELLS.EARTH_SHIELD_HEAL.id, SPELLS.REACTIVE_WARDING_HEAL.id],
       },
       {
         spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
