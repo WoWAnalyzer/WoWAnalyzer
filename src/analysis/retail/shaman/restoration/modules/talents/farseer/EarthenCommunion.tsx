@@ -4,25 +4,17 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { splitEarthShieldHeal } from 'analysis/retail/shaman/shared/talents/earthShieldHealSplit';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import CooldownThroughputTracker from 'src/analysis/retail/shaman/restoration/modules/features/CooldownThroughputTracker';
 import { formatNumber } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const EARTHEN_COMMUNION_HEALING_INCREASE = 0.25;
-
-export default class EarthenCommunion extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  protected combatants!: Combatants;
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
-
+export default class EarthenCommunion extends Analyzer.withDependencies({
+  combatants: Combatants,
+}) {
   baseBonusHealing = 0;
   orbitBonusHealing = 0;
 
@@ -49,17 +41,21 @@ export default class EarthenCommunion extends Analyzer {
       return;
     }
 
-    const combatant = this.combatants.getEntity(event);
+    const combatant = this.deps.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
 
-    const bonus = calculateEffectiveHealing(event, EARTHEN_COMMUNION_HEALING_INCREASE);
+    // Shared split, so this matches the Earth Shield breakdown when several talents stack.
+    const split = splitEarthShieldHeal(event, this.selectedCombatant, combatant);
+    if (!split) {
+      return;
+    }
 
-    if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.orbitBonusHealing += bonus;
-    } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.baseBonusHealing += bonus;
+    if (split.bucket === 'elementalOrbit') {
+      this.orbitBonusHealing += split.earthenCommunion;
+    } else {
+      this.baseBonusHealing += split.earthenCommunion;
     }
   }
 

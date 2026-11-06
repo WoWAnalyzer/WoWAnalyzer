@@ -23,6 +23,7 @@ import './ManaTideTotem.scss';
 class WaterShield extends Analyzer {
   manaGain = 0;
   prepullApplication = false;
+  activeSincePull = false;
 
   constructor(options: Options) {
     super(options);
@@ -39,6 +40,16 @@ class WaterShield extends Analyzer {
 
   waterShield(event: ResourceChangeEvent) {
     this.manaGain += event.resourceChange;
+    // Prepull Water Shield that never drops/refreshes leaves no buff events and isn't always in
+    // combatantinfo. An energize requires the buff, so one without any tracked buff means the
+    // shield has been up since the pull.
+    if (
+      !this.activeSincePull &&
+      this.selectedCombatant.getBuffHistory(SPELLS.WATER_SHIELD.id).length === 0
+    ) {
+      this.activeSincePull = true;
+      this.prepullApplication = true;
+    }
   }
 
   waterShieldPrepullCheck(event: ApplyBuffEvent) {
@@ -48,18 +59,15 @@ class WaterShield extends Analyzer {
   }
 
   get regenOnPlayer() {
-    let uptimePercent = this.uptimePercent;
-    if (uptimePercent === 0) {
-      uptimePercent = 1;
-    }
-
     return (
-      (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGENERATION_PER_SECOND * uptimePercent
+      (this.owner.fightDuration / 1000) *
+      WATER_SHIELD_MANA_REGENERATION_PER_SECOND *
+      this.uptimePercent
     );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
+    return this.getUptimeHistory().reduce((total, { start, end }) => total + end - start, 0);
   }
 
   get uptimePercent() {
@@ -119,9 +127,9 @@ class WaterShield extends Analyzer {
           <b>
             <SpellLink spell={SPELLS.WATER_SHIELD} />
           </b>{' '}
-          should be applied prior to the fight starting and reapplied after a consuming your{' '}
+          should be applied prior to the fight starting and reapplied after consuming your{' '}
           <SpellLink spell={SPELLS.REINCARNATION} /> or a battle-resurrection as to not lose out on
-          the Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
+          the 3% Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
         </p>
         {hasResurgence && (
           <>
@@ -131,7 +139,7 @@ class WaterShield extends Analyzer {
               </b>{' '}
               allows you to refund mana through critical strikes from{' '}
               <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
-              <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />,{' '}
+              <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> and{' '}
               <SpellLink spell={TALENTS.RIPTIDE_TALENT} />.
             </p>
           </>
@@ -144,7 +152,11 @@ class WaterShield extends Analyzer {
               </b>{' '}
               When refreshing Water Shield, you are refunded mana for each stack of Water Shield
               missing. Additionally, Earth Shield and Water Shield can consume charges 1.0 sec
-              faster.
+              faster.{' '}
+              <i>
+                It is a known and reported bug that the faster consumption of charges only applies
+                to the shields you cast on yourself.
+              </i>
             </p>
           </>
         )}
@@ -176,17 +188,28 @@ class WaterShield extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  getUptimeHistory(spellId: number): Uptime[] {
-    return this.selectedCombatant.getBuffHistory(spellId).map((trackedBuff) => ({
-      start: trackedBuff.start,
-      end: trackedBuff.end || this.owner.fight.end_time,
-    }));
+  getUptimeHistory(): Uptime[] {
+    const history: Uptime[] = this.selectedCombatant
+      .getBuffHistory(SPELLS.WATER_SHIELD.id)
+      .map((trackedBuff) => ({
+        start: trackedBuff.start,
+        end: trackedBuff.end || this.owner.fight.end_time,
+      }));
+
+    if (this.activeSincePull) {
+      history.unshift({
+        start: this.owner.fight.start_time,
+        end: history[0]?.start ?? this.owner.fight.end_time,
+      });
+    }
+
+    return history;
   }
 
   waterShieldUptimeBar() {
     return uptimeBarSubStatistic(this.owner.fight, {
       spells: [SPELLS.WATER_SHIELD],
-      uptimes: this.getUptimeHistory(SPELLS.WATER_SHIELD.id),
+      uptimes: this.getUptimeHistory(),
       color: RESTORATION_COLORS.WATER_SHIELD,
     });
   }
