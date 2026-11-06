@@ -3,21 +3,33 @@ import talents from 'common/TALENTS/shaman';
 import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { splitEarthShieldHeal } from './earthShieldHealSplit';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { healingIncreases } from '../../restoration/constants';
 import Combatants from 'parser/shared/modules/Combatants';
+import { formatNumber } from 'common/format';
+import { useEffect, useState } from 'react';
 
-class EarthenHarmony extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
+const LoadedNumber = ({ loaded, getValue }: { loaded: Promise<void>; getValue: () => number }) => {
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    const finish = () => mounted && setDone(true);
+    loaded.then(finish, finish);
+    return () => {
+      mounted = false;
+    };
+  }, [loaded]);
+  return <>{done ? formatNumber(getValue()) : '…'}</>;
+};
 
-  protected combatants!: Combatants;
-  eSApply = -1;
-  eOESApply = -1;
-  firstESBuffDone = false;
-  firstEOESBuffDone = false;
+class EarthenHarmony extends Analyzer.withDependencies({
+  combatants: Combatants,
+}) {
+  prepullES: { start: number; targetID: number } | null = null;
+  prepullEOES: { start: number; targetID: number } | null = null;
+  pendingQueries: Promise<void>[] = [];
+  loaded: Promise<void> = Promise.resolve();
   damageTakenWithEarthShield = 0;
   damageTakenWithElementalOrbitEarthShield = 0;
   earthShieldHealing = 0;
@@ -47,6 +59,7 @@ class EarthenHarmony extends Analyzer {
         .spell([talents.EARTH_SHIELD_TALENT, SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF]),
       this.onEarthShieldRemove,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.loadDamageTakenDuringEarthShield(talents.EARTH_SHIELD_TALENT.id);
     if (this.elementalOrbitActive) {
       this.loadDamageTakenDuringEarthShield(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id);
@@ -77,48 +90,70 @@ class EarthenHarmony extends Analyzer {
   }
 
   onEarthShieldApply(event: ApplyBuffEvent) {
+    if (!event.prepull) {
+      return;
+    }
+    const prepullWindow = {
+      start: Math.max(event.timestamp, this.owner.fight.start_time),
+      targetID: event.targetID,
+    };
     if (event.ability.guid === talents.EARTH_SHIELD_TALENT.id) {
-      this.eSApply = event.timestamp;
+      this.prepullES = prepullWindow;
     } else {
-      this.eOESApply = event.timestamp;
+      this.prepullEOES = prepullWindow;
     }
   }
   onEarthShieldRemove(event: RemoveBuffEvent) {
-    if (
-      event.ability.guid === talents.EARTH_SHIELD_TALENT.id &&
-      this.eSApply !== -1 &&
-      !this.firstESBuffDone
-    ) {
-      this.loadFirstBuffDamageTakenDuringEarthShield(
-        this.eSApply,
-        event.timestamp,
-        talents.EARTH_SHIELD_TALENT.id,
-        event.targetID,
-      );
-      this.firstESBuffDone = true;
-    } else if (this.eOESApply !== -1 && !this.firstEOESBuffDone) {
-      this.loadFirstBuffDamageTakenDuringEarthShield(
-        this.eOESApply,
-        event.timestamp,
-        SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id,
-        event.targetID,
-      );
-      this.firstEOESBuffDone = true;
+    if (event.ability.guid === talents.EARTH_SHIELD_TALENT.id) {
+      this.closePrepullWindow(talents.EARTH_SHIELD_TALENT.id, event.timestamp);
+    } else {
+      this.closePrepullWindow(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp);
+    }
+  }
+
+  onFightEnd() {
+    // Prepull Earth Shield that was never removed covers the whole fight.
+    this.closePrepullWindow(talents.EARTH_SHIELD_TALENT.id, this.owner.fight.end_time);
+    this.closePrepullWindow(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, this.owner.fight.end_time);
+    this.loaded = Promise.all(this.pendingQueries).then(() => undefined);
+  }
+
+  renderDamageReduced(getValue: () => number) {
+    return <LoadedNumber loaded={this.loaded} getValue={getValue} />;
+  }
+
+  closePrepullWindow(spellId: number, end: number) {
+    const isES = spellId === talents.EARTH_SHIELD_TALENT.id;
+    const prepullWindow = isES ? this.prepullES : this.prepullEOES;
+    if (!prepullWindow) {
+      return;
+    }
+    this.loadFirstBuffDamageTakenDuringEarthShield(
+      prepullWindow.start,
+      end,
+      spellId,
+      prepullWindow.targetID,
+    );
+    if (isES) {
+      this.prepullES = null;
+    } else {
+      this.prepullEOES = null;
     }
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) {
+    const target = this.deps.combatants.getEntity(event);
+    if (!target) {
       return;
     }
-    if (combatant.hasBuff(talents.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.earthShieldHealing += calculateEffectiveHealing(event, this.getHealingIncrease(event));
-    } else if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.elementalOrbitEarthShieldHealing += calculateEffectiveHealing(
-        event,
-        this.getHealingIncrease(event),
-      );
+    const split = splitEarthShieldHeal(event, this.selectedCombatant, target);
+    if (!split) {
+      return;
+    }
+    if (split.bucket === 'earthShield') {
+      this.earthShieldHealing += split.earthenHarmony;
+    } else {
+      this.elementalOrbitEarthShieldHealing += split.earthenHarmony;
     }
   }
 
@@ -128,7 +163,7 @@ class EarthenHarmony extends Analyzer {
     spellId: number,
     targetID: number,
   ) {
-    fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    const query = fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: start,
       end: end,
     })
@@ -146,12 +181,13 @@ class EarthenHarmony extends Analyzer {
         }
       })
       .catch((err) => {
-        throw err;
+        console.error('Earthen Harmony: damage-taken query failed', err);
       });
+    this.pendingQueries.push(query);
   }
 
   loadDamageTakenDuringEarthShield(spellId: number) {
-    fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    const query = fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${spellId} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${spellId} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
@@ -170,14 +206,9 @@ class EarthenHarmony extends Analyzer {
         }
       })
       .catch((err) => {
-        throw err;
+        console.error('Earthen Harmony: damage-taken query failed', err);
       });
-  }
-
-  getHealingIncrease(event: HealEvent) {
-    const hpPercentAtStart = (event.hitPoints - event.amount) / event.maxHitPoints;
-    const scalingFactor = Math.min(1, Math.max(0, (1 - hpPercentAtStart) / 0.5));
-    return healingIncreases.EARTHEN_HARMONY_HEALING_INCREASE * scalingFactor;
+    this.pendingQueries.push(query);
   }
 }
 
