@@ -26,6 +26,7 @@ class EarthShield extends Analyzer.withDependencies({
 }) {
   healing = 0;
   buffHealing = 0;
+  buffHealingBySpell: Record<number, number> = {};
   earthShieldHealingIncrease = EARTHSHIELD_HEALING_INCREASE;
   category = STATISTIC_CATEGORY.TALENTS;
 
@@ -93,9 +94,17 @@ class EarthShield extends Analyzer.withDependencies({
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
+    // Earth Shield's own heal is not boosted by its 20%: the measured heal is only ~4% (mastery)
+    // above the tooltip value. Counting it here would also double count it in EarthShieldBreakdown.
+    if (event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id) {
+      return;
+    }
     const combatant = this.deps.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      const bonus = calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      this.buffHealing += bonus;
+      this.buffHealingBySpell[event.ability.guid] =
+        (this.buffHealingBySpell[event.ability.guid] || 0) + bonus;
     }
   }
 

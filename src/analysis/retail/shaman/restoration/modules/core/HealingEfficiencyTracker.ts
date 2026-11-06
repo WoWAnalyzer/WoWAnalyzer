@@ -12,6 +12,7 @@ import RestorationAbilityTracker from './RestorationAbilityTracker';
 import Downpour from '../talents/Downpour';
 import SurgingTotem from '../talents/totemic/SurgingTotem';
 import ManaSpring from 'src/analysis/retail/shaman/shared/talents/ManaSpring';
+import ElementalOrbit from 'analysis/retail/shaman/shared/talents/ElementalOrbit';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -22,6 +23,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     cooldownThroughputTracker: CooldownThroughputTracker,
     unleashLife: UnleashLife,
     earthShield: EarthShield,
+    elementalOrbit: ElementalOrbit,
     downpour: Downpour,
     surgingTotem: SurgingTotem,
     manaSpring: ManaSpring,
@@ -36,8 +38,16 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   protected downpour!: Downpour;
   protected surgingTotem!: SurgingTotem;
   protected manaSpring!: ManaSpring;
+  protected elementalOrbit!: ElementalOrbit;
 
-  getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
+  getCustomSpellStats(
+    spellInfo: SpellInfoDetails,
+    spellId: number,
+    healingSpellIds: number[] | null = null,
+  ) {
+    if (spellId !== TALENTS.EARTH_SHIELD_TALENT.id) {
+      this.removeEarthShieldBuffHealing(spellInfo, [spellId, ...(healingSpellIds ?? [])]);
+    }
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
@@ -88,9 +98,22 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     spellInfo.healingDone -= unleashLifeContribution;
   }
 
-  // Todo: Same treatment for Earth Shield as for Unleash Life and remove the healing from affected spells
+  // Healing from other spells that Earth Shield's 20% healing increase is responsible for,
+  // on the shield on an ally and on yourself (Elemental Orbit)
   getEarthShieldBuffDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone += this.earthShield.buffHealing || 0;
+    if (this.elementalOrbit.active) {
+      spellInfo.healingDone += this.elementalOrbit.buffHealing || 0;
+    }
+  }
+  // Remove Earth Shield's contribution from the spells it increased
+  removeEarthShieldBuffHealing(spellInfo: SpellInfoDetails, spellIds: number[]) {
+    for (const id of new Set(spellIds)) {
+      spellInfo.healingDone -= this.earthShield.buffHealingBySpell[id] || 0;
+      if (this.elementalOrbit.active) {
+        spellInfo.healingDone -= this.elementalOrbit.buffHealingBySpell[id] || 0;
+      }
+    }
   }
 
   getLavaBurstDamageDetails(spellInfo: SpellInfoDetails) {
