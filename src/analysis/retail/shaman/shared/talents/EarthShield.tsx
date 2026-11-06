@@ -152,7 +152,7 @@ class EarthShield extends Analyzer.withDependencies({
                 {this.deps.earthenHarmony.renderDamageReduced(
                   () => this.deps.earthenHarmony.totalDamageReduction,
                 )}{' '}
-              </b>{' '}
+              </b>
               damage in this encounter.
             </p>
           </>
