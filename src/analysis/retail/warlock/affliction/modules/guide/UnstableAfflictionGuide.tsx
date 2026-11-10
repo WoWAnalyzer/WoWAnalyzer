@@ -29,6 +29,32 @@ function UnstableAfflictionGuide({ unstableAffliction, fightStart, fightEnd }: P
     </>
   );
 
+  const bosses = unstableAffliction.bossHistories;
+  const bars = bosses.length ? (
+    <div>
+      {bosses.map(({ name, history }, idx) => (
+        <div key={idx}>
+          <strong>{name}</strong>
+          <BuffUptimeBar
+            spell={SPELLS.UNSTABLE_AFFLICTION}
+            buffHistory={history}
+            startTime={fightStart}
+            endTime={fightEnd}
+            maxStacks={unstableAffliction.maxObservedStacks(history)}
+          />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <BuffUptimeBar
+      spell={SPELLS.UNSTABLE_AFFLICTION}
+      buffHistory={unstableAffliction.primaryTargetHistory}
+      startTime={fightStart}
+      endTime={fightEnd}
+      maxStacks={unstableAffliction.maxObservedStacks(unstableAffliction.primaryTargetHistory)}
+    />
+  );
+
   return (
     <>
       <TipBox type="note">
@@ -36,16 +62,7 @@ function UnstableAfflictionGuide({ unstableAffliction, fightStart, fightEnd }: P
         DPS gain over <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> at 2+ targets. Low UA uptime
         in those scenarios reflects correct play, not a mistake.
       </TipBox>
-      {explanationAndDataSubsection(
-        explanation,
-        <BuffUptimeBar
-          spell={SPELLS.UNSTABLE_AFFLICTION}
-          buffHistory={unstableAffliction.primaryTargetHistory}
-          startTime={fightStart}
-          endTime={fightEnd}
-          maxStacks={unstableAffliction.maxObservedStacks}
-        />,
-      )}
+      {explanationAndDataSubsection(explanation, bars)}
     </>
   );
 }

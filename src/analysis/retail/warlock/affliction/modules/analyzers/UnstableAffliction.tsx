@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { TrackedBuffEvent } from 'src/parser/core/Entity';
+import { isMythicPlus } from 'src/common/isMythicPlus';
 
 class UnstableAffliction extends Analyzer {
   static dependencies = {
@@ -28,10 +29,21 @@ class UnstableAffliction extends Analyzer {
     return bestEnemy.getBuffHistory(SPELLS.UNSTABLE_AFFLICTION.id, this.owner.playerId);
   }
 
-  get maxObservedStacks(): number {
-    const stacks = this.primaryTargetHistory.flatMap((debuff) =>
-      debuff.stackHistory.map((entry) => entry.stacks),
-    );
+  get bossHistories(): { name: string; history: TrackedBuffEvent[] }[] {
+    if (isMythicPlus(this.owner.fight)) {
+      return [];
+    }
+    return Object.values(this.enemies.getEntities())
+      .filter((enemy) => enemy.subType === 'Boss')
+      .map((enemy) => ({
+        name: enemy.name,
+        history: enemy.getBuffHistory(SPELLS.UNSTABLE_AFFLICTION.id, this.owner.playerId),
+      }))
+      .filter(({ history }) => history.length > 0);
+  }
+
+  maxObservedStacks(history: TrackedBuffEvent[]): number {
+    const stacks = history.flatMap((debuff) => debuff.stackHistory.map((e) => e.stacks));
     return Math.max(1, ...stacks);
   }
 }
