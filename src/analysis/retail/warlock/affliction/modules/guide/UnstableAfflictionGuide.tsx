@@ -3,14 +3,16 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import UnstableAffliction from '../analyzers/UnstableAffliction';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
 import { TipBox } from 'interface/guide/components/TipBox';
+import { BuffUptimeBar } from 'src/interface/guide/components';
 
 interface Props {
   unstableAffliction: UnstableAffliction;
+  fightStart: number;
+  fightEnd: number;
 }
-function UnstableAfflictionGuide({ unstableAffliction }: Props): JSX.Element {
+function UnstableAfflictionGuide({ unstableAffliction, fightStart, fightEnd }: Props): JSX.Element {
   const explanation = (
     <>
       <p>
@@ -27,6 +29,32 @@ function UnstableAfflictionGuide({ unstableAffliction }: Props): JSX.Element {
     </>
   );
 
+  const bosses = unstableAffliction.bossHistories;
+  const bars = bosses.length ? (
+    <div>
+      {bosses.map(({ name, history }, idx) => (
+        <div key={idx}>
+          <strong>{name}</strong>
+          <BuffUptimeBar
+            spell={SPELLS.UNSTABLE_AFFLICTION}
+            buffHistory={history}
+            startTime={fightStart}
+            endTime={fightEnd}
+            maxStacks={unstableAffliction.maxObservedStacks(history)}
+          />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <BuffUptimeBar
+      spell={SPELLS.UNSTABLE_AFFLICTION}
+      buffHistory={unstableAffliction.primaryTargetHistory}
+      startTime={fightStart}
+      endTime={fightEnd}
+      maxStacks={unstableAffliction.maxObservedStacks(unstableAffliction.primaryTargetHistory)}
+    />
+  );
+
   return (
     <>
       <TipBox type="note">
@@ -34,10 +62,7 @@ function UnstableAfflictionGuide({ unstableAffliction }: Props): JSX.Element {
         DPS gain over <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> at 2+ targets. Low UA uptime
         in those scenarios reflects correct play, not a mistake.
       </TipBox>
-      {explanationAndDataSubsection(
-        explanation,
-        <RoundedPanel>{unstableAffliction.subStatistic()}</RoundedPanel>,
-      )}
+      {explanationAndDataSubsection(explanation, bars)}
     </>
   );
 }

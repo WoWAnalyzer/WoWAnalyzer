@@ -1,10 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-
-const BAR_COLOR = '#F37200';
+import { TrackedBuffEvent } from 'src/parser/core/Entity';
+import { isMythicPlus } from 'src/common/isMythicPlus';
 
 class UnstableAffliction extends Analyzer {
   static dependencies = {
@@ -13,30 +11,40 @@ class UnstableAffliction extends Analyzer {
 
   protected enemies!: Enemies;
 
-  get uptime(): number {
-    const uptime = this.enemies.getBuffUptime(SPELLS.UNSTABLE_AFFLICTION.id);
-    return uptime / this.owner.fightDuration;
+  get primaryTargetHistory(): TrackedBuffEvent[] {
+    let bestEnemy = null;
+    let bestUptime = 0;
+
+    for (const enemy of Object.values(this.enemies.getEntities())) {
+      const uptime = enemy.getBuffUptime(SPELLS.UNSTABLE_AFFLICTION.id, this.owner.playerId);
+      if (uptime > bestUptime) {
+        bestUptime = uptime;
+        bestEnemy = enemy;
+      }
+    }
+
+    if (!bestEnemy) {
+      return [];
+    }
+    return bestEnemy.getBuffHistory(SPELLS.UNSTABLE_AFFLICTION.id, this.owner.playerId);
   }
 
-  get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.UNSTABLE_AFFLICTION.id);
+  get bossHistories(): { name: string; history: TrackedBuffEvent[] }[] {
+    if (isMythicPlus(this.owner.fight)) {
+      return [];
+    }
+    return Object.values(this.enemies.getEntities())
+      .filter((enemy) => enemy.subType === 'Boss')
+      .map((enemy) => ({
+        name: enemy.name,
+        history: enemy.getBuffHistory(SPELLS.UNSTABLE_AFFLICTION.id, this.owner.playerId),
+      }))
+      .filter(({ history }) => history.length > 0);
   }
 
-  get DowntimePerformance(): QualitativePerformance {
-    const downtime = 1 - this.uptime;
-    if (downtime <= 0.1) return QualitativePerformance.Perfect;
-    if (downtime <= 0.2) return QualitativePerformance.Good;
-    if (downtime <= 0.3) return QualitativePerformance.Ok;
-    return QualitativePerformance.Fail;
-  }
-
-  subStatistic() {
-    return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [SPELLS.UNSTABLE_AFFLICTION],
-      uptimes: this.uptimeHistory,
-      color: BAR_COLOR,
-      perf: this.DowntimePerformance,
-    });
+  maxObservedStacks(history: TrackedBuffEvent[]): number {
+    const stacks = history.flatMap((debuff) => debuff.stackHistory.map((e) => e.stacks));
+    return Math.max(1, ...stacks);
   }
 }
 
