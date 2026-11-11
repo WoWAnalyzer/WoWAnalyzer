@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 
 export default [
+  change(date(2026, 11, 10), <>Replace uptime stats on the <SpellLink spell={SPELLS.SHARD_INSTABILITY_BUFF} /> timeline with procs, overcapped, and expired counts.</>, Katorri),
   change(date(2026, 11, 10), <>Switch <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> uptime bar to a stack timeline with average and max stacks.</>, Katorri),
   change(date(2026, 10, 28), <>Add <SpellLink spell={SPELLS.SHARD_INSTABILITY_BUFF} /> guide section and statistic tracking overcapped and expired procs.</>, Katorri),
   change(date(2026, 10, 28), <>Add <SpellLink spell={SPELLS.MALEVOLENCE} /> to cooldown usage.</>, Katorri),

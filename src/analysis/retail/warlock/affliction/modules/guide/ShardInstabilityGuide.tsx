@@ -5,7 +5,13 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import SpellLink from 'interface/SpellLink';
 import { BuffUptimeBar } from 'interface/guide/components';
-import { TipBox } from 'interface/guide/components';
+import {
+  StatsRow,
+  StatCard,
+  StatCardDivider,
+  StatCardLabel,
+  StatCardValue,
+} from 'interface/guide/components/GuideDataWrapper';
 
 interface ShardInstabilityGuideProps {
   analyzer: ShardInstability;
@@ -40,22 +46,32 @@ export function ShardInstabilityGuide({
 
   const data = (
     <div>
-      <p>
-        <strong>{analyzer.totalProcs}</strong> procs gained,{' '}
-        <strong>{analyzer.wastedOvercapStacks}</strong> overcapped,{' '}
-        <strong>{analyzer.wastedExpiredStacks}</strong> expired.
-      </p>
       <BuffUptimeBar
         spell={SPELLS.SHARD_INSTABILITY_BUFF}
         buffHistory={analyzer.buffHistory}
         startTime={fightStart}
         endTime={fightEnd}
         maxStacks={analyzer.maxObservedStacks}
+        stats={
+          <StatsRow>
+            <StatCard color="#7e5da8">
+              <StatCardValue>{analyzer.totalProcs}</StatCardValue>
+              <StatCardDivider />
+              <StatCardLabel>Procs</StatCardLabel>
+            </StatCard>
+            <StatCard color="#cd1bdf">
+              <StatCardValue>{analyzer.wastedOvercapStacks}</StatCardValue>
+              <StatCardDivider />
+              <StatCardLabel>Overcapped</StatCardLabel>
+            </StatCard>
+            <StatCard color="#888">
+              <StatCardValue>{analyzer.wastedExpiredStacks}</StatCardValue>
+              <StatCardDivider />
+              <StatCardLabel>Expired</StatCardLabel>
+            </StatCard>
+          </StatsRow>
+        }
       />
-      <TipBox type="note">
-        Uptime isn't a goal for <SpellLink spell={SPELLS.SHARD_INSTABILITY_BUFF} />. What matters is
-        not wasting stacks, so a low uptime percentage is normal.
-      </TipBox>
     </div>
   );
 

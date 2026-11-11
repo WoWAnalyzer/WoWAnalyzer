@@ -144,6 +144,8 @@ interface BuffUptimeBarProps {
   maxStacks?: number;
   /** Optional tooltip content explaining average stacks calculation */
   averageStacksTooltip?: ReactNode;
+  /** Optional replacement for the default uptime/stack stat cards */
+  stats?: ReactNode;
 }
 
 /**
@@ -158,6 +160,7 @@ interface BuffUptimeBarProps {
  * @param backgroundBarColor - Background color for maximum stack potential (default: dark purple #7e5da8)
  * @param maxStacks - Maximum number of stacks for stackable buffs (required for stack visualization)
  * @param averageStacksTooltip - Optional tooltip explaining average stacks calculation
+ * @param stats - Optional replacement for the default uptime/stack stat cards
  */
 export default function BuffUptimeBar({
   spell,
@@ -168,6 +171,7 @@ export default function BuffUptimeBar({
   backgroundBarColor = '#7e5da8',
   maxStacks,
   averageStacksTooltip,
+  stats,
 }: BuffUptimeBarProps): JSX.Element {
   // Calculate uptime percent - sum all buff windows
   const fightDuration = endTime - startTime;
@@ -238,7 +242,11 @@ export default function BuffUptimeBar({
   );
 
   return (
-    <GuideDataWrapper title={`${spell.name} Buff Uptime`} subtitle="Timeline" stats={statsContent}>
+    <GuideDataWrapper
+      title={`${spell.name} Buff Uptime`}
+      subtitle="Timeline"
+      stats={stats ?? statsContent}
+    >
       <TimelineContainer>
         <UptimeGraphContainer>
           <UptimeGraph
