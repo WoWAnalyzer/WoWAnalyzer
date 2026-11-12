@@ -63,7 +63,10 @@ class ElementalOrbit extends Analyzer.withDependencies({
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
-    if (event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id) {
+    if (
+      event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id ||
+      event.ability.guid === SPELLS.REACTIVE_WARDING_HEAL.id
+    ) {
       return;
     }
     const combatant = this.deps.combatants.getEntity(event);

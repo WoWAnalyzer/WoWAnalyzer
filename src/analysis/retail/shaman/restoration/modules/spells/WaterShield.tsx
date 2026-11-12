@@ -23,7 +23,6 @@ import './ManaTideTotem.scss';
 class WaterShield extends Analyzer {
   manaGain = 0;
   prepullApplication = false;
-  activeSincePull = false;
 
   constructor(options: Options) {
     super(options);
@@ -40,16 +39,6 @@ class WaterShield extends Analyzer {
 
   waterShield(event: ResourceChangeEvent) {
     this.manaGain += event.resourceChange;
-    // Prepull Water Shield that never drops/refreshes leaves no buff events and isn't always in
-    // combatantinfo. An energize requires the buff, so one without any tracked buff means the
-    // shield has been up since the pull.
-    if (
-      !this.activeSincePull &&
-      this.selectedCombatant.getBuffHistory(SPELLS.WATER_SHIELD.id).length === 0
-    ) {
-      this.activeSincePull = true;
-      this.prepullApplication = true;
-    }
   }
 
   waterShieldPrepullCheck(event: ApplyBuffEvent) {
@@ -67,7 +56,7 @@ class WaterShield extends Analyzer {
   }
 
   get uptime() {
-    return this.getUptimeHistory().reduce((total, { start, end }) => total + end - start, 0);
+    return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
   }
 
   get uptimePercent() {
@@ -188,28 +177,17 @@ class WaterShield extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  getUptimeHistory(): Uptime[] {
-    const history: Uptime[] = this.selectedCombatant
-      .getBuffHistory(SPELLS.WATER_SHIELD.id)
-      .map((trackedBuff) => ({
-        start: trackedBuff.start,
-        end: trackedBuff.end || this.owner.fight.end_time,
-      }));
-
-    if (this.activeSincePull) {
-      history.unshift({
-        start: this.owner.fight.start_time,
-        end: history[0]?.start ?? this.owner.fight.end_time,
-      });
-    }
-
-    return history;
+  getUptimeHistory(spellId: number): Uptime[] {
+    return this.selectedCombatant.getBuffHistory(spellId).map((trackedBuff) => ({
+      start: trackedBuff.start,
+      end: trackedBuff.end || this.owner.fight.end_time,
+    }));
   }
 
   waterShieldUptimeBar() {
     return uptimeBarSubStatistic(this.owner.fight, {
       spells: [SPELLS.WATER_SHIELD],
-      uptimes: this.getUptimeHistory(),
+      uptimes: this.getUptimeHistory(SPELLS.WATER_SHIELD.id),
       color: RESTORATION_COLORS.WATER_SHIELD,
     });
   }

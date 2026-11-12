@@ -74,6 +74,9 @@ export function splitEarthShieldHeal(
   const effective = event.amount + (event.absorbed || 0);
   const overheal = event.overheal || 0;
   const raw = effective + overheal;
+  // The talents multiply, so their combined bonus contains cross terms (a * b). Weighting by
+  // ln(1 + increase) shares those evenly between the talents involved; weighting by the plain
+  // increase would hand them mostly to the larger talent.
   const weights = Object.fromEntries(
     Object.entries(increases).map(([key, increase]) => [key, Math.log(1 + increase)]),
   ) as Record<TalentKey, number>;

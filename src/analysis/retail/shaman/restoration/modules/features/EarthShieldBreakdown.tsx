@@ -39,6 +39,9 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
   wide = false;
   earthShieldItems: TalentAggregateBarSpec[] = [];
 
+  earthShieldBaseHealing = 0;
+  elementalOrbitBaseHealing = 0;
+
   earthweaverBaseBonus = 0;
   earthweaverOrbitBonus = 0;
 
@@ -56,20 +59,14 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
     if (!this.active) {
       return;
     }
-
-    if (
-      this.selectedCombatant.hasTalent(TALENTS.EARTHWEAVER_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.EARTHEN_COMMUNION_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.THERAZANES_RESILIENCE_TALENT)
-    ) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onEarthShieldTalentHeal,
-      );
-    }
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
+      this.onEarthShieldHeal,
+    );
   }
+
   /** Attributes each Earth Shield heal to the talents that increased it (see earthShieldHealSplit). */
-  onEarthShieldTalentHeal(event: HealEvent) {
+  onEarthShieldHeal(event: HealEvent) {
     const target = this.deps.combatants.getEntity(event);
     if (!target) return;
 
@@ -77,10 +74,12 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
     if (!split) return;
 
     if (split.bucket === 'elementalOrbit') {
+      this.elementalOrbitBaseHealing += split.base;
       this.earthweaverOrbitBonus += split.earthweaver;
       this.earthenCommunionOrbitBonus += split.earthenCommunion;
       this.therazanesResilienceOrbitBonus += split.therazanesResilience;
     } else {
+      this.earthShieldBaseHealing += split.base;
       this.earthweaverBaseBonus += split.earthweaver;
       this.earthenCommunionBaseBonus += split.earthenCommunion;
       this.therazanesResilienceBaseBonus += split.therazanesResilience;
@@ -93,9 +92,9 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
 
   get totalHealing() {
     return (
-      this.deps.earthShield.healing +
+      this.earthShieldBaseHealing +
       this.deps.earthShield.buffHealing +
-      this.deps.elementalOrbit.healing +
+      this.elementalOrbitBaseHealing +
       this.deps.elementalOrbit.buffHealing +
       (this.deps.earthenHarmony?.earthShieldHealing || 0) +
       (this.deps.earthenHarmony?.elementalOrbitEarthShieldHealing || 0) +
@@ -113,24 +112,26 @@ class EarthShieldBreakdown extends Analyzer.withDependencies({
     this.earthShieldItems = [
       {
         spell: TALENTS.EARTH_SHIELD_TALENT,
-        amount: this.deps.earthShield.healing + this.deps.earthShield.buffHealing,
+        amount: this.earthShieldBaseHealing + this.deps.earthShield.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_BASE,
         tooltip: this.buildTooltip({
           uptime: this.deps.earthShield.uptimePercent,
-          directHealing: this.deps.earthShield.healing,
+          directHealing: this.earthShieldBaseHealing,
           bonusHealing: this.deps.earthShield.buffHealing,
-          customText: 'This is the Earth Shield you cast on others.',
+          customText:
+            'This is the Earth Shield you cast on others. Talent bonuses to its heal are shown in their own bars.',
         }),
       },
       {
         spell: TALENTS.ELEMENTAL_ORBIT_TALENT,
-        amount: this.deps.elementalOrbit.healing + this.deps.elementalOrbit.buffHealing,
+        amount: this.elementalOrbitBaseHealing + this.deps.elementalOrbit.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
         tooltip: this.buildTooltip({
           uptime: this.deps.elementalOrbit.uptimePercent,
-          directHealing: this.deps.elementalOrbit.healing,
+          directHealing: this.elementalOrbitBaseHealing,
           bonusHealing: this.deps.elementalOrbit.buffHealing,
-          customText: 'This is the Earth Shield you cast on yourself.',
+          customText:
+            'This is the Earth Shield you cast on yourself. Talent bonuses to its heal are shown in their own bars.',
         }),
       },
       {
