@@ -10,6 +10,7 @@ import './CharacterTab.scss';
 import CharacterRace from './CharacterRace';
 import CharacterStats from './CharacterStats';
 import PlayerInfo from './PlayerInfo';
+import PlayerInfoTalents from './PlayerInfoTalents';
 import GameBranch from 'game/GameBranch';
 
 interface Props {
@@ -20,6 +21,7 @@ const CharacterTab = (props: Props) => {
   const { statTracker, combatant } = props;
 
   const isClassic = combatant.owner.config.branch === GameBranch.Classic;
+  const isRetail = combatant.owner.config.branch === GameBranch.Retail;
 
   return (
     <div className="character-tab">
@@ -31,40 +33,35 @@ const CharacterTab = (props: Props) => {
           {!isClassic && <CharacterStats statTracker={statTracker} />}
 
           {!isClassic && combatant.race && <CharacterRace race={combatant.race} />}
-
-          {!isClassic && (
-            <>
-              <div className="row">
-                <div className="col-md-12">
-                  <h2>Other pages</h2>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>
-                  {/* some bonus padding so it looks to be aligned with the icon for stats */}
-                  {combatant.characterProfile ? (
-                    <>
-                      <Link to={makeCharacterUrl(combatant)}>
-                        <WoWAnalyzerIcon mainColor="#FAB700" arrowColor="transparent" /> Character
-                        parses
-                      </Link>
-                      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                      <br />
-                      <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
-                        <ArmoryIcon />
-                        &nbsp;
-                        <Trans id="interface.armory.text">Armory</Trans>
-                      </a>
-                    </>
-                  ) : (
-                    <small>Unavailable because your character could not be found.</small>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
         </div>
       </div>
+      {isRetail && <PlayerInfoTalents talents={combatant.talentTree} specId={combatant.specId} />}
+      {!isClassic && (
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Other pages</h2>
+            <div style={{ fontSize: 24 }}>
+              {combatant.characterProfile ? (
+                <>
+                  <Link to={makeCharacterUrl(combatant)}>
+                    <WoWAnalyzerIcon mainColor="#FAB700" arrowColor="transparent" /> Character
+                    parses
+                  </Link>
+                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+                  <br />
+                  <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
+                    <ArmoryIcon />
+                    &nbsp;
+                    <Trans id="interface.armory.text">Armory</Trans>
+                  </a>
+                </>
+              ) : (
+                <small>Unavailable because your character could not be found.</small>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
