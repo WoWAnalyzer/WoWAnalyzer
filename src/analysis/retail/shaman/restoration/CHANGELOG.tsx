@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 11, 12), <><p>Updated the module for <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} /> to no longer show outdated information regarding the HP increase previously provided by <SpellLink spell={TALENTS.DOWNPOUR_TALENT} />.</p></>, Naltarunir),
   change(date(2026, 11, 6), <><p>Fixed an issue that caused the healing breakdown for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> to show 0% damage mitigation for <SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT} /></p><p>Fixed an issue that would prevent <SpellLink spell={SPELLS.WATER_SHIELD} /> from reporting the correct uptime.</p></>, Naltarunir),
   change(date(2026, 10, 30), <><p>The haste gained by <SpellLink spell={TALENTS.PREEMINENCE_TALENT} /> during <SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT} /> and/or an active <SpellLink spell={TALENTS.HEALING_TIDE_TOTEM_TALENT} /> is now respected in the ABC calculations.</p><p>Updated the <SpellLink spell={TALENTS.LIVELY_TOTEMS_TALENT} /> module to work better with the ABC calculations.</p></>, Naltarunir),
   change(date(2026, 10, 21), <><p>Updated the <SpellLink spell={TALENTS.NATURES_SWIFTNESS_TALENT} /> module to reflect the recent bugfix regarding <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} /></p><p>Version bump to 12.1.5</p></>, Naltarunir),
