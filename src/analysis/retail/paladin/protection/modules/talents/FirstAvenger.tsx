@@ -96,11 +96,14 @@ class FirstAvenger extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
-            <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} />
-            <br />
-            The extra hits from taking First Avenger contributed{' '}
-            <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
+            <div>
+              You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
+              <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} />
+            </div>
+            <div>
+              The extra hits from taking First Avenger contributed{' '}
+              <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
+            </div>
           </>
         }
       >
