@@ -24,8 +24,7 @@ const config: Config = {
       </p>
     </>
   ),
-  exampleReport:
-    "/report/fPAk1jwMBC6Ym4aV/33-Mythic+Nexus-Princess+Ky'veza+-+Kill+(6:17)/Seriousnes/standard",
+  exampleReport: "/report/a:JgfcAZVQ9vdRPr8T/14-Mythic+Kith'ix+-+Kill+(4:35)/4-Player+(4)/standard",
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
   parser: () =>
