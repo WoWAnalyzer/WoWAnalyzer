@@ -101,7 +101,6 @@ export const healingIncreases = {
 
 // max HP increases
 export const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
-export const DOWNPOUR_INCREASED_MAX_HEALTH = 0.1;
 export const PRIMORDIAL_BOND_MAX_HP_INCREASE = 0.15;
 
 // base targets & target increases
