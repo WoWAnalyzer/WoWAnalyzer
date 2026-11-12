@@ -11,15 +11,13 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
-class ElementalOrbit extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  protected combatants!: Combatants;
-
+class ElementalOrbit extends Analyzer.withDependencies({
+  combatants: Combatants,
+}) {
   healing = 0;
   buffHealing = 0;
+  /** buffHealing per heal spell ID, so the healing efficiency table can move it to Earth Shield. */
+  buffHealingBySpell: Record<number, number> = {};
   earthShieldHealingIncrease = EARTHSHIELD_HEALING_INCREASE;
   category = STATISTIC_CATEGORY.TALENTS;
 
@@ -42,7 +40,7 @@ class ElementalOrbit extends Analyzer {
   }
 
   get elementalOrbitEarthShieldUptime() {
-    return Object.values(this.combatants.players).reduce(
+    return Object.values(this.deps.combatants.players).reduce(
       (uptime, player) =>
         uptime +
         player.getBuffUptime(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, this.owner.playerId),
@@ -55,7 +53,7 @@ class ElementalOrbit extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
+    const combatant = this.deps.combatants.getEntity(event);
     if (
       combatant &&
       combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
@@ -65,12 +63,21 @@ class ElementalOrbit extends Analyzer {
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
+    if (
+      event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id ||
+      event.ability.guid === SPELLS.REACTIVE_WARDING_HEAL.id
+    ) {
+      return;
+    }
+    const combatant = this.deps.combatants.getEntity(event);
     if (
       combatant &&
       combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
     ) {
-      this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      const bonus = calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      this.buffHealing += bonus;
+      this.buffHealingBySpell[event.ability.guid] =
+        (this.buffHealingBySpell[event.ability.guid] || 0) + bonus;
     }
   }
 

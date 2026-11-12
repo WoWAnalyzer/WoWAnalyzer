@@ -64,6 +64,7 @@ import EarthenCommunion from './modules/talents/farseer/EarthenCommunion';
 // Tiers
 // Normalizers
 import EarthShieldNormalizer from './normalizers/EarthShieldNormalizer';
+import WaterShieldNormalizer from './normalizers/WaterShieldNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import CastLinkNormalizer from './normalizers/EventLinkNormalizer';
 import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
@@ -173,6 +174,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     earthShieldNormalizer: EarthShieldNormalizer,
+    waterShieldNormalizer: WaterShieldNormalizer,
     surgingTotemPrePullNormalizer: SurgingTotemPrePullNormalizer,
     riptideNormalizer: RiptideNormalizer,
     castLinkNormalizer: CastLinkNormalizer,

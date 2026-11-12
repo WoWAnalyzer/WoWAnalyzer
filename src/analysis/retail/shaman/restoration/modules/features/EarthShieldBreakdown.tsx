@@ -14,6 +14,9 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { formatNumber, formatPercentage } from 'common/format';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events, { HealEvent } from 'parser/core/Events';
+import type { ReactNode } from 'react';
+import { splitEarthShieldHeal } from 'analysis/retail/shaman/shared/talents/earthShieldHealSplit';
+import ReactiveWarding from '../talents/ReactiveWarding';
 
 interface TooltipConfig {
   sourceSpell?: number;
@@ -21,33 +24,29 @@ interface TooltipConfig {
   uptime?: number;
   directHealing?: number;
   bonusHealing?: number;
-  damageMitigated?: number;
+  damageMitigated?: ReactNode;
+  directHealingLabel?: string;
   customText?: string;
 }
 
-class EarthShieldBreakdown extends Analyzer {
-  static dependencies = {
-    earthShield: EarthShield,
-    earthenHarmony: EarthenHarmony,
-    elementalOrbit: ElementalOrbit,
-    combatants: Combatants,
-  };
-
+class EarthShieldBreakdown extends Analyzer.withDependencies({
+  earthShield: EarthShield,
+  earthenHarmony: EarthenHarmony,
+  elementalOrbit: ElementalOrbit,
+  reactiveWarding: ReactiveWarding,
+  combatants: Combatants,
+}) {
   wide = false;
   earthShieldItems: TalentAggregateBarSpec[] = [];
 
-  protected earthShield!: EarthShield;
-  protected earthenHarmony!: EarthenHarmony;
-  protected elementalOrbit!: ElementalOrbit;
-  protected combatants!: Combatants;
+  earthShieldBaseHealing = 0;
+  elementalOrbitBaseHealing = 0;
 
   earthweaverBaseBonus = 0;
   earthweaverOrbitBonus = 0;
 
   earthenCommunionBaseBonus = 0;
   earthenCommunionOrbitBonus = 0;
-
-  reactiveWardingHealing = 0;
 
   therazanesResilienceBaseBonus = 0;
   therazanesResilienceOrbitBonus = 0;
@@ -60,92 +59,45 @@ class EarthShieldBreakdown extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
+      this.onEarthShieldHeal,
+    );
+  }
 
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTHWEAVER_TALENT)) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onEarthweaverHeal,
-      );
-    }
+  /** Attributes each Earth Shield heal to the talents that increased it (see earthShieldHealSplit). */
+  onEarthShieldHeal(event: HealEvent) {
+    const target = this.deps.combatants.getEntity(event);
+    if (!target) return;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTHEN_COMMUNION_TALENT)) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onEarthenCommunionHeal,
-      );
-    }
+    const split = splitEarthShieldHeal(event, this.selectedCombatant, target);
+    if (!split) return;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.REACTIVE_WARDING_TALENT)) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onReactiveWardingHeal,
-      );
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.THERAZANES_RESILIENCE_TALENT)) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
-        this.onTherazanesResilienceHeal,
-      );
+    if (split.bucket === 'elementalOrbit') {
+      this.elementalOrbitBaseHealing += split.base;
+      this.earthweaverOrbitBonus += split.earthweaver;
+      this.earthenCommunionOrbitBonus += split.earthenCommunion;
+      this.therazanesResilienceOrbitBonus += split.therazanesResilience;
+    } else {
+      this.earthShieldBaseHealing += split.base;
+      this.earthweaverBaseBonus += split.earthweaver;
+      this.earthenCommunionBaseBonus += split.earthenCommunion;
+      this.therazanesResilienceBaseBonus += split.therazanesResilience;
     }
   }
 
-  onEarthweaverHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) return;
-
-    const totalEffective = event.amount + (event.absorbed || 0);
-    const bonus = totalEffective * (0.4 / 1.4);
-
-    if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.earthweaverOrbitBonus += bonus;
-    } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.earthweaverBaseBonus += bonus;
-    }
-  }
-
-  onEarthenCommunionHeal(event: HealEvent) {
-    if (event.targetID !== this.owner.playerId) return;
-
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) return;
-
-    const totalEffective = event.amount + (event.absorbed || 0);
-    const bonus = totalEffective * (0.25 / 1.25);
-
-    if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.earthenCommunionOrbitBonus += bonus;
-    } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.earthenCommunionBaseBonus += bonus;
-    }
-  }
-
-  onReactiveWardingHeal(event: HealEvent) {
-    this.reactiveWardingHealing += event.amount + (event.absorbed || 0);
-  }
-
-  onTherazanesResilienceHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) return;
-
-    const totalEffective = event.amount + (event.absorbed || 0);
-    const bonus = totalEffective * (0.15 / 1.15);
-
-    if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.therazanesResilienceOrbitBonus += bonus;
-    } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.therazanesResilienceBaseBonus += bonus;
-    }
+  get reactiveWardingHealing() {
+    return this.deps.reactiveWarding.active ? this.deps.reactiveWarding.healing : 0;
   }
 
   get totalHealing() {
     return (
-      this.earthShield.healing +
-      this.earthShield.buffHealing +
-      this.elementalOrbit.healing +
-      this.elementalOrbit.buffHealing +
-      (this.earthenHarmony?.earthShieldHealing || 0) +
-      (this.earthenHarmony?.elementalOrbitEarthShieldHealing || 0) +
+      this.earthShieldBaseHealing +
+      this.deps.earthShield.buffHealing +
+      this.elementalOrbitBaseHealing +
+      this.deps.elementalOrbit.buffHealing +
+      (this.deps.earthenHarmony?.earthShieldHealing || 0) +
+      (this.deps.earthenHarmony?.elementalOrbitEarthShieldHealing || 0) +
       this.earthweaverBaseBonus +
       this.earthweaverOrbitBonus +
       this.earthenCommunionBaseBonus +
@@ -160,38 +112,44 @@ class EarthShieldBreakdown extends Analyzer {
     this.earthShieldItems = [
       {
         spell: TALENTS.EARTH_SHIELD_TALENT,
-        amount: this.earthShield.healing + this.earthShield.buffHealing,
+        amount: this.earthShieldBaseHealing + this.deps.earthShield.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_BASE,
         tooltip: this.buildTooltip({
-          uptime: this.earthShield.uptimePercent,
-          directHealing: this.earthShield.healing,
-          bonusHealing: this.earthShield.buffHealing,
+          uptime: this.deps.earthShield.uptimePercent,
+          directHealing: this.earthShieldBaseHealing,
+          bonusHealing: this.deps.earthShield.buffHealing,
+          customText:
+            'This is the Earth Shield you cast on others. Talent bonuses to its heal are shown in their own bars.',
         }),
       },
       {
         spell: TALENTS.ELEMENTAL_ORBIT_TALENT,
-        amount: this.elementalOrbit.healing + this.elementalOrbit.buffHealing,
+        amount: this.elementalOrbitBaseHealing + this.deps.elementalOrbit.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
         tooltip: this.buildTooltip({
-          uptime: this.elementalOrbit.uptimePercent,
-          directHealing: this.elementalOrbit.healing,
-          bonusHealing: this.elementalOrbit.buffHealing,
+          uptime: this.deps.elementalOrbit.uptimePercent,
+          directHealing: this.elementalOrbitBaseHealing,
+          bonusHealing: this.deps.elementalOrbit.buffHealing,
+          customText:
+            'This is the Earth Shield you cast on yourself. Talent bonuses to its heal are shown in their own bars.',
         }),
       },
       {
         spell: TALENTS.EARTHEN_HARMONY_TALENT,
         amount:
-          this.earthenHarmony.earthShieldHealing +
-          this.earthenHarmony.elementalOrbitEarthShieldHealing,
+          this.deps.earthenHarmony.earthShieldHealing +
+          this.deps.earthenHarmony.elementalOrbitEarthShieldHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHEN_HARMONY,
         tooltip: this.buildTooltip({
           sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-          damageMitigated:
-            this.earthenHarmony.earthShielddamageReduced +
-            this.earthenHarmony.elementalOrbitDamageReduced,
-          bonusHealing:
-            this.earthenHarmony.earthShieldHealing +
-            this.earthenHarmony.elementalOrbitEarthShieldHealing,
+          damageMitigated: this.deps.earthenHarmony.renderDamageReduced(
+            () =>
+              this.deps.earthenHarmony.earthShielddamageReduced +
+              this.deps.earthenHarmony.elementalOrbitDamageReduced,
+          ),
+          directHealing:
+            this.deps.earthenHarmony.earthShieldHealing +
+            this.deps.earthenHarmony.elementalOrbitEarthShieldHealing,
         }),
       },
     ];
@@ -203,7 +161,8 @@ class EarthShieldBreakdown extends Analyzer {
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHWEAVER,
         tooltip: this.buildTooltip({
           sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-          bonusHealing: this.earthweaverBaseBonus + this.earthweaverOrbitBonus,
+          directHealing: this.earthweaverBaseBonus + this.earthweaverOrbitBonus,
+          customText: 'This is the extra 40% provided to the direct healing of Earth Shield.',
         }),
       });
     }
@@ -214,8 +173,9 @@ class EarthShieldBreakdown extends Analyzer {
         amount: this.earthenCommunionBaseBonus + this.earthenCommunionOrbitBonus,
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHERN_COMMUNION,
         tooltip: this.buildTooltip({
-          bonusHealing: this.earthenCommunionBaseBonus + this.earthenCommunionOrbitBonus,
-          customText: 'Earthen Communion bonus',
+          directHealing: this.earthenCommunionBaseBonus + this.earthenCommunionOrbitBonus,
+          customText:
+            'This is the extra 25% provided to the direct healing of the Earth Shield on yourself.',
         }),
       });
     }
@@ -227,7 +187,9 @@ class EarthShieldBreakdown extends Analyzer {
         color: RESTORATION_COLORS.EARTHSHIELD_REACTIVE_WARDING,
         tooltip: this.buildTooltip({
           directHealing: this.reactiveWardingHealing,
-          customText: 'Reactive Warding direct healing',
+          directHealingLabel: 'Healing when refreshing Earth Shield',
+          customText:
+            "The internal cooldown reduction of Reactive Warding's direct healing is only applied to your own Earth Shield. This is a known and reported bug.",
         }),
       });
     } else if (this.selectedCombatant.hasTalent(TALENTS.THERAZANES_RESILIENCE_TALENT)) {
@@ -236,8 +198,8 @@ class EarthShieldBreakdown extends Analyzer {
         amount: this.therazanesResilienceBaseBonus + this.therazanesResilienceOrbitBonus,
         color: RESTORATION_COLORS.EARTHSHIELD_THERAZANES_RESILIENCE,
         tooltip: this.buildTooltip({
-          bonusHealing: this.therazanesResilienceBaseBonus + this.therazanesResilienceOrbitBonus,
-          customText: "Therazane's Resilience bonus",
+          directHealing: this.therazanesResilienceBaseBonus + this.therazanesResilienceOrbitBonus,
+          customText: 'This is the extra 15% provided to the direct healing of Earth Shield.',
         }),
       });
     }
@@ -269,15 +231,14 @@ class EarthShieldBreakdown extends Analyzer {
 
         {config.damageMitigated !== undefined && (
           <div>
-            {this.shieldIcon()} <strong>{formatNumber(config.damageMitigated)}</strong> damage
-            mitigated
+            {this.shieldIcon()} <strong>{config.damageMitigated}</strong> damage mitigated
           </div>
         )}
 
         {config.directHealing !== undefined && (
           <div>
-            {this.healingIcon()} <strong>{formatNumber(config.directHealing)}</strong> direct
-            healing on hit
+            {this.healingIcon()} <strong>{formatNumber(config.directHealing)}</strong>{' '}
+            {config.directHealingLabel ?? 'direct healing on hit'}
           </div>
         )}
 

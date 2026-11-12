@@ -4,7 +4,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { splitEarthShieldHeal } from 'analysis/retail/shaman/shared/talents/earthShieldHealSplit';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
@@ -15,19 +15,13 @@ import { TooltipElement } from 'interface/Tooltip';
 import SpellLink from 'interface/SpellLink';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const THERAZANES_RESILIENCE_HEALING_INCREASE = 0.15;
 const EARTH_SHIELD_BASE_CHARGES = 9;
 const EARTHEN_COMMUNION_BONUS_CHARGES = 3;
 
-export default class TherazanesResilience extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-  };
-
-  protected combatants!: Combatants;
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
-
+export default class TherazanesResilience extends Analyzer.withDependencies({
+  combatants: Combatants,
+  cooldownThroughputTracker: CooldownThroughputTracker,
+}) {
   baseBonusHealing = 0;
   orbitBonusHealing = 0;
 
@@ -73,19 +67,23 @@ export default class TherazanesResilience extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
+    const combatant = this.deps.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
 
     this.earthShieldHealTicks += 1;
 
-    const bonus = calculateEffectiveHealing(event, THERAZANES_RESILIENCE_HEALING_INCREASE);
+    // Shared split, so this matches the Earth Shield breakdown when several talents stack.
+    const split = splitEarthShieldHeal(event, this.selectedCombatant, combatant);
+    if (!split) {
+      return;
+    }
 
-    if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
-      this.orbitBonusHealing += bonus;
-    } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.baseBonusHealing += bonus;
+    if (split.bucket === 'elementalOrbit') {
+      this.orbitBonusHealing += split.therazanesResilience;
+    } else {
+      this.baseBonusHealing += split.therazanesResilience;
     }
   }
 

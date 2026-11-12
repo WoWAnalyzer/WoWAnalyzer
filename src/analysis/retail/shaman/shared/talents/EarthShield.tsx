@@ -1,5 +1,4 @@
 import type { JSX } from 'react';
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -20,19 +19,14 @@ import EarthenHarmony from './EarthenHarmony';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
-class EarthShield extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-    elementalOrbit: ElementalOrbit,
-    earthenHarmony: EarthenHarmony,
-  };
-
-  protected combatants!: Combatants;
-  protected elementalOrbit!: ElementalOrbit;
-  protected earthenHarmony!: EarthenHarmony;
-
+class EarthShield extends Analyzer.withDependencies({
+  combatants: Combatants,
+  elementalOrbit: ElementalOrbit,
+  earthenHarmony: EarthenHarmony,
+}) {
   healing = 0;
   buffHealing = 0;
+  buffHealingBySpell: Record<number, number> = {};
   earthShieldHealingIncrease = EARTHSHIELD_HEALING_INCREASE;
   category = STATISTIC_CATEGORY.TALENTS;
 
@@ -60,8 +54,8 @@ class EarthShield extends Analyzer {
 
   get totalHealing() {
     return (
-      (this.elementalOrbit.active
-        ? this.elementalOrbit.healing + this.elementalOrbit.buffHealing
+      (this.deps.elementalOrbit.active
+        ? this.deps.elementalOrbit.healing + this.deps.elementalOrbit.buffHealing
         : 0) +
       this.buffHealing +
       this.healing
@@ -69,7 +63,7 @@ class EarthShield extends Analyzer {
   }
 
   get uptime() {
-    return Object.values(this.combatants.players).reduce(
+    return Object.values(this.deps.combatants.players).reduce(
       (uptime, player) =>
         uptime + player.getBuffUptime(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, this.owner.playerId),
       0,
@@ -93,22 +87,31 @@ class EarthShield extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
+    const combatant = this.deps.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
+    if (
+      event.ability.guid === SPELLS.EARTH_SHIELD_HEAL.id ||
+      event.ability.guid === SPELLS.REACTIVE_WARDING_HEAL.id
+    ) {
+      return;
+    }
+    const combatant = this.deps.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      const bonus = calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+      this.buffHealing += bonus;
+      this.buffHealingBySpell[event.ability.guid] =
+        (this.buffHealingBySpell[event.ability.guid] || 0) + bonus;
     }
   }
 
   /** Guide subsection describing the proper usage of Earth Shield */
   get guideSubsection(): JSX.Element {
-    const hasElementalOrbit = this.elementalOrbit.active;
+    const hasElementalOrbit = this.deps.elementalOrbit.active;
     const hasEarthenHarmony = this.selectedCombatant.hasTalent(
       TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT,
     );
@@ -118,47 +121,51 @@ class EarthShield extends Analyzer {
 
     const explanation = (
       <>
-        <b>
-          <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} />
-        </b>{' '}
-        is the only shield shaman can place on allies and provides very strong throughput when
-        combined with affecting talents in the class and spec tree.{' '}
-        <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> should be applied prior to the
-        fight starting and maintained as it falls off throughout the encounter
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <p>
+          <b>
+            <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} />
+          </b>{' '}
+          is the only shield shaman can place on allies and provides very strong throughput when
+          combined with affecting talents in the class and spec tree.{' '}
+          <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> should be applied prior to the
+          fight starting and maintained as it falls off throughout the encounter.
+        </p>
         {hasElementalOrbit && (
           <>
-            <b>
-              <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT} />
-            </b>{' '}
-            allows you to place <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> on yourself
-            as well as an ally, and you should aim to maintain high uptime on both.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <p>
+              <b>
+                <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT} />
+              </b>{' '}
+              allows you to place <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> on
+              yourself as well as an ally, and you should aim to maintain high uptime on both.
+            </p>
           </>
         )}
         {hasEarthenHarmony && (
           <>
-            <b>
-              <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
-            </b>{' '}
-            augments <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> even further by
-            providing damage reduction (
-            <b>{formatNumber(this.earthenHarmony.totalDamageReduction)} mitigated</b>){' '}
+            <p>
+              <b>
+                <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
+              </b>{' '}
+              augments <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> even further by
+              providing damage reduction. It mitigated{' '}
+              <b>
+                {this.deps.earthenHarmony.renderDamageReduced(
+                  () => this.deps.earthenHarmony.totalDamageReduction,
+                )}{' '}
+              </b>
+              damage in this encounter.
+            </p>
           </>
         )}
-        {hasReactiveWarding && hasEarthenHarmony && <>while </>}
         {hasReactiveWarding && (
           <>
-            <b>
-              <SpellLink spell={TALENTS_SHAMAN.REACTIVE_WARDING_TALENT} />
-            </b>{' '}
-            is most efficient when you refresh your shields with as few stacks left as possible
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <p>
+              <b>
+                <SpellLink spell={TALENTS_SHAMAN.REACTIVE_WARDING_TALENT} />
+              </b>{' '}
+              is most efficient when you refresh your shields with as few stacks left as possible.
+            </p>
           </>
         )}
       </>
@@ -182,7 +189,7 @@ class EarthShield extends Analyzer {
   getUptimeHistory(spellId: number) {
     const uptimeHistory: Uptime[] = [];
     let current: Uptime;
-    Object.values(this.combatants.players).forEach((player) => {
+    Object.values(this.deps.combatants.players).forEach((player) => {
       player.getBuffHistory(spellId, this.owner.playerId).forEach((trackedBuff) => {
         const end = trackedBuff.end ? trackedBuff.end : this.owner.fight.end_time;
         current = { start: trackedBuff.start, end: end };

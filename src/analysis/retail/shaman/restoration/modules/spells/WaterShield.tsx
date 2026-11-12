@@ -48,13 +48,10 @@ class WaterShield extends Analyzer {
   }
 
   get regenOnPlayer() {
-    let uptimePercent = this.uptimePercent;
-    if (uptimePercent === 0) {
-      uptimePercent = 1;
-    }
-
     return (
-      (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGENERATION_PER_SECOND * uptimePercent
+      (this.owner.fightDuration / 1000) *
+      WATER_SHIELD_MANA_REGENERATION_PER_SECOND *
+      this.uptimePercent
     );
   }
 
@@ -119,9 +116,9 @@ class WaterShield extends Analyzer {
           <b>
             <SpellLink spell={SPELLS.WATER_SHIELD} />
           </b>{' '}
-          should be applied prior to the fight starting and reapplied after a consuming your{' '}
+          should be applied prior to the fight starting and reapplied after consuming your{' '}
           <SpellLink spell={SPELLS.REINCARNATION} /> or a battle-resurrection as to not lose out on
-          the Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
+          the 3% Intellect gained from <SpellLink spell={TALENTS.INSTINCTIVE_IMBUEMENTS_TALENT} />.
         </p>
         {hasResurgence && (
           <>
@@ -131,7 +128,7 @@ class WaterShield extends Analyzer {
               </b>{' '}
               allows you to refund mana through critical strikes from{' '}
               <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
-              <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />,{' '}
+              <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> and{' '}
               <SpellLink spell={TALENTS.RIPTIDE_TALENT} />.
             </p>
           </>
@@ -144,7 +141,11 @@ class WaterShield extends Analyzer {
               </b>{' '}
               When refreshing Water Shield, you are refunded mana for each stack of Water Shield
               missing. Additionally, Earth Shield and Water Shield can consume charges 1.0 sec
-              faster.
+              faster.{' '}
+              <i>
+                It is a known and reported bug that the faster consumption of charges only applies
+                to the shields you cast on yourself.
+              </i>
             </p>
           </>
         )}
