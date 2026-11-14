@@ -8,6 +8,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 11, 14), <>Fixed fully channeled <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT}/> casts being marked as cancelled.</>, swirl),
   change(date(2026, 10, 26), <>Added a Mana section with mana and <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> stack graphs to the Overview tab.</>, swirl),
   change(date(2026, 10, 26), <>Added <SpellLink spell={TALENTS_MONK.REFRESHMENT_TALENT}/> to <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> stack tracking and fixed <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> stack tracking at the cap.</>, swirl),
   change(date(2026, 10, 26), <>Removed <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT}/> direct heal and corrected its bonus <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT}/> healing.</>, swirl),
