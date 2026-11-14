@@ -1,16 +1,19 @@
 import { ReactNode, useState } from 'react';
 
-import StatisticBox from './StatisticBox';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { useResults } from 'interface/report/Results/ResultsContext';
 
-export { STATISTIC_ORDER } from './StatisticBox';
+export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 interface Props {
   loader: () => Promise<unknown>;
   label?: ReactNode;
   value: ReactNode;
   category?: STATISTIC_CATEGORY;
+  /**
+   * Shown in the expandable section at the bottom of the statistic box once loaded.
+   */
   children?: ReactNode;
   position?: number;
   icon?: ReactNode;
@@ -27,9 +30,17 @@ interface Props {
 }
 
 /**
- * @deprecated Use `parser/ui/Statistic` instead.
+ * A `Statistic` that only runs its (expensive) `loader` once the user clicks it.
  */
-const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => {
+const LazyLoadStatisticBox = ({
+  loader,
+  icon,
+  label,
+  value,
+  children,
+  dropdown,
+  ...others
+}: Props) => {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const { generateResults } = useResults();
@@ -48,14 +59,20 @@ const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => 
   };
 
   return (
-    <StatisticBox
+    <Statistic
+      size="flexible"
       onClick={handleClick}
-      value={loaded ? value : loading ? 'Loading...' : 'Click to load'}
       style={{ cursor: loaded ? undefined : 'pointer' }}
+      dropdown={loaded ? children || dropdown : undefined}
       {...others}
     >
-      {loaded ? children : null}
-    </StatisticBox>
+      <div className="pad boring-text">
+        <label>
+          {icon} {label}
+        </label>
+        <div className="value">{loaded ? value : loading ? 'Loading...' : 'Click to load'}</div>
+      </div>
+    </Statistic>
   );
 };
 

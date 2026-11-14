@@ -1,23 +1,20 @@
 import { Trans } from '@lingui/react/macro';
-import fetchWcl from 'common/fetchWclApi';
+import { fetchEvents } from 'common/fetchWclApi';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
-import { Talent } from 'common/TALENTS/types';
-import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 import { abilityToSpell } from 'common/abilityToSpell';
 import SPECS from 'game/SPECS';
-import { Icon, SpellLink } from 'interface';
-import { useResults } from 'interface/report/Results/ResultsContext';
+import { Icon, SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { ReactNode, useState } from 'react';
 import { ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH } from '../../constants';
 
 /**
@@ -28,60 +25,6 @@ const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 /** Buffer and minimal active time (ms) used when checking for the buff at a damage event. */
 const BUFF_BUFFER_MS = 100;
 const BUFF_MINIMAL_ACTIVE_MS = 50;
-
-interface LazyLoadStatisticProps {
-  loader: () => Promise<unknown>;
-  loaded: boolean;
-  talent: Talent;
-  /** The value to show once loaded. */
-  children: ReactNode;
-  tooltip?: ReactNode;
-  /** Only shown once loaded. */
-  dropdown?: ReactNode;
-  // read from the returned element by the results page, so they have to live on this component
-  category?: STATISTIC_CATEGORY;
-  position?: number;
-}
-
-/**
- * A `Statistic` that only runs its (expensive) WCL query once the user clicks it.
- */
-const LazyLoadStatistic = ({
-  loader,
-  loaded,
-  talent,
-  children,
-  dropdown,
-  ...others
-}: LazyLoadStatisticProps) => {
-  const [loading, setLoading] = useState(false);
-  const { generateResults } = useResults();
-
-  const handleClick = () => {
-    if (loaded || loading) {
-      return;
-    }
-    setLoading(true);
-    loader()
-      .then(() => generateResults())
-      .catch((error) => console.error('Failed to load statistic', error))
-      .finally(() => setLoading(false));
-  };
-
-  return (
-    <Statistic
-      size="flexible"
-      onClick={handleClick}
-      style={{ cursor: loaded || loading ? undefined : 'pointer' }}
-      dropdown={loaded ? dropdown : undefined}
-      {...others}
-    >
-      <TalentSpellText talent={talent}>
-        {loaded ? children : loading ? 'Loading...' : 'Click to load'}
-      </TalentSpellText>
-    </Statistic>
-  );
-};
 
 class AncestralVigor extends Analyzer.withDependencies({
   combatants: Combatants,
@@ -107,47 +50,26 @@ class AncestralVigor extends Analyzer.withDependencies({
     );
   }
 
-  get query(): WclOptions {
-    return {
-      start: this.owner.fight.start_time,
-      end: this.owner.fight.end_time,
-      filter: `(
-        IN RANGE
-        WHEN type='${EventType.Damage}'
-          AND source.disposition='enemy'
-          AND target.disposition='friendly'
-          AND target.type='player'
-          AND resources.hitPoints>0
-          AND 100*resources.hpPercent<=${Math.ceil(10000 * HP_THRESHOLD)}
-          AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(
-            10000 * HP_THRESHOLD,
-          )}
-        FROM type='${EventType.ApplyBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.selectedCombatant.name}'
-        TO type='${EventType.RemoveBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.selectedCombatant.name}'
-        END
-      )`,
-      timeout: 2000,
-    };
-  }
-
-  /** Fetches all candidate events, following `nextPageTimestamp` until the last page. */
-  async fetchEvents() {
-    const events: DamageEvent[] = [];
-    // WCL returns `nextPageTimestamp: null` (not undefined) on the last page
-    let start: number | null | undefined = this.owner.fight.start_time;
-    while (start) {
-      const json = (await fetchWcl(`report/events/${this.owner.report.code}`, {
-        ...this.query,
-        start,
-      })) as WCLEventsResponse;
-      events.push(...(json.events as DamageEvent[]));
-      start = json.nextPageTimestamp;
-    }
-    return events;
+  get filter() {
+    return `(
+      IN RANGE
+      WHEN type='${EventType.Damage}'
+        AND source.disposition='enemy'
+        AND target.disposition='friendly'
+        AND target.type='player'
+        AND resources.hitPoints>0
+        AND 100*resources.hpPercent<=${Math.ceil(10000 * HP_THRESHOLD)}
+        AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(
+          10000 * HP_THRESHOLD,
+        )}
+      FROM type='${EventType.ApplyBuff}'
+        AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+        AND source.name='${this.selectedCombatant.name}'
+      TO type='${EventType.RemoveBuff}'
+        AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+        AND source.name='${this.selectedCombatant.name}'
+      END
+    )`;
   }
 
   /** The WCL filter is only a rough preselection, so verify the buff and health locally. */
@@ -168,7 +90,13 @@ class AncestralVigor extends Analyzer.withDependencies({
   }
 
   async load() {
-    const events = await this.fetchEvents();
+    const events = (await fetchEvents(
+      this.owner.report.code,
+      this.owner.fight.start_time,
+      this.owner.fight.end_time,
+      undefined,
+      this.filter,
+    )) as DamageEvent[];
     const seen = new Set<string>();
     this.lifeSavingEvents = events
       .filter((event) => {
@@ -253,12 +181,13 @@ class AncestralVigor extends Analyzer.withDependencies({
     }
 
     return (
-      <LazyLoadStatistic
+      <LazyLoadStatisticBox
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        loaded={this.loaded}
-        talent={TALENTS.ANCESTRAL_VIGOR_TALENT}
+        icon={<SpellIcon spell={TALENTS.ANCESTRAL_VIGOR_TALENT} />}
+        label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
+        value={`≈${this.lifeSavingEvents.length}`}
         tooltip={
           this.loaded ? (
             <Trans id="shaman.restoration.av.statistic.tooltip.active">
@@ -272,13 +201,9 @@ class AncestralVigor extends Analyzer.withDependencies({
             </Trans>
           )
         }
-        dropdown={this.lifeSavingEvents.length > 0 ? this.lifeSavingEventsTable : undefined}
       >
-        ≈{this.lifeSavingEvents.length}{' '}
-        <small>
-          <Trans id="shaman.restoration.av.statistic.label">lives saved</Trans>
-        </small>
-      </LazyLoadStatistic>
+        {this.lifeSavingEvents.length > 0 && this.lifeSavingEventsTable}
+      </LazyLoadStatisticBox>
     );
   }
 }
