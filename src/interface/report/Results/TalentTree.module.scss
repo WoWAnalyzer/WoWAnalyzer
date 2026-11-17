@@ -1,0 +1,141 @@
+@use 'interface/Theme.scss';
+
+$partialColor: #1eff00;
+$edgeColor: #444;
+$lineWidth: 1.5px;
+
+.TalentTree {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem 4rem;
+}
+
+.Section {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.SectionLabel {
+  text-align: center;
+  color: Theme.$muted;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.Tree {
+  position: relative;
+}
+
+.Edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Edge,
+.EdgeSelected {
+  stroke-width: $lineWidth;
+  vector-effect: non-scaling-stroke;
+}
+
+.Edge {
+  stroke: $edgeColor;
+}
+
+.EdgeSelected {
+  stroke: Theme.$primaryColor;
+}
+
+.Node {
+  --node-color: #{$edgeColor};
+  position: absolute;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.Frame {
+  width: 100%;
+  height: 100%;
+  border: $lineWidth solid var(--node-color);
+  border-radius: 15%;
+  background: Theme.$backgroundColor;
+  overflow: hidden;
+}
+
+.Face {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// outranks the global `img.icon.game` sizing
+.Face img.Icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+$octagon: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
+
+// a clipped border loses its diagonal edges, so the octagon outline is the frame background
+.choice .Frame {
+  border: none;
+  border-radius: 0;
+  padding: $lineWidth;
+  background: var(--node-color);
+  clip-path: $octagon;
+}
+
+.choice .Face {
+  background: Theme.$backgroundColor;
+  clip-path: $octagon;
+}
+
+.ChoiceHalf {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tiered .Frame {
+  border-radius: 50%;
+}
+
+.Selected {
+  --node-color: #{Theme.$primaryColor};
+}
+
+.Partial {
+  --node-color: #{$partialColor};
+}
+
+.Unselected img.Icon {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.Rank {
+  position: absolute;
+  right: -0.4em;
+  bottom: -0.4em;
+  border-radius: 0.3em;
+  padding: 0 0.2em;
+  font-size: 0.75em;
+  line-height: 1.2;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  pointer-events: none;
+}

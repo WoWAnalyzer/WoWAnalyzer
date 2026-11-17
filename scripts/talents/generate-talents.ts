@@ -27,8 +27,9 @@ import {
 } from 'scripts/utils/helpers';
 import { DBCTable } from 'scripts/utils/dbc-types';
 import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
+import { TalentTreeLayout, TalentTreeNode } from 'common/TALENT_TREES/types';
 
-const LIVE_WOW_BUILD_NUMBER = '12.0.7.68275';
+const LIVE_WOW_BUILD_NUMBER = '12.1.5.70448';
 const LIVE_TALENT_DATA_URL = getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.Talents);
 const LIVE_SPELLPOWER_DATA_URL = getDbcCsvUrl(DBCTable.SpellPower, LIVE_WOW_BUILD_NUMBER);
 const PTR_WOW_BUILD_NUMBER = '12.1.0.69111';
@@ -121,7 +122,7 @@ const entryToSpell = (
   //Debugging values used for filtering later on
   spec,
   sourceTree,
-  entryIds: [entry.id],
+  entryIds: [entry.id!],
   definitionIds: [{ id: entry.definitionId, specId }],
 });
 
@@ -407,6 +408,84 @@ export const IGNORED = [...HERO_SPEC_TALENT_IDS];
   );
 }
 
+function toLayoutNode(node: TalentNode): TalentTreeNode | undefined {
+  const entryIds = nodeEntries(node).flatMap((entry) => (entry.id === undefined ? [] : [entry.id]));
+  if (entryIds.length === 0) {
+    // placeholder nodes have no entries and are not drawn in game
+    return undefined;
+  }
+
+  return {
+    id: node.id,
+    type: node.type,
+    posX: node.posX,
+    posY: node.posY,
+    maxRanks: node.maxRanks,
+    next: node.next,
+    entryIds,
+    ...(node.freeNode && { freeNode: true }),
+    ...(node.subTreeId !== undefined && { subTreeId: node.subTreeId }),
+  };
+}
+
+function toLayoutNodes(nodes: TalentNode[]): TalentTreeNode[] {
+  const layoutNodes = nodes.flatMap((node) => toLayoutNode(node) ?? []);
+  const ids = new Set(layoutNodes.map((node) => node.id));
+  return layoutNodes.map((node) => ({ ...node, next: node.next.filter((id) => ids.has(id)) }));
+}
+
+async function generateTalentTrees(isPTR: boolean = false) {
+  const talents: ITalentTree[] = await readJsonFromUrl(
+    isPTR ? PTR_TALENT_DATA_URL : LIVE_TALENT_DATA_URL,
+  );
+
+  const treesByClass = Map.groupBy(talents, (tree) => tree.className);
+
+  for (const [className, trees] of treesByClass) {
+    const layouts = trees.map(
+      (tree) =>
+        `${tree.specName.toUpperCase().replaceAll(' ', '_')}: ${JSON.stringify({
+          specId: tree.specId,
+          classNodes: toLayoutNodes(tree.classNodes),
+          specNodes: toLayoutNodes(tree.specNodes),
+          heroNodes: toLayoutNodes(tree.heroNodes),
+          heroTrees: tree.subTreeNodes
+            .flatMap((node) => node.entries)
+            .map((entry) => ({ id: entry.traitSubTreeId, name: entry.name })),
+        } satisfies TalentTreeLayout)},`,
+    );
+
+    console.log(`Writing talent trees for ${className}...`);
+    fs.writeFileSync(
+      `./src/common/TALENT_TREES/${talentTreeFileName(className)}.ts`,
+      `// Generated file, changes will eventually be overwritten!
+import { TalentTreeLayout } from './types';
+
+const talentTrees = {${layouts.join('\n')}} satisfies Record<string, TalentTreeLayout>;
+
+export default talentTrees;
+export { talentTrees as ${talentTreeExportName(className)} };
+`,
+    );
+  }
+
+  console.log(`Writing talent tree index...`);
+  fs.writeFileSync(
+    `./src/common/TALENT_TREES/index.ts`,
+    `// Generated file, changes will eventually be overwritten!
+${[...treesByClass.keys()]
+  .map(
+    (className) =>
+      `export { ${talentTreeExportName(className)} } from './${talentTreeFileName(className)}';\n`,
+  )
+  .join('')}`,
+  );
+}
+
+const talentTreeFileName = (className: string) => className.toLowerCase().replaceAll(' ', '');
+const talentTreeExportName = (className: string) =>
+  `TALENT_TREES_${className.toUpperCase().replaceAll(' ', '_')}`;
+
 function generateIndex() {
   fs.writeFileSync(
     `./src/common/TALENTS/index.ts`,
@@ -425,4 +504,5 @@ ${Object.values(classes)
 const isPTR = process.argv.includes('--ptr');
 
 generateTalents(isPTR);
+generateTalentTrees(isPTR);
 generateIndex();

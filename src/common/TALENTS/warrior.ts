@@ -975,7 +975,7 @@ const talents = {
   JAVELINEER_TALENT: {
     id: 1271948,
     name: 'Javelineer',
-    icon: '8026700',
+    icon: 'inv121_ability_warrior_javelineer',
     maxRanks: 1,
     entryIds: [136625],
     definitionIds: [{ id: 141397, specId: 73 }],
