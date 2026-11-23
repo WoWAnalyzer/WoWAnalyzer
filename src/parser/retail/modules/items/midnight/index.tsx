@@ -1,3 +1,9 @@
 export { default as DarkmoonSigilHunt } from './embellishments/DarkmoonSigilHunt';
 export { default as FanaticalInspiration } from './trinkets/FanaticalInspiration';
 export { default as FrenziedFocus } from './enchants/FrenziedFocus';
+export { default as LightOfTheCosmicCrescendo } from './trinkets/LightOfTheCosmicCrescendo';
+export { default as SoulcoilerRitualVessel } from './trinkets/SoulcoilerRitualVessel';
+export { default as TwistedHorrorsTendril } from './trinkets/TwistedHorrorsTendril';
+export { default as UnstableFelheartCrystal } from './trinkets/UnstableFelheartCrystal';
+export { default as VolatileVoidSuffuser } from './trinkets/VolatileVoidSuffuser';
+export { default as EmergencySoulLink } from './consumables/EmergencySoulLink';

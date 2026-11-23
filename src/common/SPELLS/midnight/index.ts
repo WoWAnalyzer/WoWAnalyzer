@@ -7,7 +7,18 @@ import Others from './others';
 import Potions from './potions';
 import Raids from './raids';
 import Trinkets from './trinkets';
+import Engineering from './engineering';
 
-const spells = safeMerge(Enchants, Embellishments, Flasks, Food, Others, Potions, Raids, Trinkets);
+const spells = safeMerge(
+  Enchants,
+  Embellishments,
+  Flasks,
+  Food,
+  Others,
+  Potions,
+  Raids,
+  Trinkets,
+  Engineering,
+);
 
 export default spells;

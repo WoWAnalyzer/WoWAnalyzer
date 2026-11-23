@@ -116,6 +116,7 @@ import TwistedHorrorsTendril from 'parser/retail/modules/items/midnight/trinkets
 import FrenziedFocus from 'parser/retail/modules/items/midnight/enchants/FrenziedFocus';
 import SoulcoilerRitualVessel from 'parser/retail/modules/items/midnight/trinkets/SoulcoilerRitualVessel';
 import UnstableFelheartCrystal from 'parser/retail/modules/items/midnight/trinkets/UnstableFelheartCrystal';
+import EmergencySoulLink from 'src/parser/retail/modules/items/midnight/consumables/EmergencySoulLink';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -232,6 +233,7 @@ class CombatLogParser {
     fanaticalInspiration: FanaticalInspiration,
     soulcoilerRitualVessel: SoulcoilerRitualVessel,
     unstableFelheartCrystal: UnstableFelheartCrystal,
+    emergencySoulLink: EmergencySoulLink,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,
