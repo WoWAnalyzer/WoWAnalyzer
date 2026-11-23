@@ -47,6 +47,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 11, 23), <><p>Added calculation support for <ItemLink id={ITEMS.EMERGENCY_SOUL_LINK_R1.id} /> (rank 1) and <ItemLink id={ITEMS.EMERGENCY_SOUL_LINK_R2.id} /> (rank 2).</p></>, Naltarunir),
   change(date(2026, 10, 21), <><p>Add item and spell definitions for additional Midnight Season 2 trinkets from The Venomous Abyss, The Unbinding of Kith'ix, PvP, Mythic+ and Delves.</p><p>Added trinket support for <ItemLink id={ITEMS.SOULCOILER_RITUAL_VESSEL.id} /> and <ItemLink id={ITEMS.UNSTABLE_FELHEART_CRYSTAL.id} />.</p><p>Added statistics module for <SpellLink spell={SPELLS.GIFT_OF_THE_NAARU_SHAMAN} />.</p></>, Naltarunir),
   change(date(2026, 10, 20), <>Added trinket support for <ItemLink id={ITEMS.TWISTED_HORRORS_TENDRIL.id} />.</>, swirl),
   change(date(2026, 10, 20), "Clean up timeline configuration menu", Seriousnes),
