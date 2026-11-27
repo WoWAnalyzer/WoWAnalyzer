@@ -1,5 +1,5 @@
-import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
-import { AlertWarning, ResourceLink, SpellLink } from 'interface';
+import { GuideProps, PerformanceMark, Section, SubSection, useInfo } from 'interface/guide';
+import { AlertWarning, ResourceLink, SpellLink, Tooltip } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/protection/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
@@ -7,14 +7,24 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 
 import MajorDefensives from './modules/core/Defensives';
-import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { AplSectionData } from 'interface/guide/components/Apl';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import Explanation from 'interface/guide/components/Explanation';
+import CooldownGrid from 'interface/CooldownGrid/CooldownGrid';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
+import { EventType } from 'parser/core/Events';
+import { OK_HOLY_POWER } from './modules/talents/InstrumentOfTheDivine';
+import { HOLY_BULWARK_PERFECT_BEFORE } from './modules/core/Wings';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
+import SPELLS from 'common/SPELLS/paladin';
+import { formatDuration, formatPercentage } from 'common/format';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -24,35 +34,40 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <FoundationCooldownSection />
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <WingsSection modules={modules} events={events} info={info} />
       <Section title="Rotation">
-        {info.combatant.hasTalent(talents.HOLY_ARMAMENTS_PROTECTION_TALENT) && (
+        {info.combatant.hasTalent(talents.LIGHTS_GUIDANCE_TALENT) && (
           <AlertWarning>
             Rotational analysis for{' '}
-            <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Lightsmith</SpellLink> is
-            not implemented at this time.
+            <SpellLink spell={talents.LIGHTS_GUIDANCE_TALENT}>Templar</SpellLink> is untested.
           </AlertWarning>
         )}
         <AplSectionData checker={check} apl={apl} />
+        {modules.gloryOfTheVanguard.active && (
+          <GloryOfTheVanguardSubSection modules={modules} events={events} info={info} />
+        )}
+        {modules.instrumentOfTheDivine.active && (
+          <InstrumentOfTheDivineSubSection modules={modules} events={events} info={info} />
+        )}
       </Section>
       <MitigationSection />
-      <ActiveMitigationSection />
       <PreparationSection />
     </>
   );
 }
 
-const PERFECT_HOLY_POWER_CAP = 0.1;
-const GOOD_HOLY_POWER_CAP = 0.15;
-const OK_HOLY_POWER_CAP = 0.2;
+const PERFECT_HOLY_POWER_WASTE = 0.05;
+const GOOD_HOLY_POWER_WASTE = 0.1;
+const OK_HOLY_POWER_WASTE = 0.2;
 function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  const percentAtHolyPowerCap = modules.holyPowerTracker.percentAtCap;
-  let percentAtHolyPowerCapPerformance = QualitativePerformance.Fail;
-  if (percentAtHolyPowerCap <= PERFECT_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Perfect;
-  } else if (percentAtHolyPowerCap <= GOOD_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Good;
-  } else if (percentAtHolyPowerCap <= OK_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Ok;
+  const percentHolyPowerWasted = modules.holyPowerTracker.percentWasted;
+  let percentHolyPowerWastedPerformance = QualitativePerformance.Fail;
+  if (percentHolyPowerWasted <= PERFECT_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Perfect;
+  } else if (percentHolyPowerWasted <= GOOD_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Good;
+  } else if (percentHolyPowerWasted <= OK_HOLY_POWER_WASTE) {
+    percentHolyPowerWastedPerformance = QualitativePerformance.Ok;
   }
   const holyPowerWasted = modules.holyPowerTracker.wasted;
 
@@ -73,11 +88,11 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
             <p>
               You wasted{' '}
               <PerformancePercentage
-                performance={percentAtHolyPowerCapPerformance}
-                perfectPercentage={PERFECT_HOLY_POWER_CAP}
-                goodPercentage={GOOD_HOLY_POWER_CAP}
-                okPercentage={OK_HOLY_POWER_CAP}
-                percentage={percentAtHolyPowerCap}
+                performance={percentHolyPowerWastedPerformance}
+                perfectPercentage={PERFECT_HOLY_POWER_WASTE}
+                goodPercentage={GOOD_HOLY_POWER_WASTE}
+                okPercentage={OK_HOLY_POWER_WASTE}
+                percentage={percentHolyPowerWasted}
                 flatAmount={holyPowerWasted}
               />{' '}
               of your <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
@@ -95,6 +110,467 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   );
 }
 
+const GRADE_LABELS: Partial<Record<QualitativePerformance, string>> = {
+  [QualitativePerformance.Perfect]: 'Perfect',
+  [QualitativePerformance.Good]: 'Good',
+  [QualitativePerformance.Ok]: 'OK',
+  [QualitativePerformance.Fail]: 'Bad',
+};
+const DIVINE_TOLL_WITH_WINGS = 3000;
+const HOLY_BULWARK_GOOD_BEFORE = 5000;
+const HOLY_BULWARK_OK_BEFORE = 8000;
+const HOLY_BULWARK_OK_AFTER = 8000;
+function holyBulwarkPerformance(
+  before: number | undefined,
+  after: number | undefined,
+  atMaxCharges: boolean,
+) {
+  if (before !== undefined && before < HOLY_BULWARK_PERFECT_BEFORE) {
+    return QualitativePerformance.Perfect;
+  } else if ((before !== undefined && before < HOLY_BULWARK_GOOD_BEFORE) || atMaxCharges) {
+    return QualitativePerformance.Good;
+  } else if (
+    (before !== undefined && before < HOLY_BULWARK_OK_BEFORE) ||
+    (after !== undefined && after <= HOLY_BULWARK_OK_AFTER)
+  ) {
+    return QualitativePerformance.Ok;
+  }
+  return QualitativePerformance.Fail;
+}
+function wingsDurationPerformance(
+  duration: number,
+  thresholds: { perfect: number; good: number; ok: number },
+) {
+  if (duration >= thresholds.perfect) {
+    return QualitativePerformance.Perfect;
+  } else if (duration >= thresholds.good) {
+    return QualitativePerformance.Good;
+  } else if (duration >= thresholds.ok) {
+    return QualitativePerformance.Ok;
+  }
+  return QualitativePerformance.Fail;
+}
+
+function WingsSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  if (!info.combatant.hasTalent(talents.ZEALOTS_PARAGON_TALENT)) {
+    return null;
+  }
+  const {
+    spell: wingsSpell,
+    durationThresholds: thresholds,
+    uptime: wingsUptime,
+    casts,
+    wingsWithPerfectBulwark,
+  } = modules.wings;
+  const thresholdsTooltip = (
+    <>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect:{' '}
+        {thresholds.perfect / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Good} /> Good: {thresholds.good / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Ok} /> OK: {thresholds.ok / 1000}+ sec
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: below {thresholds.ok / 1000} sec
+      </div>
+    </>
+  );
+  const isLightsmith = info.combatant.hasTalent(talents.HOLY_ARMAMENTS_PROTECTION_TALENT);
+  const bulwarkTooltip = (
+    <>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect: less than{' '}
+        {HOLY_BULWARK_PERFECT_BEFORE / 1000} sec before wings
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Good} /> Good: less than{' '}
+        {HOLY_BULWARK_GOOD_BEFORE / 1000} sec before wings, or cast at max charges
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Ok} /> OK: less than{' '}
+        {HOLY_BULWARK_OK_BEFORE / 1000} sec before or up to {HOLY_BULWARK_OK_AFTER / 1000} sec after
+        wings
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: otherwise
+      </div>
+    </>
+  );
+  const bulwarks = modules.wings.holyBulwarkCasts.map((bulwark) => ({
+    ...bulwark,
+    performance: holyBulwarkPerformance(bulwark.before, bulwark.after, bulwark.atMaxCharges),
+  }));
+
+  return (
+    <Section title={wingsSpell.name}>
+      <SubSection>
+        <Explanation>
+          <p>
+            Our main cooldown, <SpellLink spell={talents.AVENGING_WRATH_TALENT} />/
+            <SpellLink spell={SPELLS.SENTINEL} />, has a base duration of 20 sec (12 sec with{' '}
+            <SpellLink spell={talents.RIGHTEOUS_PROTECTOR_TALENT} />
+            ). With <SpellLink spell={talents.ZEALOTS_PARAGON_TALENT} />, each{' '}
+            <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} /> cast extends the active{' '}
+            <SpellLink spell={talents.AVENGING_WRATH_TALENT} />/
+            <SpellLink spell={SPELLS.SENTINEL} /> by 0.5 sec/1 sec. A big part of maximizing your
+            damage is to ensure you play around this.
+          </p>
+        </Explanation>
+        <p>
+          <strong>
+            <SpellLink spell={wingsSpell} /> uptime: {formatPercentage(wingsUptime)}%
+          </strong>
+        </p>
+        <CooldownGrid
+          label={<SpellLink spell={wingsSpell} />}
+          timeline={{
+            cooldowns: [
+              SPELLS.HAMMER_OF_WRATH_PROTECTION,
+              talents.AVENGERS_SHIELD_TALENT,
+              talents.DIVINE_TOLL_TALENT,
+            ],
+          }}
+          table={{
+            type: EventType.Damage,
+            mergeAbilities: [
+              [
+                talents.AVENGERS_SHIELD_TALENT,
+                SPELLS.REFINING_FIRE_DOT,
+                talents.REFINING_FIRE_TALENT,
+                SPELLS.GLORY_OF_THE_VANGUARD_DAMAGE,
+              ],
+              [
+                SPELLS.SACRED_WEAPON_DAMAGE,
+                SPELLS.LESSER_WEAPON_DAMAGE,
+                SPELLS.BLESSING_OF_THE_FORGE_DAMAGE,
+              ],
+              [SPELLS.CONSECRATION_DAMAGE, SPELLS.DIVINE_GUIDANCE_DAMAGE],
+              [
+                SPELLS.HAMMER_OF_WRATH_PROTECTION,
+                talents.HAMMER_OF_WRATH_TALENT,
+                SPELLS.HAMMER_AND_ANVIL_DAMAGE,
+              ],
+            ],
+          }}
+          items={casts.map(
+            ({
+              start,
+              duration,
+              fightEnded,
+              hammerOfWrathCasts,
+              divineTollDelay,
+              holyBulwarkUptime,
+            }) => {
+              const end = start + duration;
+              const roundedDuration = Math.round(duration / 100) * 100;
+              const durationPerformance = wingsDurationPerformance(roundedDuration, thresholds);
+              const checklistItems: CooldownExpandableItem[] = [
+                {
+                  label: 'Duration',
+                  details: fightEnded ? (
+                    <>{(roundedDuration / 1000).toFixed(1)} sec (fight ended)</>
+                  ) : (
+                    <>{(roundedDuration / 1000).toFixed(1)} sec</>
+                  ),
+                  result: fightEnded ? undefined : (
+                    <Tooltip content={thresholdsTooltip}>
+                      <span>
+                        <PerformanceMark perf={durationPerformance} />
+                      </span>
+                    </Tooltip>
+                  ),
+                },
+                {
+                  label: <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />,
+                  details: <>{hammerOfWrathCasts} casts</>,
+                },
+              ];
+              if (info.combatant.hasTalent(talents.DIVINE_TOLL_TALENT)) {
+                checklistItems.push({
+                  label: (
+                    <>
+                      <SpellLink spell={talents.DIVINE_TOLL_TALENT} /> with wings
+                    </>
+                  ),
+                  details:
+                    divineTollDelay === undefined ? (
+                      'not cast'
+                    ) : (
+                      <>{(divineTollDelay / 1000).toFixed(1)} sec in</>
+                    ),
+                  result: (
+                    <PerformanceMark
+                      perf={
+                        divineTollDelay === undefined
+                          ? QualitativePerformance.Fail
+                          : divineTollDelay <= DIVINE_TOLL_WITH_WINGS
+                            ? QualitativePerformance.Perfect
+                            : QualitativePerformance.Ok
+                      }
+                    />
+                  ),
+                });
+              }
+              if (isLightsmith) {
+                checklistItems.push({
+                  label: (
+                    <>
+                      <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>
+                        Holy Bulwark
+                      </SpellLink>{' '}
+                      uptime
+                    </>
+                  ),
+                  details: (
+                    <>
+                      {(holyBulwarkUptime / 1000).toFixed(1)} sec (
+                      {formatPercentage(holyBulwarkUptime / duration, 0)}%)
+                    </>
+                  ),
+                });
+              }
+              return {
+                range: { start, end },
+                perf: fightEnded ? undefined : durationPerformance,
+                checklistItems,
+              };
+            },
+          )}
+        />
+      </SubSection>
+      {isLightsmith && (
+        <ExplanationAndDataSubSection
+          title="Holy Bulwark"
+          explanation={
+            <p>
+              <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+              grants a lot of <SpellLink spell={talents.GRAND_CRUSADER_TALENT} /> procs through{' '}
+              <SpellLink spell={talents.REFLECTION_OF_RADIANCE_TALENT} />. With{' '}
+              <SpellLink spell={talents.CRUSADERS_JUDGMENT_TALENT} />, each of these reduces the
+              cooldown of <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} />, and each{' '}
+              <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} /> extends{' '}
+              <SpellLink spell={wingsSpell} /> through{' '}
+              <SpellLink spell={talents.ZEALOTS_PARAGON_TALENT} />. Therefore, you should cast{' '}
+              <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+              immediately before <SpellLink spell={wingsSpell} /> to get the most out of it.
+            </p>
+          }
+          data={
+            <RoundedPanel>
+              <strong>
+                <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+                casts
+              </strong>
+              <PerformanceBoxRow
+                values={bulwarks.map(({ timestamp, before, after, atMaxCharges, performance }) => ({
+                  value: performance,
+                  tooltip: (
+                    <>
+                      <div>
+                        <PerformanceMark perf={performance} /> {GRADE_LABELS[performance]}:{' '}
+                        {formatDuration(timestamp - info.fightStart)}
+                      </div>
+                      {before !== undefined && (
+                        <div>{(before / 1000).toFixed(1)} sec before wings</div>
+                      )}
+                      {after !== undefined && (
+                        <div>{(after / 1000).toFixed(1)} sec after wings started</div>
+                      )}
+                      {atMaxCharges && <div>Cast at max charges</div>}
+                    </>
+                  ),
+                }))}
+              />
+              <p>
+                {wingsWithPerfectBulwark} of your {casts.length} wings had{' '}
+                <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Holy Bulwark</SpellLink>{' '}
+                less than {HOLY_BULWARK_PERFECT_BEFORE / 1000} sec before them.
+              </p>
+              <Tooltip content={bulwarkTooltip}>
+                <small>Grading</small>
+              </Tooltip>
+            </RoundedPanel>
+          }
+        />
+      )}
+    </Section>
+  );
+}
+
+const PERFECT_VALOR_AT_MAX = 0.9;
+const GOOD_VALOR_AT_MAX = 0.8;
+const OK_VALOR_AT_MAX = 0.7;
+function InstrumentOfTheDivineSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const { valorCasts, castsAtMax } = modules.instrumentOfTheDivine;
+  const percentAtMax = valorCasts.length === 0 ? 1 : castsAtMax.length / valorCasts.length;
+  let performance = QualitativePerformance.Fail;
+  if (percentAtMax >= PERFECT_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Perfect;
+  } else if (percentAtMax >= GOOD_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Good;
+  } else if (percentAtMax >= OK_VALOR_AT_MAX) {
+    performance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <ExplanationAndDataSubSection
+      title="Instrument of the Divine"
+      explanation={
+        <>
+          <p>
+            With <SpellLink spell={talents.INSTRUMENT_OF_THE_DIVINE_TALENT} />, build to 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> before casting{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> while you have{' '}
+            <SpellLink spell={SPELLS.VALOR} />. You gain <SpellLink spell={SPELLS.VALOR} /> from
+            consuming <SpellLink spell={SPELLS.VANGUARD_BUFF} />.
+          </p>
+          <p>
+            At 5 <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />,{' '}
+            <SpellLink spell={talents.INSTRUMENT_OF_THE_DIVINE_TALENT} /> increases the damage of{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> by 100%, and{' '}
+            <SpellLink spell={SPELLS.VALOR} /> increases it by another 100%. These multiply, so{' '}
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> with{' '}
+            <SpellLink spell={SPELLS.VALOR} /> deals 4 times its normal damage at 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
+          </p>
+        </>
+      }
+      data={
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> casts with{' '}
+            <SpellLink spell={SPELLS.VALOR} />
+          </strong>
+          <PerformanceBoxRow
+            values={valorCasts.map(({ timestamp, holyPower, divinePurpose }) => {
+              const [value, grade] =
+                holyPower >= 5
+                  ? [QualitativePerformance.Perfect, 'Perfect']
+                  : holyPower >= OK_HOLY_POWER || divinePurpose
+                    ? [QualitativePerformance.Ok, 'OK']
+                    : [QualitativePerformance.Fail, 'Bad'];
+              return {
+                value,
+                tooltip: (
+                  <>
+                    <PerformanceMark perf={value} /> {grade}:{' '}
+                    {formatDuration(timestamp - info.fightStart)}, {holyPower}{' '}
+                    <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />
+                    {divinePurpose && (
+                      <>
+                        {' '}
+                        with <SpellLink spell={SPELLS.DIVINE_PURPOSE_BUFF} />
+                      </>
+                    )}
+                  </>
+                ),
+              };
+            })}
+          />
+          <p>
+            You consumed <SpellLink spell={SPELLS.VALOR} /> at 5{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> on{' '}
+            <PerformanceStrongWithTooltip
+              performance={performance}
+              tooltip={
+                <>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect:{' '}
+                    {formatPercentage(PERFECT_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Good} /> Good:{' '}
+                    {formatPercentage(GOOD_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Ok} /> OK:{' '}
+                    {formatPercentage(OK_VALOR_AT_MAX, 0)}%+
+                  </div>
+                  <div>
+                    <PerformanceMark perf={QualitativePerformance.Fail} /> Bad: below{' '}
+                    {formatPercentage(OK_VALOR_AT_MAX, 0)}%
+                  </div>
+                </>
+              }
+            >
+              {formatPercentage(percentAtMax, 0)}%
+            </PerformanceStrongWithTooltip>{' '}
+            of your {valorCasts.length} casts.
+          </p>
+        </RoundedPanel>
+      }
+    />
+  );
+}
+
+const PERFECT_VANGUARD_LOST = 0;
+const GOOD_VANGUARD_LOST = 0.05;
+const OK_VANGUARD_LOST = 0.1;
+function GloryOfTheVanguardSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const { gained, used, lostInWings, lost, lostCount } = modules.gloryOfTheVanguard;
+  const percentLost = gained === 0 ? 0 : lostCount / gained;
+  let percentLostPerformance = QualitativePerformance.Fail;
+  if (percentLost <= PERFECT_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Perfect;
+  } else if (percentLost <= GOOD_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Good;
+  } else if (percentLost <= OK_VANGUARD_LOST) {
+    percentLostPerformance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <ExplanationAndDataSubSection
+      title="Glory of the Vanguard"
+      explanation={
+        <p>
+          Spend every <SpellLink spell={SPELLS.VANGUARD_BUFF} /> proc on{' '}
+          <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> before it runs out. Procs that were
+          up at any point during your wings aren't counted, even if they drop after your wings end.
+        </p>
+      }
+      data={
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.VANGUARD_BUFF} /> procs
+          </strong>
+          <p>
+            You lost{' '}
+            <PerformancePercentage
+              performance={percentLostPerformance}
+              perfectPercentage={PERFECT_VANGUARD_LOST}
+              goodPercentage={GOOD_VANGUARD_LOST}
+              okPercentage={OK_VANGUARD_LOST}
+              percentage={percentLost}
+              flatAmount={lostCount}
+            />{' '}
+            of your {gained} procs. {used} were spent on{' '}
+            <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />
+            {lostInWings > 0 && <>, and {lostInWings} dropped during or after wings</>}.
+          </p>
+          {lost.length > 0 && (
+            <p>
+              <small>
+                Lost at{' '}
+                {lost
+                  .map(
+                    ({ timestamp, count }) =>
+                      formatDuration(timestamp - info.fightStart) +
+                      (count > 1 ? ` (${count})` : ''),
+                  )
+                  .join(', ')}
+              </small>
+            </p>
+          )}
+        </RoundedPanel>
+      }
+    />
+  );
+}
+
 function MitigationSection() {
   const info = useInfo();
   if (!info) {
@@ -104,19 +580,6 @@ function MitigationSection() {
   return (
     <Section title="Defensive Cooldowns">
       <MajorDefensives />
-    </Section>
-  );
-}
-
-function ActiveMitigationSection() {
-  const info = useInfo();
-  if (!info) {
-    return null;
-  }
-
-  return (
-    <Section title="Active Mitigation">
-      <ActiveMitgation />
     </Section>
   );
 }

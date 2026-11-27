@@ -11,20 +11,12 @@ import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TALENTS from 'common/TALENTS/paladin';
 
-const BASE_MITIGATION = 0.2;
-const IMPROVED_ARDENT_DEFENDER_ADDITIONAL_MITIGATION = 0.1;
+const MITIGATION = 0.3;
 
 export default class ArdentDefender extends MajorDefensiveBuff {
-  mitPct: number;
-
   constructor(options: Options) {
     super(TALENTS.ARDENT_DEFENDER_TALENT, buff(TALENTS.ARDENT_DEFENDER_TALENT), options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
-
-    this.mitPct =
-      BASE_MITIGATION +
-      this.selectedCombatant.getTalentRank(TALENTS.IMPROVED_ARDENT_DEFENDER_TALENT) *
-        IMPROVED_ARDENT_DEFENDER_ADDITIONAL_MITIGATION;
   }
 
   private recordDamage(event: DamageEvent) {
@@ -33,14 +25,14 @@ export default class ArdentDefender extends MajorDefensiveBuff {
     }
     this.recordMitigation({
       event,
-      mitigatedAmount: absoluteMitigation(event, this.mitPct),
+      mitigatedAmount: absoluteMitigation(event, MITIGATION),
     });
   }
 
   description(): ReactNode {
     return (
       <p>
-        <SpellLink spell={TALENTS.ARDENT_DEFENDER_TALENT} /> reduces the damage you take by 20%. And
+        <SpellLink spell={TALENTS.ARDENT_DEFENDER_TALENT} /> reduces the damage you take by 30%. And
         will prevent your next death while the buff is active.
       </p>
     );

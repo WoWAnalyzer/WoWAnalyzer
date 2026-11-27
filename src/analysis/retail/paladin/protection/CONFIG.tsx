@@ -10,29 +10,30 @@ export default {
   contributors: [emallson, Woliance],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.7',
+  patchCompatibility: '12.1',
   supportLevel: SupportLevel.Unmaintained,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello, and welcome to the Protection Paladin Analyzer! This analyzer is maintained by{' '}
-      <a href="//raider.io/characters/us/arthas/Akromah">
-        <code>emallson</code>
-      </a>
-      , a Brewmaster main and Paladin fan, with assistance from the Protection theorycraft team.
-      <br />
-      <br />
-      The Guide covers the fundamentals: Holy Power usage, rotation, and your defensive cooldowns.
-      The Statistics tab provides further insight into your performance and the effectiveness of
-      your gear and stats.
-      <br />
-      <br />
-      If you have questions about the output, please ask in the <code>
-        #protection-questions
-      </code>{' '}
-      channel of the <a href="https://discord.gg/0dvRDgpa5xZHFfnD">Hammer of Wrath</a>. If you have
-      theorycrafting questions or want to contribute, feel free to ask in <code>#protection</code>.
+      <p>
+        Hello, and welcome to the Protection Paladin Analyzer! This analyzer is maintained by{' '}
+        <a href="//raider.io/characters/us/arthas/Akromah">
+          <code>emallson</code>
+        </a>
+        , a Brewmaster main and Paladin fan, with assistance from the Protection theorycraft team.
+      </p>
+      <p>
+        The Guide covers the fundamentals: Holy Power usage, rotation, and your defensive cooldowns.
+        The Statistics tab provides further insight into your performance and the effectiveness of
+        your gear and stats.
+      </p>
+      <p>
+        If you have questions about the output, please ask in the <code>#protection-questions</code>{' '}
+        channel of the <a href="https://discord.gg/0dvRDgpa5xZHFfnD">Hammer of Wrath</a>. If you
+        have theorycrafting questions or want to contribute, feel free to ask in{' '}
+        <code>#protection</code>.
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

@@ -15,28 +15,33 @@ import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import MitigationCheck from './modules/features/MitigationCheck';
 import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
-import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import WordOfGlory from './modules/spells/WordOfGlory';
+import HammerOfWrath from './modules/spells/HammerOfWrath';
+import JudgmentCooldown from './modules/spells/JudgmentCooldown';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
 import Redoubt from './modules/talents/Redoubt';
-import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
-import CastLinkNormalizer from './modules/CastLinkNormalizer';
+import GloryOfTheVanguard from './modules/talents/GloryOfTheVanguard';
+import InstrumentOfTheDivine from './modules/talents/InstrumentOfTheDivine';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
+import GrandCrusaderLinkNormalizer from './normalizers/GrandCrusaderLinkNormalizer';
+import VanguardLinkNormalizer from './normalizers/VanguardLinkNormalizer';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
 import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
+import Sentinel from './modules/core/Defensives/Sentinel';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
+import Wings from './modules/core/Wings';
 import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -46,15 +51,19 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
+    wings: Wings,
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
-    castLinkNormalizer: CastLinkNormalizer,
+    grandCrusaderLinkNormalizer: GrandCrusaderLinkNormalizer,
+    vanguardLinkNormalizer: VanguardLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
+    hammerOfWrath: HammerOfWrath,
+    judgmentCooldown: JudgmentCooldown,
     judgment: Judgment,
 
     // Features
@@ -66,17 +75,18 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     noDamageSOTR: NoDamageShieldOfTheRighteous,
-    overcapSOTR: OvercapShieldOfTheRighteous,
 
     // Defensive Usage
     defensiveBuffs: DefensiveBuffs,
     guardianOfAncientKings: GuardianOfAncientKings,
     ardentDefender: ArdentDefender,
+    sentinel: Sentinel,
     consecrationDefensives: ConsecrationDefensives,
 
     // Talents
-    righteousProtector: RighteousProtector,
     giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
+    gloryOfTheVanguard: GloryOfTheVanguard,
+    instrumentOfTheDivine: InstrumentOfTheDivine,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
     firstAvenger: FirstAvenger,
